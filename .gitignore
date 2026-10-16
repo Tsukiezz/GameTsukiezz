@@ -71,3 +71,6 @@ Thumbs.db
 
 # Package Cache
 Packages/packages-lock.json
+
+*.blend1
+*.blend2
