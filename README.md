@@ -3,11 +3,17 @@
 [![C# & Assets Validation](https://github.com/Tsukiezz/GameTsukiezz/actions/workflows/csharp-lint-and-validate.yml/badge.svg)](https://github.com/Tsukiezz/GameTsukiezz/actions/workflows/csharp-lint-and-validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Unity](https://img.shields.io/badge/Unity-2022.3%20LTS-black.svg?logo=unity)](https://unity.com/)
+[![Blender](https://img.shields.io/badge/Blender-5.2%20LTS-orange.svg?logo=blender)](https://www.blender.org/)
 
 > **Repository:** [https://github.com/Tsukiezz/GameTsukiezz](https://github.com/Tsukiezz/GameTsukiezz)  
 > **Thể loại:** Phiêu lưu khám phá & Giải đố cốt truyện (Story-driven Adventure / Narrative Puzzle)  
 > **Engine:** Unity (2022.3 LTS hoặc mới hơn)  
-> **Ngôn ngữ:** C#  
+> **3D Graphics:** Blender 5.2 LTS  
+> **Ngôn ngữ:** C# & Python (Blender Automation)  
+
+---
+
+![Tsukiezz Concept Art](Assets/Art/Textures/tsukiezz_concept_art.jpg)
 
 ---
 
@@ -27,52 +33,68 @@ Bạn thức tỉnh trong một khu rừng phế tích với một mảnh vỡ c
 
 ---
 
-## 📁 2. Cấu Trúc Dự Án Unity C#
+## 🎨 2. Kết Nối Đồ Họa 3D Với Blender (3D Art Pipeline)
+
+Dự án đã được tích hợp chặt chẽ với **Blender 5.2 LTS** (được cài đặt sẵn tại `E:\blender.exe`).
+
+### 📦 Các Mô Hình 3D Đã Tạo Sẵn Trong `Assets/Art/Models/`:
+| Tên Asset | Định Dạng | Vai Trò Trong Game |
+| :--- | :--- | :--- |
+| **MoonstoneArtifact** | `.blend` / `.fbx` | Mảnh vỡ Nguyệt Tinh phát sáng xanh ngọc neon (Vật phẩm cốt truyện chính) |
+| **AncientMonolith** | `.blend` / `.fbx` | Bia đá cổ thì thầm (Whisper Stone) lưu giữ ký ức và manh mối giải đố |
+| **TempleGate** | `.blend` / `.fbx` | Cổng đền thờ phong ấn cổ đại với các trụ đá và xà vòm |
+| **AncientKey** | `.blend` / `.fbx` | Chiếc chìa khóa cổ bằng đá dùng mở cổng thần điện |
+
+### 🔄 Cách 1: Lưu Trực Tiếp File `.blend` Vào Unity
+Khi bạn tạo hoặc chỉnh sửa một model trong Blender, bạn chỉ cần chọn **File -> Save As...** và lưu thẳng file `.blend` vào thư mục:
+```
+Assets/Art/Models/
+```
+Unity sẽ tự động gọi Blender ở chế độ nền để biên dịch và cập nhật Mesh/Materials ngay lập tức vào Scene!
+
+### ⚡ Cách 2: Xuất Nhanh 1-Click Với Tool `export_to_unity.py`
+Trong thư mục `tools/`, chúng tôi cung cấp sẵn script [export_to_unity.py](file:///c:/Users/Admin/OneDrive/M%C3%A1y%20t%C3%ADnh/Desktop/CODE/Tsukiezz/projects/GameTsukiezz/tools/export_to_unity.py):
+1. Trong Blender, chuyển sang tab **Scripting**.
+2. Mở file `tools/export_to_unity.py`.
+3. Chọn vật thể muốn xuất trong Viewport 3D và nhấn **Run Script**.
+4. Script sẽ tự động:
+   - Chuẩn hóa tỷ lệ Scale 1.0 (Apply Transform).
+   - Xoay đúng trục chuẩn Unity (`-Z Forward`, `Y Up`).
+   - Xuất file `.fbx` vào thẳng `Assets/Art/Models/` và hiện thông báo hoàn tất.
+
+---
+
+## 📁 3. Cấu Trúc Dự Án Unity C#
 
 ```
 GameTsukiezz/
 ├── Assets/
+│   ├── Art/
+│   │   ├── Models/          # Model 3D (.blend và .fbx từ Blender)
+│   │   ├── Textures/        # Textures và Concept Art
+│   │   └── Materials/       # Vật liệu hiển thị
 │   ├── Audio/               # Nhạc nền, âm thanh bước chân, tiếng gõ chữ
-│   ├── Materials/           # Vật liệu hiển thị
 │   ├── Prefabs/             # Prefab Player, NPC, Cổng khóa, Hộp thoại
 │   ├── Scenes/              # Scene màn chơi chính (MainLevel.unity)
 │   ├── ScriptableObjects/   # Dữ liệu hội thoại, nhiệm vụ, vật phẩm
-│   ├── Scripts/
-│   │   ├── Core/            # GameManager (Quản lý trạng thái, Cờ cốt truyện)
-│   │   ├── Dialogue/        # Hệ thống hội thoại, Typewriter, Lựa chọn câu trả lời
-│   │   ├── Interaction/     # Nhặt đồ, Mở cửa phong ấn, Dò tìm tương tác phím [E]
-│   │   ├── Inventory/       # Quản lý túi đồ và cổ vật
-│   │   ├── Player/          # Di chuyển mượt mà, hướng nhìn, điều khiển
-│   │   ├── Quests/          # Quản lý nhiệm vụ và tiến độ
-│   │   └── UI/              # Giao diện HUD, thông báo nhặt đồ, nhắc phím
-│   └── Sprites/             # Hình ảnh nhân vật, bản đồ, icon vật phẩm
-├── Packages/
-│   └── manifest.json        # Cấu hình các gói Unity (UI, TextMeshPro, Input System)
-└── ProjectSettings/         # Thiết lập dự án Unity
+│   ├── Scripts/             # Toàn bộ mã nguồn C# (Core, Dialogue, Quests, UI...)
+│   └── Sprites/             # Hình ảnh 2D, icon vật phẩm
+├── Packages/                # Cấu hình các gói Unity (manifest.json)
+├── ProjectSettings/         # Thiết lập dự án Unity
+└── tools/
+    ├── export_to_unity.py   # Script Blender xuất nhanh 1-Click sang Unity
+    └── generate_3d_assets.py # Script tự động sinh các model 3D mẫu
 ```
 
 ---
 
-## 🚀 3. Hướng Dẫn Mở & Chạy Game Bằng Unity
+## 🚀 4. Hướng Dẫn Mở & Chạy Game Bằng Unity
 
-### Bước 1: Cài đặt Unity Hub & Unity Editor
-1. Tải và cài đặt **Unity Hub** từ trang chủ chính thức: [unity.com/download](https://unity.com/download).
-2. Mở Unity Hub, vào mục **Installs** -> chọn **Install Editor** (Khuyên dùng bản **2022.3 LTS** hoặc **Unity 6 LTS**).
-
-### Bước 2: Mở Dự Án Tsukiezz
-1. Trong Unity Hub, vào tab **Projects**.
-2. Nhấn nút **Add** (hoặc **Add project from disk**).
-3. Duyệt đến thư mục dự án:
+1. Mở **Unity Hub** -> nhấn **Add** -> chọn thư mục:
    ```
    c:\Users\Admin\OneDrive\Máy tính\Desktop\CODE\Tsukiezz\projects\GameTsukiezz
    ```
-4. Chọn phiên bản Unity đã cài và nhấn để mở.
-
-### Bước 3: Tạo Scene Mẫu & Chạy Thử
-1. Trong cửa sổ **Project**, vào `Assets/Scenes/`.
-2. Tạo Scene mới (Chuột phải -> `Create` -> `Scene`, đặt tên là `MainAdventure`).
-3. Tạo đối tượng trong Scene:
-   - **Player:** Tạo GameObject 2D/3D, thêm component `PlayerController`, `PlayerInteraction`, `Rigidbody2D` và `CircleCollider2D`.
-   - **GameManager & Managers:** Tạo GameObject trống đặt tên `GameManagers`, thêm `GameManager`, `DialogueManager`, `QuestManager`, `InventoryManager`.
-   - **UI Canvas:** Tạo Canvas, thêm `AdventureHUD` để hiển thị nhắc nhở phím `[E]` và khung đối thoại.
-4. Nhấn nút **▶ Play** trên thanh công cụ Unity để trải nghiệm!
+2. Mở Scene trong `Assets/Scenes/`.
+3. Kéo thả các model 3D trong `Assets/Art/Models/` (như `MoonstoneArtifact.fbx`, `AncientMonolith.fbx`) vào Scene.
+4. Gắn component `InteractableBase` hoặc `PickupItem` để nhân vật có thể tương tác bằng phím **[E]**!
+5. Nhấn nút **▶ Play** trên Unity để trải nghiệm!
