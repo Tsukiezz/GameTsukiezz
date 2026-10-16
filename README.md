@@ -1,5 +1,10 @@
 # 🌙 Game Tsukiezz: Echoes of the Moonlit Realm
 
+[![C# & Assets Validation](https://github.com/Tsukiezz/GameTsukiezz/actions/workflows/csharp-lint-and-validate.yml/badge.svg)](https://github.com/Tsukiezz/GameTsukiezz/actions/workflows/csharp-lint-and-validate.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Unity](https://img.shields.io/badge/Unity-2022.3%20LTS-black.svg?logo=unity)](https://unity.com/)
+
+> **Repository:** [https://github.com/Tsukiezz/GameTsukiezz](https://github.com/Tsukiezz/GameTsukiezz)  
 > **Thể loại:** Phiêu lưu khám phá & Giải đố cốt truyện (Story-driven Adventure / Narrative Puzzle)  
 > **Engine:** Unity (2022.3 LTS hoặc mới hơn)  
 > **Ngôn ngữ:** C#  
