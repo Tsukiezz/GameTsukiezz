@@ -1402,6 +1402,16 @@
         scene.add(stars);
 
         // =====================================================================
+        // CORE SHARED GLOW & METALLIC MATERIALS
+        // =====================================================================
+        const matGold = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.95, roughness: 0.2 });
+        const matSteel = new THREE.MeshStandardMaterial({ color: 0xb0c4de, metalness: 0.9, roughness: 0.25 });
+        const matCapeRed = new THREE.MeshStandardMaterial({ color: 0xc1121f, roughness: 0.65, side: THREE.DoubleSide });
+        const matRobePurple = new THREE.MeshStandardMaterial({ color: 0x2d0b59, roughness: 0.6, side: THREE.DoubleSide });
+        const matCyanGlow = new THREE.MeshStandardMaterial({ color: 0x00f5d4, emissive: 0x00f5d4, emissiveIntensity: 1.5, roughness: 0.2 });
+        const matPurpleGlow = new THREE.MeshStandardMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 2.5, roughness: 0.2 });
+
+        // =====================================================================
         // REALISTIC PROCEDURAL MOON REGOLITH & CRATER SURFACE TEXTURE
         // =====================================================================
         function createLunarSurfaceTexture() {
@@ -1795,13 +1805,7 @@
         let activeWeaponArm = null;
         let activeLimbs = null;
 
-        // Shared Materials
-        const matGold = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.95, roughness: 0.2 });
-        const matSteel = new THREE.MeshStandardMaterial({ color: 0xb0c4de, metalness: 0.9, roughness: 0.25 });
-        const matCapeRed = new THREE.MeshStandardMaterial({ color: 0xc1121f, roughness: 0.65, side: THREE.DoubleSide });
-        const matRobePurple = new THREE.MeshStandardMaterial({ color: 0x2d0b59, roughness: 0.6, side: THREE.DoubleSide });
-        const matCyanGlow = new THREE.MeshStandardMaterial({ color: 0x00f5d4, emissive: 0x00f5d4, emissiveIntensity: 1.5, roughness: 0.2 });
-        const matPurpleGlow = new THREE.MeshStandardMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 2.5, roughness: 0.2 });
+// Shared Materials declared at top level
 
         // BUILD HAMSTER WITH ARTICULATED LEGS, ARMS, BODY AND SHADOW
         function buildHamsterModel() {
