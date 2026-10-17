@@ -308,6 +308,45 @@ hero_lt = bpy.context.active_object
 hero_lt.data.energy = 220.0
 hero_lt.data.color = (0.0, 0.95, 0.85)
 
+# 7. CHI TIẾT NÂNG CAO ĐẤU TRƯỜNG: ĐUỐC LỬA ĐẤU SĨ, GIÁ VŨ KHÍ & TƯỢNG LA MÃ ĐỔ NÁT
+for t_i in range(8):
+    t_ang = t_i * (2 * math.pi / 8) + 0.3
+    tx = colo_x + math.cos(t_ang) * 29.5
+    ty = colo_y + math.sin(t_ang) * 29.5
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.45, depth=2.8, location=(tx, ty, colo_z + 3.8), vertices=8)
+    b_pillar = bpy.context.active_object
+    smooth(b_pillar)
+    b_pillar.data.materials.append(mat_colosseum_stone)
+    
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=0.4, location=(tx, ty, colo_z + 5.4))
+    b_fire = bpy.context.active_object
+    smooth(b_fire)
+    b_fire.data.materials.append(mat_altar_flame)
+
+# 2 Giá vũ khí đấu sĩ đặt ở 2 bên cổng
+for w_side in [-1, 1]:
+    wx = colo_x + w_side * 24.0
+    wy = colo_y + 4.5
+    bpy.ops.mesh.primitive_cube_add(size=1.0, location=(wx, wy, colo_z + 1.2))
+    w_rack = bpy.context.active_object
+    w_rack.scale = (0.5, 3.2, 2.2)
+    smooth(w_rack)
+    w_rack.data.materials.append(mat_chest_wood)
+    
+    for s_i in [-1.0, 0.0, 1.0]:
+        bpy.ops.mesh.primitive_cylinder_add(radius=0.08, depth=3.0, location=(wx, wy + s_i * 0.8, colo_z + 1.8), vertices=6)
+        spear = bpy.context.active_object
+        spear.rotation_euler = (0, 0.15 * w_side, 0)
+        smooth(spear)
+        spear.data.materials.append(mat_ancient_iron)
+
+# Tượng La Mã đổ nát trên sàn cát
+bpy.ops.mesh.primitive_uv_sphere_add(radius=1.4, location=(colo_x + 9.5, colo_y - 8.5, colo_z + 1.1), segments=16, ring_count=12)
+statue_head = bpy.context.active_object
+statue_head.rotation_euler = (0.6, 0.4, 1.2)
+smooth(statue_head)
+statue_head.data.materials.append(mat_colosseum_stone)
+
 # -----------------------------------------------------------------------------
 # 4. HỒ NƯỚC THỦY NGÂN & TRỤ TẾ ĐÀN 2 TẦNG (MERCURY LAKE & 2-TIER RITUAL ALTAR)
 # Tọa độ: (-45, -115, 2.8)
@@ -399,6 +438,27 @@ bpy.ops.object.light_add(type='POINT', location=(altar_x, altar_y, altar_z + 9.8
 altar_core_lt = bpy.context.active_object
 altar_core_lt.data.energy = 280.0
 altar_core_lt.data.color = (1.0, 0.05, 0.25)
+
+# 6. CHI TIẾT NÂNG CAO TẾ ĐÀN: BẬC THANG CỔ & TINH THỂ PHÙ VĂN HUYẾT SẮC BAY LƠ LỬNG
+# Cầu thang đá nối từ Tầng 1 lên Tầng 2
+for st_i in range(5):
+    st_z = altar_z + 2.4 + st_i * 0.8
+    bpy.ops.mesh.primitive_cube_add(size=1.0, location=(altar_x - 5.5 + st_i * 0.9, altar_y, st_z))
+    st_step = bpy.context.active_object
+    st_step.scale = (1.2, 2.4, 0.4)
+    smooth(st_step)
+    st_step.data.materials.append(mat_altar_dark_stone)
+
+# 6 Mảnh tinh thể phù văn huyết sắc bay lơ lửng xoay quanh Trái Tim Hư Không
+for r_i in range(6):
+    r_ang = r_i * (2 * math.pi / 6)
+    rx = altar_x + math.cos(r_ang) * 2.5
+    ry = altar_y + math.sin(r_ang) * 2.5
+    bpy.ops.mesh.primitive_cone_add(radius1=0.25, depth=1.1, location=(rx, ry, altar_z + 9.6), vertices=4)
+    rune_shard = bpy.context.active_object
+    rune_shard.rotation_euler = (0.4, r_ang, 0.2)
+    smooth(rune_shard)
+    rune_shard.data.materials.append(mat_altar_blood_rune)
 
 # -----------------------------------------------------------------------------
 # 5. TRẠM VŨ TRỤ CÔNG NGHỆ TỐI TÂN (ADVANCED SCI-FI SPACE STATION - TÂY)
@@ -494,6 +554,43 @@ bpy.ops.object.light_add(type='POINT', location=(hub_x, hub_y, hub_z + 8.0))
 station_lt = bpy.context.active_object
 station_lt.data.energy = 320.0
 station_lt.data.color = (0.0, 0.95, 1.0)
+
+# 5. CHI TIẾT NÂNG CAO TRẠM VŨ TRỤ: CỬA AIRLOCK, CONTAINER VŨ TRỤ & CÁP NĂNG LƯỢNG
+# Cửa khoang Airlock áp suất cao
+bpy.ops.mesh.primitive_cube_add(size=1.0, location=(hub_x + 8.5, hub_y, hub_z + 2.2))
+airlock_door = bpy.context.active_object
+airlock_door.scale = (0.8, 3.2, 4.2)
+smooth(airlock_door)
+airlock_door.data.materials.append(mat_scifi_hull_dark)
+
+bpy.ops.mesh.primitive_torus_add(major_radius=1.4, minor_radius=0.1, location=(hub_x + 8.8, hub_y, hub_z + 2.4), major_segments=16, minor_segments=8)
+airlock_seal = bpy.context.active_object
+airlock_seal.rotation_euler = (0, 1.5708, 0)
+smooth(airlock_seal)
+airlock_seal.data.materials.append(mat_scifi_neon_cyan)
+
+# 4 Thùng container hàng công nghệ cao (Sci-Fi Cargo Containers) trên bãi đáp
+for cr_i, (cx_o, cy_o, cr_rot) in enumerate([(4.0, 6.0, 0.2), (6.5, 4.0, -0.4), (-5.0, 8.0, 0.7), (8.0, -4.0, 1.1)]):
+    bpy.ops.mesh.primitive_cube_add(size=1.0, location=(st_x + cx_o, st_y + cy_o, st_z + 1.8))
+    crate = bpy.context.active_object
+    crate.scale = (2.4, 1.8, 1.6)
+    crate.rotation_euler = (0, 0, cr_rot)
+    smooth(crate)
+    crate.data.materials.append(mat_scifi_hull_dark if cr_i % 2 == 0 else mat_scifi_hull_white)
+    
+    bpy.ops.mesh.primitive_cube_add(size=1.0, location=(st_x + cx_o, st_y + cy_o, st_z + 2.65))
+    crate_light = bpy.context.active_object
+    crate_light.scale = (2.2, 0.2, 0.1)
+    crate_light.rotation_euler = (0, 0, cr_rot)
+    smooth(crate_light)
+    crate_light.data.materials.append(mat_scifi_neon_cyan)
+
+# Đường cáp dẫn năng lượng phát sáng kết nối vào trạm
+bpy.ops.mesh.primitive_cylinder_add(radius=0.2, depth=14.0, location=(st_x - 6.0, st_y + 6.0, st_z + 1.1), vertices=8)
+power_conduit = bpy.context.active_object
+power_conduit.rotation_euler = (0, 1.5708, 0.785)
+smooth(power_conduit)
+power_conduit.data.materials.append(mat_scifi_neon_cyan)
 
 # -----------------------------------------------------------------------------
 # 6. ĐẠI LÂU ĐÀI HOÀNG GIA (WALK-IN CITADEL MESA - TÂY BẮC)
@@ -645,6 +742,30 @@ for arm_side in [-1, 1]:
     rack.scale = (0.6, 4.6, 3.2)
     smooth(rack)
     rack.data.materials.append(mat_chest_wood)
+
+# 2 Đèn chùm hoàng gia nguy nga lơ lửng trong đại điện
+for ch_y in [c_y - 6.0, c_y + 6.0]:
+    bpy.ops.mesh.primitive_torus_add(major_radius=2.6, minor_radius=0.18, location=(c_x, ch_y, hall_z + 10.5), major_segments=24, minor_segments=8)
+    chandelier = bpy.context.active_object
+    smooth(chandelier)
+    chandelier.data.materials.append(mat_chandelier_iron)
+    
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=0.6, location=(c_x, ch_y, hall_z + 10.5))
+    ch_glow = bpy.context.active_object
+    smooth(ch_glow)
+    ch_glow.data.materials.append(mat_candle_flame)
+    
+    bpy.ops.object.light_add(type='POINT', location=(c_x, ch_y, hall_z + 9.5))
+    ch_lt = bpy.context.active_object
+    ch_lt.data.energy = 150.0
+    ch_lt.data.color = (1.0, 0.85, 0.45)
+
+# Cổng sắt răng cưa khổng lồ (Spiked Portcullis Grill) tại lối vào
+bpy.ops.mesh.primitive_cube_add(size=1.0, location=(c_x, c_y - 23.0, hall_z + 4.5))
+portcullis = bpy.context.active_object
+portcullis.scale = (11.0, 0.6, 7.5)
+smooth(portcullis)
+portcullis.data.materials.append(mat_ancient_iron)
 
 # Cầu cạn đá vững chãi nối từ trung tâm lên cổng lâu đài
 bridge_s = (c_x, c_y - 23.0, hall_z)

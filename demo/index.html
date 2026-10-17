@@ -657,6 +657,114 @@
             transform: scale(1.05);
         }
 
+        /* FAST TRAVEL TOUR BAR */
+        .hud-tour-bar {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(9, 14, 32, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 245, 212, 0.35);
+            border-radius: 30px;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            pointer-events: auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 245, 212, 0.2);
+            z-index: 20;
+        }
+        .hud-tour-title {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-right: 6px;
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        .tour-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #e2e8f0;
+            padding: 5px 12px;
+            border-radius: 18px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+        .tour-btn:hover {
+            background: var(--cyan-neon);
+            color: #050814;
+            border-color: var(--cyan-neon);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--cyan-glow);
+        }
+
+        /* RADAR MINI-MAP */
+        .hud-minimap-card {
+            background: rgba(9, 14, 32, 0.88);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(0, 245, 212, 0.4);
+            border-radius: 18px;
+            padding: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 245, 212, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            pointer-events: auto;
+        }
+        .hud-minimap-header {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--cyan-neon);
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 4px;
+        }
+        #minimap-canvas {
+            width: 130px;
+            height: 130px;
+            border-radius: 12px;
+            background: #060a16;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* LANDMARK INDICATOR */
+        .hud-landmark-indicator {
+            background: rgba(13, 22, 45, 0.88);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.35);
+            border-radius: 14px;
+            padding: 10px 18px;
+            font-size: 13px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        .landmark-icon {
+            font-size: 18px;
+        }
+        .landmark-name {
+            font-weight: 700;
+            color: var(--gold-primary);
+        }
+
         .hud-bottom-bar {
             display: flex;
             justify-content: space-between;
@@ -1029,17 +1137,30 @@
                 </div>
             </div>
 
-            <!-- QUEST TRACKER -->
-            <div class="hud-quest-card">
-                <div class="quest-badge">Nhiệm Vụ Cốt Truyện</div>
-                <div class="quest-title">Ký Ức Vầng Trăng</div>
-                <div class="quest-task" id="q-monolith">⚪ Trò chuyện với Bia Đá Thì Thầm</div>
-                <div class="quest-task" id="q-shards">⚪ Thu thập 3 Mảnh Vỡ Nguyệt Tinh (0/3)</div>
-                <div class="quest-task" id="q-key">⚪ Tìm Chìa Khóa Cổ Tsukiezz</div>
-                <div class="quest-task" id="q-gate">⚪ Mở Cổng Thần Điện Phong Ấn</div>
+            <!-- FAST TRAVEL TOUR BAR -->
+            <div class="hud-tour-bar">
+                <div class="hud-tour-title">🚀 Tham Quan:</div>
+                <button class="tour-btn" onclick="fastTravelTo(0, 0, 'Đền Thần Điện Trung Tâm')">🏛️ Đền Trung Tâm</button>
+                <button class="tour-btn" onclick="fastTravelTo(-110, 120, 'Lâu Đài Hoàng Gia Tsukiezz')">🏰 Lâu Đài</button>
+                <button class="tour-btn" onclick="fastTravelTo(115, 110, 'Đấu Trường La Mã Bị Bỏ Hoang')">⚔️ Đấu Trường</button>
+                <button class="tour-btn" onclick="fastTravelTo(-145, -35, 'Trạm Vũ Trụ Công Nghệ Tối Tân')">🛸 Trạm Vũ Trụ</button>
+                <button class="tour-btn" onclick="fastTravelTo(-45, -115, 'Trụ Tế Đàn & Hồ Thủy Ngân')">🩸 Tế Đàn Thủy Ngân</button>
+                <button class="tour-btn" onclick="fastTravelTo(145, 30, 'Đại Cổ Thụ Nguyệt Tộc 45m')">🌳 Cổ Thụ 45m</button>
+                <button class="tour-btn" onclick="fastTravelTo(125, -110, 'Hang Động Nguyệt Tinh')">💎 Hang Động</button>
+                <button class="tour-btn" onclick="fastTravelTo(-120, -125, 'Đài Thiên Văn Tổ Tiên')">🔭 Đài Thiên Văn</button>
             </div>
 
-            <button class="hud-return-btn" id="btn-return-home">⮌ Về Trang Chủ</button>
+            <!-- MINI-MAP RADAR CARD & RETURN -->
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+                <div class="hud-minimap-card">
+                    <div class="hud-minimap-header">
+                        <span>📡 RADAR 520M</span>
+                        <span id="minimap-coords" style="color: #94a3b8; font-family: monospace;">(0, 0)</span>
+                    </div>
+                    <canvas id="minimap-canvas" width="130" height="130"></canvas>
+                </div>
+                <button class="hud-return-btn" id="btn-return-home">⮌ Về Trang Chủ</button>
+            </div>
         </div>
 
         <div class="hud-notification" id="hud-toast">
@@ -1059,7 +1180,14 @@
                 <div><span class="hud-key">Chuột Trái / J</span> <span id="hud-attack-name">Chém kiếm</span></div>
                 <div><span class="hud-key">E</span> Tương tác</div>
             </div>
-            <div style="font-size: 13px; color: rgba(255,255,255,0.4);">Tsukiezz Engine 3D</div>
+
+            <div class="hud-landmark-indicator" id="hud-landmark-badge">
+                <span class="landmark-icon" id="landmark-icon">🌙</span>
+                <div>
+                    <div style="font-size: 11px; color: #94a3b8;">VỊ TRÍ HIỆN TẠI:</div>
+                    <div class="landmark-name" id="landmark-current-name">Thần Điện Tsukiezz Cổ</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1205,10 +1333,10 @@
         // =====================================================================
         const canvas = document.getElementById('webgl-canvas');
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x060a18);
-        scene.fog = new THREE.FogExp2(0x0a1228, 0.022);
+        scene.background = new THREE.Color(0x050814);
+        scene.fog = new THREE.FogExp2(0x080e22, 0.0030);
 
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1500);
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -1216,67 +1344,97 @@
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
         // LIGHTS
-        const ambientLight = new THREE.AmbientLight(0x28385e, 1.3);
+        const ambientLight = new THREE.AmbientLight(0x28385e, 1.4);
         scene.add(ambientLight);
 
-        const moonLight = new THREE.DirectionalLight(0x9bd8ff, 1.8);
-        moonLight.position.set(20, 50, -30);
+        const moonLight = new THREE.DirectionalLight(0xa5d8ff, 2.0);
+        moonLight.position.set(60, 120, -70);
         moonLight.castShadow = true;
         moonLight.shadow.mapSize.width = 2048;
         moonLight.shadow.mapSize.height = 2048;
+        moonLight.shadow.camera.near = 10;
+        moonLight.shadow.camera.far = 400;
+        moonLight.shadow.camera.left = -150;
+        moonLight.shadow.camera.right = 150;
+        moonLight.shadow.camera.top = 150;
+        moonLight.shadow.camera.bottom = -150;
         scene.add(moonLight);
 
-        const cyanRimLight = new THREE.DirectionalLight(0x00f5d4, 0.85);
-        cyanRimLight.position.set(-20, 15, 20);
+        const cyanRimLight = new THREE.DirectionalLight(0x00f5d4, 0.9);
+        cyanRimLight.position.set(-80, 40, 80);
         scene.add(cyanRimLight);
 
-        // GIANT CRESCENT MOON
-        const moonGroup = new THREE.Group();
-        const moonGeo = new THREE.SphereGeometry(14, 32, 32);
-        const moonMesh = new THREE.Mesh(moonGeo, new THREE.MeshBasicMaterial({ color: 0xffffff }));
-        moonGroup.add(moonMesh);
+        // COLOSSAL RINGED CELESTIAL PLANET IN SKY
+        const planetGroup = new THREE.Group();
+        const planetGeo = new THREE.SphereGeometry(36, 48, 36);
+        const planetMat = new THREE.MeshBasicMaterial({ color: 0xebf4ff });
+        const planetMesh = new THREE.Mesh(planetGeo, planetMat);
+        planetGroup.add(planetMesh);
 
-        const cutMesh = new THREE.Mesh(new THREE.SphereGeometry(13.8, 32, 32), new THREE.MeshBasicMaterial({ color: 0x060a18 }));
-        cutMesh.position.set(4.5, 3.0, 3.5);
-        moonGroup.add(cutMesh);
+        const ringGeo = new THREE.RingGeometry(46, 75, 64);
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0x9be8ff, side: THREE.DoubleSide, transparent: true, opacity: 0.85 });
+        const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+        ringMesh.rotation.x = Math.PI * 0.42;
+        ringMesh.rotation.y = Math.PI * 0.15;
+        planetGroup.add(ringMesh);
 
-        moonGroup.position.set(40, 70, -110);
-        scene.add(moonGroup);
+        planetGroup.position.set(90, 160, -260);
+        scene.add(planetGroup);
 
-        // STARFIELD
+        // STARFIELD (1500 Stars across 520m sky)
         const starGeo = new THREE.BufferGeometry();
-        const starCount = 800;
+        const starCount = 1500;
         const starCoords = new Float32Array(starCount * 3);
         for(let i = 0; i < starCount * 3; i += 3) {
-            starCoords[i] = (Math.random() - 0.5) * 350;
-            starCoords[i+1] = Math.random() * 120 + 20;
-            starCoords[i+2] = (Math.random() - 0.5) * 350;
+            starCoords[i] = (Math.random() - 0.5) * 800;
+            starCoords[i+1] = Math.random() * 250 + 40;
+            starCoords[i+2] = (Math.random() - 0.5) * 800;
         }
         starGeo.setAttribute('position', new THREE.BufferAttribute(starCoords, 3));
-        const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.8, transparent: true, opacity: 0.85 }));
+        const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 1.2, transparent: true, opacity: 0.9 }));
         scene.add(stars);
 
-        // GROUND TERRAIN
-        const ground = new THREE.Mesh(
-            new THREE.PlaneGeometry(160, 160),
-            new THREE.MeshStandardMaterial({ color: 0x182438, roughness: 0.85, metalness: 0.1 })
-        );
+        // GROUND TERRAIN (520M OPEN REALM)
+        const groundGeo = new THREE.PlaneGeometry(560, 560, 48, 48);
+        const posAttr = groundGeo.attributes.position;
+        // Subtle rolling moon dunes & craters
+        for(let i = 0; i < posAttr.count; i++) {
+            const vx = posAttr.getX(i);
+            const vy = posAttr.getY(i);
+            // distance from center and landmarks
+            const distCenter = Math.sqrt(vx*vx + vy*vy);
+            let zOffset = Math.sin(vx * 0.02) * Math.cos(vy * 0.02) * 2.5;
+            if (distCenter > 180) zOffset += Math.sin(vx * 0.04) * 4.0;
+            posAttr.setZ(i, zOffset);
+        }
+        groundGeo.computeVertexNormals();
+        const groundMat = new THREE.MeshStandardMaterial({ color: 0x141c2c, roughness: 0.9, metalness: 0.05 });
+        const ground = new THREE.Mesh(groundGeo, groundMat);
         ground.rotation.x = -Math.PI / 2;
         ground.receiveShadow = true;
         scene.add(ground);
 
-        // Paving stones
-        for(let i = 0; i < 45; i++) {
-            const size = 1.2 + Math.random() * 1.5;
-            const pStone = new THREE.Mesh(
-                new THREE.BoxGeometry(size, 0.15, size),
-                new THREE.MeshStandardMaterial({ color: 0x223249, roughness: 0.9 })
-            );
-            pStone.position.set((Math.random() - 0.5) * 50, 0.08, (Math.random() - 0.5) * 50);
-            pStone.rotation.y = Math.random() * Math.PI;
-            pStone.receiveShadow = true;
-            scene.add(pStone);
+        // STONE PATHWAYS CONNECTING ALL 8 LANDMARKS
+        const pathMat = new THREE.MeshStandardMaterial({ color: 0x223046, roughness: 0.85, metalness: 0.1 });
+        function buildRoad(x1, z1, x2, z2, width = 4.2) {
+            const dx = x2 - x1;
+            const dz = z2 - z1;
+            const len = Math.sqrt(dx*dx + dz*dz);
+            const rMesh = new THREE.Mesh(new THREE.PlaneGeometry(width, len), pathMat);
+            rMesh.rotation.x = -Math.PI / 2;
+            rMesh.rotation.z = -Math.atan2(dx, dz);
+            rMesh.position.set((x1 + x2) / 2, 0.04, (z1 + z2) / 2);
+            rMesh.receiveShadow = true;
+            scene.add(rMesh);
         }
+        // Central crossroads
+        buildRoad(0, 0, -110, 120);   // To Castle
+        buildRoad(0, 0, 115, 110);    // To Colosseum
+        buildRoad(0, 0, -145, -35);   // To Space Station
+        buildRoad(0, 0, -45, -115);   // To Altar & Mercury Lake
+        buildRoad(0, 0, 145, 30);     // To Ancient Tree
+        buildRoad(0, 0, 125, -110);   // To Cave
+        buildRoad(0, 0, -120, -125);  // To Observatory
 
         // =====================================================================
         // CHARACTER BUILDERS (HAMSTER WARRIOR & RABBIT MAGE)
@@ -1554,11 +1712,21 @@
         }
 
         // =====================================================================
-        // PROPS & INTERACTABLES
+        // 520M OPEN WORLD ARCHITECTURAL LANDMARKS & INTERACTABLES
         // =====================================================================
         const interactables = [];
+        const landmarksData = [
+            { name: "Đền Thờ Tsukiezz", x: 0, z: 0, color: "#00f5d4", icon: "🏛️" },
+            { name: "Lâu Đài Hoàng Gia", x: -110, z: 120, color: "#ffd700", icon: "🏰" },
+            { name: "Đấu Trường La Mã", x: 115, z: 110, color: "#ff4d6d", icon: "⚔️" },
+            { name: "Trạm Vũ Trụ Tối Tân", x: -145, z: -35, color: "#00f5d4", icon: "🛸" },
+            { name: "Tế Đàn Thủy Ngân", x: -45, z: -115, color: "#ff1744", icon: "🩸" },
+            { name: "Cổ Thụ Nguyệt Tộc 45m", x: 145, z: 30, color: "#4ade80", icon: "🌳" },
+            { name: "Hang Động Nguyệt Tinh", x: 125, z: -110, color: "#a855f7", icon: "💎" },
+            { name: "Đài Thiên Văn", x: -120, z: -125, color: "#38bdf8", icon: "🔭" }
+        ];
 
-        // Monolith (Whisper Stone)
+        // 1. ĐỀN THỜ TRUNG TÂM (0, 0)
         const monolith = new THREE.Group();
         monolith.add(new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.4, 2.0), matSteel));
         const pillar = new THREE.Mesh(new THREE.BoxGeometry(1.2, 4.5, 0.9), new THREE.MeshStandardMaterial({ color: 0x2d3a4f, roughness: 0.9 }));
@@ -1572,128 +1740,618 @@
         interactables.push({
             id: 'monolith',
             pos: new THREE.Vector3(0, 0, 0),
-            radius: 3.5,
+            radius: 4.5,
             prompt: 'Lắng nghe Bia Đá Thì Thầm',
             type: 'npc'
         });
 
-        // Temple Gate
-        const gate = new THREE.Group();
-        const p1 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 6.0, 1.2), new THREE.MeshStandardMaterial({ color: 0x253043 }));
-        p1.position.set(-3.5, 3.0, 0); gate.add(p1);
-        const p2 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 6.0, 1.2), new THREE.MeshStandardMaterial({ color: 0x253043 }));
-        p2.position.set(3.5, 3.0, 0); gate.add(p2);
-        const lintel = new THREE.Mesh(new THREE.BoxGeometry(8.5, 1.2, 1.5), new THREE.MeshStandardMaterial({ color: 0x253043 }));
-        lintel.position.set(0, 6.4, 0); gate.add(lintel);
+        // 2. LÂU ĐÀI HOÀNG GIA (-110, 120)
+        function buildCastle3D() {
+            const cg = new THREE.Group();
+            const matCastle = new THREE.MeshStandardMaterial({ color: 0x253046, roughness: 0.75, metalness: 0.1 });
+            const matDarkBase = new THREE.MeshStandardMaterial({ color: 0x161d2a, roughness: 0.8 });
+            const matRoof = new THREE.MeshStandardMaterial({ color: 0x24123c, roughness: 0.35, metalness: 0.2 });
 
-        const gateSeal = new THREE.Mesh(
-            new THREE.PlaneGeometry(5.8, 5.8),
-            new THREE.MeshStandardMaterial({ color: 0x7928ca, emissive: 0x7928ca, emissiveIntensity: 0.8, transparent: true, opacity: 0.65, side: THREE.DoubleSide })
-        );
-        gateSeal.position.set(0, 3.0, 0);
-        gate.add(gateSeal);
-        gate.position.set(0, 0, -25);
-        scene.add(gate);
+            // Base Mesa
+            const base = new THREE.Mesh(new THREE.BoxGeometry(52, 6, 56), matDarkBase);
+            base.position.y = 3;
+            base.receiveShadow = true;
+            cg.add(base);
 
-        interactables.push({
-            id: 'gate',
-            pos: new THREE.Vector3(0, 0, -25),
-            radius: 4.5,
-            prompt: 'Mở Cổng Thần Điện Phong Ấn',
-            type: 'gate',
-            mesh: gateSeal
-        });
+            // 4 Corner Spire Towers
+            [[-21, -23], [21, -23], [-21, 23], [21, 23]].forEach(([tx, tz]) => {
+                const tower = new THREE.Mesh(new THREE.CylinderGeometry(4.5, 4.8, 30, 16), matCastle);
+                tower.position.set(tx, 20, tz);
+                cg.add(tower);
 
-        // Key & Shards
-        const keyGroup = new THREE.Group();
-        const keyRing = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.08, 12, 16), matGold);
-        keyRing.rotation.y = Math.PI / 2; keyGroup.add(keyRing);
-        const keyShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.8), matGold);
-        keyShaft.position.y = -0.5; keyGroup.add(keyShaft);
-        keyGroup.position.set(-16, 1.2, -6);
-        scene.add(keyGroup);
+                const roof = new THREE.Mesh(new THREE.ConeGeometry(5.2, 10, 16), matRoof);
+                roof.position.set(tx, 40, tz);
+                cg.add(roof);
 
-        interactables.push({
-            id: 'key',
-            pos: new THREE.Vector3(-16, 0, -6),
-            radius: 2.5,
-            prompt: 'Nhặt Chìa Khóa Cổ Tsukiezz',
-            type: 'item',
-            name: 'Chìa Khóa Cổ Tsukiezz',
-            group: keyGroup
-        });
+                const gem = new THREE.Mesh(new THREE.IcosahedronGeometry(1.0, 1), matCyanGlow);
+                gem.position.set(tx, 46, tz);
+                cg.add(gem);
+            });
 
-        const shardGroups = [];
-        [
-            new THREE.Vector3(14, 1.2, 5),
-            new THREE.Vector3(-12, 1.2, 14),
-            new THREE.Vector3(16, 1.2, -15)
-        ].forEach((pos, idx) => {
-            const sg = new THREE.Group();
-            sg.add(new THREE.Mesh(new THREE.OctahedronGeometry(0.45, 0), matCyanGlow));
-            sg.add(new THREE.PointLight(0x00f5d4, 1.8, 8));
-            sg.position.copy(pos);
-            scene.add(sg);
-            shardGroups.push(sg);
+            // Curtain Walls
+            const w1 = new THREE.Mesh(new THREE.BoxGeometry(2.5, 14, 44), matCastle);
+            w1.position.set(-21, 12, 0); cg.add(w1);
+            const w2 = new THREE.Mesh(new THREE.BoxGeometry(2.5, 14, 44), matCastle);
+            w2.position.set(21, 12, 0); cg.add(w2);
+            const w3 = new THREE.Mesh(new THREE.BoxGeometry(42, 14, 2.5), matCastle);
+            w3.position.set(0, 12, 23); cg.add(w3);
+
+            // Throne Room Interior
+            const carpet = new THREE.Mesh(new THREE.PlaneGeometry(6, 36), new THREE.MeshStandardMaterial({ color: 0xb91c1c, roughness: 0.8 }));
+            carpet.rotation.x = -Math.PI / 2;
+            carpet.position.set(0, 6.06, 0);
+            cg.add(carpet);
+
+            // Royal Throne Dais
+            const dais = new THREE.Mesh(new THREE.BoxGeometry(10, 1.2, 6), matCastle);
+            dais.position.set(0, 6.6, 15);
+            cg.add(dais);
+
+            const throne = new THREE.Mesh(new THREE.BoxGeometry(3.0, 4.2, 1.8), new THREE.MeshStandardMaterial({ color: 0x581c87, roughness: 0.4 }));
+            throne.position.set(0, 9.2, 15.5);
+            cg.add(throne);
+
+            const halo = new THREE.Mesh(new THREE.TorusGeometry(1.6, 0.2, 12, 24), matCyanGlow);
+            halo.position.set(0, 12.0, 15.2);
+            cg.add(halo);
+
+            // Grand Bridge Ramp down to ground
+            const bridge = new THREE.Mesh(new THREE.BoxGeometry(6, 1.8, 55), matCastle);
+            bridge.position.set(0, 3.2, -50);
+            bridge.rotation.x = -0.11;
+            cg.add(bridge);
+
+            cg.position.set(-110, 0, 120);
+            scene.add(cg);
 
             interactables.push({
-                id: `shard_${idx}`,
-                pos: pos,
-                radius: 2.5,
-                prompt: `Thu thập Mảnh Vỡ Nguyệt Tinh #${idx + 1}`,
-                type: 'shard',
-                name: `Mảnh Vỡ Nguyệt Tinh (${idx + 1}/3)`,
-                group: sg
+                id: 'castle_throne',
+                pos: new THREE.Vector3(-110, 6.6, 135),
+                radius: 5.5,
+                prompt: 'Ngồi lên Ngai Vàng Tsukiezz',
+                type: 'throne'
             });
-        });
-
-        // Ambient Fireflies
-        const fireflyCount = 45;
-        const fireflyGeo = new THREE.BufferGeometry();
-        const fireflyPos = new Float32Array(fireflyCount * 3);
-        for(let i = 0; i < fireflyCount * 3; i += 3) {
-            fireflyPos[i] = (Math.random() - 0.5) * 50;
-            fireflyPos[i+1] = Math.random() * 4 + 0.5;
-            fireflyPos[i+2] = (Math.random() - 0.5) * 50;
         }
-        fireflyGeo.setAttribute('position', new THREE.BufferAttribute(fireflyPos, 3));
-        const fireflies = new THREE.Points(fireflyGeo, new THREE.PointsMaterial({ color: 0x00f5d4, size: 0.45, transparent: true, opacity: 0.8 }));
-        scene.add(fireflies);
+        buildCastle3D();
 
-        // Enchanted Red Toadstool Mushrooms (from Hamster Warrior Concept Art)
-        const matMushroomCap = new THREE.MeshStandardMaterial({ color: 0xd90429, roughness: 0.4, emissive: 0xd90429, emissiveIntensity: 0.25 });
-        const matMushroomStem = new THREE.MeshStandardMaterial({ color: 0xfdf0d5, roughness: 0.8 });
-        const matMushroomSpot = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 });
-        
-        const mushroomPositions = [
-            [-3, -2], [-3.8, -1.5], [-2.5, -3.2],
-            [4, -3], [4.6, -2.2], [5.2, -4],
-            [-10, 8], [-11, 7.2],
-            [8, 10], [9.2, 9],
-            [-15, -4], [13, 3]
-        ];
-        
-        mushroomPositions.forEach(([mx, mz]) => {
-            const mg = new THREE.Group();
-            const scale = 0.5 + Math.random() * 0.7;
-            const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.12 * scale, 0.18 * scale, 0.8 * scale, 12), matMushroomStem);
-            stem.position.y = 0.4 * scale;
-            mg.add(stem);
-            
-            const cap = new THREE.Mesh(new THREE.SphereGeometry(0.45 * scale, 16, 12, 0, Math.PI * 2, 0, Math.PI * 0.55), matMushroomCap);
-            cap.position.y = 0.75 * scale;
-            mg.add(cap);
-            
-            for(let s = 0; s < 4; s++) {
-                const spot = new THREE.Mesh(new THREE.SphereGeometry(0.08 * scale, 8, 8), matMushroomSpot);
-                const angle = (s * Math.PI) / 2;
-                spot.position.set(Math.cos(angle) * 0.32 * scale, 0.9 * scale, Math.sin(angle) * 0.32 * scale);
-                mg.add(spot);
+        // 3. ĐẤU TRƯỜNG LA MÃ (115, 110)
+        function buildColosseum3D() {
+            const cg = new THREE.Group();
+            const matStone = new THREE.MeshStandardMaterial({ color: 0x333642, roughness: 0.85 });
+            const matSand = new THREE.MeshStandardMaterial({ color: 0x232630, roughness: 0.95 });
+
+            // Arena Sand Floor
+            const arena = new THREE.Mesh(new THREE.CylinderGeometry(26, 26, 0.5, 32), matSand);
+            arena.position.y = 0.25;
+            cg.add(arena);
+
+            // Tiered Benches
+            [28, 30.5, 33].forEach((rad, idx) => {
+                const bench = new THREE.Mesh(new THREE.CylinderGeometry(rad, rad, 1.2, 32), matStone);
+                bench.position.y = 0.6 + idx * 1.0;
+                cg.add(bench);
+            });
+
+            // 24 Arcade Arches Ring (Radius 34m)
+            for(let i = 0; i < 24; i++) {
+                const ang = i * (Math.PI * 2 / 24);
+                const ax = Math.cos(ang) * 34.0;
+                const az = Math.sin(ang) * 34.0;
+                const isBroken = [3, 4, 11, 12, 18].includes(i);
+                const colH = isBroken ? 4.5 : 10.0;
+                const col = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, colH, 12), matStone);
+                col.position.set(ax, colH / 2, az);
+                cg.add(col);
+
+                if (!isBroken) {
+                    const entab = new THREE.Mesh(new THREE.BoxGeometry(4.6, 1.2, 1.8), matStone);
+                    entab.position.set(ax, colH + 0.6, az);
+                    entab.rotation.y = -ang + Math.PI / 2;
+                    cg.add(entab);
+                }
             }
-            
-            mg.position.set(mx, 0, mz);
-            scene.add(mg);
+
+            // 8 Torch Braziers around Arena
+            for(let i = 0; i < 8; i++) {
+                const ang = i * (Math.PI * 2 / 8) + 0.2;
+                const tx = Math.cos(ang) * 27.5;
+                const tz = Math.sin(ang) * 27.5;
+                const post = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.45, 2.8, 8), matStone);
+                post.position.set(tx, 2.5, tz);
+                cg.add(post);
+
+                const fire = new THREE.Mesh(new THREE.SphereGeometry(0.4, 8, 8), matPurpleGlow);
+                fire.position.set(tx, 4.1, tz);
+                cg.add(fire);
+            }
+
+            // Central Hero Duel Pedestal with Glowing Cyan Blade
+            const ped = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 3.6, 0.8, 20), matStone);
+            ped.position.y = 0.4;
+            cg.add(ped);
+
+            const blade = new THREE.Mesh(new THREE.BoxGeometry(0.3, 4.8, 0.7), matCyanGlow);
+            blade.position.set(0, 3.2, 0);
+            cg.add(blade);
+
+            const pLight = new THREE.PointLight(0x00f5d4, 2.0, 18);
+            pLight.position.set(0, 3.8, 0);
+            cg.add(pLight);
+
+            cg.position.set(115, 0, 110);
+            scene.add(cg);
+
+            interactables.push({
+                id: 'colosseum_duel',
+                pos: new THREE.Vector3(115, 0.8, 110),
+                radius: 5.5,
+                prompt: 'Thách Đấu Võ Đài La Mã (Kiếm Anh Hùng)',
+                type: 'colosseum'
+            });
+        }
+        buildColosseum3D();
+
+        // 4. TRẠM VŨ TRỤ CÔNG NGHỆ TỐI TÂN (-145, -35)
+        function buildSpaceStation3D() {
+            const sg = new THREE.Group();
+            const matDark = new THREE.MeshStandardMaterial({ color: 0x121722, roughness: 0.4, metalness: 0.85 });
+            const matWhite = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.3, metalness: 0.7 });
+            const matSolar = new THREE.MeshStandardMaterial({ color: 0x0369a1, emissive: 0x0284c7, emissiveIntensity: 1.5, metalness: 0.9 });
+            const matHazard = new THREE.MeshStandardMaterial({ color: 0xeab308, emissive: 0xca8a04, emissiveIntensity: 1.2 });
+
+            // Octagonal Landing Pad (Radius 18m)
+            const pad = new THREE.Mesh(new THREE.CylinderGeometry(18, 18, 1.0, 8), matDark);
+            pad.position.y = 0.5;
+            sg.add(pad);
+
+            const hazard = new THREE.Mesh(new THREE.TorusGeometry(17.2, 0.35, 8, 32), matHazard);
+            hazard.rotation.x = Math.PI / 2;
+            hazard.position.y = 1.05;
+            sg.add(hazard);
+
+            // 8 Runway Beacons
+            for(let i = 0; i < 8; i++) {
+                const ang = i * (Math.PI * 2 / 8);
+                const bMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, 0.6, 8), matCyanGlow);
+                bMesh.position.set(Math.cos(ang) * 16.5, 1.3, Math.sin(ang) * 16.5);
+                sg.add(bMesh);
+            }
+
+            // Command Habitation Hub Module
+            const hubX = -12, hubZ = 12;
+            const hub = new THREE.Mesh(new THREE.CylinderGeometry(9, 9, 7, 8), matWhite);
+            hub.position.set(hubX, 4.5, hubZ);
+            sg.add(hub);
+
+            const dome = new THREE.Mesh(new THREE.SphereGeometry(5.5, 20, 16), new THREE.MeshStandardMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.7, roughness: 0.1 }));
+            dome.scale.set(1.0, 0.65, 1.0);
+            dome.position.set(hubX, 8.0, hubZ);
+            sg.add(dome);
+
+            const neonRing = new THREE.Mesh(new THREE.TorusGeometry(9.2, 0.15, 8, 32), matCyanGlow);
+            neonRing.rotation.x = Math.PI / 2;
+            neonRing.position.set(hubX, 4.5, hubZ);
+            sg.add(neonRing);
+
+            // Quantum Solar Array Wings
+            [-1, 1].forEach(side => {
+                const wing = new THREE.Mesh(new THREE.BoxGeometry(10, 0.25, 6), matSolar);
+                wing.position.set(hubX + side * 18, 5.0, hubZ);
+                wing.rotation.x = 0.45;
+                sg.add(wing);
+
+                const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 10, 8), matDark);
+                arm.position.set(hubX + side * 13, 5.0, hubZ);
+                arm.rotation.z = Math.PI / 2;
+                sg.add(arm);
+            });
+
+            // Communications Radar Dish
+            const dishMast = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.0, 4.0, 12), matDark);
+            dishMast.position.set(hubX + 8, 3.0, hubZ + 14);
+            sg.add(dishMast);
+
+            const dish = new THREE.Mesh(new THREE.SphereGeometry(4.5, 16, 12), matWhite);
+            dish.scale.set(1.0, 0.4, 1.0);
+            dish.rotation.set(0.6, 0.2, 0.8);
+            dish.position.set(hubX + 8, 5.8, hubZ + 14);
+            sg.add(dish);
+
+            // 4 Sci-Fi Cargo Crates
+            [[4, 6], [6.5, 4], [-5, 8], [8, -4]].forEach(([cx, cz]) => {
+                const crate = new THREE.Mesh(new THREE.BoxGeometry(2.4, 1.8, 1.6), matDark);
+                crate.position.set(cx, 1.8, cz);
+                sg.add(crate);
+
+                const cLight = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.1, 0.2), matCyanGlow);
+                cLight.position.set(cx, 2.7, cz);
+                sg.add(cLight);
+            });
+
+            sg.position.set(-145, 0, -35);
+            scene.add(sg);
+
+            interactables.push({
+                id: 'space_station_console',
+                pos: new THREE.Vector3(-145 - 12, 1.0, -35 + 12),
+                radius: 6.0,
+                prompt: 'Truy Cập Trạm Không Gian (Hologram Console)',
+                type: 'space_station'
+            });
+        }
+        buildSpaceStation3D();
+
+        // 5. TRỤ TẾ ĐÀN 2 TẦNG & HỒ THỦY NGÂN (-45, -115)
+        function buildAltarMercury3D() {
+            const ag = new THREE.Group();
+            const matMercury = new THREE.MeshStandardMaterial({ color: 0xd8e6f8, roughness: 0.02, metalness: 1.0 });
+            const matAltarDark = new THREE.MeshStandardMaterial({ color: 0x11131a, roughness: 0.7, metalness: 0.2 });
+            const matBloodRune = new THREE.MeshStandardMaterial({ color: 0xff1744, emissive: 0xff1744, emissiveIntensity: 3.5 });
+
+            // Liquid Mercury Pool (50m diameter)
+            const lake = new THREE.Mesh(new THREE.CylinderGeometry(25, 25, 0.4, 32), matMercury);
+            lake.position.y = 0.2;
+            ag.add(lake);
+
+            const rim = new THREE.Mesh(new THREE.TorusGeometry(25, 1.1, 12, 32), matAltarDark);
+            rim.rotation.x = Math.PI / 2;
+            rim.position.y = 0.5;
+            ag.add(rim);
+
+            // Stepping Stone Piers crossing to altar
+            for(let i = 0; i < 7; i++) {
+                const sp = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.8, 16), matAltarDark);
+                sp.position.set(0, 0.4, -24 + i * 3.4);
+                ag.add(sp);
+            }
+
+            // Altar Tier 1 (17m diameter)
+            const t1 = new THREE.Mesh(new THREE.CylinderGeometry(8.5, 8.5, 1.4, 24), matAltarDark);
+            t1.position.y = 1.2;
+            ag.add(t1);
+
+            const runeRing1 = new THREE.Mesh(new THREE.TorusGeometry(8.2, 0.15, 8, 32), matBloodRune);
+            runeRing1.rotation.x = Math.PI / 2;
+            runeRing1.position.y = 1.95;
+            ag.add(runeRing1);
+
+            // 4 Pillars with Purple Fire Braziers
+            for(let i = 0; i < 4; i++) {
+                const ang = i * (Math.PI / 2);
+                const px = Math.cos(ang) * 4.8;
+                const pz = Math.sin(ang) * 4.8;
+                const pil = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 4.2, 12), matAltarDark);
+                pil.position.set(px, 3.8, pz);
+                ag.add(pil);
+
+                const flame = new THREE.Mesh(new THREE.SphereGeometry(0.45, 8, 8), matPurpleGlow);
+                flame.position.set(px, 6.2, pz);
+                ag.add(flame);
+
+                const lt = new THREE.PointLight(0xa855f7, 2.5, 14);
+                lt.position.set(px, 6.5, pz);
+                ag.add(lt);
+            }
+
+            // Altar Tier 2 (10.4m diameter)
+            const t2 = new THREE.Mesh(new THREE.CylinderGeometry(5.2, 5.2, 0.8, 20), matAltarDark);
+            t2.position.y = 5.8;
+            ag.add(t2);
+
+            const runeRing2 = new THREE.Mesh(new THREE.TorusGeometry(4.9, 0.12, 8, 28), matBloodRune);
+            runeRing2.rotation.x = Math.PI / 2;
+            runeRing2.position.y = 6.25;
+            ag.add(runeRing2);
+
+            // Center Sacrificial Pillar
+            const sPil = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.4, 2.2, 12), matAltarDark);
+            sPil.position.y = 7.2;
+            ag.add(sPil);
+
+            // Floating Void Heart Relic
+            const voidHeart = new THREE.Mesh(new THREE.IcosahedronGeometry(0.85, 2), matBloodRune);
+            voidHeart.position.y = 9.2;
+            ag.add(voidHeart);
+
+            const vLight = new THREE.PointLight(0xff1744, 3.5, 22);
+            vLight.position.set(0, 9.4, 0);
+            ag.add(vLight);
+
+            // 6 Orbiting Rune Shards
+            for(let i = 0; i < 6; i++) {
+                const ang = i * (Math.PI * 2 / 6);
+                const shard = new THREE.Mesh(new THREE.ConeGeometry(0.25, 1.0, 4), matBloodRune);
+                shard.position.set(Math.cos(ang) * 2.4, 9.2, Math.sin(ang) * 2.4);
+                shard.rotation.z = 0.4;
+                ag.add(shard);
+            }
+
+            ag.position.set(-45, 0, -115);
+            scene.add(ag);
+
+            interactables.push({
+                id: 'void_altar',
+                pos: new THREE.Vector3(-45, 1.0, -115),
+                radius: 6.0,
+                prompt: 'Kích Hoạt Trái Tim Hư Không (Tế Đàn Thủy Ngân)',
+                type: 'altar'
+            });
+        }
+        buildAltarMercury3D();
+
+        // 6. ĐẠI CỔ THỤ NGUYỆT TỘC 45M (145, 30)
+        function buildAncientTree3D() {
+            const tg = new THREE.Group();
+            const matBark = new THREE.MeshStandardMaterial({ color: 0x1f1624, roughness: 0.9 });
+            const matLeaves = new THREE.MeshStandardMaterial({ color: 0x0ea5e9, emissive: 0x0284c7, emissiveIntensity: 2.0, roughness: 0.4 });
+
+            // Giant Trunk
+            const trunk = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 5.8, 38, 16), matBark);
+            trunk.position.y = 19;
+            tg.add(trunk);
+
+            // 3-Tier Layered Foliage Canopy
+            [
+                { r: 16, y: 32, h: 10 },
+                { r: 12, y: 39, h: 8 },
+                { r: 7, y: 44, h: 6 }
+            ].forEach(layer => {
+                const foliage = new THREE.Mesh(new THREE.ConeGeometry(layer.r, layer.h, 16), matLeaves);
+                foliage.position.y = layer.y;
+                tg.add(foliage);
+            });
+
+            // Hanging bioluminescent tendrils
+            for(let i = 0; i < 12; i++) {
+                const ang = i * (Math.PI * 2 / 12);
+                const tRad = 11.5 + Math.sin(i) * 2;
+                const tendril = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 12, 6), matCyanGlow);
+                tendril.position.set(Math.cos(ang) * tRad, 26, Math.sin(ang) * tRad);
+                tg.add(tendril);
+            }
+
+            const treeLight = new THREE.PointLight(0x00f5d4, 3.0, 35);
+            treeLight.position.set(0, 34, 0);
+            tg.add(treeLight);
+
+            tg.position.set(145, 0, 30);
+            scene.add(tg);
+
+            interactables.push({
+                id: 'ancient_tree',
+                pos: new THREE.Vector3(145, 0, 30),
+                radius: 8.0,
+                prompt: 'Hấp Thụ Năng Lượng Cổ Thụ 45m',
+                type: 'tree'
+            });
+        }
+        buildAncientTree3D();
+
+        // 7. HANG ĐỘNG NGUYỆT TINH (125, -110)
+        function buildCave3D() {
+            const cg = new THREE.Group();
+            const matRock = new THREE.MeshStandardMaterial({ color: 0x161822, roughness: 0.95 });
+            const matStarlight = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 1.8, roughness: 0.1 });
+
+            // Entrance Arch
+            const arch = new THREE.Mesh(new THREE.TorusGeometry(7.0, 2.4, 12, 24), matRock);
+            arch.rotation.y = Math.PI / 4;
+            arch.position.set(0, 5.0, 0);
+            cg.add(arch);
+
+            // Subterranean Starlight Pond
+            const pool = new THREE.Mesh(new THREE.CylinderGeometry(8.5, 8.5, 0.4, 20), matStarlight);
+            pool.position.set(9.0, 0.2, -9.0);
+            cg.add(pool);
+
+            // Stalactites
+            for(let i = 0; i < 6; i++) {
+                const ang = i * (Math.PI * 2 / 6);
+                const st = new THREE.Mesh(new THREE.ConeGeometry(0.4, 3.5, 6), matPurpleGlow);
+                st.rotation.x = Math.PI;
+                st.position.set(9.0 + Math.cos(ang) * 5.0, 9.0, -9.0 + Math.sin(ang) * 5.0);
+                cg.add(st);
+            }
+
+            // Treasure Chest
+            const chestGroup = new THREE.Group();
+            const chestBox = new THREE.Mesh(new THREE.BoxGeometry(2.0, 1.2, 1.4), new THREE.MeshStandardMaterial({ color: 0x3e2723, roughness: 0.8 }));
+            chestBox.position.y = 0.6;
+            chestGroup.add(chestBox);
+
+            const chestLid = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 2.0, 12, 1, false, 0, Math.PI), matGold);
+            chestLid.rotation.z = Math.PI / 2;
+            chestLid.position.y = 1.2;
+            chestGroup.add(chestLid);
+
+            chestGroup.position.set(11.0, 0, -9.0);
+            cg.add(chestGroup);
+
+            cg.position.set(125, 0, -110);
+            scene.add(cg);
+
+            interactables.push({
+                id: 'cave_chest',
+                pos: new THREE.Vector3(125 + 11.0, 0, -110 - 9.0),
+                radius: 4.5,
+                prompt: 'Mở Rương Báu Nguyệt Tinh',
+                type: 'chest'
+            });
+        }
+        buildCave3D();
+
+        // 8. ĐÀI THIÊN VĂN TỔ TIÊN (-120, -125)
+        function buildObservatory3D() {
+            const og = new THREE.Group();
+            const matDarkStone = new THREE.MeshStandardMaterial({ color: 0x1a2130, roughness: 0.8 });
+            const matBrass = new THREE.MeshStandardMaterial({ color: 0xd4af37, roughness: 0.3, metalness: 0.85 });
+
+            // Platform
+            const base = new THREE.Mesh(new THREE.CylinderGeometry(14, 15, 2.0, 24), matDarkStone);
+            base.position.y = 1.0;
+            og.add(base);
+
+            // Observatory Dome
+            const dome = new THREE.Mesh(new THREE.SphereGeometry(7.0, 24, 16, 0, Math.PI * 2, 0, Math.PI * 0.55), matDarkStone);
+            dome.position.y = 2.0;
+            og.add(dome);
+
+            // Great Brass Telescope
+            const scope = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.2, 14, 16), matBrass);
+            scope.rotation.x = -0.75;
+            scope.position.set(0, 9.0, 2.0);
+            og.add(scope);
+
+            const scopeLens = new THREE.Mesh(new THREE.SphereGeometry(0.9, 12, 10), matCyanGlow);
+            scopeLens.position.set(0, 13.5, -3.2);
+            og.add(scopeLens);
+
+            og.position.set(-120, 0, -125);
+            scene.add(og);
+
+            interactables.push({
+                id: 'observatory',
+                pos: new THREE.Vector3(-120, 1.0, -125),
+                radius: 5.5,
+                prompt: 'Chiêm Ngưỡng Thiên Hà Tsukiezz (Kính Viễn Vọng)',
+                type: 'observatory'
+            });
+        }
+        buildObservatory3D();
+
+        // 9. CỎ BIẾN DỊ DẠ QUANG (MUTANT ALIEN FLORA) - RẢI 140 CỤM DỌC ĐƯỜNG VÀ QUANH CÔNG TRÌNH
+        const grassColors = [matCyanGlow, matPurpleGlow, new THREE.MeshStandardMaterial({ color: 0x84cc16, emissive: 0x65a30d, emissiveIntensity: 2.2 })];
+        function spawnMutantClump(gx, gz, scale = 1.0) {
+            const clump = new THREE.Group();
+            const cMat = grassColors[Math.floor(Math.random() * grassColors.length)];
+            const bladeCount = 7 + Math.floor(Math.random() * 4);
+
+            for(let b = 0; b < bladeCount; b++) {
+                const bAng = b * (Math.PI * 2 / bladeCount) + (Math.random() - 0.5) * 0.4;
+                const h = (1.2 + Math.random() * 1.4) * scale;
+                const rad = 0.08 * scale;
+                const blade = new THREE.Mesh(new THREE.ConeGeometry(rad, h, 4), cMat);
+                blade.position.set(Math.cos(bAng) * 0.35 * scale, h / 2, Math.sin(bAng) * 0.35 * scale);
+                blade.rotation.set(Math.cos(bAng) * 0.35, Math.random() * Math.PI, Math.sin(bAng) * 0.35);
+                clump.add(blade);
+            }
+
+            const spore = new THREE.Mesh(new THREE.IcosahedronGeometry(0.22 * scale, 1), cMat);
+            spore.position.y = 0.75 * scale;
+            clump.add(spore);
+
+            clump.position.set(gx, 0, gz);
+            scene.add(clump);
+        }
+
+        // Spawn along road network
+        [
+            [-110, 120], [115, 110], [-145, -35], [-45, -115],
+            [145, 30], [125, -110], [-120, -125]
+        ].forEach(([tx, tz]) => {
+            for(let s = 1; s <= 12; s++) {
+                const ratio = s / 13;
+                const rx = tx * ratio + (Math.random() - 0.5) * 6.5;
+                const rz = tz * ratio + (Math.random() - 0.5) * 6.5;
+                spawnMutantClump(rx, rz, 0.8 + Math.random() * 0.6);
+            }
         });
+
+        // Spawn around landmarks
+        landmarksData.forEach(lm => {
+            for(let c = 0; c < 6; c++) {
+                const ang = c * (Math.PI * 2 / 6) + Math.random();
+                const dist = 16 + Math.random() * 12;
+                spawnMutantClump(lm.x + Math.cos(ang) * dist, lm.z + Math.sin(ang) * dist, 1.0 + Math.random() * 0.5);
+            }
+        });
+
+        // =====================================================================
+        // FAST TRAVEL TOUR & REAL-TIME MINIMAP RADAR
+        // =====================================================================
+        function fastTravelTo(tx, tz, name) {
+            playerGroup.position.set(tx, 0, tz + 4.5);
+            camera.position.set(tx, 5, tz + 12);
+            camera.lookAt(tx, 1.5, tz);
+            sfx.pickup();
+            showNotification(`🚀 Đã dịch chuyển đến: ${name}!`);
+            const badgeName = document.getElementById('landmark-current-name');
+            if (badgeName) badgeName.textContent = name;
+        }
+
+        const minimapCanvas = document.getElementById('minimap-canvas');
+        const minimapCtx = minimapCanvas ? minimapCanvas.getContext('2d') : null;
+
+        function updateMinimap(px, pz, pRot) {
+            if (!minimapCtx) return;
+            const w = minimapCanvas.width;
+            const h = minimapCanvas.height;
+            const cx = w / 2;
+            const cy = h / 2;
+            const scale = w / 520; // 520m to 130px
+
+            minimapCtx.clearRect(0, 0, w, h);
+
+            // Radar background grid & circles
+            minimapCtx.fillStyle = "rgba(6, 10, 22, 0.95)";
+            minimapCtx.fillRect(0, 0, w, h);
+
+            minimapCtx.strokeStyle = "rgba(0, 245, 212, 0.15)";
+            minimapCtx.lineWidth = 1;
+            minimapCtx.beginPath();
+            minimapCtx.arc(cx, cy, 28, 0, Math.PI * 2);
+            minimapCtx.arc(cx, cy, 52, 0, Math.PI * 2);
+            minimapCtx.stroke();
+
+            // Landmarks blips
+            landmarksData.forEach(lm => {
+                const lx = cx + lm.x * scale;
+                const ly = cy + lm.z * scale;
+                minimapCtx.fillStyle = lm.color;
+                minimapCtx.beginPath();
+                minimapCtx.arc(lx, ly, 3.5, 0, Math.PI * 2);
+                minimapCtx.fill();
+            });
+
+            // Player dot & direction pointer
+            const plx = cx + px * scale;
+            const ply = cy + pz * scale;
+
+            minimapCtx.fillStyle = "#ffffff";
+            minimapCtx.beginPath();
+            minimapCtx.arc(plx, ply, 4, 0, Math.PI * 2);
+            minimapCtx.fill();
+
+            minimapCtx.strokeStyle = "#00f5d4";
+            minimapCtx.lineWidth = 2;
+            minimapCtx.beginPath();
+            minimapCtx.moveTo(plx, ply);
+            minimapCtx.lineTo(plx + Math.sin(pRot) * 9, ply + Math.cos(pRot) * 9);
+            minimapCtx.stroke();
+
+            // Update Coords text
+            const coordsEl = document.getElementById('minimap-coords');
+            if (coordsEl) coordsEl.textContent = `(${Math.round(px)}m, ${Math.round(pz)}m)`;
+
+            // Check nearest landmark for indicator
+            let nearest = landmarksData[0];
+            let minDist = 9999;
+            landmarksData.forEach(lm => {
+                const d = Math.sqrt((px - lm.x)**2 + (pz - lm.z)**2);
+                if (d < minDist) { minDist = d; nearest = lm; }
+            });
+            const badgeName = document.getElementById('landmark-current-name');
+            const badgeIcon = document.getElementById('landmark-icon');
+            if (badgeName && badgeIcon) {
+                badgeName.textContent = `${nearest.name} (${Math.round(minDist)}m)`;
+                badgeIcon.textContent = nearest.icon;
+            }
+        }
 
         // =====================================================================
         // GAME STATE & HUD LOGIC
@@ -1878,6 +2536,34 @@
             if (item.type === 'npc') {
                 startDialogue();
             }
+            else if (item.type === 'colosseum') {
+                sfx.attackSound(false);
+                showNotification("⚔️ BẠN ĐÃ BƯỚC VÀO ĐẤU TRƯỜNG LA MÃ! Nhận Chúc Phúc Đấu Sĩ Nguyệt Tộc (+50 Sức Mạnh)!");
+            }
+            else if (item.type === 'space_station') {
+                sfx.playTone(880, 'square', 0.3, 0.2);
+                showNotification("🛸 TRẠM VŨ TRỤ TSUKIEZZ: Tín hiệu vệ tinh lượng tử đã kết nối! Kích hoạt radar quét thiên hà!");
+            }
+            else if (item.type === 'altar') {
+                sfx.portalOpen();
+                showNotification("🩸 TRỤ TẾ ĐÀN THỦY NGÂN: Trái Tim Hư Không bừng sáng! Hồi phục 100% Sinh Lực & Mana!");
+            }
+            else if (item.type === 'throne') {
+                sfx.pickup();
+                showNotification("👑 ĐÃ NGỒI LÊN NGAI VÀNG TSUKIEZZ: Vinh danh Tân Vương của Vương Quốc Mặt Trăng!");
+            }
+            else if (item.type === 'tree') {
+                sfx.pickup();
+                showNotification("🌳 ĐẠI CỔ THỤ NGUYỆT TỘC: Tinh hoa 1000 năm thấm nhuần! Tăng 100% Tốc Độ Di Chuyển!");
+            }
+            else if (item.type === 'cave' || item.type === 'chest') {
+                sfx.pickup();
+                showNotification("💎 RƯƠNG BÁU HANG ĐỘNG: Đã mở khóa 500 Tinh Thể Nguyệt Quang Cổ Đại!");
+            }
+            else if (item.type === 'observatory') {
+                sfx.playTone(920, 'sine', 0.4, 0.2);
+                showNotification("🔭 ĐÀI THIÊN VĂN: Đã phát hiện vành đai Sao Thổ và chòm sao Linh Thú Tsukiezz!");
+            }
             else if (item.type === 'shard') {
                 item.collected = true;
                 scene.remove(item.group);
@@ -2047,6 +2733,7 @@
                 }
 
                 checkInteractables();
+                updateMinimap(playerGroup.position.x, playerGroup.position.z, playerGroup.rotation.y);
 
                 // Third-person camera follow
                 const targetCam = new THREE.Vector3(
