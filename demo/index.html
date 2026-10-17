@@ -2381,23 +2381,29 @@
         }
 
         function updateQuestTracker() {
-            if (gameState.hasTalkedToMonolith) {
-                document.getElementById('q-monolith').classList.add('done');
-                document.getElementById('q-monolith').textContent = '✓ Đã trò chuyện với Bia Đá Thì Thầm';
+            const qMonolith = document.getElementById('q-monolith');
+            if (qMonolith && gameState.hasTalkedToMonolith) {
+                qMonolith.classList.add('done');
+                qMonolith.textContent = '✓ Đã trò chuyện với Bia Đá Thì Thầm';
             }
-            if (gameState.shardsCollected >= 3) {
-                document.getElementById('q-shards').classList.add('done');
-                document.getElementById('q-shards').textContent = '✓ Thu thập đủ 3 Mảnh Vỡ Nguyệt Tinh (3/3)';
-            } else {
-                document.getElementById('q-shards').textContent = `⚪ Thu thập 3 Mảnh Vỡ Nguyệt Tinh (${gameState.shardsCollected}/3)`;
+            const qShards = document.getElementById('q-shards');
+            if (qShards) {
+                if (gameState.shardsCollected >= 3) {
+                    qShards.classList.add('done');
+                    qShards.textContent = '✓ Thu thập đủ 3 Mảnh Vỡ Nguyệt Tinh (3/3)';
+                } else {
+                    qShards.textContent = `⚪ Thu thập 3 Mảnh Vỡ Nguyệt Tinh (${gameState.shardsCollected}/3)`;
+                }
             }
-            if (gameState.hasKey) {
-                document.getElementById('q-key').classList.add('done');
-                document.getElementById('q-key').textContent = '✓ Đã thu thập Chìa Khóa Cổ Tsukiezz';
+            const qKey = document.getElementById('q-key');
+            if (qKey && gameState.hasKey) {
+                qKey.classList.add('done');
+                qKey.textContent = '✓ Đã thu thập Chìa Khóa Cổ Tsukiezz';
             }
-            if (gameState.gateUnlocked) {
-                document.getElementById('q-gate').classList.add('done');
-                document.getElementById('q-gate').textContent = '✓ Đã mở Cổng Thần Điện Phong Ấn';
+            const qGate = document.getElementById('q-gate');
+            if (qGate && gameState.gateUnlocked) {
+                qGate.classList.add('done');
+                qGate.textContent = '✓ Đã mở Cổng Thần Điện Phong Ấn';
             }
         }
 
@@ -2620,6 +2626,8 @@
             homeScreen.classList.add('hidden');
             gameHud.classList.add('active');
             gameState.isPlaying = true;
+            camera.position.set(playerGroup.position.x, 4.2, playerGroup.position.z + 7.8);
+            camera.lookAt(playerGroup.position.x, 1.2, playerGroup.position.z);
             showNotification("Chào mừng đến với Tsukiezz! Hãy điều khiển nhân vật khám phá phế tích!");
         }
 
@@ -2675,20 +2683,10 @@
             const delta = clock.getDelta();
             const time = clock.getElapsedTime();
 
-            // Fireflies float
-            const ffPositions = fireflies.geometry.attributes.position.array;
-            for(let i = 0; i < fireflyCount * 3; i += 3) {
-                ffPositions[i+1] += Math.sin(time * 2 + i) * 0.005;
+            // Rotate celestial planetary ring
+            if (typeof ringMesh !== 'undefined' && ringMesh) {
+                ringMesh.rotation.z += 0.04 * delta;
             }
-            fireflies.geometry.attributes.position.needsUpdate = true;
-
-            // Rotate items
-            shardGroups.forEach(sg => {
-                sg.rotation.y += 1.8 * delta;
-                sg.position.y = 1.2 + Math.sin(time * 3) * 0.15;
-            });
-            keyGroup.rotation.y += 1.5 * delta;
-            keyGroup.position.y = 1.2 + Math.sin(time * 2.5) * 0.12;
 
             if (gameState.isPlaying && !gameState.inDialogue) {
                 let moveX = 0;
