@@ -3,26 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tsukiezz: Chiến Binh Chuột Hamster - Bản Chơi Thử 3D</title>
+    <title>Game Tsukiezz: Echoes of the Moonlit Realm - Trang Chủ & Bản Chơi Thử</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Noto+Serif:italic,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
+        :root {
+            --gold-primary: #ffd700;
+            --gold-glow: rgba(255, 215, 0, 0.45);
+            --cyan-neon: #00f5d4;
+            --cyan-glow: rgba(0, 245, 212, 0.4);
+            --purple-mystic: #7928ca;
+            --bg-dark: #050814;
+            --panel-bg: rgba(9, 14, 32, 0.82);
+            --panel-border: rgba(255, 215, 0, 0.25);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             user-select: none;
+            -webkit-user-drag: none;
         }
+
         body, html {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: #050814;
+            background: var(--bg-dark);
             font-family: 'Outfit', sans-serif;
             color: #fff;
         }
+
+        /* 3D WEBGL CANVAS */
         #webgl-canvas {
             position: absolute;
             top: 0;
@@ -32,8 +47,483 @@
             z-index: 1;
         }
 
-        /* HUD OVERLAY */
-        #ui-layer {
+        /* =====================================================================
+           HOME / TITLE SCREEN OVERLAY
+        ===================================================================== */
+        #home-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 60px;
+            background: radial-gradient(circle at 50% 25%, rgba(13, 22, 50, 0.4) 0%, rgba(5, 8, 20, 0.92) 85%);
+            backdrop-filter: blur(4px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            overflow: hidden;
+        }
+
+        #home-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Ambient floating particles for Home */
+        .ambient-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 245, 212, 0.12) 0%, transparent 70%);
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            filter: blur(50px);
+            pointer-events: none;
+            animation: pulseGlow 8s infinite alternate ease-in-out;
+        }
+        @keyframes pulseGlow {
+            0% { transform: translateX(-50%) scale(0.9); opacity: 0.6; }
+            100% { transform: translateX(-50%) scale(1.15); opacity: 1; }
+        }
+
+        /* TOP NAVIGATION */
+        .home-top {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+        .game-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(13, 22, 45, 0.7);
+            border: 1px solid rgba(0, 245, 212, 0.3);
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--cyan-neon);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--cyan-neon);
+            box-shadow: 0 0 10px var(--cyan-neon);
+            animation: blinkDot 2s infinite;
+        }
+        @keyframes blinkDot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .home-actions-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .icon-btn {
+            background: rgba(13, 22, 45, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .icon-btn:hover {
+            border-color: var(--cyan-neon);
+            color: var(--cyan-neon);
+            box-shadow: 0 0 15px var(--cyan-glow);
+            transform: scale(1.08);
+        }
+
+        /* CENTER BRANDING & TITLE */
+        .home-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 2;
+            margin-top: -20px;
+        }
+        .brand-crest {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 14px;
+            filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.6));
+            animation: floatCrest 4s ease-in-out infinite alternate;
+        }
+        @keyframes floatCrest {
+            from { transform: translateY(0); }
+            to { transform: translateY(-8px); }
+        }
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 68px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            background: linear-gradient(180deg, #fff 0%, #ffe699 45%, #ffd700 70%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+            margin-bottom: 6px;
+            position: relative;
+        }
+        .title-sub {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            letter-spacing: 4px;
+            color: var(--cyan-neon);
+            text-shadow: 0 0 20px var(--cyan-glow);
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .title-desc {
+            max-width: 580px;
+            font-size: 15px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 34px;
+        }
+
+        /* MENU BUTTONS */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 340px;
+        }
+        .btn-menu {
+            position: relative;
+            background: linear-gradient(135deg, rgba(16, 26, 56, 0.85) 0%, rgba(8, 14, 32, 0.95) 100%);
+            border: 1px solid var(--panel-border);
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 14px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+        .btn-menu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.6s ease;
+        }
+        .btn-menu:hover::before {
+            left: 100%;
+        }
+        .btn-menu:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.35);
+            transform: translateY(-3px) scale(1.02);
+        }
+        .btn-menu.primary {
+            background: linear-gradient(135deg, #00f5d4 0%, #00bb9f 100%);
+            border: none;
+            color: #050814;
+            font-size: 18px;
+            font-weight: 800;
+            box-shadow: 0 0 35px rgba(0, 245, 212, 0.55);
+        }
+        .btn-menu.primary:hover {
+            color: #050814;
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 0 50px rgba(0, 245, 212, 0.85);
+        }
+
+        /* BOTTOM FOOTER */
+        .home-bottom {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #64748b;
+            z-index: 2;
+        }
+        .active-hero-preview {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(13, 22, 45, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 6px 16px 6px 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .active-hero-preview:hover {
+            border-color: var(--cyan-neon);
+            color: #fff;
+        }
+        .active-hero-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #ffd700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        /* =====================================================================
+           MODAL WINDOWS (HERO SELECT, LORE, SETTINGS)
+        ===================================================================== */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(4, 7, 18, 0.88);
+            backdrop-filter: blur(16px);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-card {
+            background: linear-gradient(135deg, rgba(13, 20, 45, 0.96) 0%, rgba(6, 10, 26, 0.98) 100%);
+            border: 2px solid var(--panel-border);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 215, 0, 0.2);
+            width: 100%;
+            max-width: 860px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 36px 42px;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 28px;
+            font-size: 26px;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .modal-close:hover {
+            color: var(--cyan-neon);
+        }
+        .modal-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .modal-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            color: var(--gold-primary);
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+        .modal-header p {
+            color: #94a3b8;
+            font-size: 15px;
+        }
+
+        /* HERO SELECTION CARDS */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .hero-card {
+            background: rgba(16, 26, 56, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--cyan-neon);
+            box-shadow: 0 10px 30px rgba(0, 245, 212, 0.25);
+        }
+        .hero-card.selected {
+            border-color: var(--gold-primary);
+            background: linear-gradient(180deg, rgba(255, 215, 0, 0.12) 0%, rgba(16, 26, 56, 0.8) 100%);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.35);
+        }
+        .hero-card.selected::after {
+            content: '✓ ĐÃ CHỌN';
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: var(--gold-primary);
+            color: #050814;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .hero-img-wrap {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--panel-border);
+            margin-bottom: 16px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+        .hero-card:hover .hero-img-wrap {
+            transform: scale(1.08);
+            border-color: var(--cyan-neon);
+        }
+        .hero-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .hero-card .hero-class {
+            font-size: 13px;
+            color: var(--cyan-neon);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .hero-stats {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .stat-bar {
+            width: 120px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .stat-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--cyan-neon), var(--gold-primary));
+        }
+
+        /* LORE CODEX */
+        .lore-chapters {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .lore-chapter {
+            background: rgba(16, 26, 56, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px 24px;
+        }
+        .lore-chapter h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            color: var(--gold-primary);
+            margin-bottom: 8px;
+        }
+        .lore-chapter p {
+            font-family: 'Noto Serif', serif;
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        /* SETTINGS OPTIONS */
+        .settings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(16, 26, 56, 0.5);
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .setting-info h4 {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .setting-info p {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+        .setting-slider {
+            width: 180px;
+            accent-color: var(--cyan-neon);
+        }
+
+        /* =====================================================================
+           IN-GAME HUD OVERLAY
+        ===================================================================== */
+        #game-hud {
             position: absolute;
             top: 0;
             left: 0;
@@ -45,118 +535,166 @@
             flex-direction: column;
             justify-content: space-between;
             padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease;
+        }
+        #game-hud.active {
+            opacity: 1;
+            visibility: visible;
         }
 
-        /* TOP BAR */
-        .top-bar {
+        .hud-top-bar {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
         }
-        .player-status {
-            background: rgba(13, 22, 45, 0.75);
+        .player-status-card {
+            background: rgba(13, 22, 45, 0.85);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(0, 245, 212, 0.3);
-            border-radius: 16px;
-            padding: 14px 20px;
+            border-radius: 18px;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             gap: 16px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
-        .avatar-frame {
+        .hud-avatar {
             width: 52px;
             height: 52px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #ffd700, #ff758f);
+            background: linear-gradient(135deg, var(--gold-primary), #ff758f);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 26px;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            border: 2px solid #fff;
         }
-        .player-info h3 {
+        .hud-player-name {
             font-size: 16px;
             font-weight: 700;
-            color: #ffd700;
-            letter-spacing: 0.5px;
+            color: var(--gold-primary);
         }
-        .bars {
+        .hud-bars {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 5px;
             margin-top: 6px;
         }
-        .bar-container {
-            width: 140px;
+        .hud-bar-bg {
+            width: 150px;
             height: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
             border-radius: 4px;
             overflow: hidden;
         }
-        .bar-fill-hp {
+        .hud-bar-hp {
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, #ff4d6d, #ff758f);
             box-shadow: 0 0 8px #ff4d6d;
         }
-        .bar-fill-sp {
-            width: 85%;
+        .hud-bar-sp {
+            width: 90%;
             height: 100%;
             background: linear-gradient(90deg, #00f5d4, #00bb9f);
             box-shadow: 0 0 8px #00f5d4;
         }
 
-        /* QUEST TRACKER */
-        .quest-tracker {
-            background: rgba(13, 22, 45, 0.75);
+        .hud-quest-card {
+            background: rgba(13, 22, 45, 0.85);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 16px;
+            border: 1px solid rgba(255, 215, 0, 0.35);
+            border-radius: 18px;
             padding: 16px 22px;
-            max-width: 320px;
+            max-width: 330px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
-        .quest-tracker .badge {
+        .quest-badge {
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: #00f5d4;
+            color: var(--cyan-neon);
             font-weight: 800;
             margin-bottom: 4px;
         }
-        .quest-tracker h4 {
+        .quest-title {
             font-size: 16px;
             font-weight: 700;
             color: #fff;
             margin-bottom: 8px;
         }
-        .quest-item {
+        .quest-task {
             font-size: 13px;
             color: #cbd5e1;
+            margin-top: 4px;
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-top: 4px;
         }
-        .quest-item.done {
+        .quest-task.done {
             color: #4ade80;
             text-decoration: line-through;
         }
 
-        /* INTERACTION PROMPT */
-        .prompt-toast {
+        .hud-return-btn {
+            background: rgba(13, 22, 45, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: all 0.2s ease;
+        }
+        .hud-return-btn:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+            transform: scale(1.05);
+        }
+
+        .hud-bottom-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .hud-controls-helper {
+            background: rgba(13, 22, 45, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 10px 18px;
+            font-size: 12px;
+            color: #94a3b8;
+            display: flex;
+            gap: 16px;
+        }
+        .hud-key {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        /* PROMPT TOAST */
+        .hud-prompt-toast {
             position: absolute;
-            top: 60%;
+            top: 62%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(8, 14, 30, 0.85);
+            background: rgba(8, 14, 30, 0.9);
             backdrop-filter: blur(12px);
-            border: 2px solid #00f5d4;
-            box-shadow: 0 0 25px rgba(0, 245, 212, 0.5);
+            border: 2px solid var(--cyan-neon);
+            box-shadow: 0 0 25px var(--cyan-glow);
             padding: 12px 28px;
             border-radius: 30px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: #fff;
             display: none;
@@ -164,81 +702,37 @@
             gap: 10px;
             animation: pulsePrompt 1.5s infinite;
         }
-        .prompt-key {
-            background: #00f5d4;
-            color: #050814;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-weight: 800;
-        }
         @keyframes pulsePrompt {
             0%, 100% { transform: translate(-50%, -50%) scale(1); }
             50% { transform: translate(-50%, -50%) scale(1.05); }
         }
 
-        /* NOTIFICATION POPUP */
-        .notification-popup {
+        /* TOAST NOTIFICATION */
+        .hud-notification {
             position: absolute;
             top: 15%;
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, rgba(13, 22, 45, 0.95), rgba(30, 15, 45, 0.95));
-            border: 1px solid #ffd700;
+            border: 1px solid var(--gold-primary);
             border-radius: 12px;
             padding: 12px 24px;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.35);
+            box-shadow: 0 0 30px var(--gold-glow);
             font-size: 15px;
             font-weight: 600;
-            color: #ffd700;
+            color: var(--gold-primary);
             display: none;
-            animation: slideDown 0.4s ease-out;
-        }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translate(-50%, -20px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
-        }
-
-        /* BOTTOM BAR & CONTROLS HELPER */
-        .bottom-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-        .controls-card {
-            background: rgba(13, 22, 45, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 12px 18px;
-            font-size: 13px;
-            color: #94a3b8;
-            display: flex;
-            gap: 16px;
-        }
-        .control-tag {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .control-key {
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 11px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* DIALOGUE PANEL */
-        #dialogue-modal {
+        #hud-dialogue-modal {
             position: absolute;
             bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             width: 80%;
             max-width: 850px;
-            background: rgba(7, 12, 28, 0.92);
+            background: rgba(7, 12, 28, 0.94);
             backdrop-filter: blur(20px);
             border: 2px solid rgba(0, 245, 212, 0.4);
             border-radius: 20px;
@@ -251,67 +745,61 @@
             align-items: center;
             z-index: 50;
         }
-        .dialogue-avatar {
-            width: 88px;
-            height: 88px;
+        .dialogue-avatar-box {
+            width: 80px;
+            height: 80px;
             border-radius: 16px;
-            background: linear-gradient(135deg, #00f5d4, #7928ca);
+            background: linear-gradient(135deg, var(--cyan-neon), var(--purple-mystic));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 42px;
-            box-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
+            font-size: 40px;
             flex-shrink: 0;
+            box-shadow: 0 0 20px var(--cyan-glow);
         }
-        .dialogue-content {
+        .dialogue-body {
             flex: 1;
         }
-        .dialogue-speaker {
+        .dialogue-name {
             font-size: 18px;
             font-weight: 800;
-            color: #00f5d4;
+            color: var(--cyan-neon);
             margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .dialogue-text {
+        .dialogue-text-content {
             font-size: 16px;
             line-height: 1.6;
             color: #e2e8f0;
-            min-height: 52px;
+            min-height: 50px;
         }
-        .dialogue-actions {
-            margin-top: 14px;
-            display: flex;
-            gap: 12px;
-        }
-        .dialogue-btn {
+        .dialogue-next-btn {
             background: linear-gradient(135deg, rgba(0, 245, 212, 0.2), rgba(0, 245, 212, 0.05));
-            border: 1px solid #00f5d4;
-            color: #00f5d4;
+            border: 1px solid var(--cyan-neon);
+            color: var(--cyan-neon);
             padding: 8px 18px;
             border-radius: 8px;
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
+            margin-top: 10px;
         }
-        .dialogue-btn:hover {
-            background: #00f5d4;
+        .dialogue-next-btn:hover {
+            background: var(--cyan-neon);
             color: #050814;
-            box-shadow: 0 0 15px rgba(0, 245, 212, 0.6);
-            transform: translateY(-2px);
         }
 
         /* VICTORY MODAL */
-        #victory-modal {
+        #hud-victory-modal {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(10, 15, 35, 0.95);
+            background: rgba(10, 15, 35, 0.96);
             backdrop-filter: blur(24px);
-            border: 2px solid #ffd700;
+            border: 2px solid var(--gold-primary);
             border-radius: 24px;
             padding: 40px 48px;
             box-shadow: 0 0 60px rgba(255, 215, 0, 0.4);
@@ -319,184 +807,305 @@
             display: none;
             pointer-events: auto;
             z-index: 100;
-            animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        @keyframes zoomIn {
-            from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        }
-        #victory-modal h2 {
+        #hud-victory-modal h2 {
             font-family: 'Cinzel', serif;
             font-size: 32px;
-            color: #ffd700;
+            color: var(--gold-primary);
             margin-bottom: 12px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
         }
-        #victory-modal p {
+        #hud-victory-modal p {
             font-size: 16px;
             color: #cbd5e1;
             margin-bottom: 24px;
-            line-height: 1.6;
             max-width: 480px;
-        }
-
-        /* START SCREEN OVERLAY */
-        #start-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(13, 22, 45, 0.85) 0%, rgba(5, 8, 20, 0.98) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 200;
-            pointer-events: auto;
-            text-align: center;
-            padding: 24px;
-        }
-        #start-overlay h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 46px;
-            color: #ffd700;
-            letter-spacing: 2px;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-            margin-bottom: 8px;
-        }
-        #start-overlay .subtitle {
-            font-size: 18px;
-            color: #00f5d4;
-            font-weight: 600;
-            margin-bottom: 24px;
-            text-shadow: 0 0 15px rgba(0, 245, 212, 0.4);
-        }
-        #start-overlay p {
-            max-width: 540px;
-            font-size: 15px;
-            color: #94a3b8;
             line-height: 1.6;
-            margin-bottom: 32px;
-        }
-        .play-btn {
-            background: linear-gradient(135deg, #00f5d4, #00bb9f);
-            color: #050814;
-            border: none;
-            padding: 16px 48px;
-            border-radius: 40px;
-            font-size: 18px;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 0 30px rgba(0, 245, 212, 0.6);
-            transition: all 0.25s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .play-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 45px rgba(0, 245, 212, 0.9);
         }
     </style>
 </head>
 <body>
     <canvas id="webgl-canvas"></canvas>
 
-    <!-- START SCREEN OVERLAY -->
-    <div id="start-overlay">
-        <div style="font-size: 64px; margin-bottom: 12px; filter: drop-shadow(0 0 20px #ffd700);">🐹⚔️🌙</div>
-        <h1>GAME TSUKIEZZ</h1>
-        <div class="subtitle">Bản Chơi Thử: Thức Tỉnh Tại Rừng Nguyệt Quang</div>
-        <p>Điều khiển <b>Chú Chuột Hamster Hiệp Sĩ</b> dũng cảm, khám phá tàn tích cổ xưa dưới vầng trăng khuyết thần bí, tìm lại các mảnh vỡ Nguyệt Tinh và mở khóa Cổng Phong Ấn!</p>
-        <button class="play-btn" id="start-btn">▶ Bắt Đầu Chơi Thử</button>
+    <!-- =====================================================================
+         1. MAIN TITLE / HOME INTERFACE (TRANG CHỦ TRƯỚC KHI VÀO GAME)
+    ===================================================================== -->
+    <div id="home-screen">
+        <div class="ambient-glow"></div>
+
+        <!-- TOP BAR -->
+        <div class="home-top">
+            <div class="game-badge">
+                <span class="badge-dot"></span>
+                <span>Tsukiezz Engine • Alpha 0.2.0</span>
+            </div>
+            <div class="home-actions-right">
+                <button class="icon-btn" id="btn-audio-toggle" title="Bật/Tắt Âm Thanh">🔊</button>
+                <button class="icon-btn" id="btn-open-settings" title="Cài Đặt">⚙️</button>
+            </div>
+        </div>
+
+        <!-- CENTER LOGO & MAIN MENU -->
+        <div class="home-center">
+            <!-- Brand Crest -->
+            <div class="brand-crest" style="font-size: 64px;">🌙⚔️✨</div>
+            <h1 class="main-title">TSUKIEZZ</h1>
+            <div class="title-sub">Echoes of the Moonlit Realm</div>
+            <p class="title-desc">Thế giới phế tích cổ xưa chìm dưới vầng trăng khuyết huyền bí. Hãy chọn người bảo hộ anh hùng, giải mã những phiến đá thì thầm và thắp lại ngọn lửa linh thiêng!</p>
+
+            <div class="menu-list">
+                <button class="btn-menu primary" id="btn-play-game">
+                    <span>▶ KHÁM PHÁ NGAY</span>
+                </button>
+                <button class="btn-menu" id="btn-open-heroes">
+                    <span>👥 CHỌN ANH HÙNG</span>
+                </button>
+                <button class="btn-menu" id="btn-open-lore">
+                    <span>📜 BIÊN NIÊN SỬ</span>
+                </button>
+                <button class="btn-menu" id="btn-open-github" onclick="window.open('https://github.com/Tsukiezz/GameTsukiezz', '_blank')">
+                    <span>🌐 GITHUB REPOSITORY</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- BOTTOM STATUS -->
+        <div class="home-bottom">
+            <div class="active-hero-preview" id="btn-preview-hero" title="Nhấp để đổi nhân vật">
+                <div class="active-hero-avatar" id="home-hero-avatar">🐹</div>
+                <div>Đang chọn: <b style="color: #fff;" id="home-hero-name">Chiến Binh Hamster</b> (Cận chiến)</div>
+            </div>
+            <div>Nhấn <b>F11</b> để chơi ở chế độ Toàn Màn Hình</div>
+            <div>© 2026 Tsukiezz Studios</div>
+        </div>
     </div>
 
-    <!-- UI LAYER -->
-    <div id="ui-layer">
-        <!-- TOP BAR -->
-        <div class="top-bar">
-            <div class="player-status">
-                <div class="avatar-frame">🐹</div>
-                <div class="player-info">
+    <!-- =====================================================================
+         2. HERO SELECTION MODAL
+    ===================================================================== -->
+    <div class="modal-overlay" id="modal-heroes">
+        <div class="modal-card">
+            <div class="modal-close" onclick="closeModal('modal-heroes')">✕</div>
+            <div class="modal-header">
+                <h2>CHỌN NGƯỜI BẢO HỘ ANH HÙNG</h2>
+                <p>Mỗi nhân vật mang phong cách chiến đấu, vũ khí và phép thuật thần bí riêng biệt</p>
+            </div>
+
+            <div class="hero-grid">
+                <!-- HERO 1: HAMSTER WARRIOR -->
+                <div class="hero-card selected" id="card-hero-hamster" onclick="selectHero('hamster')">
+                    <div class="hero-img-wrap">
+                        <img src="images/hamster_warrior.jpg" alt="Chiến Binh Hamster">
+                    </div>
                     <h3>Chiến Binh Hamster</h3>
-                    <div class="bars">
-                        <div class="bar-container"><div class="bar-fill-hp"></div></div>
-                        <div class="bar-container"><div class="bar-fill-sp"></div></div>
+                    <div class="hero-class">Hiệp Sĩ Hoàng Gia • Kiếm & Khiên</div>
+                    <div class="hero-stats">
+                        <div class="stat-row">
+                            <span>Sức Mạnh</span>
+                            <div class="stat-bar"><div class="stat-fill" style="width: 90%;"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span>Phòng Thủ</span>
+                            <div class="stat-bar"><div class="stat-fill" style="width: 95%;"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span>Ma Thuật</span>
+                            <div class="stat-bar"><div class="stat-fill" style="width: 45%;"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span>Tốc Độ</span>
+                            <div class="stat-bar"><div class="stat-fill" style="width: 75%;"></div></div>
+                        </div>
+                    </div>
+                    <p style="font-size: 13px; color: #94a3b8; line-height: 1.5;">Mang ý chí quả cảm, khoác giáp titan viền vàng và cầm khiên vầng trăng xanh ngọc. Cận chiến dũng mãnh, phòng ngự kiên cố.</p>
+                </div>
+
+                <!-- HERO 2: RABBIT MAGE WARRIOR -->
+                <div class="hero-card" id="card-hero-rabbit" onclick="selectHero('rabbit')">
+                    <div class="hero-img-wrap">
+                        <img src="images/rabbit_mage.jpg" alt="Thỏ Phù Thủy Chiến Binh">
+                    </div>
+                    <h3>Thỏ Phù Thủy Chiến Binh</h3>
+                    <div class="hero-class">Nguyệt Thần Pháp Sư • Quyền Trượng & Sách Phép</div>
+                    <div class="hero-stats">
+                        <div class="stat-row">
+                            <span>Sức Mạnh</span>
+                            <div class="stat-bar"><div class="stat-fill" style="width: 50%;"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span>Phòng Thủ</span>
+                            <div class="stat-bar"><div class="stat-fill" style="width: 60%;"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span>Ma Thuật</span>
+                            <div class="stat-bar"><div class="stat-fill" style="width: 100%;"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span>Tốc Độ</span>
+                            <div class="stat-bar"><div class="stat-fill" style="width: 85%;"></div></div>
+                        </div>
+                    </div>
+                    <p style="font-size: 13px; color: #94a3b8; line-height: 1.5;">Bậc thầy phép thuật Nguyệt Tinh với chiếc mũ chóp nhọn và quyền trượng ma thuật tím neon. Thi triển thần chú giải ấn tầm xa.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         3. LORE CODEX MODAL
+    ===================================================================== -->
+    <div class="modal-overlay" id="modal-lore">
+        <div class="modal-card">
+            <div class="modal-close" onclick="closeModal('modal-lore')">✕</div>
+            <div class="modal-header">
+                <h2>BIÊN NIÊN SỬ TSUKIEZZ</h2>
+                <p>Những ký ức bị lãng quên dưới vầng trăng khuyết ngàn năm</p>
+            </div>
+            <div class="lore-chapters">
+                <div class="lore-chapter">
+                    <h4>Chương I: Đêm Trăng Vỡ (The Shattered Moon)</h4>
+                    <p>Cách đây một ngàn năm, vương quốc Tsukiezz là cái nôi của nền văn minh ánh trăng. Khi viên đá thần Nguyệt Tinh bị vỡ làm ba mảnh, dòng chảy thời gian ngưng đọng, vạn vật hóa thành đá và chìm vào giấc ngủ vĩnh hằng...</p>
+                </div>
+                <div class="lore-chapter">
+                    <h4>Chương II: Những Người Bảo Hộ Nhỏ Bé (The Tiny Guardians)</h4>
+                    <p>Trong phế tích sương mù, những linh hồn cổ xưa nhận ra hình bóng của hai chiến binh quả cảm: Chú Chuột Hamster Hiệp Sĩ với thanh gươm ánh trăng và Chú Thỏ Phù Thủy nắm giữ sách phép cổ Tsukiezz.</p>
+                </div>
+                <div class="lore-chapter">
+                    <h4>Chương III: Cánh Cổng Thần Điện (The Sealed Gate)</h4>
+                    <p>Chỉ khi người bảo hộ tìm đủ ba Mảnh Vỡ Nguyệt Tinh cùng chiếc Chìa Khóa Cổ, kết giới ma thuật nơi Cổng Thần Điện mới được giải phóng, mở ra con đường cứu vãn vận mệnh vùng đất.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         4. SETTINGS MODAL
+    ===================================================================== -->
+    <div class="modal-overlay" id="modal-settings">
+        <div class="modal-card" style="max-width: 600px;">
+            <div class="modal-close" onclick="closeModal('modal-settings')">✕</div>
+            <div class="modal-header">
+                <h2>CÀI ĐẶT TRÒ CHƠI</h2>
+                <p>Tùy chỉnh âm thanh và trải nghiệm chơi</p>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Nhạc Nền (BGM Music)</h4>
+                        <p>Âm hưởng huyền bí đêm trăng Tsukiezz</p>
+                    </div>
+                    <input type="range" class="setting-slider" id="slider-bgm" min="0" max="100" value="80">
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Hiệu Ứng Âm Thanh (SFX)</h4>
+                        <p>Tiếng vung kiếm, nhặt đồ và đối thoại</p>
+                    </div>
+                    <input type="range" class="setting-slider" id="slider-sfx" min="0" max="100" value="90">
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>Chế Độ Toàn Màn Hình</h4>
+                        <p>Mở rộng tầm nhìn trải nghiệm 3D</p>
+                    </div>
+                    <button class="btn-menu" style="padding: 8px 18px; width: auto;" onclick="toggleFullscreen()">Bật / Tắt</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         5. IN-GAME HUD (HIỂN THỊ KHI ĐANG CHƠI)
+    ===================================================================== -->
+    <div id="game-hud">
+        <div class="hud-top-bar">
+            <div class="player-status-card">
+                <div class="hud-avatar" id="hud-avatar-icon">🐹</div>
+                <div>
+                    <div class="hud-player-name" id="hud-name">Chiến Binh Hamster</div>
+                    <div class="hud-bars">
+                        <div class="hud-bar-bg"><div class="hud-bar-hp"></div></div>
+                        <div class="hud-bar-bg"><div class="hud-bar-sp"></div></div>
                     </div>
                 </div>
             </div>
 
             <!-- QUEST TRACKER -->
-            <div class="quest-tracker">
-                <div class="badge">Nhiệm Vụ Cốt Truyện</div>
-                <h4>Ký Ức Vầng Trăng</h4>
-                <div class="quest-item" id="quest-item-dialogue">⚪ Trò chuyện với Bia Đá Thì Thầm</div>
-                <div class="quest-item" id="quest-item-shards">⚪ Tìm 3 Mảnh Vỡ Nguyệt Tinh (0/3)</div>
-                <div class="quest-item" id="quest-item-key">⚪ Thu thập Chìa Khóa Cổ Tsukiezz</div>
-                <div class="quest-item" id="quest-item-gate">⚪ Mở Cổng Thần Điện Phong Ấn</div>
+            <div class="hud-quest-card">
+                <div class="quest-badge">Nhiệm Vụ Cốt Truyện</div>
+                <div class="quest-title">Ký Ức Vầng Trăng</div>
+                <div class="quest-task" id="q-monolith">⚪ Trò chuyện với Bia Đá Thì Thầm</div>
+                <div class="quest-task" id="q-shards">⚪ Thu thập 3 Mảnh Vỡ Nguyệt Tinh (0/3)</div>
+                <div class="quest-task" id="q-key">⚪ Tìm Chìa Khóa Cổ Tsukiezz</div>
+                <div class="quest-task" id="q-gate">⚪ Mở Cổng Thần Điện Phong Ấn</div>
             </div>
+
+            <button class="hud-return-btn" id="btn-return-home">⮌ Về Trang Chủ</button>
         </div>
 
-        <!-- NOTIFICATION TOAST -->
-        <div class="notification-popup" id="notification">
-            ✨ Bạn đã nhặt được Mảnh Vỡ Nguyệt Tinh!
+        <div class="hud-notification" id="hud-toast">
+            ✨ Bạn đã thu thập vật phẩm!
         </div>
 
-        <!-- PROMPT TOAST -->
-        <div class="prompt-toast" id="prompt-toast">
-            <span class="prompt-key">E</span>
-            <span id="prompt-desc">Lắng nghe Bia Đá</span>
+        <div class="hud-prompt-toast" id="hud-prompt">
+            <span style="background: #00f5d4; color: #050814; padding: 3px 8px; border-radius: 4px; font-weight: 800;">E</span>
+            <span id="hud-prompt-text">Tương tác</span>
         </div>
 
-        <!-- BOTTOM BAR -->
-        <div class="bottom-bar">
-            <div class="controls-card">
-                <div class="control-tag"><span class="control-key">W A S D</span> Di chuyển</div>
-                <div class="control-tag"><span class="control-key">Shift</span> Chạy nhanh</div>
-                <div class="control-tag"><span class="control-key">Space</span> Nhảy</div>
-                <div class="control-tag"><span class="control-key">Chuột Trái / J</span> Chém kiếm</div>
-                <div class="control-tag"><span class="control-key">E</span> Tương tác</div>
+        <div class="hud-bottom-bar">
+            <div class="hud-controls-helper">
+                <div><span class="hud-key">W A S D</span> Di chuyển</div>
+                <div><span class="hud-key">Shift</span> Chạy nhanh</div>
+                <div><span class="hud-key">Space</span> Nhảy</div>
+                <div><span class="hud-key">Chuột Trái / J</span> <span id="hud-attack-name">Chém kiếm</span></div>
+                <div><span class="hud-key">E</span> Tương tác</div>
             </div>
-            <div style="font-size: 13px; color: rgba(255,255,255,0.4);">Tsukiezz Engine 3D Demo</div>
+            <div style="font-size: 13px; color: rgba(255,255,255,0.4);">Tsukiezz Engine 3D</div>
         </div>
     </div>
 
     <!-- DIALOGUE MODAL -->
-    <div id="dialogue-modal">
-        <div class="dialogue-avatar" id="dialogue-avatar">🗿</div>
-        <div class="dialogue-content">
-            <div class="dialogue-speaker" id="dialogue-speaker">Bia Đá Thì Thầm</div>
-            <div class="dialogue-text" id="dialogue-text">...</div>
-            <div class="dialogue-actions" id="dialogue-actions">
-                <button class="dialogue-btn" id="dialogue-next-btn">Tiếp tục [Space]</button>
-            </div>
+    <div id="hud-dialogue-modal">
+        <div class="dialogue-avatar-box" id="dialogue-avatar-icon">🗿</div>
+        <div class="dialogue-body">
+            <div class="dialogue-name" id="dialogue-speaker-name">Bia Đá Thì Thầm</div>
+            <div class="dialogue-text-content" id="dialogue-text-body">...</div>
+            <button class="dialogue-next-btn" id="btn-dialogue-advance">Tiếp tục [Space]</button>
         </div>
     </div>
 
     <!-- VICTORY MODAL -->
-    <div id="victory-modal">
+    <div id="hud-victory-modal">
         <div style="font-size: 54px; margin-bottom: 8px;">✨🏛️🌙</div>
         <h2>CỔNG THẦN ĐIỆN ĐÃ MỞ!</h2>
-        <p>Chúc mừng bạn! Chú chuột Chiến Binh Hamster đã hợp nhất các mảnh vỡ Nguyệt Tinh và giải phóng phong ấn cổ xưa của vương quốc Tsukiezz!</p>
-        <button class="play-btn" onclick="location.reload()">Chơi Lại Từ Đầu</button>
+        <p>Chiến Binh Tsukiezz đã hoàn thành xuất sắc thử thách, thu thập đủ Mảnh Vỡ Nguyệt Tinh và giải phóng phong ấn cổ xưa!</p>
+        <button class="btn-menu primary" style="width: auto; margin: 0 auto;" onclick="returnToHome()">Về Trang Chủ</button>
     </div>
 
     <script>
         // =====================================================================
-        // AUDIO SYNTHESIZER (WEB AUDIO API - NO EXTERNAL ASSET DEPENDENCY)
+        // AUDIO SYNTHESIZER (WEB AUDIO API)
         // =====================================================================
         class SoundFX {
             constructor() {
                 this.ctx = null;
+                this.bgmGain = null;
+                this.sfxGain = null;
+                this.muted = false;
             }
             init() {
                 if (!this.ctx) {
                     this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    this.bgmGain = this.ctx.createGain();
+                    this.sfxGain = this.ctx.createGain();
+                    this.bgmGain.gain.value = 0.6;
+                    this.sfxGain.gain.value = 0.8;
+                    this.bgmGain.connect(this.ctx.destination);
+                    this.sfxGain.connect(this.ctx.destination);
                     this.startAmbientMusic();
                 }
             }
             playTone(freq, type = 'sine', duration = 0.2, gainVal = 0.15) {
-                if (!this.ctx) return;
+                if (!this.ctx || this.muted) return;
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
                 osc.type = type;
@@ -504,23 +1113,37 @@
                 gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
                 osc.connect(gain);
-                gain.connect(this.ctx.destination);
+                gain.connect(this.sfxGain);
                 osc.start();
                 osc.stop(this.ctx.currentTime + duration);
             }
-            swingSword() {
-                if (!this.ctx) return;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(450, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.18);
-                gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.18);
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start();
-                osc.stop(this.ctx.currentTime + 0.18);
+            buttonHover() {
+                this.playTone(880, 'sine', 0.08, 0.05);
+            }
+            buttonClick() {
+                this.playTone(440, 'triangle', 0.15, 0.15);
+                setTimeout(() => this.playTone(660, 'sine', 0.2, 0.12), 60);
+            }
+            attackSound(isMagic = false) {
+                if (!this.ctx || this.muted) return;
+                if (!isMagic) {
+                    // Whoosh kiếm
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(420, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.16);
+                    gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.16);
+                    osc.connect(gain);
+                    gain.connect(this.sfxGain);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 0.16);
+                } else {
+                    // Tiếng bắn phép thuật tím
+                    this.playTone(720, 'sine', 0.25, 0.2);
+                    setTimeout(() => this.playTone(960, 'sine', 0.35, 0.22), 80);
+                }
             }
             pickup() {
                 this.playTone(523.25, 'sine', 0.1, 0.18);
@@ -529,55 +1152,61 @@
                 setTimeout(() => this.playTone(1046.50, 'sine', 0.4, 0.22), 240);
             }
             typewriter() {
-                this.playTone(600 + Math.random() * 200, 'square', 0.03, 0.04);
+                this.playTone(650 + Math.random() * 150, 'square', 0.03, 0.03);
             }
             portalOpen() {
-                if (!this.ctx) return;
+                if (!this.ctx || this.muted) return;
                 [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
                     setTimeout(() => this.playTone(f, 'sine', 0.8, 0.15), i * 140);
                 });
             }
             startAmbientMusic() {
-                if (!this.ctx) return;
-                // Ethereal Moonlit Synth Pad Loop
                 const chords = [
                     [220, 261.63, 329.63], // Am
                     [174.61, 220, 261.63], // F
                     [196, 246.94, 293.66], // G
                     [164.81, 196, 246.94]  // Em
                 ];
-                let currentChord = 0;
-                const playChord = () => {
+                let cur = 0;
+                const loop = () => {
                     if (!this.ctx) return;
-                    const chord = chords[currentChord];
-                    chord.forEach(freq => {
-                        const osc = this.ctx.createOscillator();
-                        const gain = this.ctx.createGain();
-                        osc.type = 'sine';
-                        osc.frequency.setValueAtTime(freq * 0.5, this.ctx.currentTime);
-                        gain.gain.setValueAtTime(0.001, this.ctx.currentTime);
-                        gain.gain.linearRampToValueAtTime(0.04, this.ctx.currentTime + 1.5);
-                        gain.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + 4.8);
-                        osc.connect(gain);
-                        gain.connect(this.ctx.destination);
-                        osc.start();
-                        osc.stop(this.ctx.currentTime + 5.0);
-                    });
-                    currentChord = (currentChord + 1) % chords.length;
-                    setTimeout(playChord, 4500);
+                    if (!this.muted) {
+                        const chord = chords[cur];
+                        chord.forEach(freq => {
+                            const osc = this.ctx.createOscillator();
+                            const gain = this.ctx.createGain();
+                            osc.type = 'sine';
+                            osc.frequency.setValueAtTime(freq * 0.5, this.ctx.currentTime);
+                            gain.gain.setValueAtTime(0.001, this.ctx.currentTime);
+                            gain.gain.linearRampToValueAtTime(0.035, this.ctx.currentTime + 1.5);
+                            gain.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + 4.8);
+                            osc.connect(gain);
+                            gain.connect(this.bgmGain);
+                            osc.start();
+                            osc.stop(this.ctx.currentTime + 5.0);
+                        });
+                    }
+                    cur = (cur + 1) % chords.length;
+                    setTimeout(loop, 4600);
                 };
-                playChord();
+                loop();
             }
         }
         const sfx = new SoundFX();
 
+        // Button hover sound binding
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mouseenter', () => sfx.buttonHover());
+            btn.addEventListener('click', () => sfx.buttonClick());
+        });
+
         // =====================================================================
-        // THREE.JS SCENE SETUP
+        // THREE.JS 3D SCENE & ENGINE
         // =====================================================================
         const canvas = document.getElementById('webgl-canvas');
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x060a18);
-        scene.fog = new THREE.FogExp2(0x0a1228, 0.025);
+        scene.fog = new THREE.FogExp2(0x0a1228, 0.022);
 
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
@@ -586,50 +1215,35 @@
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-        // LIGHTING
-        const ambientLight = new THREE.AmbientLight(0x28385e, 1.2);
+        // LIGHTS
+        const ambientLight = new THREE.AmbientLight(0x28385e, 1.3);
         scene.add(ambientLight);
 
-        // Directional Moonlight
         const moonLight = new THREE.DirectionalLight(0x9bd8ff, 1.8);
-        moonLight.position.set(20, 45, -30);
+        moonLight.position.set(20, 50, -30);
         moonLight.castShadow = true;
         moonLight.shadow.mapSize.width = 2048;
         moonLight.shadow.mapSize.height = 2048;
-        moonLight.shadow.camera.near = 0.5;
-        moonLight.shadow.camera.far = 120;
-        moonLight.shadow.camera.left = -30;
-        moonLight.shadow.camera.right = 30;
-        moonLight.shadow.camera.top = 30;
-        moonLight.shadow.camera.bottom = -30;
         scene.add(moonLight);
 
-        // Soft Cyan Rim Light
-        const cyanRimLight = new THREE.DirectionalLight(0x00f5d4, 0.8);
+        const cyanRimLight = new THREE.DirectionalLight(0x00f5d4, 0.85);
         cyanRimLight.position.set(-20, 15, 20);
         scene.add(cyanRimLight);
 
-        // =====================================================================
-        // SKY & GIANT MOON
-        // =====================================================================
-        // Giant Crescent Moon
+        // GIANT CRESCENT MOON
         const moonGroup = new THREE.Group();
         const moonGeo = new THREE.SphereGeometry(14, 32, 32);
-        const moonMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-        const moonMesh = new THREE.Mesh(moonGeo, moonMat);
+        const moonMesh = new THREE.Mesh(moonGeo, new THREE.MeshBasicMaterial({ color: 0xffffff }));
         moonGroup.add(moonMesh);
 
-        // Cutout sphere for crescent shape
-        const cutGeo = new THREE.SphereGeometry(13.8, 32, 32);
-        const cutMat = new THREE.MeshBasicMaterial({ color: 0x060a18 });
-        const cutMesh = new THREE.Mesh(cutGeo, cutMat);
+        const cutMesh = new THREE.Mesh(new THREE.SphereGeometry(13.8, 32, 32), new THREE.MeshBasicMaterial({ color: 0x060a18 }));
         cutMesh.position.set(4.5, 3.0, 3.5);
         moonGroup.add(cutMesh);
 
         moonGroup.position.set(40, 70, -110);
         scene.add(moonGroup);
 
-        // Starfield
+        // STARFIELD
         const starGeo = new THREE.BufferGeometry();
         const starCount = 800;
         const starCoords = new Float32Array(starCount * 3);
@@ -639,30 +1253,23 @@
             starCoords[i+2] = (Math.random() - 0.5) * 350;
         }
         starGeo.setAttribute('position', new THREE.BufferAttribute(starCoords, 3));
-        const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.8, transparent: true, opacity: 0.85 });
-        const stars = new THREE.Points(starGeo, starMat);
+        const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.8, transparent: true, opacity: 0.85 }));
         scene.add(stars);
 
-        // =====================================================================
-        // ENVIRONMENT: GROUND & RUINS
-        // =====================================================================
-        // Terrain / Ground
-        const groundGeo = new THREE.PlaneGeometry(160, 160, 32, 32);
-        const groundMat = new THREE.MeshStandardMaterial({
-            color: 0x182438,
-            roughness: 0.85,
-            metalness: 0.1
-        });
-        const ground = new THREE.Mesh(groundGeo, groundMat);
+        // GROUND TERRAIN
+        const ground = new THREE.Mesh(
+            new THREE.PlaneGeometry(160, 160),
+            new THREE.MeshStandardMaterial({ color: 0x182438, roughness: 0.85, metalness: 0.1 })
+        );
         ground.rotation.x = -Math.PI / 2;
         ground.receiveShadow = true;
         scene.add(ground);
 
-        // Paving Stones
+        // Paving stones
         for(let i = 0; i < 45; i++) {
-            const stoneSize = 1.2 + Math.random() * 1.5;
+            const size = 1.2 + Math.random() * 1.5;
             const pStone = new THREE.Mesh(
-                new THREE.BoxGeometry(stoneSize, 0.15, stoneSize),
+                new THREE.BoxGeometry(size, 0.15, size),
                 new THREE.MeshStandardMaterial({ color: 0x223249, roughness: 0.9 })
             );
             pStone.position.set((Math.random() - 0.5) * 50, 0.08, (Math.random() - 0.5) * 50);
@@ -672,243 +1279,256 @@
         }
 
         // =====================================================================
-        // 3D HAMSTER WARRIOR (PLAYER CHARACTER)
+        // CHARACTER BUILDERS (HAMSTER WARRIOR & RABBIT MAGE)
         // =====================================================================
         const playerGroup = new THREE.Group();
-
-        // Materials matching our Blender Palette
-        const matFur = new THREE.MeshStandardMaterial({ color: 0xf77f00, roughness: 0.85 }); // Golden Amber
-        const matFurDark = new THREE.MeshStandardMaterial({ color: 0x4a2414, roughness: 0.85 }); // Dark Chestnut
-        const matBelly = new THREE.MeshStandardMaterial({ color: 0xfffdf0, roughness: 0.85 }); // Snow Cream
-        const matBlush = new THREE.MeshStandardMaterial({ color: 0xff758f, roughness: 0.7 }); // Rosy Cheeks
-        const matNose = new THREE.MeshStandardMaterial({ color: 0xff8fa3, roughness: 0.5 }); // Soft Pink
-        const matEyes = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.1 }); // Glossy Black
-        const matIris = new THREE.MeshStandardMaterial({ color: 0x1d3557, roughness: 0.2 }); // Sapphire
-        const matSteel = new THREE.MeshStandardMaterial({ color: 0xb0c4de, metalness: 0.9, roughness: 0.25 }); // Steel
-        const matGold = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.95, roughness: 0.2 }); // Gold
-        const matRuby = new THREE.MeshStandardMaterial({ color: 0xe63946, roughness: 0.15, emissive: 0xe63946, emissiveIntensity: 0.4 });
-        const matCape = new THREE.MeshStandardMaterial({ color: 0xc1121f, roughness: 0.65, side: THREE.DoubleSide });
-        const matCyanGlow = new THREE.MeshStandardMaterial({
-            color: 0x00f5d4,
-            emissive: 0x00f5d4,
-            emissiveIntensity: 1.5,
-            roughness: 0.2
-        });
-
-        // 1. Chubby Body
-        const bodyGeo = new THREE.SphereGeometry(0.7, 24, 18);
-        const bodyMesh = new THREE.Mesh(bodyGeo, matFur);
-        bodyMesh.scale.set(1.05, 0.95, 1.15);
-        bodyMesh.position.y = 0.8;
-        bodyMesh.castShadow = true;
-        playerGroup.add(bodyMesh);
-
-        // White Belly
-        const bellyGeo = new THREE.SphereGeometry(0.55, 18, 14);
-        const bellyMesh = new THREE.Mesh(bellyGeo, matBelly);
-        bellyMesh.scale.set(0.85, 0.5, 0.95);
-        bellyMesh.position.set(0, 0.75, 0.35);
-        playerGroup.add(bellyMesh);
-
-        // Dark back stripe
-        const backStripe = new THREE.Mesh(new THREE.SphereGeometry(0.4, 14, 10), matFurDark);
-        backStripe.scale.set(0.35, 0.6, 1.1);
-        backStripe.position.set(0, 0.85, -0.42);
-        playerGroup.add(backStripe);
-
-        // 2. Head
-        const headGeo = new THREE.SphereGeometry(0.62, 24, 18);
-        const headMesh = new THREE.Mesh(headGeo, matFur);
-        headMesh.scale.set(1.1, 1.0, 0.95);
-        headMesh.position.set(0, 1.55, 0.1);
-        headMesh.castShadow = true;
-        playerGroup.add(headMesh);
-
-        // Puffy Cheeks
-        [-0.36, 0.36].forEach(x => {
-            const cheek = new THREE.Mesh(new THREE.SphereGeometry(0.32, 16, 12), matBlush);
-            cheek.scale.set(1.0, 0.85, 0.85);
-            cheek.position.set(x, 1.45, 0.42);
-            playerGroup.add(cheek);
-        });
-
-        // Snout & Nose
-        const snout = new THREE.Mesh(new THREE.SphereGeometry(0.22, 16, 12), matBelly);
-        snout.scale.set(0.85, 0.65, 0.65);
-        snout.position.set(0, 1.52, 0.6);
-        playerGroup.add(snout);
-
-        const nose = new THREE.Mesh(new THREE.SphereGeometry(0.07, 12, 10), matNose);
-        nose.scale.set(1.2, 0.8, 0.8);
-        nose.position.set(0, 1.58, 0.74);
-        playerGroup.add(nose);
-
-        // Eyes
-        [-0.28, 0.28].forEach(x => {
-            const eye = new THREE.Mesh(new THREE.SphereGeometry(0.1, 14, 12), matEyes);
-            eye.position.set(x, 1.68, 0.55);
-            playerGroup.add(eye);
-
-            const iris = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.02, 12), matIris);
-            iris.rotation.x = Math.PI / 2;
-            iris.position.set(x, 1.68, 0.62);
-            playerGroup.add(iris);
-
-            const hl = new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 8), matBelly);
-            hl.position.set(x + (x < 0 ? 0.03 : -0.03), 1.72, 0.64);
-            playerGroup.add(hl);
-        });
-
-        // Ears with dark tips
-        [-0.45, 0.45].forEach(x => {
-            const ear = new THREE.Mesh(new THREE.SphereGeometry(0.24, 16, 12), matFurDark);
-            ear.scale.set(0.8, 0.35, 0.9);
-            ear.position.set(x, 2.15, 0.05);
-            playerGroup.add(ear);
-
-            const inner = new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 10), matBlush);
-            inner.scale.set(0.7, 0.25, 0.8);
-            inner.position.set(x, 2.15, 0.1);
-            playerGroup.add(inner);
-        });
-
-        // 3. Knight Helmet with Gold Rim & Ruby Gem
-        const helmRim = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.58, 0.18, 20), matGold);
-        helmRim.position.set(0, 1.95, 0.1);
-        playerGroup.add(helmRim);
-
-        const helmDome = new THREE.Mesh(new THREE.SphereGeometry(0.56, 20, 14), matSteel);
-        helmDome.scale.set(1.0, 0.95, 0.68);
-        helmDome.position.set(0, 2.02, 0.1);
-        playerGroup.add(helmDome);
-
-        const rubyGem = new THREE.Mesh(new THREE.IcosahedronGeometry(0.08, 1), matRuby);
-        rubyGem.position.set(0, 2.0, 0.68);
-        playerGroup.add(rubyGem);
-
-        const plume = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.45, 0.9), matCape);
-        plume.rotation.x = 0.35;
-        plume.position.set(0, 2.38, -0.05);
-        playerGroup.add(plume);
-
-        // 4. Chestplate Armor & Gold Emblem
-        const chestplate = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 0.72, 0.48, 20), matSteel);
-        chestplate.scale.set(1.03, 0.93, 0.9);
-        chestplate.position.set(0, 0.85, 0.05);
-        chestplate.castShadow = true;
-        playerGroup.add(chestplate);
-
-        const emblem = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.08, 16), matGold);
-        emblem.rotation.x = Math.PI / 2;
-        emblem.position.set(0, 0.9, 0.75);
-        playerGroup.add(emblem);
-
-        // 5. Boots / Feet
-        const leftFoot = new THREE.Mesh(new THREE.SphereGeometry(0.22, 14, 10), matSteel);
-        leftFoot.scale.set(0.85, 1.45, 0.6);
-        leftFoot.position.set(-0.35, 0.15, 0.1);
-        leftFoot.castShadow = true;
-        playerGroup.add(leftFoot);
-
-        const rightFoot = new THREE.Mesh(new THREE.SphereGeometry(0.22, 14, 10), matSteel);
-        rightFoot.scale.set(0.85, 1.45, 0.6);
-        rightFoot.position.set(0.35, 0.15, 0.1);
-        rightFoot.castShadow = true;
-        playerGroup.add(rightFoot);
-
-        // Cute Tail
-        const tail = new THREE.Mesh(new THREE.SphereGeometry(0.14, 10, 8), matBelly);
-        tail.position.set(0, 0.5, -0.7);
-        playerGroup.add(tail);
-
-        // 6. Crimson Velvet Cape
-        const cape = new THREE.Mesh(new THREE.PlaneGeometry(0.75, 1.2), matCape);
-        cape.position.set(0, 1.05, -0.65);
-        cape.rotation.x = 0.3;
-        playerGroup.add(cape);
-
-        // 7. Right Arm & Moonlight Sword
-        const swordArm = new THREE.Group();
-        swordArm.position.set(0.78, 0.9, 0.2);
-
-        const swordArmMesh = new THREE.Mesh(new THREE.SphereGeometry(0.18, 12, 10), matSteel);
-        swordArm.add(swordArmMesh);
-
-        // Sword Hilt & Crossguard
-        const hilt = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.45), matGold);
-        hilt.position.set(0.15, 0, 0.2);
-        hilt.rotation.x = Math.PI / 2;
-        swordArm.add(hilt);
-
-        const guard = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.08, 0.08), matGold);
-        guard.position.set(0.15, 0, 0.4);
-        swordArm.add(guard);
-
-        // Blade with Glowing Cyan Rune
-        const blade = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.13, 0.95), matSteel);
-        blade.position.set(0.15, 0, 0.9);
-        swordArm.add(blade);
-
-        const runeGlow = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.85), matCyanGlow);
-        runeGlow.rotation.x = Math.PI / 2;
-        runeGlow.position.set(0.15, 0, 0.9);
-        swordArm.add(runeGlow);
-
-        playerGroup.add(swordArm);
-
-        // 8. Left Arm & Moon Shield
-        const shieldArm = new THREE.Group();
-        shieldArm.position.set(-0.78, 0.9, 0.2);
-
-        const shieldArmMesh = new THREE.Mesh(new THREE.SphereGeometry(0.18, 12, 10), matSteel);
-        shieldArm.add(shieldArmMesh);
-
-        // Shield Body
-        const shieldMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.48, 0.08, 20), matSteel);
-        shieldMesh.rotation.z = Math.PI / 2;
-        shieldMesh.position.set(-0.15, 0, 0.25);
-        shieldArm.add(shieldMesh);
-
-        const shieldRim = new THREE.Mesh(new THREE.TorusGeometry(0.48, 0.04, 8, 20), matGold);
-        shieldRim.rotation.y = Math.PI / 2;
-        shieldRim.position.set(-0.19, 0, 0.25);
-        shieldArm.add(shieldRim);
-
-        // Crescent Moon Symbol on Shield
-        const moonSymbol = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.06, 16), matCyanGlow);
-        moonSymbol.rotation.z = Math.PI / 2;
-        moonSymbol.position.set(-0.21, 0, 0.25);
-        shieldArm.add(moonSymbol);
-
-        playerGroup.add(shieldArm);
-
-        // Position player in scene
         playerGroup.position.set(0, 0, 10);
         scene.add(playerGroup);
 
+        let activeHeroType = 'hamster'; // 'hamster' | 'rabbit'
+        let hamsterVisualGroup = new THREE.Group();
+        let rabbitVisualGroup = new THREE.Group();
+        let activeWeaponArm = null;
+
+        // Shared Materials
+        const matGold = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.95, roughness: 0.2 });
+        const matSteel = new THREE.MeshStandardMaterial({ color: 0xb0c4de, metalness: 0.9, roughness: 0.25 });
+        const matCapeRed = new THREE.MeshStandardMaterial({ color: 0xc1121f, roughness: 0.65, side: THREE.DoubleSide });
+        const matRobePurple = new THREE.MeshStandardMaterial({ color: 0x2d0b59, roughness: 0.6, side: THREE.DoubleSide });
+        const matCyanGlow = new THREE.MeshStandardMaterial({ color: 0x00f5d4, emissive: 0x00f5d4, emissiveIntensity: 1.5, roughness: 0.2 });
+        const matPurpleGlow = new THREE.MeshStandardMaterial({ color: 0xa855f7, emissive: 0xa855f7, emissiveIntensity: 2.5, roughness: 0.2 });
+
+        // BUILD HAMSTER
+        function buildHamsterModel() {
+            const g = new THREE.Group();
+            const matFur = new THREE.MeshStandardMaterial({ color: 0xf77f00, roughness: 0.85 });
+            const matBelly = new THREE.MeshStandardMaterial({ color: 0xfffdf0, roughness: 0.85 });
+            const matBlush = new THREE.MeshStandardMaterial({ color: 0xff758f, roughness: 0.7 });
+            const matEyes = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.1 });
+
+            // Body
+            const body = new THREE.Mesh(new THREE.SphereGeometry(0.7, 24, 18), matFur);
+            body.scale.set(1.05, 0.95, 1.15);
+            body.position.y = 0.8;
+            body.castShadow = true;
+            g.add(body);
+
+            const belly = new THREE.Mesh(new THREE.SphereGeometry(0.55, 18, 14), matBelly);
+            belly.scale.set(0.85, 0.5, 0.95);
+            belly.position.set(0, 0.75, 0.35);
+            g.add(belly);
+
+            // Head & Cheeks
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.62, 24, 18), matFur);
+            head.position.set(0, 1.55, 0.1);
+            g.add(head);
+
+            [-0.36, 0.36].forEach(x => {
+                const chk = new THREE.Mesh(new THREE.SphereGeometry(0.32, 16, 12), matBlush);
+                chk.position.set(x, 1.45, 0.42);
+                g.add(chk);
+
+                const eye = new THREE.Mesh(new THREE.SphereGeometry(0.1, 14, 12), matEyes);
+                eye.position.set(x * 0.8, 1.68, 0.55);
+                g.add(eye);
+            });
+
+            // Helmet & Ruby
+            const helmRim = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.58, 0.18, 20), matGold);
+            helmRim.position.set(0, 1.95, 0.1);
+            g.add(helmRim);
+
+            const helmDome = new THREE.Mesh(new THREE.SphereGeometry(0.56, 20, 14), matSteel);
+            helmDome.scale.set(1.0, 0.95, 0.68);
+            helmDome.position.set(0, 2.02, 0.1);
+            g.add(helmDome);
+
+            const ruby = new THREE.Mesh(new THREE.IcosahedronGeometry(0.08, 1), new THREE.MeshStandardMaterial({ color: 0xe63946, emissive: 0xe63946, emissiveIntensity: 0.5 }));
+            ruby.position.set(0, 2.0, 0.68);
+            g.add(ruby);
+
+            const plume = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.45, 0.9), matCapeRed);
+            plume.rotation.x = 0.35;
+            plume.position.set(0, 2.38, -0.05);
+            g.add(plume);
+
+            // Chestplate
+            const chest = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 0.72, 0.48, 20), matSteel);
+            chest.position.set(0, 0.85, 0.05);
+            g.add(chest);
+
+            // Cape
+            const cape = new THREE.Mesh(new THREE.PlaneGeometry(0.75, 1.2), matCapeRed);
+            cape.position.set(0, 1.05, -0.65);
+            cape.rotation.x = 0.3;
+            g.add(cape);
+
+            // Sword Arm
+            const sArm = new THREE.Group();
+            sArm.position.set(0.78, 0.9, 0.2);
+            const swordBlade = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.13, 0.95), matSteel);
+            swordBlade.position.set(0.15, 0, 0.9);
+            sArm.add(swordBlade);
+            const swordGlow = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.85), matCyanGlow);
+            swordGlow.rotation.x = Math.PI / 2;
+            swordGlow.position.set(0.15, 0, 0.9);
+            sArm.add(swordGlow);
+            g.add(sArm);
+
+            // Shield Arm
+            const shArm = new THREE.Group();
+            shArm.position.set(-0.78, 0.9, 0.2);
+            const shMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.48, 0.08, 20), matSteel);
+            shMesh.rotation.z = Math.PI / 2;
+            shMesh.position.set(-0.15, 0, 0.25);
+            shArm.add(shMesh);
+            const shMoon = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.06, 16), matCyanGlow);
+            shMoon.rotation.z = Math.PI / 2;
+            shMoon.position.set(-0.21, 0, 0.25);
+            shArm.add(shMoon);
+            g.add(shArm);
+
+            g.swordArm = sArm;
+            return g;
+        }
+
+        // BUILD RABBIT MAGE
+        function buildRabbitModel() {
+            const g = new THREE.Group();
+            const matFur = new THREE.MeshStandardMaterial({ color: 0xf8f9fa, roughness: 0.85 });
+            const matInnerEar = new THREE.MeshStandardMaterial({ color: 0xffb5a7, roughness: 0.6 });
+            const matBlush = new THREE.MeshStandardMaterial({ color: 0xff758f, roughness: 0.7 });
+            const matEyePurple = new THREE.MeshStandardMaterial({ color: 0x9333ea, roughness: 0.2 });
+
+            // Body & Robe
+            const body = new THREE.Mesh(new THREE.SphereGeometry(0.7, 24, 18), matFur);
+            body.scale.set(0.95, 0.9, 1.25);
+            body.position.y = 0.85;
+            g.add(body);
+
+            const robe = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.95, 0.9, 20), matRobePurple);
+            robe.position.set(0, 0.75, 0.02);
+            g.add(robe);
+
+            // Head
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.62, 24, 18), matFur);
+            head.position.set(0, 1.65, 0.05);
+            g.add(head);
+
+            [-0.32, 0.32].forEach(x => {
+                const chk = new THREE.Mesh(new THREE.SphereGeometry(0.28, 16, 12), matBlush);
+                chk.position.set(x, 1.55, 0.35);
+                g.add(chk);
+
+                const eye = new THREE.Mesh(new THREE.SphereGeometry(0.11, 14, 12), matEyePurple);
+                eye.position.set(x * 0.8, 1.75, 0.5);
+                g.add(eye);
+            });
+
+            // Long Bunny Ears
+            [-0.35, 0.35].forEach((x, i) => {
+                const ear = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.16, 1.4, 16), matFur);
+                ear.position.set(x, 2.7, 0.02);
+                ear.rotation.z = (i === 0 ? 0.12 : -0.12);
+                g.add(ear);
+
+                const inner = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.11, 1.2, 14), matInnerEar);
+                inner.position.set(x, 2.7, 0.06);
+                inner.rotation.z = (i === 0 ? 0.12 : -0.12);
+                g.add(inner);
+            });
+
+            // Wizard Hat (Cone with Gold Rim)
+            const hatBrim = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 0.08, 20), matRobePurple);
+            hatBrim.position.set(0, 2.1, 0.05);
+            g.add(hatBrim);
+
+            const hatCone = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.1, 20), matRobePurple);
+            hatCone.position.set(0, 2.65, 0.05);
+            hatCone.rotation.x = 0.15;
+            g.add(hatCone);
+
+            const hatStar = new THREE.Mesh(new THREE.IcosahedronGeometry(0.1, 1), matGold);
+            hatStar.position.set(0, 3.25, -0.05);
+            g.add(hatStar);
+
+            // Magic Staff Arm (Right)
+            const staffArm = new THREE.Group();
+            staffArm.position.set(0.75, 0.95, 0.2);
+
+            const staffWood = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 2.0), new THREE.MeshStandardMaterial({ color: 0x5a3214 }));
+            staffWood.position.set(0.15, 0.4, 0.5);
+            staffWood.rotation.x = 0.2;
+            staffArm.add(staffWood);
+
+            const staffMoon = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.05, 8, 16), matGold);
+            staffMoon.position.set(0.15, 1.4, 0.7);
+            staffMoon.rotation.y = Math.PI / 2;
+            staffArm.add(staffMoon);
+
+            const staffOrb = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 12), matPurpleGlow);
+            staffOrb.position.set(0.15, 1.4, 0.7);
+            staffArm.add(staffOrb);
+
+            g.add(staffArm);
+
+            // Grimoire Arm (Left)
+            const bookArm = new THREE.Group();
+            bookArm.position.set(-0.75, 0.95, 0.2);
+            const book = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.65, 0.5), new THREE.MeshStandardMaterial({ color: 0x3b0764 }));
+            book.position.set(-0.15, 0.2, 0.3);
+            bookArm.add(book);
+            g.add(bookArm);
+
+            g.swordArm = staffArm;
+            return g;
+        }
+
+        hamsterVisualGroup = buildHamsterModel();
+        rabbitVisualGroup = buildRabbitModel();
+
+        playerGroup.add(hamsterVisualGroup);
+        activeWeaponArm = hamsterVisualGroup.swordArm;
+
+        function applyHeroSelection(type) {
+            activeHeroType = type;
+            playerGroup.remove(hamsterVisualGroup);
+            playerGroup.remove(rabbitVisualGroup);
+
+            if (type === 'hamster') {
+                playerGroup.add(hamsterVisualGroup);
+                activeWeaponArm = hamsterVisualGroup.swordArm;
+                document.getElementById('home-hero-avatar').textContent = '🐹';
+                document.getElementById('home-hero-name').textContent = 'Chiến Binh Hamster';
+                document.getElementById('hud-avatar-icon').textContent = '🐹';
+                document.getElementById('hud-name').textContent = 'Chiến Binh Hamster';
+                document.getElementById('hud-attack-name').textContent = 'Chém kiếm';
+            } else {
+                playerGroup.add(rabbitVisualGroup);
+                activeWeaponArm = rabbitVisualGroup.swordArm;
+                document.getElementById('home-hero-avatar').textContent = '🐰';
+                document.getElementById('home-hero-name').textContent = 'Thỏ Phù Thủy';
+                document.getElementById('hud-avatar-icon').textContent = '🐰';
+                document.getElementById('hud-name').textContent = 'Thỏ Phù Thủy';
+                document.getElementById('hud-attack-name').textContent = 'Bắn ma thuật';
+            }
+        }
+
         // =====================================================================
-        // INTERACTIVE RUINS & PROPS
+        // PROPS & INTERACTABLES
         // =====================================================================
         const interactables = [];
 
-        // 1. ANCIENT MONOLITH (WHISPER STONE)
-        const monolithGroup = new THREE.Group();
-        const monoBase = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.4, 2.0), matSteel);
-        monolithGroup.add(monoBase);
-
-        const monoPillar = new THREE.Mesh(new THREE.BoxGeometry(1.2, 4.5, 0.9), new THREE.MeshStandardMaterial({ color: 0x2d3a4f, roughness: 0.9 }));
-        monoPillar.position.y = 2.25;
-        monoPillar.castShadow = true;
-        monolithGroup.add(monoPillar);
-
-        // Glowing runes on Monolith
-        const runeGeo = new THREE.PlaneGeometry(0.6, 2.8);
-        const runeMesh = new THREE.Mesh(runeGeo, matCyanGlow);
-        runeMesh.position.set(0, 2.4, 0.46);
-        monolithGroup.add(runeMesh);
-
-        monolithGroup.position.set(0, 0, 0);
-        scene.add(monolithGroup);
+        // Monolith (Whisper Stone)
+        const monolith = new THREE.Group();
+        monolith.add(new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.4, 2.0), matSteel));
+        const pillar = new THREE.Mesh(new THREE.BoxGeometry(1.2, 4.5, 0.9), new THREE.MeshStandardMaterial({ color: 0x2d3a4f, roughness: 0.9 }));
+        pillar.position.y = 2.25;
+        monolith.add(pillar);
+        const rune = new THREE.Mesh(new THREE.PlaneGeometry(0.6, 2.8), matCyanGlow);
+        rune.position.set(0, 2.4, 0.46);
+        monolith.add(rune);
+        scene.add(monolith);
 
         interactables.push({
             id: 'monolith',
@@ -918,40 +1538,23 @@
             type: 'npc'
         });
 
-        // 2. TEMPLE GATE (PORTAL TO COMPLETE DEMO)
-        const gateGroup = new THREE.Group();
-        const pillarL = new THREE.Mesh(new THREE.BoxGeometry(1.2, 6.0, 1.2), new THREE.MeshStandardMaterial({ color: 0x253043, roughness: 0.85 }));
-        pillarL.position.set(-3.5, 3.0, 0);
-        pillarL.castShadow = true;
-        gateGroup.add(pillarL);
+        // Temple Gate
+        const gate = new THREE.Group();
+        const p1 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 6.0, 1.2), new THREE.MeshStandardMaterial({ color: 0x253043 }));
+        p1.position.set(-3.5, 3.0, 0); gate.add(p1);
+        const p2 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 6.0, 1.2), new THREE.MeshStandardMaterial({ color: 0x253043 }));
+        p2.position.set(3.5, 3.0, 0); gate.add(p2);
+        const lintel = new THREE.Mesh(new THREE.BoxGeometry(8.5, 1.2, 1.5), new THREE.MeshStandardMaterial({ color: 0x253043 }));
+        lintel.position.set(0, 6.4, 0); gate.add(lintel);
 
-        const pillarR = new THREE.Mesh(new THREE.BoxGeometry(1.2, 6.0, 1.2), new THREE.MeshStandardMaterial({ color: 0x253043, roughness: 0.85 }));
-        pillarR.position.set(3.5, 3.0, 0);
-        pillarR.castShadow = true;
-        gateGroup.add(pillarR);
-
-        const lintel = new THREE.Mesh(new THREE.BoxGeometry(8.5, 1.2, 1.5), new THREE.MeshStandardMaterial({ color: 0x253043, roughness: 0.85 }));
-        lintel.position.set(0, 6.4, 0);
-        lintel.castShadow = true;
-        gateGroup.add(lintel);
-
-        // Energy Seal Gate
         const gateSeal = new THREE.Mesh(
             new THREE.PlaneGeometry(5.8, 5.8),
-            new THREE.MeshStandardMaterial({
-                color: 0x7928ca,
-                emissive: 0x7928ca,
-                emissiveIntensity: 0.8,
-                transparent: true,
-                opacity: 0.65,
-                side: THREE.DoubleSide
-            })
+            new THREE.MeshStandardMaterial({ color: 0x7928ca, emissive: 0x7928ca, emissiveIntensity: 0.8, transparent: true, opacity: 0.65, side: THREE.DoubleSide })
         );
         gateSeal.position.set(0, 3.0, 0);
-        gateGroup.add(gateSeal);
-
-        gateGroup.position.set(0, 0, -25);
-        scene.add(gateGroup);
+        gate.add(gateSeal);
+        gate.position.set(0, 0, -25);
+        scene.add(gate);
 
         interactables.push({
             id: 'gate',
@@ -962,19 +1565,17 @@
             mesh: gateSeal
         });
 
-        // 3. ANCIENT KEY (Chìa khóa cổ)
+        // Key & Shards
         const keyGroup = new THREE.Group();
         const keyRing = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.08, 12, 16), matGold);
-        keyRing.rotation.y = Math.PI / 2;
-        keyGroup.add(keyRing);
+        keyRing.rotation.y = Math.PI / 2; keyGroup.add(keyRing);
         const keyShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.8), matGold);
-        keyShaft.position.y = -0.5;
-        keyGroup.add(keyShaft);
+        keyShaft.position.y = -0.5; keyGroup.add(keyShaft);
         keyGroup.position.set(-16, 1.2, -6);
         scene.add(keyGroup);
 
         interactables.push({
-            id: 'ancient_key',
+            id: 'key',
             pos: new THREE.Vector3(-16, 0, -6),
             radius: 2.5,
             prompt: 'Nhặt Chìa Khóa Cổ Tsukiezz',
@@ -983,22 +1584,15 @@
             group: keyGroup
         });
 
-        // 4. THREE MOONSTONE SHARDS (3 Mảnh vỡ Nguyệt Tinh)
-        const shardPositions = [
+        const shardGroups = [];
+        [
             new THREE.Vector3(14, 1.2, 5),
             new THREE.Vector3(-12, 1.2, 14),
             new THREE.Vector3(16, 1.2, -15)
-        ];
-        const shardGroups = [];
-
-        shardPositions.forEach((pos, idx) => {
+        ].forEach((pos, idx) => {
             const sg = new THREE.Group();
-            const shardMesh = new THREE.Mesh(new THREE.OctahedronGeometry(0.45, 0), matCyanGlow);
-            sg.add(shardMesh);
-
-            const shardLight = new THREE.PointLight(0x00f5d4, 1.8, 8);
-            sg.add(shardLight);
-
+            sg.add(new THREE.Mesh(new THREE.OctahedronGeometry(0.45, 0), matCyanGlow));
+            sg.add(new THREE.PointLight(0x00f5d4, 1.8, 8));
             sg.position.copy(pos);
             scene.add(sg);
             shardGroups.push(sg);
@@ -1024,157 +1618,108 @@
             fireflyPos[i+2] = (Math.random() - 0.5) * 50;
         }
         fireflyGeo.setAttribute('position', new THREE.BufferAttribute(fireflyPos, 3));
-        const fireflyMat = new THREE.PointsMaterial({
-            color: 0x00f5d4,
-            size: 0.45,
-            transparent: true,
-            opacity: 0.8
-        });
-        const fireflies = new THREE.Points(fireflyGeo, fireflyMat);
+        const fireflies = new THREE.Points(fireflyGeo, new THREE.PointsMaterial({ color: 0x00f5d4, size: 0.45, transparent: true, opacity: 0.8 }));
         scene.add(fireflies);
 
         // =====================================================================
-        // GAME STATE & STORY QUESTS
+        // GAME STATE & HUD LOGIC
         // =====================================================================
         const gameState = {
+            isPlaying: false,
             hasTalkedToMonolith: false,
             shardsCollected: 0,
-            hasAncientKey: false,
+            hasKey: false,
             gateUnlocked: false,
             inDialogue: false
         };
 
-        // UI ELEMENTS
-        const promptToast = document.getElementById('prompt-toast');
-        const promptDesc = document.getElementById('prompt-desc');
-        const notification = document.getElementById('notification');
-        const dialogueModal = document.getElementById('dialogue-modal');
-        const dialogueText = document.getElementById('dialogue-text');
-        const dialogueSpeaker = document.getElementById('dialogue-speaker');
-        const victoryModal = document.getElementById('victory-modal');
+        const homeScreen = document.getElementById('home-screen');
+        const gameHud = document.getElementById('game-hud');
+        const hudPrompt = document.getElementById('hud-prompt');
+        const hudPromptText = document.getElementById('hud-prompt-text');
+        const hudToast = document.getElementById('hud-toast');
+        const hudDialogue = document.getElementById('hud-dialogue-modal');
+        const hudVictory = document.getElementById('hud-victory-modal');
 
         function showNotification(msg) {
-            notification.textContent = msg;
-            notification.style.display = 'block';
+            hudToast.textContent = msg;
+            hudToast.style.display = 'block';
             sfx.pickup();
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
+            setTimeout(() => { hudToast.style.display = 'none'; }, 3000);
         }
 
         function updateQuestTracker() {
-            const qDialogue = document.getElementById('quest-item-dialogue');
-            const qShards = document.getElementById('quest-item-shards');
-            const qKey = document.getElementById('quest-item-key');
-            const qGate = document.getElementById('quest-item-gate');
-
             if (gameState.hasTalkedToMonolith) {
-                qDialogue.classList.add('done');
-                qDialogue.textContent = '✓ Đã trò chuyện với Bia Đá Thì Thầm';
+                document.getElementById('q-monolith').classList.add('done');
+                document.getElementById('q-monolith').textContent = '✓ Đã trò chuyện với Bia Đá Thì Thầm';
             }
             if (gameState.shardsCollected >= 3) {
-                qShards.classList.add('done');
-                qShards.textContent = '✓ Thu thập đủ 3 Mảnh Vỡ Nguyệt Tinh (3/3)';
+                document.getElementById('q-shards').classList.add('done');
+                document.getElementById('q-shards').textContent = '✓ Thu thập đủ 3 Mảnh Vỡ Nguyệt Tinh (3/3)';
             } else {
-                qShards.textContent = `⚪ Tìm 3 Mảnh Vỡ Nguyệt Tinh (${gameState.shardsCollected}/3)`;
+                document.getElementById('q-shards').textContent = `⚪ Thu thập 3 Mảnh Vỡ Nguyệt Tinh (${gameState.shardsCollected}/3)`;
             }
-            if (gameState.hasAncientKey) {
-                qKey.classList.add('done');
-                qKey.textContent = '✓ Đã thu thập Chìa Khóa Cổ Tsukiezz';
+            if (gameState.hasKey) {
+                document.getElementById('q-key').classList.add('done');
+                document.getElementById('q-key').textContent = '✓ Đã thu thập Chìa Khóa Cổ Tsukiezz';
             }
             if (gameState.gateUnlocked) {
-                qGate.classList.add('done');
-                qGate.textContent = '✓ Đã mở Cổng Thần Điện Phong Ấn';
+                document.getElementById('q-gate').classList.add('done');
+                document.getElementById('q-gate').textContent = '✓ Đã mở Cổng Thần Điện Phong Ấn';
             }
         }
 
-        // =====================================================================
-        // DIALOGUE SYSTEM
-        // =====================================================================
-        const dialogues = {
-            monolith_intro: [
-                "Hỡi Chiến Binh Chuột Hamster dũng cảm! Ngươi cuối cùng đã thức tỉnh dưới ánh trăng bạc...",
-                "Vương quốc Tsukiezz đã chìm trong giấc ngủ ngàn năm bởi phong ấn bóng tối.",
-                "Hãy tìm lại 3 Mảnh Vỡ Nguyệt Tinh và Chiếc Chìa Khóa Cổ bị phân tán trong khu rừng phế tích này.",
-                "Khi đã thu thập đủ, hãy tiến về phía Cổng Thần Điện ở phía Bắc để mở ra chương mới của vùng đất!"
-            ],
-            monolith_reminder: [
-                "Hãy cẩn trọng, hỡi chiến binh nhỏ bé mang ý chí vĩ đại!",
-                "Ngươi cần: 3 Mảnh Vỡ Nguyệt Tinh và Chiếc Chìa Khóa Cổ để giải phóng Cổng Phong Ấn."
-            ]
-        };
+        // DIALOGUE
+        const dialogueLines = [
+            "Hỡi Người Bảo Hộ Anh Hùng! Ngươi cuối cùng đã thức tỉnh dưới ánh trăng bạc...",
+            "Vương quốc Tsukiezz đã chìm trong giấc ngủ ngàn năm bởi kết giới bóng tối.",
+            "Hãy tìm lại 3 Mảnh Vỡ Nguyệt Tinh và Chiếc Chìa Khóa Cổ bị phân tán trong khu rừng phế tích này.",
+            "Khi đã thu thập đủ, hãy tiến về Cổng Thần Điện ở phía Bắc để mở ra chương mới của vùng đất!"
+        ];
+        let dIdx = 0;
+        let dInterval = null;
 
-        let currentDialogueQueue = [];
-        let dialogueIndex = 0;
-        let isTyping = false;
-        let typeInterval = null;
-
-        function startDialogue(lines, speaker = "Bia Đá Thì Thầm") {
+        function startDialogue() {
             gameState.inDialogue = true;
-            currentDialogueQueue = lines;
-            dialogueIndex = 0;
-            dialogueSpeaker.textContent = speaker;
-            dialogueModal.style.display = 'flex';
-            showNextDialogueLine();
+            dIdx = 0;
+            hudDialogue.style.display = 'flex';
+            advanceDialogue();
         }
 
-        function showNextDialogueLine() {
-            if (dialogueIndex >= currentDialogueQueue.length) {
-                closeDialogue();
+        function advanceDialogue() {
+            if (dIdx >= dialogueLines.length) {
+                if (dInterval) clearInterval(dInterval);
+                hudDialogue.style.display = 'none';
+                gameState.inDialogue = false;
+                gameState.hasTalkedToMonolith = true;
+                updateQuestTracker();
                 return;
             }
 
-            const sentence = currentDialogueQueue[dialogueIndex];
-            dialogueIndex++;
+            const sentence = dialogueLines[dIdx];
+            dIdx++;
+            if (dInterval) clearInterval(dInterval);
 
-            if (typeInterval) clearInterval(typeInterval);
-            dialogueText.textContent = "";
-            let charIdx = 0;
-            isTyping = true;
-
-            typeInterval = setInterval(() => {
-                if (charIdx < sentence.length) {
-                    dialogueText.textContent += sentence[charIdx];
-                    if (charIdx % 3 === 0) sfx.typewriter();
-                    charIdx++;
+            const textEl = document.getElementById('dialogue-text-body');
+            textEl.textContent = "";
+            let cIdx = 0;
+            dInterval = setInterval(() => {
+                if (cIdx < sentence.length) {
+                    textEl.textContent += sentence[cIdx];
+                    if (cIdx % 3 === 0) sfx.typewriter();
+                    cIdx++;
                 } else {
-                    clearInterval(typeInterval);
-                    isTyping = false;
+                    clearInterval(dInterval);
                 }
             }, 25);
         }
 
-        function closeDialogue() {
-            if (typeInterval) clearInterval(typeInterval);
-            dialogueModal.style.display = 'none';
-            gameState.inDialogue = false;
-            gameState.hasTalkedToMonolith = true;
-            updateQuestTracker();
-        }
-
-        document.getElementById('dialogue-next-btn').addEventListener('click', () => {
-            if (isTyping) {
-                clearInterval(typeInterval);
-                dialogueText.textContent = currentDialogueQueue[dialogueIndex - 1];
-                isTyping = false;
-            } else {
-                showNextDialogueLine();
-            }
-        });
+        document.getElementById('btn-dialogue-advance').addEventListener('click', advanceDialogue);
 
         // =====================================================================
-        // CONTROLS & PLAYER MOVEMENT
+        // CONTROLS & INTERACTIONS
         // =====================================================================
-        const keys = {
-            forward: false,
-            backward: false,
-            left: false,
-            right: false,
-            shift: false,
-            jump: false,
-            interact: false,
-            attack: false
-        };
+        const keys = { forward: false, backward: false, left: false, right: false, shift: false, jump: false };
 
         window.addEventListener('keydown', (e) => {
             const k = e.key.toLowerCase();
@@ -1184,14 +1729,11 @@
             if (k === 'd' || e.key === 'ArrowRight') keys.right = true;
             if (e.key === 'Shift') keys.shift = true;
             if (e.key === ' ' || k === 'space') {
-                if (gameState.inDialogue) {
-                    document.getElementById('dialogue-next-btn').click();
-                } else {
-                    keys.jump = true;
-                }
+                if (gameState.inDialogue) advanceDialogue();
+                else if (gameState.isPlaying) keys.jump = true;
             }
-            if (k === 'e') handleInteraction();
-            if (k === 'j') triggerAttack();
+            if (k === 'e' && gameState.isPlaying) handleInteraction();
+            if (k === 'j' && gameState.isPlaying) triggerAttack();
         });
 
         window.addEventListener('keyup', (e) => {
@@ -1204,74 +1746,63 @@
         });
 
         window.addEventListener('mousedown', (e) => {
-            if (e.button === 0 && !gameState.inDialogue) {
+            if (e.button === 0 && gameState.isPlaying && !gameState.inDialogue) {
                 triggerAttack();
             }
         });
 
         let isAttacking = false;
         function triggerAttack() {
-            if (isAttacking || gameState.inDialogue) return;
+            if (isAttacking || !activeWeaponArm || gameState.inDialogue) return;
             isAttacking = true;
-            sfx.swingSword();
+            sfx.attackSound(activeHeroType === 'rabbit');
 
-            let attackProgress = 0;
-            const origRotX = swordArm.rotation.x;
-            const origRotY = swordArm.rotation.y;
+            let progress = 0;
+            const origX = activeWeaponArm.rotation.x;
+            const origY = activeWeaponArm.rotation.y;
 
-            const attackInterval = setInterval(() => {
-                attackProgress += 0.2;
-                if (attackProgress <= 1.0) {
-                    swordArm.rotation.x = Math.sin(attackProgress * Math.PI) * 1.5;
-                    swordArm.rotation.y = -Math.sin(attackProgress * Math.PI) * 1.2;
+            const interval = setInterval(() => {
+                progress += 0.22;
+                if (progress <= 1.0) {
+                    activeWeaponArm.rotation.x = Math.sin(progress * Math.PI) * 1.5;
+                    activeWeaponArm.rotation.y = -Math.sin(progress * Math.PI) * 1.2;
                 } else {
-                    swordArm.rotation.x = 0;
-                    swordArm.rotation.y = 0;
+                    activeWeaponArm.rotation.x = 0;
+                    activeWeaponArm.rotation.y = 0;
                     isAttacking = false;
-                    clearInterval(attackInterval);
+                    clearInterval(interval);
                 }
             }, 20);
         }
 
-        // =====================================================================
-        // INTERACTION LOGIC
-        // =====================================================================
-        let currentNearbyInteractable = null;
-
-        function checkNearbyInteractables() {
+        let nearbyItem = null;
+        function checkInteractables() {
             let found = null;
-            const pPos = playerGroup.position;
-
+            const p = playerGroup.position;
             for (const item of interactables) {
                 if (item.collected) continue;
-                const dist = pPos.distanceTo(item.pos);
-                if (dist <= item.radius) {
+                if (p.distanceTo(item.pos) <= item.radius) {
                     found = item;
                     break;
                 }
             }
-
-            if (found !== currentNearbyInteractable) {
-                currentNearbyInteractable = found;
+            if (found !== nearbyItem) {
+                nearbyItem = found;
                 if (found) {
-                    promptDesc.textContent = found.prompt;
-                    promptToast.style.display = 'flex';
+                    hudPromptText.textContent = found.prompt;
+                    hudPrompt.style.display = 'flex';
                 } else {
-                    promptToast.style.display = 'none';
+                    hudPrompt.style.display = 'none';
                 }
             }
         }
 
         function handleInteraction() {
-            if (!currentNearbyInteractable || gameState.inDialogue) return;
-            const item = currentNearbyInteractable;
+            if (!nearbyItem || gameState.inDialogue) return;
+            const item = nearbyItem;
 
-            if (item.type === 'npc' && item.id === 'monolith') {
-                if (!gameState.hasTalkedToMonolith) {
-                    startDialogue(dialogues.monolith_intro);
-                } else {
-                    startDialogue(dialogues.monolith_reminder);
-                }
+            if (item.type === 'npc') {
+                startDialogue();
             }
             else if (item.type === 'shard') {
                 item.collected = true;
@@ -1279,29 +1810,26 @@
                 gameState.shardsCollected++;
                 showNotification(`✨ Đã thu thập ${item.name}!`);
                 updateQuestTracker();
-                promptToast.style.display = 'none';
+                hudPrompt.style.display = 'none';
             }
-            else if (item.type === 'item' && item.id === 'ancient_key') {
+            else if (item.type === 'item') {
                 item.collected = true;
                 scene.remove(item.group);
-                gameState.hasAncientKey = true;
+                gameState.hasKey = true;
                 showNotification(`🗝️ Đã nhận ${item.name}!`);
                 updateQuestTracker();
-                promptToast.style.display = 'none';
+                hudPrompt.style.display = 'none';
             }
             else if (item.type === 'gate') {
-                if (gameState.shardsCollected >= 3 && gameState.hasAncientKey) {
+                if (gameState.shardsCollected >= 3 && gameState.hasKey) {
                     gameState.gateUnlocked = true;
                     item.mesh.material.color.setHex(0x00f5d4);
                     item.mesh.material.emissive.setHex(0x00f5d4);
                     item.mesh.material.emissiveIntensity = 2.5;
                     sfx.portalOpen();
                     updateQuestTracker();
-                    promptToast.style.display = 'none';
-
-                    setTimeout(() => {
-                        victoryModal.style.display = 'block';
-                    }, 1200);
+                    hudPrompt.style.display = 'none';
+                    setTimeout(() => { hudVictory.style.display = 'block'; }, 1200);
                 } else {
                     showNotification("🔒 Cổng chưa thể mở! Cần đủ 3 Mảnh Vỡ Nguyệt Tinh và Chìa Khóa Cổ!");
                 }
@@ -1309,13 +1837,77 @@
         }
 
         // =====================================================================
-        // ANIMATION LOOP & PHYSICS
+        // UI MODAL & TRANSITION HANDLERS
+        // =====================================================================
+        function openModal(id) {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function selectHero(type) {
+            document.getElementById('card-hero-hamster').classList.toggle('selected', type === 'hamster');
+            document.getElementById('card-hero-rabbit').classList.toggle('selected', type === 'rabbit');
+            applyHeroSelection(type);
+            closeModal('modal-heroes');
+            showNotification(`Đã chọn: ${type === 'hamster' ? 'Chiến Binh Hamster' : 'Thỏ Phù Thủy Chiến Binh'}!`);
+        }
+
+        function enterGame() {
+            sfx.init();
+            homeScreen.classList.add('hidden');
+            gameHud.classList.add('active');
+            gameState.isPlaying = true;
+            showNotification("Chào mừng đến với Tsukiezz! Hãy điều khiển nhân vật khám phá phế tích!");
+        }
+
+        function returnToHome() {
+            hudVictory.style.display = 'none';
+            gameHud.classList.remove('active');
+            homeScreen.classList.remove('hidden');
+            gameState.isPlaying = false;
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        // Hook up menu buttons
+        document.getElementById('btn-play-game').addEventListener('click', enterGame);
+        document.getElementById('btn-open-heroes').addEventListener('click', () => openModal('modal-heroes'));
+        document.getElementById('btn-preview-hero').addEventListener('click', () => openModal('modal-heroes'));
+        document.getElementById('btn-open-lore').addEventListener('click', () => openModal('modal-lore'));
+        document.getElementById('btn-open-settings').addEventListener('click', () => openModal('modal-settings'));
+        document.getElementById('btn-return-home').addEventListener('click', returnToHome);
+
+        // Sound volume control
+        document.getElementById('slider-bgm').addEventListener('input', (e) => {
+            if (sfx.bgmGain) sfx.bgmGain.gain.value = e.target.value / 100 * 0.1;
+        });
+        document.getElementById('slider-sfx').addEventListener('input', (e) => {
+            if (sfx.sfxGain) sfx.sfxGain.gain.value = e.target.value / 100;
+        });
+
+        // Audio toggle
+        document.getElementById('btn-audio-toggle').addEventListener('click', (e) => {
+            sfx.init();
+            sfx.muted = !sfx.muted;
+            e.target.textContent = sfx.muted ? '🔇' : '🔊';
+        });
+
+        // =====================================================================
+        // ANIMATION LOOP
         // =====================================================================
         let velocityY = 0;
         const gravity = -22.0;
         let isGrounded = true;
         let walkCycle = 0;
-
         const clock = new THREE.Clock();
 
         function animate() {
@@ -1323,14 +1915,14 @@
             const delta = clock.getDelta();
             const time = clock.getElapsedTime();
 
-            // Firefly floating animation
+            // Fireflies float
             const ffPositions = fireflies.geometry.attributes.position.array;
             for(let i = 0; i < fireflyCount * 3; i += 3) {
                 ffPositions[i+1] += Math.sin(time * 2 + i) * 0.005;
             }
             fireflies.geometry.attributes.position.needsUpdate = true;
 
-            // Rotate Moonstone Shards & Key
+            // Rotate items
             shardGroups.forEach(sg => {
                 sg.rotation.y += 1.8 * delta;
                 sg.position.y = 1.2 + Math.sin(time * 3) * 0.15;
@@ -1338,8 +1930,7 @@
             keyGroup.rotation.y += 1.5 * delta;
             keyGroup.position.y = 1.2 + Math.sin(time * 2.5) * 0.12;
 
-            // Player Movement
-            if (!gameState.inDialogue) {
+            if (gameState.isPlaying && !gameState.inDialogue) {
                 let moveX = 0;
                 let moveZ = 0;
 
@@ -1355,29 +1946,16 @@
                     const moveDir = new THREE.Vector3(moveX, 0, moveZ).normalize();
                     const targetAngle = Math.atan2(moveDir.x, moveDir.z);
 
-                    // Smooth character rotation
                     playerGroup.rotation.y = THREE.MathUtils.lerp(playerGroup.rotation.y, targetAngle, 12 * delta);
-
-                    // Move character
                     playerGroup.position.x += moveDir.x * currentSpeed * delta;
                     playerGroup.position.z += moveDir.z * currentSpeed * delta;
 
-                    // Waddle animation (Hamster walking animation)
                     walkCycle += delta * (keys.shift ? 16 : 10);
-                    bodyMesh.rotation.z = Math.sin(walkCycle) * 0.08;
-                    bodyMesh.position.y = 0.8 + Math.abs(Math.sin(walkCycle)) * 0.06;
-                    leftFoot.position.z = Math.sin(walkCycle) * 0.15;
-                    rightFoot.position.z = -Math.sin(walkCycle) * 0.15;
-                    cape.rotation.x = 0.35 + (keys.shift ? 0.35 : 0.15) + Math.sin(walkCycle * 2) * 0.08;
+                    playerGroup.position.y = Math.abs(Math.sin(walkCycle)) * 0.08;
                 } else {
-                    bodyMesh.rotation.z = 0;
-                    bodyMesh.position.y = 0.8;
-                    leftFoot.position.z = 0.1;
-                    rightFoot.position.z = 0.1;
-                    cape.rotation.x = 0.3 + Math.sin(time * 2) * 0.04;
+                    playerGroup.position.y = 0;
                 }
 
-                // Jump & Gravity
                 if (keys.jump && isGrounded) {
                     velocityY = 8.5;
                     isGrounded = false;
@@ -1387,43 +1965,37 @@
                 if (!isGrounded) {
                     velocityY += gravity * delta;
                     playerGroup.position.y += velocityY * delta;
-
                     if (playerGroup.position.y <= 0) {
                         playerGroup.position.y = 0;
                         velocityY = 0;
                         isGrounded = true;
                     }
                 }
+
+                checkInteractables();
+
+                // Third-person camera follow
+                const targetCam = new THREE.Vector3(
+                    playerGroup.position.x,
+                    playerGroup.position.y + 4.2,
+                    playerGroup.position.z + 7.8
+                );
+                camera.position.lerp(targetCam, 0.08);
+                camera.lookAt(playerGroup.position.x, playerGroup.position.y + 1.2, playerGroup.position.z);
+            } else if (!gameState.isPlaying) {
+                // Atmospheric cinematic camera slow orbit around the moonlit ruins for Home Screen
+                const orbitAngle = time * 0.08;
+                camera.position.set(Math.sin(orbitAngle) * 22, 11 + Math.sin(time * 0.15) * 2, Math.cos(orbitAngle) * 22);
+                camera.lookAt(0, 2.5, 0);
             }
-
-            // Check nearby interactables
-            checkNearbyInteractables();
-
-            // Smooth Third-Person Camera Follow
-            const targetCamPos = new THREE.Vector3(
-                playerGroup.position.x,
-                playerGroup.position.y + 4.2,
-                playerGroup.position.z + 7.8
-            );
-            camera.position.lerp(targetCamPos, 0.08);
-            camera.lookAt(playerGroup.position.x, playerGroup.position.y + 1.2, playerGroup.position.z);
 
             renderer.render(scene, camera);
         }
 
-        // =====================================================================
-        // WINDOW RESIZE & START
-        // =====================================================================
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        document.getElementById('start-btn').addEventListener('click', () => {
-            sfx.init();
-            document.getElementById('start-overlay').style.display = 'none';
-            showNotification("Chào mừng đến với Tsukiezz! Hãy điều khiển chú chuột khám phá phế tích!");
         });
 
         animate();
