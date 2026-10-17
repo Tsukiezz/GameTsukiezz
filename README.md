@@ -37,30 +37,26 @@ Bạn thức tỉnh trong một khu rừng phế tích với một mảnh vỡ c
 
 Dự án đã được tích hợp chặt chẽ với **Blender 5.2 LTS** (được cài đặt sẵn tại `E:\blender.exe`).
 
-### 📦 Các Mô Hình 3D Đã Tạo Sẵn Trong `Assets/Art/Models/`:
-| Tên Asset | Định Dạng | Vai Trò Trong Game |
-| :--- | :--- | :--- |
-| **MoonstoneArtifact** | `.blend` / `.fbx` | Mảnh vỡ Nguyệt Tinh phát sáng xanh ngọc neon (Vật phẩm cốt truyện chính) |
-| **AncientMonolith** | `.blend` / `.fbx` | Bia đá cổ thì thầm (Whisper Stone) lưu giữ ký ức và manh mối giải đố |
-| **TempleGate** | `.blend` / `.fbx` | Cổng đền thờ phong ấn cổ đại với các trụ đá và xà vòm |
-| **AncientKey** | `.blend` / `.fbx` | Chiếc chìa khóa cổ bằng đá dùng mở cổng thần điện |
+### 📁 Thư Mục Đồ Họa 3D Chuẩn Hóa (`Assets/Art/Blender/`)
+Toàn bộ mô hình 3D được phân loại khoa học vào thư mục đồ họa riêng:
 
-### 🔄 Cách 1: Lưu Trực Tiếp File `.blend` Vào Unity
-Khi bạn tạo hoặc chỉnh sửa một model trong Blender, bạn chỉ cần chọn **File -> Save As...** và lưu thẳng file `.blend` vào thư mục:
 ```
-Assets/Art/Models/
+Assets/Art/Blender/
+├── Characters/                      # Nhân vật trò chơi
+│   ├── HamsterWarrior.blend / .fbx  # Chú Chuột Hamster Chiến Binh (Hiệp Sĩ Kiếm & Khiên)
+│   └── RabbitMageWarrior.blend / .fbx # Chú Thỏ Phù Thủy Chiến Binh (Quyền Trượng & Sách Phép)
+└── Props/                           # Đồ vật & Môi trường phế tích
+    ├── MoonstoneArtifact.blend / .fbx # Cổ vật Nguyệt Tinh phát sáng neon
+    ├── AncientMonolith.blend / .fbx   # Bia Đá Thì Thầm khắc cổ tự
+    ├── TempleGate.blend / .fbx        # Cổng Thần Điện Phong Ấn
+    └── AncientKey.blend / .fbx        # Chìa Khóa Cổ Tsukiezz
 ```
-Unity sẽ tự động gọi Blender ở chế độ nền để biên dịch và cập nhật Mesh/Materials ngay lập tức vào Scene!
 
-### ⚡ Cách 2: Xuất Nhanh 1-Click Với Tool `export_to_unity.py`
-Trong thư mục `tools/`, chúng tôi cung cấp sẵn script [export_to_unity.py](file:///c:/Users/Admin/OneDrive/M%C3%A1y%20t%C3%ADnh/Desktop/CODE/Tsukiezz/projects/GameTsukiezz/tools/export_to_unity.py):
-1. Trong Blender, chuyển sang tab **Scripting**.
-2. Mở file `tools/export_to_unity.py`.
-3. Chọn vật thể muốn xuất trong Viewport 3D và nhấn **Run Script**.
-4. Script sẽ tự động:
-   - Chuẩn hóa tỷ lệ Scale 1.0 (Apply Transform).
-   - Xoay đúng trục chuẩn Unity (`-Z Forward`, `Y Up`).
-   - Xuất file `.fbx` vào thẳng `Assets/Art/Models/` và hiện thông báo hoàn tất.
+### 🐰 Nhân Vật Mới: Thỏ Phù Thủy Chiến Binh (Rabbit Mage Warrior)
+![Rabbit Mage Warrior](Assets/Art/Textures/rabbit_mage_warrior.jpg)
+* **Chủng tộc & Hệ:** Thỏ Tộc Cổ Xưa (Moonlit Bunny), Hệ Phép Thuật Nguyệt Thần (Lunar Arcane).
+* **Vũ khí:** Quyền Trượng Nguyệt Thạch (Moon Crescent Staff) ôm quả cầu ma thuật phát sáng tím neon & Cuốn Sách Phép Cổ Tsukiezz (Ancient Grimoire).
+* **Trang bị:** Mũ phù thủy chóp nhọn khoét 2 khe cho đôi tai dài, áo choàng tím hoàng gia viền vàng ròng, giáp hộ tâm titan khảm ngọc Nguyệt Tinh xanh.
 
 ---
 
@@ -70,8 +66,11 @@ Trong thư mục `tools/`, chúng tôi cung cấp sẵn script [export_to_unity.
 GameTsukiezz/
 ├── Assets/
 │   ├── Art/
-│   │   ├── Models/          # Model 3D (.blend và .fbx từ Blender)
-│   │   ├── Textures/        # Textures và Concept Art
+│   │   ├── Blender/         # THƯ MỤC ĐỒ HỌA 3D CHÍNH (Characters & Props)
+│   │   │   ├── Characters/  # HamsterWarrior, RabbitMageWarrior
+│   │   │   └── Props/       # AncientKey, AncientMonolith, MoonstoneArtifact, TempleGate
+│   │   ├── Models/          # Đồng bộ cho Unity Prefabs
+│   │   ├── Textures/        # Textures & Concept Artwork
 │   │   └── Materials/       # Vật liệu hiển thị
 │   ├── Audio/               # Nhạc nền, âm thanh bước chân, tiếng gõ chữ
 │   ├── Prefabs/             # Prefab Player, NPC, Cổng khóa, Hộp thoại
@@ -82,8 +81,11 @@ GameTsukiezz/
 ├── Packages/                # Cấu hình các gói Unity (manifest.json)
 ├── ProjectSettings/         # Thiết lập dự án Unity
 └── tools/
-    ├── export_to_unity.py   # Script Blender xuất nhanh 1-Click sang Unity
-    └── generate_3d_assets.py # Script tự động sinh các model 3D mẫu
+    ├── ai_blender_bridge.py # Cầu nối socket thời gian thực với Blender (Port 9876)
+    ├── ai_blender_cli.py    # Dòng lệnh điều khiển Blender tạo model theo lệnh
+    ├── create_rabbit_mage_warrior.py # Script sinh nhân vật Thỏ Phù Thủy
+    ├── create_hamster_warrior.py     # Script sinh Chiến Binh Hamster
+    └── export_to_unity.py   # Script Blender xuất nhanh 1-Click sang Unity
 ```
 
 ---
