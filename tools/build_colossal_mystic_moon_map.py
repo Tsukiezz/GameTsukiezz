@@ -348,117 +348,154 @@ smooth(statue_head)
 statue_head.data.materials.append(mat_colosseum_stone)
 
 # -----------------------------------------------------------------------------
-# 4. HỒ NƯỚC THỦY NGÂN & TRỤ TẾ ĐÀN 2 TẦNG (MERCURY LAKE & 2-TIER RITUAL ALTAR)
-# Tọa độ: (-45, -115, 2.8)
+# 4A. HỒ NƯỚC THỦY NGÂN GƯƠNG BẠC (LIQUID MERCURY LAKE - TÂY NAM)
+# Tọa độ: (-35.0, -135.0, 2.0)
 # -----------------------------------------------------------------------------
-altar_x, altar_y, altar_z = -45.0, -115.0, 2.8
+lake_x, lake_y, lake_z = -35.0, -135.0, 2.0
 
-# 1. Hồ Nước Thủy Ngân bóng gương lấp lánh (Liquid Mercury Pool)
-bpy.ops.mesh.primitive_cylinder_add(radius=25.0, depth=0.5, location=(altar_x, altar_y, altar_z + 0.8), vertices=48)
+# 1. Hồ Nước Thủy Ngân lỏng bóng gương lấp lánh (55m diameter)
+bpy.ops.mesh.primitive_cylinder_add(radius=27.5, depth=0.5, location=(lake_x, lake_y, lake_z + 0.8), vertices=48)
 mercury_pool = bpy.context.active_object
 mercury_pool.name = "Liquid_Mercury_Lake"
 smooth(mercury_pool)
 mercury_pool.data.materials.append(mat_mercury_liquid)
 
 # Viền đá hắc diện thạch bao quanh hồ thủy ngân
-bpy.ops.mesh.primitive_torus_add(major_radius=25.0, minor_radius=1.2, location=(altar_x, altar_y, altar_z + 1.0), major_segments=48, minor_segments=16)
+bpy.ops.mesh.primitive_torus_add(major_radius=27.5, minor_radius=1.4, location=(lake_x, lake_y, lake_z + 1.0), major_segments=48, minor_segments=16)
 mercury_rim = bpy.context.active_object
 smooth(mercury_rim)
 mercury_rim.data.materials.append(mat_altar_dark_stone)
 
-# 2. Cầu đá bước qua hồ thủy ngân dẫn vào tế đàn (Stepping Stone Piers)
-for step_i in range(7):
-    step_y = altar_y - 24.0 + step_i * 3.4
-    bpy.ops.mesh.primitive_cylinder_add(radius=1.6, depth=1.2, location=(altar_x, step_y, altar_z + 0.9), vertices=16)
+# 2. Cầu đá bước dạo ven bờ dẫn vào lầu vọng nguyệt trung tâm hồ (Stepping Stone Piers)
+for step_i in range(9):
+    step_y = lake_y - 26.0 + step_i * 3.2
+    bpy.ops.mesh.primitive_cylinder_add(radius=1.6, depth=1.2, location=(lake_x, step_y, lake_z + 0.9), vertices=16)
     step_stone = bpy.context.active_object
     smooth(step_stone)
     step_stone.data.materials.append(mat_altar_dark_stone)
 
-# 3. TẾ ĐÀN TẦNG 1: Bệ đá hắc diện thạch khắc cổ ngữ đỏ máu
-bpy.ops.mesh.primitive_cylinder_add(radius=8.5, depth=1.4, location=(altar_x, altar_y, altar_z + 1.5), vertices=32)
+# Bệ đài vọng nguyệt trung tâm hồ thủy ngân
+bpy.ops.mesh.primitive_cylinder_add(radius=4.5, depth=1.0, location=(lake_x, lake_y, lake_z + 0.9), vertices=20)
+lake_pavilion = bpy.context.active_object
+smooth(lake_pavilion)
+lake_pavilion.data.materials.append(mat_altar_dark_stone)
+
+# 4 Đèn tinh thể lam ngọc dạ quang cắm trong lòng hồ
+for c_i in range(4):
+    c_ang = c_i * (math.pi / 2.0) + 0.3
+    cx = lake_x + math.cos(c_ang) * 18.0
+    cy = lake_y + math.sin(c_ang) * 18.0
+    bpy.ops.mesh.primitive_cone_add(radius1=0.8, depth=4.2, location=(cx, cy, lake_z + 2.4), vertices=6)
+    crys = bpy.context.active_object
+    smooth(crys)
+    crys.data.materials.append(mat_cyan_crystal)
+
+    bpy.ops.object.light_add(type='POINT', location=(cx, cy, lake_z + 3.8))
+    crys_lt = bpy.context.active_object
+    crys_lt.data.energy = 120.0
+    crys_lt.data.color = (0.2, 0.6, 1.0)
+
+
+# -----------------------------------------------------------------------------
+# 4B. TRỤ TẾ ĐÀN 2 TẦNG HUYẾT SẮC (2-TIER SACRIFICIAL ALTAR - TÂY NAM RIÊNG BIỆT)
+# Tọa độ: (-85.0, -95.0, 4.2)
+# -----------------------------------------------------------------------------
+altar_x, altar_y, altar_z = -85.0, -95.0, 4.2
+
+# 1. TẾ ĐÀN TẦNG 1: Bệ đá hắc diện thạch khắc cổ ngữ đỏ máu (18m diameter)
+bpy.ops.mesh.primitive_cylinder_add(radius=9.0, depth=1.8, location=(altar_x, altar_y, altar_z + 0.9), vertices=32)
 altar_t1 = bpy.context.active_object
 altar_t1.name = "Altar_Tier1_Base"
 smooth(altar_t1)
 altar_t1.data.materials.append(mat_altar_dark_stone)
 
 # Vòng cổ ngữ huyết sắc phát quang trên tầng 1
-bpy.ops.mesh.primitive_torus_add(major_radius=8.2, minor_radius=0.15, location=(altar_x, altar_y, altar_z + 2.25), major_segments=40, minor_segments=12)
+bpy.ops.mesh.primitive_torus_add(major_radius=8.8, minor_radius=0.18, location=(altar_x, altar_y, altar_z + 1.85), major_segments=40, minor_segments=12)
 blood_rune_ring1 = bpy.context.active_object
 smooth(blood_rune_ring1)
 blood_rune_ring1.data.materials.append(mat_altar_blood_rune)
 
 # 4 Cột đá thần bí nâng đỡ Tầng 2
 for p_idx in range(4):
-    p_ang = p_idx * (math.pi / 2.0)
-    cpx = altar_x + math.cos(p_ang) * 4.8
-    cpy = altar_y + math.sin(p_ang) * 4.8
-    bpy.ops.mesh.primitive_cylinder_add(radius=0.7, depth=4.2, location=(cpx, cpy, altar_z + 4.2), vertices=16)
+    p_ang = p_idx * (math.pi / 2.0) + math.pi / 4.0
+    cpx = altar_x + math.cos(p_ang) * 5.2
+    cpy = altar_y + math.sin(p_ang) * 5.2
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.75, depth=4.8, location=(cpx, cpy, altar_z + 4.2), vertices=16)
     c_pillar = bpy.context.active_object
     smooth(c_pillar)
     c_pillar.data.materials.append(mat_altar_dark_stone)
 
     # Đuốc tế lửa tím bùng cháy trên mỗi cột
-    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=0.4, location=(cpx, cpy, altar_z + 6.5))
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=0.45, location=(cpx, cpy, altar_z + 6.8))
     flame = bpy.context.active_object
     smooth(flame)
     flame.data.materials.append(mat_altar_flame)
 
-    bpy.ops.object.light_add(type='POINT', location=(cpx, cpy, altar_z + 6.8))
+    bpy.ops.object.light_add(type='POINT', location=(cpx, cpy, altar_z + 7.0))
     flame_lt = bpy.context.active_object
-    flame_lt.data.energy = 80.0
+    flame_lt.data.energy = 90.0
     flame_lt.data.color = (0.95, 0.10, 0.70)
 
-# 4. TẾ ĐÀN TẦNG 2: Điện tế lễ trên cao (Upper Sacrificial Sanctum)
-bpy.ops.mesh.primitive_cylinder_add(radius=5.2, depth=0.8, location=(altar_x, altar_y, altar_z + 6.4), vertices=24)
-altar_t2 = bpy.context.active_object
-altar_t2.name = "Altar_Tier2_Sanctum"
-smooth(altar_t2)
-altar_t2.data.materials.append(mat_altar_dark_stone)
-
-bpy.ops.mesh.primitive_torus_add(major_radius=4.9, minor_radius=0.12, location=(altar_x, altar_y, altar_z + 6.85), major_segments=32, minor_segments=12)
-blood_rune_ring2 = bpy.context.active_object
-smooth(blood_rune_ring2)
-blood_rune_ring2.data.materials.append(mat_altar_blood_rune)
-
-# 5. TRỤ TẾ ĐÀN THẦN BÍ & TRÁI TIM HƯ KHÔNG LƠ LỬNG (SACRIFICIAL PILLAR - TƯƠNG TÁC)
-bpy.ops.mesh.primitive_cylinder_add(radius=1.2, depth=2.2, location=(altar_x, altar_y, altar_z + 7.8), vertices=16)
-sacrificial_pillar = bpy.context.active_object
-sacrificial_pillar.name = "Sacrificial_Pillar_Interactable"
-smooth(sacrificial_pillar)
-sacrificial_pillar.data.materials.append(mat_altar_dark_stone)
-
-# Trái tim hư không phát sáng đỏ thẫm lơ lửng trên trụ tế
-bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=0.8, location=(altar_x, altar_y, altar_z + 9.6))
-void_heart = bpy.context.active_object
-void_heart.name = "Void_Heart_Relic"
-smooth(void_heart)
-void_heart.data.materials.append(mat_altar_blood_rune)
-
-bpy.ops.object.light_add(type='POINT', location=(altar_x, altar_y, altar_z + 9.8))
-altar_core_lt = bpy.context.active_object
-altar_core_lt.data.energy = 280.0
-altar_core_lt.data.color = (1.0, 0.05, 0.25)
-
-# 6. CHI TIẾT NÂNG CAO TẾ ĐÀN: BẬC THANG CỔ & TINH THỂ PHÙ VĂN HUYẾT SẮC BAY LƠ LỬNG
-# Cầu thang đá nối từ Tầng 1 lên Tầng 2
+# Cầu thang đá cổ nối từ Tầng 1 lên Tầng 2
 for st_i in range(5):
-    st_z = altar_z + 2.4 + st_i * 0.8
+    st_z = altar_z + 1.8 + st_i * 0.7
     bpy.ops.mesh.primitive_cube_add(size=1.0, location=(altar_x - 5.5 + st_i * 0.9, altar_y, st_z))
     st_step = bpy.context.active_object
     st_step.scale = (1.2, 2.4, 0.4)
     smooth(st_step)
     st_step.data.materials.append(mat_altar_dark_stone)
 
+# 2. TẾ ĐÀN TẦNG 2: Điện tế lễ trên cao (Upper Sacrificial Sanctum - 11m diameter)
+bpy.ops.mesh.primitive_cylinder_add(radius=5.5, depth=1.0, location=(altar_x, altar_y, altar_z + 5.2), vertices=24)
+altar_t2 = bpy.context.active_object
+altar_t2.name = "Altar_Tier2_Sanctum"
+smooth(altar_t2)
+altar_t2.data.materials.append(mat_altar_dark_stone)
+
+bpy.ops.mesh.primitive_torus_add(major_radius=5.2, minor_radius=0.15, location=(altar_x, altar_y, altar_z + 5.75), major_segments=32, minor_segments=12)
+blood_rune_ring2 = bpy.context.active_object
+smooth(blood_rune_ring2)
+blood_rune_ring2.data.materials.append(mat_altar_blood_rune)
+
+# 3. TRỤ TẾ ĐÀN THẦN BÍ & TRÁI TIM HƯ KHÔNG LƠ LỬNG (SACRIFICIAL PILLAR - TƯƠNG TÁC)
+bpy.ops.mesh.primitive_cylinder_add(radius=1.3, depth=2.4, location=(altar_x, altar_y, altar_z + 6.9), vertices=16)
+sacrificial_pillar = bpy.context.active_object
+sacrificial_pillar.name = "Sacrificial_Pillar_Interactable"
+smooth(sacrificial_pillar)
+sacrificial_pillar.data.materials.append(mat_altar_dark_stone)
+
+# Trái tim hư không phát sáng đỏ thẫm lơ lửng trên trụ tế
+bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=0.95, location=(altar_x, altar_y, altar_z + 9.4))
+void_heart = bpy.context.active_object
+void_heart.name = "Void_Heart_Relic"
+smooth(void_heart)
+void_heart.data.materials.append(mat_altar_blood_rune)
+
+bpy.ops.object.light_add(type='POINT', location=(altar_x, altar_y, altar_z + 9.6))
+altar_core_lt = bpy.context.active_object
+altar_core_lt.data.energy = 300.0
+altar_core_lt.data.color = (1.0, 0.05, 0.25)
+
 # 6 Mảnh tinh thể phù văn huyết sắc bay lơ lửng xoay quanh Trái Tim Hư Không
 for r_i in range(6):
     r_ang = r_i * (2 * math.pi / 6)
-    rx = altar_x + math.cos(r_ang) * 2.5
-    ry = altar_y + math.sin(r_ang) * 2.5
-    bpy.ops.mesh.primitive_cone_add(radius1=0.25, depth=1.1, location=(rx, ry, altar_z + 9.6), vertices=4)
+    rx = altar_x + math.cos(r_ang) * 2.6
+    ry = altar_y + math.sin(r_ang) * 2.6
+    bpy.ops.mesh.primitive_cone_add(radius1=0.3, depth=1.2, location=(rx, ry, altar_z + 9.4), vertices=4)
     rune_shard = bpy.context.active_object
     rune_shard.rotation_euler = (0.4, r_ang, 0.2)
     smooth(rune_shard)
     rune_shard.data.materials.append(mat_altar_blood_rune)
+
+# 4 Trụ cự thạch bảo vệ tế đàn (Guardian Obelisks)
+for g_i in range(4):
+    g_ang = g_i * (math.pi / 2.0)
+    gx = altar_x + math.cos(g_ang) * 12.0
+    gy = altar_y + math.sin(g_ang) * 12.0
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.8, depth=5.5, location=(gx, gy, altar_z + 2.75), vertices=6)
+    obelisk = bpy.context.active_object
+    smooth(obelisk)
+    obelisk.data.materials.append(mat_altar_dark_stone)
 
 # -----------------------------------------------------------------------------
 # 5. TRẠM VŨ TRỤ CÔNG NGHỆ TỐI TÂN (ADVANCED SCI-FI SPACE STATION - TÂY)
@@ -1131,12 +1168,12 @@ cam_colo.rotation_euler = (colo_target - cam_colo.location).to_track_quat('-Z', 
 cam_colo.data.lens = 20.0
 
 # 3. Camera Tế Đàn 2 Tầng & Hồ Thủy Ngân (Altar & Mercury Lake View)
-bpy.ops.object.camera_add(location=(altar_x - 16.0, altar_y - 22.0, altar_z + 10.0))
+bpy.ops.object.camera_add(location=(-58.0, -112.0, 16.0))
 cam_altar = bpy.context.active_object
 cam_altar.name = "Altar_Mercury_Camera"
-altar_target = mathutils.Vector((altar_x, altar_y, altar_z + 6.0))
+altar_target = mathutils.Vector((-65.0, -115.0, 5.0))
 cam_altar.rotation_euler = (altar_target - cam_altar.location).to_track_quat('-Z', 'Y').to_euler()
-cam_altar.data.lens = 22.0
+cam_altar.data.lens = 19.0
 
 # 4. Camera Trạm Vũ Trụ Công Nghệ Tối Tân (Space Station View)
 bpy.ops.object.camera_add(location=(st_x + 22.0, st_y - 20.0, st_z + 14.0))

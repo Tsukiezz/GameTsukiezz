@@ -1144,7 +1144,8 @@
                 <button class="tour-btn" onclick="fastTravelTo(-110, 120, 'Lâu Đài Hoàng Gia Tsukiezz')">🏰 Lâu Đài</button>
                 <button class="tour-btn" onclick="fastTravelTo(115, 110, 'Đấu Trường La Mã Bị Bỏ Hoang')">⚔️ Đấu Trường</button>
                 <button class="tour-btn" onclick="fastTravelTo(-145, -35, 'Trạm Vũ Trụ Công Nghệ Tối Tân')">🛸 Trạm Vũ Trụ</button>
-                <button class="tour-btn" onclick="fastTravelTo(-45, -115, 'Trụ Tế Đàn & Hồ Thủy Ngân')">🩸 Tế Đàn Thủy Ngân</button>
+                <button class="tour-btn" onclick="fastTravelTo(-85, -95, 'Trụ Tế Đàn 2 Tầng Huyết Sắc')">🩸 Tế Đàn 2 Tầng</button>
+                <button class="tour-btn" onclick="fastTravelTo(-35, -135, 'Hồ Nước Thủy Ngân Gương Bạc')">🌊 Hồ Thủy Ngân</button>
                 <button class="tour-btn" onclick="fastTravelTo(145, 30, 'Đại Cổ Thụ Nguyệt Tộc 45m')">🌳 Cổ Thụ 45m</button>
                 <button class="tour-btn" onclick="fastTravelTo(125, -110, 'Hang Động Nguyệt Tinh')">💎 Hang Động</button>
                 <button class="tour-btn" onclick="fastTravelTo(-120, -125, 'Đài Thiên Văn Tổ Tiên')">🔭 Đài Thiên Văn</button>
@@ -1177,6 +1178,7 @@
                 <div><span class="hud-key">W A S D</span> Di chuyển</div>
                 <div><span class="hud-key">Shift</span> Chạy nhanh</div>
                 <div><span class="hud-key">Space</span> Nhảy</div>
+                <div><span class="hud-key">Chuột Phải (Giữ & Kéo)</span> Xoay góc nhìn 360°</div>
                 <div><span class="hud-key">Chuột Trái / J</span> <span id="hud-attack-name">Chém kiếm</span></div>
                 <div><span class="hud-key">E</span> Tương tác</div>
             </div>
@@ -1427,11 +1429,13 @@
             rMesh.receiveShadow = true;
             scene.add(rMesh);
         }
-        // Central crossroads
+        // Central crossroads connecting all 9 landmarks
         buildRoad(0, 0, -110, 120);   // To Castle
         buildRoad(0, 0, 115, 110);    // To Colosseum
         buildRoad(0, 0, -145, -35);   // To Space Station
-        buildRoad(0, 0, -45, -115);   // To Altar & Mercury Lake
+        buildRoad(0, 0, -85, -95);    // To 2-Tier Altar
+        buildRoad(0, 0, -35, -135);   // To Mercury Lake
+        buildRoad(-85, -95, -35, -135, 3.5); // Road connecting Altar and Mercury Lake
         buildRoad(0, 0, 145, 30);     // To Ancient Tree
         buildRoad(0, 0, 125, -110);   // To Cave
         buildRoad(0, 0, -120, -125);  // To Observatory
@@ -1712,6 +1716,48 @@
         }
 
         // =====================================================================
+        // COLLISION PHYSICS ENGINE (SOLID BARRIERS & OBSTACLES)
+        // =====================================================================
+        const colliders = [];
+
+        function addCylinderCollider(x, z, radius) {
+            colliders.push({ type: 'cylinder', x, z, radius });
+        }
+
+        function addBoxCollider(cx, cz, width, depth) {
+            colliders.push({
+                type: 'box',
+                minX: cx - width / 2,
+                maxX: cx + width / 2,
+                minZ: cz - depth / 2,
+                maxZ: cz + depth / 2
+            });
+        }
+
+        function checkCollision(px, pz, playerRadius = 0.85) {
+            // World Boundary (520m total realm, player bounded within +/- 248m)
+            if (Math.abs(px) > 248 || Math.abs(pz) > 248) return true;
+
+            for (let i = 0; i < colliders.length; i++) {
+                const c = colliders[i];
+                if (c.type === 'cylinder') {
+                    const dx = px - c.x;
+                    const dz = pz - c.z;
+                    const minDist = c.radius + playerRadius;
+                    if (dx * dx + dz * dz < minDist * minDist) {
+                        return true;
+                    }
+                } else if (c.type === 'box') {
+                    if (px + playerRadius > c.minX && px - playerRadius < c.maxX &&
+                        pz + playerRadius > c.minZ && pz - playerRadius < c.maxZ) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // =====================================================================
         // 520M OPEN WORLD ARCHITECTURAL LANDMARKS & INTERACTABLES
         // =====================================================================
         const interactables = [];
@@ -1720,7 +1766,8 @@
             { name: "Lâu Đài Hoàng Gia", x: -110, z: 120, color: "#ffd700", icon: "🏰" },
             { name: "Đấu Trường La Mã", x: 115, z: 110, color: "#ff4d6d", icon: "⚔️" },
             { name: "Trạm Vũ Trụ Tối Tân", x: -145, z: -35, color: "#00f5d4", icon: "🛸" },
-            { name: "Tế Đàn Thủy Ngân", x: -45, z: -115, color: "#ff1744", icon: "🩸" },
+            { name: "Tế Đàn 2 Tầng Huyết Sắc", x: -85, z: -95, color: "#ff1744", icon: "🩸" },
+            { name: "Hồ Nước Thủy Ngân", x: -35, z: -135, color: "#93c5fd", icon: "🌊" },
             { name: "Cổ Thụ Nguyệt Tộc 45m", x: 145, z: 30, color: "#4ade80", icon: "🌳" },
             { name: "Hang Động Nguyệt Tinh", x: 125, z: -110, color: "#a855f7", icon: "💎" },
             { name: "Đài Thiên Văn", x: -120, z: -125, color: "#38bdf8", icon: "🔭" }
@@ -1736,6 +1783,8 @@
         rune.position.set(0, 2.4, 0.46);
         monolith.add(rune);
         scene.add(monolith);
+
+        addCylinderCollider(0, 0, 1.8);
 
         interactables.push({
             id: 'monolith',
@@ -1771,15 +1820,23 @@
                 const gem = new THREE.Mesh(new THREE.IcosahedronGeometry(1.0, 1), matCyanGlow);
                 gem.position.set(tx, 46, tz);
                 cg.add(gem);
+
+                // Tower Colliders
+                addCylinderCollider(-110 + tx, 120 + tz, 5.0);
             });
 
             // Curtain Walls
             const w1 = new THREE.Mesh(new THREE.BoxGeometry(2.5, 14, 44), matCastle);
             w1.position.set(-21, 12, 0); cg.add(w1);
+            addBoxCollider(-110 - 21, 120, 3.5, 44);
+
             const w2 = new THREE.Mesh(new THREE.BoxGeometry(2.5, 14, 44), matCastle);
             w2.position.set(21, 12, 0); cg.add(w2);
+            addBoxCollider(-110 + 21, 120, 3.5, 44);
+
             const w3 = new THREE.Mesh(new THREE.BoxGeometry(42, 14, 2.5), matCastle);
             w3.position.set(0, 12, 23); cg.add(w3);
+            addBoxCollider(-110, 120 + 23, 44, 3.5);
 
             // Throne Room Interior
             const carpet = new THREE.Mesh(new THREE.PlaneGeometry(6, 36), new THREE.MeshStandardMaterial({ color: 0xb91c1c, roughness: 0.8 }));
@@ -1795,6 +1852,7 @@
             const throne = new THREE.Mesh(new THREE.BoxGeometry(3.0, 4.2, 1.8), new THREE.MeshStandardMaterial({ color: 0x581c87, roughness: 0.4 }));
             throne.position.set(0, 9.2, 15.5);
             cg.add(throne);
+            addBoxCollider(-110, 120 + 15.5, 4.5, 3.0);
 
             const halo = new THREE.Mesh(new THREE.TorusGeometry(1.6, 0.2, 12, 24), matCyanGlow);
             halo.position.set(0, 12.0, 15.2);
@@ -1854,6 +1912,9 @@
                     entab.rotation.y = -ang + Math.PI / 2;
                     cg.add(entab);
                 }
+
+                // Add solid pillar colliders
+                addCylinderCollider(115 + ax, 110 + az, 1.4);
             }
 
             // 8 Torch Braziers around Arena
@@ -1885,6 +1946,8 @@
 
             cg.position.set(115, 0, 110);
             scene.add(cg);
+
+            addCylinderCollider(115, 110, 3.5); // Central pedestal collider
 
             interactables.push({
                 id: 'colosseum_duel',
@@ -1949,6 +2012,8 @@
                 arm.position.set(hubX + side * 13, 5.0, hubZ);
                 arm.rotation.z = Math.PI / 2;
                 sg.add(arm);
+
+                addBoxCollider(-145 + hubX + side * 18, -35 + hubZ, 10, 5);
             });
 
             // Communications Radar Dish
@@ -1971,10 +2036,15 @@
                 const cLight = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.1, 0.2), matCyanGlow);
                 cLight.position.set(cx, 2.7, cz);
                 sg.add(cLight);
+
+                addBoxCollider(-145 + cx, -35 + cz, 2.6, 2.0);
             });
 
             sg.position.set(-145, 0, -35);
             scene.add(sg);
+
+            // Hub central collider
+            addCylinderCollider(-145 + hubX, -35 + hubZ, 9.5);
 
             interactables.push({
                 id: 'space_station_console',
@@ -1986,105 +2056,173 @@
         }
         buildSpaceStation3D();
 
-        // 5. TRỤ TẾ ĐÀN 2 TẦNG & HỒ THỦY NGÂN (-45, -115)
-        function buildAltarMercury3D() {
+        // 5. TRỤ TẾ ĐÀN 2 TẦNG HUYẾT SẮC (-85, -95)
+        function buildAltar2Tier3D() {
             const ag = new THREE.Group();
-            const matMercury = new THREE.MeshStandardMaterial({ color: 0xd8e6f8, roughness: 0.02, metalness: 1.0 });
             const matAltarDark = new THREE.MeshStandardMaterial({ color: 0x11131a, roughness: 0.7, metalness: 0.2 });
             const matBloodRune = new THREE.MeshStandardMaterial({ color: 0xff1744, emissive: 0xff1744, emissiveIntensity: 3.5 });
 
-            // Liquid Mercury Pool (50m diameter)
-            const lake = new THREE.Mesh(new THREE.CylinderGeometry(25, 25, 0.4, 32), matMercury);
-            lake.position.y = 0.2;
-            ag.add(lake);
-
-            const rim = new THREE.Mesh(new THREE.TorusGeometry(25, 1.1, 12, 32), matAltarDark);
-            rim.rotation.x = Math.PI / 2;
-            rim.position.y = 0.5;
-            ag.add(rim);
-
-            // Stepping Stone Piers crossing to altar
-            for(let i = 0; i < 7; i++) {
-                const sp = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.8, 16), matAltarDark);
-                sp.position.set(0, 0.4, -24 + i * 3.4);
-                ag.add(sp);
-            }
-
-            // Altar Tier 1 (17m diameter)
-            const t1 = new THREE.Mesh(new THREE.CylinderGeometry(8.5, 8.5, 1.4, 24), matAltarDark);
-            t1.position.y = 1.2;
+            // Altar Tier 1 (18m diameter)
+            const t1 = new THREE.Mesh(new THREE.CylinderGeometry(9.0, 9.5, 1.8, 32), matAltarDark);
+            t1.position.y = 0.9;
+            t1.receiveShadow = true;
             ag.add(t1);
 
-            const runeRing1 = new THREE.Mesh(new THREE.TorusGeometry(8.2, 0.15, 8, 32), matBloodRune);
+            const runeRing1 = new THREE.Mesh(new THREE.TorusGeometry(8.8, 0.18, 8, 36), matBloodRune);
             runeRing1.rotation.x = Math.PI / 2;
-            runeRing1.position.y = 1.95;
+            runeRing1.position.y = 1.85;
             ag.add(runeRing1);
 
-            // 4 Pillars with Purple Fire Braziers
+            // 4 Mystical Pillars with Purple Fire Braziers
             for(let i = 0; i < 4; i++) {
-                const ang = i * (Math.PI / 2);
-                const px = Math.cos(ang) * 4.8;
-                const pz = Math.sin(ang) * 4.8;
-                const pil = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 4.2, 12), matAltarDark);
-                pil.position.set(px, 3.8, pz);
+                const ang = i * (Math.PI / 2) + Math.PI / 4;
+                const px = Math.cos(ang) * 5.2;
+                const pz = Math.sin(ang) * 5.2;
+                const pil = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.8, 4.8, 12), matAltarDark);
+                pil.position.set(px, 4.2, pz);
                 ag.add(pil);
 
-                const flame = new THREE.Mesh(new THREE.SphereGeometry(0.45, 8, 8), matPurpleGlow);
-                flame.position.set(px, 6.2, pz);
+                const flame = new THREE.Mesh(new THREE.SphereGeometry(0.5, 8, 8), matPurpleGlow);
+                flame.position.set(px, 6.8, pz);
                 ag.add(flame);
 
-                const lt = new THREE.PointLight(0xa855f7, 2.5, 14);
-                lt.position.set(px, 6.5, pz);
+                const lt = new THREE.PointLight(0xa855f7, 2.8, 16);
+                lt.position.set(px, 7.0, pz);
                 ag.add(lt);
+
+                addCylinderCollider(-85 + px, -95 + pz, 1.2);
             }
 
-            // Altar Tier 2 (10.4m diameter)
-            const t2 = new THREE.Mesh(new THREE.CylinderGeometry(5.2, 5.2, 0.8, 20), matAltarDark);
-            t2.position.y = 5.8;
+            // 5 Stone Steps leading up to Tier 2
+            for(let s = 0; s < 5; s++) {
+                const step = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.5, 1.2), matAltarDark);
+                step.position.set(0, 1.8 + s * 0.7, -7.5 + s * 1.1);
+                ag.add(step);
+            }
+
+            // Altar Tier 2 (11m diameter)
+            const t2 = new THREE.Mesh(new THREE.CylinderGeometry(5.5, 5.8, 1.0, 24), matAltarDark);
+            t2.position.y = 5.2;
             ag.add(t2);
 
-            const runeRing2 = new THREE.Mesh(new THREE.TorusGeometry(4.9, 0.12, 8, 28), matBloodRune);
+            const runeRing2 = new THREE.Mesh(new THREE.TorusGeometry(5.2, 0.15, 8, 32), matBloodRune);
             runeRing2.rotation.x = Math.PI / 2;
-            runeRing2.position.y = 6.25;
+            runeRing2.position.y = 5.75;
             ag.add(runeRing2);
 
             // Center Sacrificial Pillar
-            const sPil = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.4, 2.2, 12), matAltarDark);
-            sPil.position.y = 7.2;
+            const sPil = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.5, 2.4, 12), matAltarDark);
+            sPil.position.y = 6.9;
             ag.add(sPil);
 
             // Floating Void Heart Relic
-            const voidHeart = new THREE.Mesh(new THREE.IcosahedronGeometry(0.85, 2), matBloodRune);
-            voidHeart.position.y = 9.2;
+            const voidHeart = new THREE.Mesh(new THREE.IcosahedronGeometry(0.95, 2), matBloodRune);
+            voidHeart.position.y = 9.4;
             ag.add(voidHeart);
 
-            const vLight = new THREE.PointLight(0xff1744, 3.5, 22);
-            vLight.position.set(0, 9.4, 0);
+            const vLight = new THREE.PointLight(0xff1744, 3.8, 25);
+            vLight.position.set(0, 9.6, 0);
             ag.add(vLight);
 
-            // 6 Orbiting Rune Shards
+            // 6 Orbiting Rune Crystal Shards
             for(let i = 0; i < 6; i++) {
                 const ang = i * (Math.PI * 2 / 6);
-                const shard = new THREE.Mesh(new THREE.ConeGeometry(0.25, 1.0, 4), matBloodRune);
-                shard.position.set(Math.cos(ang) * 2.4, 9.2, Math.sin(ang) * 2.4);
-                shard.rotation.z = 0.4;
+                const shard = new THREE.Mesh(new THREE.ConeGeometry(0.3, 1.2, 4), matBloodRune);
+                shard.position.set(Math.cos(ang) * 2.6, 9.4, Math.sin(ang) * 2.6);
+                shard.rotation.z = 0.45;
                 ag.add(shard);
             }
 
-            ag.position.set(-45, 0, -115);
+            // 4 Guardian Obelisks around outer altar
+            for(let g = 0; g < 4; g++) {
+                const gang = g * (Math.PI / 2);
+                const gx = Math.cos(gang) * 12.0;
+                const gz = Math.sin(gang) * 12.0;
+                const obelisk = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.9, 5.5, 6), matAltarDark);
+                obelisk.position.set(gx, 2.75, gz);
+                ag.add(obelisk);
+                addCylinderCollider(-85 + gx, -95 + gz, 1.4);
+            }
+
+            ag.position.set(-85, 0, -95);
             scene.add(ag);
+
+            // Tier 1 central base collider
+            addCylinderCollider(-85, -95, 9.2);
 
             interactables.push({
                 id: 'void_altar',
-                pos: new THREE.Vector3(-45, 1.0, -115),
-                radius: 6.0,
-                prompt: 'Kích Hoạt Trái Tim Hư Không (Tế Đàn Thủy Ngân)',
+                pos: new THREE.Vector3(-85, 1.8, -95),
+                radius: 6.5,
+                prompt: 'Thức Tỉnh Phong Ấn Trái Tim Hư Không (Trụ Tế Đàn 2 Tầng)',
                 type: 'altar'
             });
         }
-        buildAltarMercury3D();
+        buildAltar2Tier3D();
 
-        // 6. ĐẠI CỔ THỤ NGUYỆT TỘC 45M (145, 30)
+        // 6. HỒ NƯỚC THỦY NGÂN GƯƠNG BẠC (-35, -135)
+        function buildMercuryLake3D() {
+            const lg = new THREE.Group();
+            const matMercury = new THREE.MeshStandardMaterial({ color: 0xd8e6f8, roughness: 0.02, metalness: 1.0 });
+            const matLakeRim = new THREE.MeshStandardMaterial({ color: 0x1a202c, roughness: 0.8 });
+            const matCrystalBlue = new THREE.MeshStandardMaterial({ color: 0x60a5fa, emissive: 0x2563eb, emissiveIntensity: 2.2 });
+
+            // Liquid Mercury Pool (55m diameter)
+            const lake = new THREE.Mesh(new THREE.CylinderGeometry(27.5, 27.5, 0.45, 48), matMercury);
+            lake.position.y = 0.22;
+            lg.add(lake);
+
+            // Outer Obsidian Rim Wall
+            const rim = new THREE.Mesh(new THREE.TorusGeometry(27.5, 1.4, 16, 48), matLakeRim);
+            rim.rotation.x = Math.PI / 2;
+            rim.position.y = 0.6;
+            lg.add(rim);
+
+            // Stepping Stone Piers leading to central viewing pavilion
+            for(let i = 0; i < 9; i++) {
+                const sp = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.7, 0.8, 16), matLakeRim);
+                sp.position.set(0, 0.45, -26 + i * 3.2);
+                lg.add(sp);
+            }
+
+            // Central Moonlit Viewing Gazebo / Pavilion
+            const gaz = new THREE.Mesh(new THREE.CylinderGeometry(4.2, 4.5, 0.9, 16), matLakeRim);
+            gaz.position.set(0, 0.5, 0);
+            lg.add(gaz);
+
+            // 4 Crystal Spire Lanterns in the Lake
+            for(let c = 0; c < 4; c++) {
+                const cang = c * (Math.PI / 2) + 0.3;
+                const cx = Math.cos(cang) * 18.0;
+                const cz = Math.sin(cang) * 18.0;
+                const crys = new THREE.Mesh(new THREE.ConeGeometry(0.8, 4.2, 6), matCrystalBlue);
+                crys.position.set(cx, 2.1, cz);
+                lg.add(crys);
+
+                const clt = new THREE.PointLight(0x60a5fa, 2.0, 18);
+                clt.position.set(cx, 3.2, cz);
+                lg.add(clt);
+
+                addCylinderCollider(-35 + cx, -135 + cz, 1.5);
+            }
+
+            lg.position.set(-35, 0, -135);
+            scene.add(lg);
+
+            // Lake Outer Rim Barrier Collider
+            addCylinderCollider(-35, -135, 26.5);
+
+            interactables.push({
+                id: 'mercury_lake',
+                pos: new THREE.Vector3(-35, 0.8, -135),
+                radius: 6.5,
+                prompt: 'Thanh Tẩy Linh Lực (Hồ Nước Thủy Ngân Gương Bạc)',
+                type: 'mercury_lake'
+            });
+        }
+        buildMercuryLake3D();
+
+        // 7. ĐẠI CỔ THỤ NGUYỆT TỘC 45M (145, 30)
         function buildAncientTree3D() {
             const tg = new THREE.Group();
             const matBark = new THREE.MeshStandardMaterial({ color: 0x1f1624, roughness: 0.9 });
@@ -2122,6 +2260,9 @@
             tg.position.set(145, 0, 30);
             scene.add(tg);
 
+            // Tree Trunk Collider
+            addCylinderCollider(145, 30, 6.8);
+
             interactables.push({
                 id: 'ancient_tree',
                 pos: new THREE.Vector3(145, 0, 30),
@@ -2132,7 +2273,7 @@
         }
         buildAncientTree3D();
 
-        // 7. HANG ĐỘNG NGUYỆT TINH (125, -110)
+        // 8. HANG ĐỘNG NGUYỆT TINH (125, -110)
         function buildCave3D() {
             const cg = new THREE.Group();
             const matRock = new THREE.MeshStandardMaterial({ color: 0x161822, roughness: 0.95 });
@@ -2175,6 +2316,11 @@
             cg.position.set(125, 0, -110);
             scene.add(cg);
 
+            // Cave arch entrance walls & chest colliders
+            addBoxCollider(125 - 6, -110, 4.5, 12);
+            addBoxCollider(125 + 6, -110, 4.5, 12);
+            addBoxCollider(125 + 11.0, -110 - 9.0, 2.5, 2.5);
+
             interactables.push({
                 id: 'cave_chest',
                 pos: new THREE.Vector3(125 + 11.0, 0, -110 - 9.0),
@@ -2185,7 +2331,7 @@
         }
         buildCave3D();
 
-        // 8. ĐÀI THIÊN VĂN TỔ TIÊN (-120, -125)
+        // 9. ĐÀI THIÊN VĂN TỔ TIÊN (-120, -125)
         function buildObservatory3D() {
             const og = new THREE.Group();
             const matDarkStone = new THREE.MeshStandardMaterial({ color: 0x1a2130, roughness: 0.8 });
@@ -2213,6 +2359,9 @@
 
             og.position.set(-120, 0, -125);
             scene.add(og);
+
+            // Observatory Base Collider
+            addCylinderCollider(-120, -125, 7.8);
 
             interactables.push({
                 id: 'observatory',
@@ -2276,6 +2425,8 @@
         // =====================================================================
         function fastTravelTo(tx, tz, name) {
             playerGroup.position.set(tx, 0, tz + 4.5);
+            camYaw = 0;
+            camPitch = 0.32;
             camera.position.set(tx, 5, tz + 12);
             camera.lookAt(tx, 1.5, tz);
             sfx.pickup();
@@ -2483,11 +2634,59 @@
             if (e.key === 'Shift') keys.shift = false;
         });
 
+        // MOUSE ORBIT CAMERA & ROTATION SYSTEM
+        let isRightMouseDown = false;
+        let mouseLastX = 0;
+        let mouseLastY = 0;
+        let camYaw = 0;
+        let camPitch = 0.32;
+        let camDistance = 8.5;
+
+        // Prevent browser right-click context menu
+        window.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
+
         window.addEventListener('mousedown', (e) => {
-            if (e.button === 0 && gameState.isPlaying && !gameState.inDialogue) {
+            if (e.button === 2) {
+                isRightMouseDown = true;
+                mouseLastX = e.clientX;
+                mouseLastY = e.clientY;
+            } else if (e.button === 0 && gameState.isPlaying && !gameState.inDialogue) {
                 triggerAttack();
             }
         });
+
+        window.addEventListener('mouseup', (e) => {
+            if (e.button === 2) {
+                isRightMouseDown = false;
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isRightMouseDown && gameState.isPlaying) {
+                const deltaX = e.clientX - mouseLastX;
+                const deltaY = e.clientY - mouseLastY;
+                mouseLastX = e.clientX;
+                mouseLastY = e.clientY;
+
+                // Orbit camera horizontally and vertically
+                camYaw -= deltaX * 0.007;
+                camPitch = Math.max(-0.15, Math.min(1.15, camPitch + deltaY * 0.005));
+
+                // When holding right-click without walking, rotate character to face the view
+                if (!keys.forward && !keys.backward && !keys.left && !keys.right) {
+                    playerGroup.rotation.y = camYaw;
+                }
+            }
+        });
+
+        window.addEventListener('wheel', (e) => {
+            if (gameState.isPlaying) {
+                camDistance = Math.max(3.8, Math.min(24.0, camDistance + e.deltaY * 0.012));
+            }
+        }, { passive: true });
 
         let isAttacking = false;
         function triggerAttack() {
@@ -2552,7 +2751,11 @@
             }
             else if (item.type === 'altar') {
                 sfx.portalOpen();
-                showNotification("🩸 TRỤ TẾ ĐÀN THỦY NGÂN: Trái Tim Hư Không bừng sáng! Hồi phục 100% Sinh Lực & Mana!");
+                showNotification("🩸 TRỤ TẾ ĐÀN 2 TẦNG: Trái Tim Hư Không bừng sáng! Hồi phục 100% Sinh Lực & Mana!");
+            }
+            else if (item.type === 'mercury_lake') {
+                sfx.pickup();
+                showNotification("🌊 HỒ THỦY NGÂN GƯƠNG BẠC: Dòng nước phản chiếu thiên hà! Nhận Khiên Hộ Thể Nguyệt Quang (+100 Giáp)!");
             }
             else if (item.type === 'throne') {
                 sfx.pickup();
@@ -2689,24 +2892,43 @@
             }
 
             if (gameState.isPlaying && !gameState.inDialogue) {
-                let moveX = 0;
-                let moveZ = 0;
+                let inputX = 0;
+                let inputZ = 0;
 
-                if (keys.forward) moveZ -= 1;
-                if (keys.backward) moveZ += 1;
-                if (keys.left) moveX -= 1;
-                if (keys.right) moveX += 1;
+                if (keys.forward) inputZ -= 1;
+                if (keys.backward) inputZ += 1;
+                if (keys.left) inputX -= 1;
+                if (keys.right) inputX += 1;
 
-                const isMoving = (moveX !== 0 || moveZ !== 0);
-                const currentSpeed = keys.shift ? 9.5 : 5.8;
+                const isMoving = (inputX !== 0 || inputZ !== 0);
+                const currentSpeed = keys.shift ? 9.8 : 6.0;
 
                 if (isMoving) {
-                    const moveDir = new THREE.Vector3(moveX, 0, moveZ).normalize();
-                    const targetAngle = Math.atan2(moveDir.x, moveDir.z);
+                    // Camera forward & right vectors on XZ ground plane
+                    const forwardX = -Math.sin(camYaw);
+                    const forwardZ = -Math.cos(camYaw);
+                    const rightX = Math.cos(camYaw);
+                    const rightZ = -Math.sin(camYaw);
 
-                    playerGroup.rotation.y = THREE.MathUtils.lerp(playerGroup.rotation.y, targetAngle, 12 * delta);
-                    playerGroup.position.x += moveDir.x * currentSpeed * delta;
-                    playerGroup.position.z += moveDir.z * currentSpeed * delta;
+                    const moveDir = new THREE.Vector3(
+                        inputX * rightX + inputZ * (-forwardX),
+                        0,
+                        inputX * rightZ + inputZ * (-forwardZ)
+                    ).normalize();
+
+                    const targetAngle = Math.atan2(moveDir.x, moveDir.z);
+                    playerGroup.rotation.y = THREE.MathUtils.lerp(playerGroup.rotation.y, targetAngle, 14 * delta);
+
+                    const stepX = moveDir.x * currentSpeed * delta;
+                    const stepZ = moveDir.z * currentSpeed * delta;
+
+                    // Axis-separated solid collision resolution (allows smooth sliding along walls & pillars)
+                    if (!checkCollision(playerGroup.position.x + stepX, playerGroup.position.z)) {
+                        playerGroup.position.x += stepX;
+                    }
+                    if (!checkCollision(playerGroup.position.x, playerGroup.position.z + stepZ)) {
+                        playerGroup.position.z += stepZ;
+                    }
 
                     walkCycle += delta * (keys.shift ? 16 : 10);
                     playerGroup.position.y = Math.abs(Math.sin(walkCycle)) * 0.08;
@@ -2733,14 +2955,13 @@
                 checkInteractables();
                 updateMinimap(playerGroup.position.x, playerGroup.position.z, playerGroup.rotation.y);
 
-                // Third-person camera follow
-                const targetCam = new THREE.Vector3(
-                    playerGroup.position.x,
-                    playerGroup.position.y + 4.2,
-                    playerGroup.position.z + 7.8
-                );
-                camera.position.lerp(targetCam, 0.08);
-                camera.lookAt(playerGroup.position.x, playerGroup.position.y + 1.2, playerGroup.position.z);
+                // Third-person Orbit Camera with 360-degree right-click rotation
+                const targetCamX = playerGroup.position.x + Math.sin(camYaw) * Math.cos(camPitch) * camDistance;
+                const targetCamY = playerGroup.position.y + 1.8 + Math.sin(camPitch) * camDistance;
+                const targetCamZ = playerGroup.position.z + Math.cos(camYaw) * Math.cos(camPitch) * camDistance;
+
+                camera.position.lerp(new THREE.Vector3(targetCamX, targetCamY, targetCamZ), 0.12);
+                camera.lookAt(playerGroup.position.x, playerGroup.position.y + 1.3, playerGroup.position.z);
             } else if (!gameState.isPlaying) {
                 // Atmospheric cinematic camera slow orbit around the moonlit ruins for Home Screen
                 const orbitAngle = time * 0.08;
