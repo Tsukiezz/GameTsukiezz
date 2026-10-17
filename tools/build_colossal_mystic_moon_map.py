@@ -738,11 +738,19 @@ for cell in range(3):
     smooth(cell_wall)
     cell_wall.data.materials.append(mat_castle_stone)
 
-    # Song sắt nhà giam
+    # Song sắt nhà giam (Mở cửa buồng giam số 1 cho người chơi vào khám phá)
     for b in range(6):
+        if cell == 1 and (b == 2 or b == 3):
+            continue # Cửa mở cho người chơi bước vào
         bpy.ops.mesh.primitive_cylinder_add(radius=0.06, depth=4.6, location=(c_x - 13.0, cell_y - 4.2 + b * 0.85, dungeon_z + 2.4), vertices=12)
         bar = bpy.context.active_object
         bar.data.materials.append(mat_iron_bars)
+
+# Hộp sọ dạ quang / Tinh thể tù nhân cổ đại trong buồng giam
+bpy.ops.mesh.primitive_uv_sphere_add(radius=0.35, location=(c_x - 16.0, c_y, dungeon_z + 0.4), segments=16, ring_count=12)
+cell_relic = bpy.context.active_object
+smooth(cell_relic)
+cell_relic.data.materials.append(mat_cyan_crystal)
 
 # Quan tài Hiệp sĩ Mặt Trăng Cổ Đại (Ancient Moon Sarcophagus) giữa hầm
 bpy.ops.mesh.primitive_cube_add(size=1.0, location=(c_x, c_y, dungeon_z + 0.8))
@@ -859,6 +867,13 @@ for s in range(7):
     st.scale = (7.0, 1.2, 0.5)
     smooth(st)
     st.data.materials.append(mat_castle_stone)
+
+# Sàn chuyển tiếp trung gian nối cầu thang giữa và 2 cánh (Intermediate Landing Platform)
+bpy.ops.mesh.primitive_cube_add(size=1.0, location=(c_x, c_y + 11.5, hall_z + 3.5))
+mid_landing = bpy.context.active_object
+mid_landing.scale = (32.0, 3.5, 0.5)
+smooth(mid_landing)
+mid_landing.data.materials.append(mat_castle_stone)
 
 for wing_side in [-1, 1]:
     for s in range(7):
