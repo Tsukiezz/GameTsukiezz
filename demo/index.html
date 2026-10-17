@@ -1333,8 +1333,28 @@
                 g.add(eye);
             });
 
-            // Helmet & Ruby
-            const helmRim = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.58, 0.18, 20), matGold);
+            // Cute Nose
+            const nose = new THREE.Mesh(new THREE.SphereGeometry(0.07, 12, 10), matBlush);
+            nose.position.set(0, 1.56, 0.65);
+            g.add(nose);
+
+            // Rounded Hamster Ears Peeking Out
+            [-0.42, 0.42].forEach(x => {
+                const earOuter = new THREE.Mesh(new THREE.SphereGeometry(0.22, 14, 12), matFur);
+                earOuter.scale.set(0.9, 1.1, 0.4);
+                earOuter.position.set(x, 1.95, -0.05);
+                earOuter.rotation.z = x > 0 ? -0.3 : 0.3;
+                g.add(earOuter);
+
+                const earInner = new THREE.Mesh(new THREE.SphereGeometry(0.15, 12, 10), matBlush);
+                earInner.scale.set(0.8, 1.0, 0.3);
+                earInner.position.set(x * 0.95, 1.95, 0.02);
+                earInner.rotation.z = x > 0 ? -0.3 : 0.3;
+                g.add(earInner);
+            });
+
+            // Helmet & Spike
+            const helmRim = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.58, 0.18, 20), matSteel);
             helmRim.position.set(0, 1.95, 0.1);
             g.add(helmRim);
 
@@ -1343,27 +1363,31 @@
             helmDome.position.set(0, 2.02, 0.1);
             g.add(helmDome);
 
-            const ruby = new THREE.Mesh(new THREE.IcosahedronGeometry(0.08, 1), new THREE.MeshStandardMaterial({ color: 0xe63946, emissive: 0xe63946, emissiveIntensity: 0.5 }));
-            ruby.position.set(0, 2.0, 0.68);
-            g.add(ruby);
+            const noseGuard = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.25, 0.1), matSteel);
+            noseGuard.position.set(0, 1.82, 0.64);
+            g.add(noseGuard);
 
-            const plume = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.45, 0.9), matCapeRed);
-            plume.rotation.x = 0.35;
-            plume.position.set(0, 2.38, -0.05);
-            g.add(plume);
+            const spike = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.3, 12), matSteel);
+            spike.position.set(0, 2.4, 0.1);
+            g.add(spike);
 
-            // Chestplate
+            // Scale Armor Chestplate
             const chest = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 0.72, 0.48, 20), matSteel);
             chest.position.set(0, 0.85, 0.05);
             g.add(chest);
 
-            // Cape
-            const cape = new THREE.Mesh(new THREE.PlaneGeometry(0.75, 1.2), matCapeRed);
+            const belt = new THREE.Mesh(new THREE.TorusGeometry(0.73, 0.035, 12, 24), new THREE.MeshStandardMaterial({ color: 0x5a3825, roughness: 0.8 }));
+            belt.rotation.x = Math.PI / 2;
+            belt.position.set(0, 0.72, 0.05);
+            g.add(belt);
+
+            // Flowing Red Cape
+            const cape = new THREE.Mesh(new THREE.PlaneGeometry(0.85, 1.25), matCapeRed);
             cape.position.set(0, 1.05, -0.65);
             cape.rotation.x = 0.3;
             g.add(cape);
 
-            // Sword Arm
+            // Sword Arm (Right Hand)
             const sArm = new THREE.Group();
             sArm.position.set(0.78, 0.9, 0.2);
             const swordBlade = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.13, 0.95), matSteel);
@@ -1375,18 +1399,33 @@
             sArm.add(swordGlow);
             g.add(sArm);
 
-            // Shield Arm
+            // Round Wooden Buckler Shield with Steel Rim & Boss (Left Hand)
             const shArm = new THREE.Group();
             shArm.position.set(-0.78, 0.9, 0.2);
-            const shMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.48, 0.08, 20), matSteel);
+            const matWood = new THREE.MeshStandardMaterial({ color: 0x7c4722, roughness: 0.8 });
+            const shMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.48, 0.06, 24), matWood);
             shMesh.rotation.z = Math.PI / 2;
             shMesh.position.set(-0.15, 0, 0.25);
             shArm.add(shMesh);
-            const shMoon = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.06, 16), matCyanGlow);
-            shMoon.rotation.z = Math.PI / 2;
-            shMoon.position.set(-0.21, 0, 0.25);
-            shArm.add(shMoon);
+
+            const shRim = new THREE.Mesh(new THREE.TorusGeometry(0.47, 0.035, 12, 24), matSteel);
+            shRim.rotation.y = Math.PI / 2;
+            shRim.position.set(-0.15, 0, 0.25);
+            shArm.add(shRim);
+
+            const shBoss = new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 12), matSteel);
+            shBoss.scale.set(0.5, 1.0, 1.0);
+            shBoss.position.set(-0.19, 0, 0.25);
+            shArm.add(shBoss);
             g.add(shArm);
+
+            // Little Paws / Feet
+            [-0.32, 0.32].forEach(x => {
+                const foot = new THREE.Mesh(new THREE.SphereGeometry(0.16, 14, 10), matBlush);
+                foot.scale.set(0.9, 0.5, 1.4);
+                foot.position.set(x, 0.1, 0.15);
+                g.add(foot);
+            });
 
             g.swordArm = sArm;
             return g;
@@ -1620,6 +1659,41 @@
         fireflyGeo.setAttribute('position', new THREE.BufferAttribute(fireflyPos, 3));
         const fireflies = new THREE.Points(fireflyGeo, new THREE.PointsMaterial({ color: 0x00f5d4, size: 0.45, transparent: true, opacity: 0.8 }));
         scene.add(fireflies);
+
+        // Enchanted Red Toadstool Mushrooms (from Hamster Warrior Concept Art)
+        const matMushroomCap = new THREE.MeshStandardMaterial({ color: 0xd90429, roughness: 0.4, emissive: 0xd90429, emissiveIntensity: 0.25 });
+        const matMushroomStem = new THREE.MeshStandardMaterial({ color: 0xfdf0d5, roughness: 0.8 });
+        const matMushroomSpot = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 });
+        
+        const mushroomPositions = [
+            [-3, -2], [-3.8, -1.5], [-2.5, -3.2],
+            [4, -3], [4.6, -2.2], [5.2, -4],
+            [-10, 8], [-11, 7.2],
+            [8, 10], [9.2, 9],
+            [-15, -4], [13, 3]
+        ];
+        
+        mushroomPositions.forEach(([mx, mz]) => {
+            const mg = new THREE.Group();
+            const scale = 0.5 + Math.random() * 0.7;
+            const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.12 * scale, 0.18 * scale, 0.8 * scale, 12), matMushroomStem);
+            stem.position.y = 0.4 * scale;
+            mg.add(stem);
+            
+            const cap = new THREE.Mesh(new THREE.SphereGeometry(0.45 * scale, 16, 12, 0, Math.PI * 2, 0, Math.PI * 0.55), matMushroomCap);
+            cap.position.y = 0.75 * scale;
+            mg.add(cap);
+            
+            for(let s = 0; s < 4; s++) {
+                const spot = new THREE.Mesh(new THREE.SphereGeometry(0.08 * scale, 8, 8), matMushroomSpot);
+                const angle = (s * Math.PI) / 2;
+                spot.position.set(Math.cos(angle) * 0.32 * scale, 0.9 * scale, Math.sin(angle) * 0.32 * scale);
+                mg.add(spot);
+            }
+            
+            mg.position.set(mx, 0, mz);
+            scene.add(mg);
+        });
 
         // =====================================================================
         // GAME STATE & HUD LOGIC
