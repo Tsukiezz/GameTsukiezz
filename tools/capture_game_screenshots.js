@@ -2,19 +2,22 @@ const { spawn } = require('child_process');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 async function captureProper() {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'chrome-prof-'));
     const chrome = spawn('C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', [
         '--headless=new',
-        '--remote-debugging-port=9222',
+        '--remote-debugging-port=9223',
+        `--user-data-dir=${tmpDir}`,
         '--disable-gpu',
-        '--window-size=1280,720',
+        '--window-size=1440,860',
         'http://localhost:8080/'
     ]);
 
-    await new Promise(r => setTimeout(r, 2000));
+    await new Promise(r => setTimeout(r, 2500));
 
-    http.get('http://localhost:9222/json', (res) => {
+    http.get('http://localhost:9223/json', (res) => {
         let data = '';
         res.on('data', c => data += c);
         res.on('end', () => {
@@ -26,15 +29,15 @@ async function captureProper() {
                 ws.send(JSON.stringify({ id: 1, method: "Runtime.enable" }));
                 ws.send(JSON.stringify({ id: 2, method: "Page.enable" }));
 
-                // Click Play button and position camera
+                // Enter Game and position camera
                 setTimeout(() => {
                     ws.send(JSON.stringify({
                         id: 3,
                         method: "Runtime.evaluate",
                         params: {
                             expression: `(() => {
-                                document.getElementById('btn-play-game').click();
-                                document.getElementById('home-screen').style.display = 'none';
+                                enterGame();
+                                document.getElementById('game-hud').classList.add('active');
                                 
                                 // Position player on Castle Bridge Ramp
                                 playerGroup.position.set(-110, 3.25, 68.0);
@@ -43,17 +46,17 @@ async function captureProper() {
                                 camYaw = Math.PI - 0.2;
                                 camPitch = 0.35;
                                 camDistance = 3.8;
-                                return 'Positioned and hidden home-screen';
+                                return 'Positioned on Castle Bridge';
                             })()`,
                             returnByValue: true
                         }
                     }));
-                }, 1000);
+                }, 1500);
 
-                // Wait 1.5s for render and take screenshot of Castle Bridge Ramp
+                // Wait 2.5s for render & FPS text update and take screenshot of Castle Bridge Ramp
                 setTimeout(() => {
                     ws.send(JSON.stringify({ id: 10, method: "Page.captureScreenshot", params: { format: "png" } }));
-                }, 2500);
+                }, 4000);
 
                 // Move to Crystal Road near Central Plaza
                 setTimeout(() => {
@@ -72,12 +75,12 @@ async function captureProper() {
                             returnByValue: true
                         }
                     }));
-                }, 3500);
+                }, 5000);
 
-                // Wait 1.5s and take screenshot of Crystal Highway
+                // Wait 2s and take screenshot of Crystal Highway
                 setTimeout(() => {
                     ws.send(JSON.stringify({ id: 20, method: "Page.captureScreenshot", params: { format: "png" } }));
-                }, 5000);
+                }, 7000);
             };
 
             ws.onmessage = (event) => {
@@ -89,15 +92,16 @@ async function captureProper() {
                     const buf = Buffer.from(msg.result.data, 'base64');
                     const file = path.join(__dirname, '..', 'demo', 'verified_castle_bridge.png');
                     fs.writeFileSync(file, buf);
-                    console.log(`Saved screenshot 1 to ${file}`);
+                    console.log(`Saved fresh screenshot 1 to ${file}`);
                 }
                 if (msg.id === 20 && msg.result && msg.result.data) {
                     const buf = Buffer.from(msg.result.data, 'base64');
                     const file = path.join(__dirname, '..', 'demo', 'verified_crystal_road.png');
                     fs.writeFileSync(file, buf);
-                    console.log(`Saved screenshot 2 to ${file}`);
+                    console.log(`Saved fresh screenshot 2 to ${file}`);
                     setTimeout(() => {
                         chrome.kill();
+                        try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch(e) {}
                         process.exit(0);
                     }, 500);
                 }
