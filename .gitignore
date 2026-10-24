@@ -3,7 +3,7 @@
 # ==============================================================================
 
 # Unity generated folders
-[Ll]ibrary/
+/[Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
@@ -74,3 +74,10 @@ Packages/packages-lock.json
 
 *.blend1
 *.blend2
+
+# Generated Python bytecode and browser verification artifacts
+__pycache__/
+*.py[cod]
+/demo/verification/
+/demo/*.png
+/.runtime/

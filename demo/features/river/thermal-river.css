@@ -1,0 +1,5 @@
+#river-wolf-hud{position:absolute;top:var(--hud-boss-top,240px);left:16px;width:270px;max-width:calc(100vw - 32px);padding:13px;border:1px solid #9b865f;background:#101c2aef;border-radius:12px;color:#f1e4c8}
+#river-wolf-hud .lake-boss-bar{margin:8px 0}#river-wolf-hud small{color:#c7d9df}
+#river-wolf-hud[hidden],#river-stun-status[hidden]{display:none}
+#river-stun-status{position:absolute;left:50%;bottom:200px;transform:translateX(-50%);padding:10px 20px;background:#302641ed;border:1px solid #efc77f;color:#ffe6a6;border-radius:12px;font-weight:600;pointer-events:none}
+@media(max-width:600px){#river-wolf-hud{width:210px;font-size:12px;padding:10px}#river-stun-status{bottom:290px;font-size:12px}}

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
+ <defs><linearGradient id="bar" x2="0" y2="1"><stop stop-color="#784731"/><stop offset="1" stop-color="#3b211b"/></linearGradient><linearGradient id="paper" x2="1" y2="1"><stop stop-color="#e7bf65"/><stop offset="1" stop-color="#a46432"/></linearGradient></defs>
+ <ellipse cx="120" cy="153" rx="81" ry="11" fill="#000" opacity=".16"/>
+ <g transform="rotate(-12 120 90)">
+  <rect x="44" y="30" width="152" height="120" rx="9" fill="#301b17"/>
+  <rect x="44" y="24" width="152" height="120" rx="9" fill="url(#bar)"/>
+  <g fill="#855139" stroke="#3c221c" stroke-width="4" stroke-linejoin="round">
+   <path d="M53 33h38v39H53zM101 33h38v39h-38zM149 33h38v39h-38zM53 82h38v39H53zM101 82h38v39h-38zM149 82h38v39h-38z"/>
+  </g>
+  <path d="M57 38h29M105 38h29M153 38h29M57 87h29M105 87h29M153 87h29" stroke="#b57950" stroke-width="3" opacity=".7"/>
+  <path d="M40 100l29 7 19-5 19 7 23-6 23 7 22-5 25 8v34H40z" fill="#d7d6c9"/>
+  <path d="M40 117h160v38H40z" fill="url(#paper)"/>
+  <path d="M47 121h146v29H47z" fill="none" stroke="#f0d895"/>
+  <text x="120" y="140" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" letter-spacing="2" fill="#452819">CHOCOLATE</text>
+ </g>
+</svg>

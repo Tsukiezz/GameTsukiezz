@@ -1,0 +1,67 @@
+/* Lobby only: the in-game HUD and controls keep their existing layout. */
+#home-screen {
+    padding: clamp(20px,4vw,52px) clamp(24px,6vw,88px);
+    align-items: stretch;
+    background: linear-gradient(90deg,rgba(6,12,23,.97),rgba(6,12,23,.84) 38%,rgba(6,12,23,.16) 100%),url('assets/background.jpg') center/cover;
+    backdrop-filter: none;
+    overflow-y: auto;
+    gap: 24px;
+}
+#home-screen .home-top { flex-shrink:0; }
+#home-screen .game-badge { background:transparent; border:0; padding:0; box-shadow:none; color:#c3bba7; font-size:11px; letter-spacing:1.5px; }
+#home-screen .badge-dot { background:#cdb481; box-shadow:none; animation:none; }
+#home-screen .home-center { align-items:flex-start; text-align:left; margin:0; width:min(100%,500px); padding:16px 0; }
+#home-screen .brand-crest { width:27px;height:27px;border:1px solid #d8bf87;border-radius:50%;box-shadow:inset -8px 0 #d8bf87;filter:none;animation:none;margin-bottom:16px; }
+#home-screen .main-title { font-size:clamp(30px,4.4vw,56px);letter-spacing:5px;text-shadow:none;line-height:1.15; }
+#home-screen .title-sub { font-size:clamp(10px,1.1vw,13px);letter-spacing:2.5px;color:#c9bc9f;text-shadow:none;margin:10px 0 16px; }
+#home-screen .title-desc { font-size:13px;line-height:1.7;color:#a5aab4;max-width:390px;margin:0 0 25px; }
+#home-screen .menu-list { width:min(100%,350px);gap:9px; }
+#home-screen .btn-menu { justify-content:space-between;min-height:58px;border-radius:4px;padding:16px 22px;background:rgba(13,22,35,.82);border:1px solid #35404b;box-shadow:none;font-size:15px;letter-spacing:2px;color:#e0e4e8; }
+#home-screen .btn-menu>span:last-child { font-size:20px; color:#a99570; }
+#home-screen .btn-menu>span:first-child { text-align:left; }
+#home-screen .btn-menu.primary { background:#d8bd86;color:#161d25;border-color:#d8bd86; }
+#home-screen .btn-menu.primary>span:last-child { color:#161d25; }
+#home-screen .btn-menu.hero-menu { border-left:3px solid #cdb481; }
+#home-screen .btn-menu:hover:not(:disabled) { transform:translateX(5px);border-color:#d8bd86;box-shadow:none;background:#25313e;color:white; }
+#home-screen .btn-menu.primary:hover { background:#e7cea0;color:#161d25; }
+#home-screen .btn-menu:focus-visible,#home-screen .icon-btn:focus-visible { outline:2px solid #f7e1af;outline-offset:4px; }
+#home-screen .btn-menu:disabled { cursor:default; color:#89929d;background:rgba(12,19,29,.68);border-color:#29333e; }
+#home-screen .btn-menu:disabled::before { display:none; }
+#home-screen .btn-menu small { display:block;font-size:11px;letter-spacing:0;color:#9099a6;margin-top:5px;font-weight:400; }
+#home-screen .home-bottom { flex-wrap:wrap;gap:15px;flex-shrink:0;font-size:11px;color:#969ca6; }
+#home-screen .active-hero-preview { padding:8px 14px 8px 8px;border-radius:5px;background:#101b29;border-color:#35404b;font-size:12px; }
+#home-screen .ambient-glow { display:none; }
+#lobby-video { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:0; }
+#home-screen::after { content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,10,20,.94),rgba(5,10,20,.72) 36%,rgba(5,10,20,.12));pointer-events:none;z-index:1; }
+#setting-language { background:#142234;color:#f3e5c5;border:1px solid #637086;padding:10px 12px;border-radius:6px;max-width:160px;font:inherit; }
+#setting-language:focus-visible { outline:2px solid #e7cea0;outline-offset:3px; }
+#modal-heroes .modal-card { max-width:1260px; }
+#modal-heroes .hero-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+#modal-heroes .hero-card { min-width:0; }
+#modal-heroes .hero-img-wrap img { object-fit:contain; }
+#modal-heroes .hero-card:focus-visible { outline:2px solid #e7cea0;outline-offset:3px; }
+@media(max-width:1100px) { #modal-heroes .hero-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:760px) { #modal-heroes .hero-grid { grid-template-columns:1fr; } }
+@media(max-width:650px) { #home-screen::after { background:rgba(5,10,20,.76); } }
+@media(max-width:650px) {
+    #home-screen { background-position:65% center;background-image:linear-gradient(90deg,rgba(6,12,23,.96),rgba(6,12,23,.78)),url('assets/background.jpg');gap:18px; }
+    #home-screen .home-center { padding:8px 0; }
+    #home-screen .menu-list { width:100%; }
+    #home-screen .title-desc { margin-bottom:18px; }
+    #home-screen .home-bottom>div:nth-child(2) { display:none; }
+    #home-screen .game-badge { font-size:9px;letter-spacing:.5px; }
+}
+@media(max-height:650px) and (min-width:651px) {
+    #home-screen { padding-top:16px;padding-bottom:16px;gap:10px; }
+    #home-screen .brand-crest,#home-screen .title-desc { display:none; }
+    #home-screen .main-title { font-size:38px; }
+    #home-screen .btn-menu { min-height:46px;padding:10px 20px; }
+}
+@media(prefers-reduced-motion:reduce) {
+    #home-screen *,#home-screen { animation:none!important;transition:none!important; }
+}
+.settings-save-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px;padding-top:14px;border-top:1px solid #ffffff25;}
+.settings-save-footer .btn-menu{width:auto;padding:12px 20px;font-size:13px;}
+.settings-save-footer .btn-menu:disabled{opacity:.5;cursor:default;}
+#settings-save-status{font-size:12px;color:#9ccbbb;}
+#modal-settings .modal-card{max-height:90dvh;overflow:auto;}

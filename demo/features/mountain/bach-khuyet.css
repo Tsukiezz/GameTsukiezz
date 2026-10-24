@@ -1,0 +1,7 @@
+#monster-skill-warning{position:absolute;bottom:100px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);box-sizing:border-box;padding:12px 20px;border:1px solid #ff8e75;border-radius:12px;background:#221a29ed;color:#ffe2b1;font-weight:600;text-align:center;pointer-events:none}
+#monster-skill-warning[hidden],#mountain-boss-hud[hidden]{display:none}
+#mountain-boss-hud{position:absolute;top:var(--hud-boss-top,240px);left:16px;width:270px;max-width:calc(100vw - 32px);background:#0c1323ee;border:1px solid #67709a;border-radius:12px;padding:14px;color:#eee}
+#mountain-boss-hud .lake-boss-bar{margin:8px 0;height:8px}
+#mountain-boss-hud small{color:#c4cce2}
+#mountain-minerals{padding:16px;line-height:1.7;color:#bddfe7}
+@media(max-width:650px){#monster-skill-warning{bottom:175px;padding:9px 12px;font-size:12px}#mountain-boss-hud{width:220px;padding:10px;font-size:12px}}

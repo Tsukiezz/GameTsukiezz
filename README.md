@@ -1,5 +1,22 @@
 # 🌙 Game Tsukiezz: Echoes of the Moonlit Realm
 
+## Chạy bản demo trên trình duyệt
+
+```powershell
+python -m http.server 8765 --bind 127.0.0.1 --directory demo
+```
+
+Mở **http://127.0.0.1:8765/**. Đến gần cổng lâu đài, nhấn **E** để mở cửa.
+Kỳ lân Nguyệt Quang đứng bên phải sảnh vào. Giữ chuột phải để nhìn quanh.
+Chọn **Nhà Tù** trên thanh tham quan, tới nút trên bệ đá và nhấn **E** để mở/khóa song sắt.
+Thiết kế mới dùng hành lang lệch lối và cầu thang giấu sau vách tủ sách ở các phòng khác nhau.
+Có thư viện cổ, bảo tàng giáp, phòng ngủ vua và hầm kho vàng; mỗi phòng có một cửa ra hành lang.
+Đấu trường La Mã có sân cát bầu dục, khán đài bậc thang và vòm đá đổ nát; chọn **Đấu Trường** để tham quan.
+Mục **CHỌN ANH HÙNG** có thêm Kì Lân Thần Kì, Rồng Quỷ Vương và Ninja Âm Dương được dựng trong Blender.
+Trong game, mở **Địa điểm** để di chuyển nhanh; nút **?** có hướng dẫn và cài đặt. Giao diện cảm ứng có nút di chuyển, nhảy, đánh và tương tác.
+
+[Thiết kế mê cung hiện tại](docs/CASTLE_MAZE.md) · [Công cụ và kiểm thử](tools/README.md) · [Blender MCP](docs/BLENDER-MCP.md)
+
 [![C# & Assets Validation](https://github.com/Tsukiezz/GameTsukiezz/actions/workflows/csharp-lint-and-validate.yml/badge.svg)](https://github.com/Tsukiezz/GameTsukiezz/actions/workflows/csharp-lint-and-validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Unity](https://img.shields.io/badge/Unity-2022.3%20LTS-black.svg?logo=unity)](https://unity.com/)
@@ -100,3 +117,6 @@ GameTsukiezz/
 3. Kéo thả các model 3D trong `Assets/Art/Models/` (như `MoonstoneArtifact.fbx`, `AncientMonolith.fbx`) vào Scene.
 4. Gắn component `InteractableBase` hoặc `PickupItem` để nhân vật có thể tương tác bằng phím **[E]**!
 5. Nhấn nút **▶ Play** trên Unity để trải nghiệm!
+
+Current web feature layout: [docs/PROJECT_LAYOUT.md](docs/PROJECT_LAYOUT.md).
+Backpack, chocolate and wildlife: [docs/BACKPACK_WILDLIFE.md](docs/BACKPACK_WILDLIFE.md).

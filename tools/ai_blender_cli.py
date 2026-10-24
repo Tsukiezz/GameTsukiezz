@@ -9,8 +9,8 @@ if sys.platform == "win32":
 
 from ai_blender_bridge import BlenderAIBridge
 
-BLENDER_EXE = r"E:\blender.exe"
-MODELS_DIR = r"c:\Users\Admin\OneDrive\Máy tính\Desktop\CODE\Tsukiezz\projects\GameTsukiezz\Assets\Art\Models"
+BLENDER_EXE = os.environ.get("BLENDER_EXE", r"D:\blender.exe")
+MODELS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Assets", "Art", "Models"))
 
 def run_headless_script(python_code):
     """Chạy script Python trong Blender chế độ ngầm (Headless)"""
