@@ -1,6 +1,6 @@
 # GameTsukiezz — Bàn giao cuộc trò chuyện
 
-## Mới nhất — EXE Windows và chuẩn bị GitHub (02/11/2026)
+## Mới nhất — EXE Windows và phát hành GitHub (02/11/2026)
 
 - **`Tsuventure.exe`** tại gốc dự án, khoảng **27,7 MiB**, có logo và nhúng đầy đủ 162 file runtime. Đã tạo biểu tượng **Tsuventure** trên Desktop trỏ tới EXE và mở thử. Không cần Python/Blender trên máy chơi. Launcher dùng Chrome/Edge đang có, mở cửa sổ app; máy chủ chỉ nghe loopback.
 - Có `demo/index.html` cạnh EXE: dùng ngay thư mục dự án, sửa game rồi đóng/mở lại để cập nhật. Chép riêng EXE: tự giải nén dữ liệu nhúng theo Build ID vào `%LOCALAPPDATA%\Tsuventure\Bundles`. Phiên bản portable cập nhật bằng EXE mới. Cổng mặc định **8883**, dùng chung origin/hồ sơ trình duyệt để giữ save. Máy chủ đang chạy từ Python được dùng lại; bản EXE cũ được bàn giao qua sự kiện local khi mở bản mới.
@@ -8,7 +8,8 @@
 - Đưa **Three.js r128** vào `demo/vendor/three-r128.min.js` cùng giấy phép MIT từ upstream, thay link CDN ở HTML. Bộ máy 3D hoạt động bằng file local; Google Fonts có thể dùng font dự phòng khi ngoại tuyến. Không đổi map/model/AI/chỉ số, không mất bản sửa chân sinh vật.
 - Kiểm thử **chính EXE chép riêng**: **15/15** mục (toàn bộ tài nguyên nhúng khớp SHA-256, HEAD, MIME, range video/audio, cache, đường dẫn, trùng phiên và bàn giao chế độ project). Game 3D từ cổng EXE **8897** qua **99/99** kiểm tra sinh vật và **7/7** điều khiển thật. Hồ sơ kiểm thử tách biệt, không sửa save chơi tại 8883. Báo cáo giữ ở `demo/verification/desktop/`, `final-checks.json` đạt.
 - Dọn **250 file tạm/trùng, 112,69 MiB** sau khi đóng máy chủ kiểm thử. Manifest đường dẫn/lý do/hash: `docs/desktop-cleanup-20261102.json`; script `tools/desktop/cleanup_build.py` chỉ dọn build/cache/report trùng. Giữ EXE chính, toàn bộ runtime, nguồn Blender, công cụ dựng, bằng chứng kiểm thử cuối, backup và log server chơi.
-- Repository đúng: **https://github.com/Tsukiezz/GameTsukiezz**. Nhánh công việc **`update/desktop-launcher-2026-11-02`**, giữ nguyên `main`. Người dùng đã yêu cầu upload dự án cùng EXE. Commit bao gồm các cập nhật map/game trước đó chưa commit và launcher. Không dùng force push. Xác minh remote bằng `git ls-remote` sau push; kết quả phát hành cuối sẽ ghi bên dưới.
+- Đã push lên **https://github.com/Tsukiezz/GameTsukiezz**, nhánh **`update/desktop-launcher-2026-11-02`**, giữ nguyên `main`. Commit bản game/EXE **`2001d70`** bao gồm các cập nhật map/game trước đó chưa commit và launcher; các commit tài liệu sau đó ghi kết quả phát hành. Không force push. Git LFS đã tải đủ 33 đối tượng mới khoảng 75 MB.
+- Đã phát hành GitHub prerelease **`desktop-2026.11.02`**: **https://github.com/Tsukiezz/GameTsukiezz/releases/tag/desktop-2026.11.02**. Tải trực tiếp: **https://github.com/Tsukiezz/GameTsukiezz/releases/download/desktop-2026.11.02/Tsuventure.exe**. File 29.024.256 byte; SHA-256 local và GitHub trùng **`105c904e6f134fe4d46a1b93191f9740ecdc5e5efdb16299b69ac2f80879e3d7`**. Metadata phát hành: `docs/desktop-release.json`.
 
 ### Chơi ngày mai
 

@@ -4,6 +4,8 @@ Game phiêu lưu 3D chạy trên trình duyệt bằng Three.js. Đọc [bàn gi
 
 **Chơi bằng một lần bấm trên Windows:** mở **[Tsuventure.exe](Tsuventure.exe)** ở thư mục gốc. EXE có logo và dữ liệu game đi kèm, không cần Python/Blender. Đặt cạnh `demo/` để luôn mở bản dự án mới nhất, hoặc chép riêng EXE để chơi bản đã đóng gói. Hướng dẫn cập nhật và dựng lại: [DESKTOP_EXE.md](docs/DESKTOP_EXE.md).
 
+**[Tải Tsuventure.exe cho Windows](https://github.com/Tsukiezz/GameTsukiezz/releases/download/desktop-2026.11.02/Tsuventure.exe)** · [Trang phát hành](https://github.com/Tsukiezz/GameTsukiezz/releases/tag/desktop-2026.11.02)
+
 **Đấu trường 5 cấp:** lần lượt gặp Cự Thú (2.400 HP), Ngựa Hắc Ám (5.000), Spinosaurus (8.000), T-rex (10.000) và Thần Zeus (20.000). Hạ đối thủ mới mở cấp tiếp theo và nhận Huân Chương 1–5 trong balo. Tiến độ tự lưu; năng lực huân chương chờ cập nhật. **G → Đấu Trường La Mã**, vào lối chiến binh, **E** mở cổng hầm thú. Xem vòng báo đòn để né húc, cắn, gầm và kiếm sét. Thư viện có model Blender cập nhật, bỏ rong/rêu khỏi danh sách; cây thủy sinh vẫn còn trong sông.
 
 **Sinh vật & đấu trường (31/10):** 34 mẫu sinh vật được dựng lại bằng Blender, dùng chung trong thế giới và thư viện. Đấu trường La Mã chuyển ra phía tây bắc, lớn gấp **2,5 lần**, có một hầm thú lớn, lối chiến binh mở và khán giả cổ vũ. Mở **http://127.0.0.1:8883/?arena=1** hoặc **G → Đấu Trường La Mã**; ga mới có đường bộ tới cửa chiến binh. Bay cao hơn mái có thể đi qua đấu trường. Nguồn chỉnh sửa: `Assets/Art/Blender/Creatures/LunarCreatureStudio.blend` và `Assets/Art/Blender/Environments/GrandRomanArenaCurrent.blend`.
