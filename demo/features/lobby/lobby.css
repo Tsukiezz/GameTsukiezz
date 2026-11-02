@@ -65,3 +65,11 @@
 .settings-save-footer .btn-menu:disabled{opacity:.5;cursor:default;}
 #settings-save-status{font-size:12px;color:#9ccbbb;}
 #modal-settings .modal-card{max-height:90dvh;overflow:auto;}
+
+#home-screen .brand-logo{display:block;width:clamp(130px,18vw,220px);height:auto;object-fit:contain;border-radius:16px;margin-bottom:12px;}
+@media(max-height:750px){#home-screen .brand-logo{width:125px;}#home-screen .main-title{font-size:28px;}}
+@media(max-width:650px){#home-screen .brand-logo{width:145px;}}
+
+#home-screen .main-title{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+#home-screen .brand-logo{width:clamp(260px,36vw,520px);border-radius:0;margin-bottom:16px;max-height:180px;object-fit:contain;filter:drop-shadow(0 5px 18px #030816)}@media(max-height:750px){#home-screen .brand-logo{width:300px;max-height:110px}}@media(max-width:650px){#home-screen .brand-logo{width:min(85vw,380px);max-height:145px}}
+.music-controls{display:grid;gap:10px;width:min(310px,100%);color:#c7d9e4;font-size:13px}.music-controls>div{display:flex;align-items:center;gap:12px}.music-controls input[type=range]{flex:1;min-width:60px;width:100%}.music-controls small{color:#9eb5c8;line-height:1.6}.music-controls label{display:flex;gap:9px;align-items:center}.gift-code-form{padding:18px;margin-top:20px;border:1px solid #4b6778;border-radius:12px;background:#111e30}.gift-code-form>label{font-weight:700;color:#dfc686;letter-spacing:2px}.gift-code-form p{font-size:12px;line-height:1.7;color:#b6c9d6}.gift-code-form>div{display:flex;gap:10px;margin-top:12px}.gift-code-form input{min-width:0;flex:1;padding:12px;background:#0a1423;border:1px solid #496273;border-radius:8px;color:#e9ddb9}.gift-code-form button{padding:10px 18px;border:1px solid #c7a858;border-radius:8px;background:#b49a60;color:#111b2b;font-weight:700;cursor:pointer}.gift-quantity{color:#d7bd83!important}@media(max-width:650px){#modal-settings .setting-item{flex-wrap:wrap;gap:14px}.music-controls{width:100%}}

@@ -1,4 +1,5 @@
 function updatePlayerVitals(){
+    if(window.playerLife&&gameState.health<=0){playerLife.die();return;}
     for(const [key,maxKey] of [['health','maxHealth'],['armor','maxArmor'],['stamina','maxStamina'],['oxygen','maxOxygen']]){
         const max=Math.max(1,Number(gameState[maxKey])||100),value=Math.max(0,Math.min(max,Number(gameState[key])||0));
         gameState[key]=value;
@@ -39,7 +40,7 @@ function installGameHUD(){
     // Keep location and boss panels below all currently visible vital bars.
     const placeLocation=()=>{const bottom=Math.ceil(status.getBoundingClientRect().bottom-hud.getBoundingClientRect().top);location.style.top=(bottom+10)+'px';hud.style.setProperty('--hud-boss-top',(bottom+70)+'px');};
     new ResizeObserver(placeLocation).observe(status);
-    map.querySelector('.hud-minimap-header>span').textContent='BẢN ĐỒ · 2080m';
+    map.querySelector('.hud-minimap-header>span').textContent='BẢN ĐỒ · 6720m';
     home.textContent='↩ Trang chủ';home.title='Về trang chủ';home.setAttribute('aria-label','Về trang chủ');
     perf.title='Hiệu năng và đồ họa';perf.setAttribute('role','button');perf.tabIndex=0;
     perf.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal('modal-settings');}});
@@ -63,21 +64,21 @@ function installGameHUD(){
     }
     const travel=panel('hud-travel','Chọn điểm đến','Di chuyển nhanh đến khu vực bạn muốn khám phá.','⌖ Địa điểm');
     const buttons=[...tour.querySelectorAll('.tour-btn')].filter(b=>b!==sit);
-    const renames={1:'🏰 Đại điện',3:'🧱 Phòng tiếp khách',4:'👑 Ngai vàng',5:'✨ Gác mái',7:'🚪 Cửa hầm bí mật',9:'⚔️ Đấu trường',11:'🩸 Tế đàn',13:'🌳 Cổ thụ'};
-    for(const [index,text] of Object.entries(renames))buttons[index].textContent=text;
-    for(const [title,indices] of [['Thế giới',[0,9,10,11,12,13,14,15]],['Lâu đài',[1,2,3,4,5,6,7,8]]]){
+    const renames={1:'🏰 Đại điện',3:'🧱 Phòng tiếp khách',4:'👑 Ngai vàng',5:'✨ Gác mái',7:'🚪 Cửa hầm bí mật',9:'⚔️ Đấu trường'};
+    for(const [index,text] of Object.entries(renames))if(buttons[index])buttons[index].textContent=text;
+    for(const [title,indices] of [['Thế giới',buttons.map((_,i)=>i).filter(i=>i===0||i>=9)],['Lâu đài',[1,2,3,4,5,6,7,8]]]){
         const group=document.createElement('section');group.className='hud-travel-group';
         const h=document.createElement('h3');h.textContent=title;
         const grid=document.createElement('div');grid.className='hud-destinations';
         for(const i of indices){const b=buttons[i];b.addEventListener('click',()=>{closePanels();b.blur();renderer.domElement.focus({preventScroll:true});});grid.append(b);}
         group.append(h,grid);travel.content.append(group);
     }
-    const help=panel('hud-help','Điều khiển','Giữ chuột phải để nhìn quanh, lăn chuột để đổi khoảng cách.','?');
+    const help=panel('hud-help','Điều khiển','Nhấn chuột phải một lần để nhìn quanh. Esc hiện con trỏ; lăn chuột đổi khoảng cách.','?');
     helper.children[2].lastChild.textContent=' Nhảy';helper.children[3].lastChild.textContent=' Ngồi / đứng';
     helper.children[4].querySelector('.hud-key').textContent='Chuột phải';
     help.content.append(helper);
     const helpSettings=button('⚙ Cài đặt đồ họa','Cài đặt đồ họa',()=>openModal('modal-settings'));help.content.append(helpSettings);
-    const heroButton=button('♙ <span class="hud-action-text">Nhân vật</span>','Đổi nhân vật',()=>openModal('modal-heroes'));heroButton.id='hud-heroes-button';
+    const heroButton=button('♙ <span class="hud-action-text">Skin</span>','Chọn skin (P)',()=>openModal('modal-heroes'));heroButton.id='hud-heroes-button';
     actions.append(travel.details,heroButton,
         button('⚙','Cài đặt',()=>openModal('modal-settings'),'hud-settings-button'),help.details,perf,home);
     header.replaceChildren(status,actions);hud.append(location,map);
@@ -87,7 +88,7 @@ function installGameHUD(){
     sit.removeAttribute('style');sit.textContent='C · Ngồi / đứng';sit.className='hud-sit-button';quick.append(sit);hud.append(quick);
     document.getElementById('hud-toast').setAttribute('role','status');document.getElementById('hud-toast').setAttribute('aria-live','polite');
     document.getElementById('hud-prompt').setAttribute('role','status');renderer.domElement.tabIndex=0;
-    window.resetGameplayInput=function(){for(const key of Object.keys(keys))keys[key]=false;hud.querySelectorAll('.pressed').forEach(b=>b.classList.remove('pressed'));isRightMouseDown=false;if(document.pointerLockElement)document.exitPointerLock();};
+    window.resetGameplayInput=function(options={}){window.heroMotion?.stop();if(window.heroMotion)heroMotion.state.aiming=false;for(const key of Object.keys(keys))keys[key]=false;hud.querySelectorAll('.pressed').forEach(b=>b.classList.remove('pressed'));isRightMouseDown=false;if(!options.keepPointerLock&&document.pointerLockElement)document.exitPointerLock();};
     hud.addEventListener('pointerdown',()=>resetGameplayInput());
     document.addEventListener('pointerdown',e=>{if(!e.target.closest('#game-hud details'))closePanels();});
     document.addEventListener('keydown',e=>{if(e.key==='Escape'){
@@ -117,7 +118,7 @@ function installHUDTouchControls(hud){
     controls.append(pad,actions);hud.append(controls);
     let touch=null;
     renderer.domElement.style.touchAction='none';
-    renderer.domElement.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&gameState.isPlaying&&!gameState.inDialogue){e.preventDefault();touch={id:e.pointerId,x:e.clientX,y:e.clientY};renderer.domElement.setPointerCapture(e.pointerId);}});
-    renderer.domElement.addEventListener('pointermove',e=>{if(touch?.id===e.pointerId){camYaw-=(e.clientX-touch.x)*.006;camPitch=Math.max(-1.25,Math.min(1.25,camPitch+(e.clientY-touch.y)*.005));touch.x=e.clientX;touch.y=e.clientY;playerGroup.rotation.y=camYaw;}});
-    for(const event of ['pointerup','pointercancel','lostpointercapture'])renderer.domElement.addEventListener(event,e=>{if(touch?.id===e.pointerId)touch=null;});
+    renderer.domElement.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&gameState.isPlaying&&!gameState.inDialogue){e.preventDefault();touch={id:e.pointerId,x:e.clientX,y:e.clientY};if(window.heroMotion)heroMotion.state.aiming=true;renderer.domElement.setPointerCapture(e.pointerId);}});
+    renderer.domElement.addEventListener('pointermove',e=>{if(touch?.id===e.pointerId){camYaw-=(e.clientX-touch.x)*.006;camPitch=Math.max(-1.25,Math.min(1.25,camPitch+(e.clientY-touch.y)*.005));touch.x=e.clientX;touch.y=e.clientY;}});
+    for(const event of ['pointerup','pointercancel','lostpointercapture'])renderer.domElement.addEventListener(event,e=>{if(touch?.id===e.pointerId){touch=null;if(window.heroMotion)heroMotion.state.aiming=false;}});
 }

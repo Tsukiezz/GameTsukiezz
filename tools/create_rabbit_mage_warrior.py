@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 import os
 
 if sys.platform == "win32":
@@ -355,7 +356,7 @@ for window in bpy.context.window_manager.windows:
                     space.shading.color_type = 'MATERIAL'
 
 # 11. XUẤT RA THƯ MỤC BLENDER RIÊNG ĐÃ ĐƯỢC QUẢN LÝ
-char_dir = r"c:\Users\Admin\OneDrive\Máy tính\Desktop\CODE\Tsukiezz\projects\GameTsukiezz\Assets\Art\Blender\Characters"
+char_dir = __CHARACTER_DIR__
 os.makedirs(char_dir, exist_ok=True)
 
 blend_file = os.path.join(char_dir, "RabbitMageWarrior.blend")
@@ -374,23 +375,13 @@ try:
 except Exception as e:
     print("FBX Export error:", e)
 
-# Lưu thêm một bản vào Assets/Art/Models/ để Unity dùng ngay
-models_dir = r"c:\Users\Admin\OneDrive\Máy tính\Desktop\CODE\Tsukiezz\projects\GameTsukiezz\Assets\Art\Models"
-os.makedirs(models_dir, exist_ok=True)
-try:
-    import shutil
-    shutil.copy2(blend_file, os.path.join(models_dir, "RabbitMageWarrior.blend"))
-    shutil.copy2(fbx_file, os.path.join(models_dir, "RabbitMageWarrior.fbx"))
-except Exception as e:
-    pass
-
 print("RABBIT_MAGE_WARRIOR_CREATED_SUCCESSFULLY")
 '''
 
 def main():
     bridge = BlenderAIBridge()
     print("🚀 Đang gửi lệnh tạo 'Thỏ Phù Thủy Chiến Binh' vào Blender...")
-    res = bridge.execute_code(RABBIT_MAGE_CODE)
+    res = bridge.execute_code(RABBIT_MAGE_CODE.replace('__CHARACTER_DIR__',repr(str(Path(__file__).resolve().parents[1]/'Assets/Art/Blender/Characters'))))
     import json
     print(json.dumps(res, indent=2, ensure_ascii=False))
 

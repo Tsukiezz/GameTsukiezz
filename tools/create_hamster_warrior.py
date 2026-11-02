@@ -1,3 +1,4 @@
+from pathlib import Path
 import math
 import os
 import sys
@@ -286,7 +287,7 @@ for window in bpy.context.window_manager.windows:
                     space.shading.type = 'MATERIAL'
 
 # Tự động xuất file ra thư mục GameTsukiezz Unity
-output_dir = r"c:\\Users\\Admin\\OneDrive\\Máy tính\\Desktop\\CODE\\Tsukiezz\\projects\\GameTsukiezz\\Assets\\Art\\Models"
+output_dir = __MODEL_DIR__
 os.makedirs(output_dir, exist_ok=True)
 blend_save = os.path.join(output_dir, "HamsterWarrior.blend")
 bpy.ops.wm.save_as_mainfile(filepath=blend_save)
@@ -304,7 +305,7 @@ print("HAMSTER_WARRIOR_LIVE_GENERATION_SUCCESSFUL")
 def main():
     bridge = BlenderAIBridge()
     print("🚀 Đang gửi lệnh tạo 'Chiến Binh Chuột Hamster' vào Blender đang mở...")
-    res = bridge.execute_code(HAMSTER_CODE)
+    res = bridge.execute_code(HAMSTER_CODE.replace('__MODEL_DIR__',repr(str(Path(__file__).resolve().parents[1]/'Assets/Art/Models'))))
     import json
     print(json.dumps(res, indent=2, ensure_ascii=False))
 

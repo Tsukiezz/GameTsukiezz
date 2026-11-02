@@ -81,3 +81,6 @@ __pycache__/
 /demo/verification/
 /demo/*.png
 /.runtime/
+
+# Blender preview caches (safe to regenerate)
+**/.thumbnails/

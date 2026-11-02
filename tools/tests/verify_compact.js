@@ -18,7 +18,7 @@ const pending = new Map(), errors = [];
 async function cdp(method, params = {}) {
     const id = ++sequence;
     return new Promise((resolve, reject) => {
-        const timeout = setTimeout(() => { pending.delete(id); reject(new Error(`Timeout: ${method}`)); }, 60000);
+        const timeout = setTimeout(() => { pending.delete(id); reject(new Error(`Timeout: ${method}`)); }, method === 'Runtime.evaluate' ? 240000 : 60000);
         pending.set(id, { resolve: v => { clearTimeout(timeout); resolve(v); }, reject });
         ws.send(JSON.stringify({ id, method, params }));
     });

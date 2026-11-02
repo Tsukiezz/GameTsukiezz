@@ -1,0 +1,1572 @@
+{
+  "files": {
+    ".runtime/desktop-build/BuildInfo.cs": {
+      "bytes": 323,
+      "sha256": "de56a1608e3f83b2160dd859f9c884807b26840ecf19b2bd523ba05d9d22ee2e",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-build/game.zip": {
+      "bytes": 28836262,
+      "sha256": "468174ae07dd21254818a049195ed1623c0f807ca79662ecf1c8fb3149d89814",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-build/tsuventure.ico": {
+      "bytes": 166641,
+      "sha256": "a415e7da801f5ca4ba4b708d5b14956d2fcbec00acddab199af2b3b0b1609c7e",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/Tsuventure.exe": {
+      "bytes": 29024256,
+      "sha256": "105c904e6f134fe4d46a1b93191f9740ecdc5e5efdb16299b69ac2f80879e3d7",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/index.html": {
+      "bytes": 273634,
+      "sha256": "746e94cb45676a2e406c04ff0a8b4d3952f39e2ffed5eb6f453ba88e6465e6e6",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/manifest.webmanifest": {
+      "bytes": 571,
+      "sha256": "2ce440ac22a7f84aa4ed7b4c28b4db45ab2bff3f6b3e80bfc52f5f8f988c2c1a",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/vendor/THREE-LICENSE.txt": {
+      "bytes": 1081,
+      "sha256": "7dddf7c5b8fd10ee654db8857d75d104b5557889aa5a91fc4ca545ea7c07062f",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/vendor/three-r128.min.js": {
+      "bytes": 603445,
+      "sha256": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/arena-relocation.js": {
+      "bytes": 7923,
+      "sha256": "762fa6ae6866fc42f8fff57032995b91a5f8e936cccfe846371220339a92d539",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/arena-tournament.css": {
+      "bytes": 572,
+      "sha256": "83af43d8697406b791a05d7460b46636a6772039b1fc6cc574dc2e1c1c095d7b",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/arena-tournament.js": {
+      "bytes": 13771,
+      "sha256": "2ed06aec1670c33f76ac1f21c861552becb25cf9c62faf14fee38889d8c50c9e",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/arena-warrior-tunnels.js": {
+      "bytes": 3108,
+      "sha256": "821029b44e4405716f856ab4c2e10893f5e0be491d4eff996a7980d221e34162",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/roman-arena-details.js": {
+      "bytes": 8502,
+      "sha256": "7452cf0518474b3c780ce989f1529c8e147653059af83a1ebc4efadc31c480fe",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/roman-arena.js": {
+      "bytes": 18185,
+      "sha256": "f6bcc67514f349454b2b73d1e08b15431bff9ea30bb4501159e0ae31f786a922",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/castle/castle-integrity.js": {
+      "bytes": 5360,
+      "sha256": "e27b00cbc521c5435f9357d711578dc659a46048cc86eabd32be11e91383d4a7",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/castle/castle-upgrade.js": {
+      "bytes": 31521,
+      "sha256": "796a566fba649f36ac5b1246c699dbc7f3a8c7c1aca7c6aeac435b676f08f0da",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/cavern/cavern-surfaces.js": {
+      "bytes": 1491,
+      "sha256": "257b29748ccbf95c6dbbdfd2d051362132319e8e334c0bf89f0cbc59a20d4b7d",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/cavern/evil-cavern.css": {
+      "bytes": 758,
+      "sha256": "e71edfb4927fdeadefca7565ebe58b519f7634212ea57757627efacea1f49f54",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/cavern/evil-cavern.js": {
+      "bytes": 20566,
+      "sha256": "46c4c00aec452e6238be5543dddae22892ab99a5721617b56ab095b608c9595b",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/combat-balance.js": {
+      "bytes": 360,
+      "sha256": "9c6fbc0a51ce145aea36373fc8616ad1305e3e191c8391d4c641a8e612bb25a8",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/dragon-knight.js": {
+      "bytes": 2161,
+      "sha256": "5335e7614815f0d9bd73585bb13b7fe5b8e2e67dbc3d97a1fb380bbaea9b79da",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/hero-animation.js": {
+      "bytes": 7013,
+      "sha256": "0228592d5d3b43fbfd97f84900a0acb11e9949135fd58104ee6e49280bcc8a44",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/hero-motion.js": {
+      "bytes": 3568,
+      "sha256": "740bb0a6ab69db80529ddec619f748bb36d406105443eb45f0fb0f3425a251bf",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/hero-stat-sync.js": {
+      "bytes": 2537,
+      "sha256": "4b028192b7ca1240c03c4598ab618410154f58ce4118464addae5ae5f076c29d",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/player-experience.js": {
+      "bytes": 14325,
+      "sha256": "f752d5c0fc4e1bfa2820464b0c195c113fd008b645059124523f873fcfe713ed",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/creatures/creature-art.js": {
+      "bytes": 2723,
+      "sha256": "191ec66a1a5083206a3eb1654ec69696ab173620ab11e574c7176ae99f797429",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/creatures/creature-refresh.js": {
+      "bytes": 2059,
+      "sha256": "9265c474069156e1b768850b23686896f7a1606b8452a37405baf42b46efb99c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/desert-enemies.js": {
+      "bytes": 5796,
+      "sha256": "5e0bc2b7aa39687c970abdd1a7b9835d96142d89c333c0e1c75aa96454b5d1e7",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/desert-layout.js": {
+      "bytes": 4959,
+      "sha256": "018c33b83436146fdc7f02416df5af9b0b8473fc25e3a7f2e15a11686a9b9b47",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/desert-realm.js": {
+      "bytes": 22092,
+      "sha256": "f3f1560a783ff9df265301b17959528b25004511fd3bfda54082dd65735a61d0",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/pyramid-floors.js": {
+      "bytes": 5239,
+      "sha256": "83171a31d1ddf227615dda6705b63be682252e48714d6cbd152cc0ba1de9703e",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/pyramid-interior.js": {
+      "bytes": 5973,
+      "sha256": "c773c511a19361fd865e96eab97b31809f57fc595656798f568be6a30e1ad1af",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest/ancient-grove.js": {
+      "bytes": 7669,
+      "sha256": "aa82f23f60ef6708f13d6be100a24ab2fe031f4ea7a20ddbc145a1275f36683d",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest/forest-guardian.js": {
+      "bytes": 8074,
+      "sha256": "eb635d59e833106aeb5b1d5b17c6ff2ea9e646b1ef0d79a4532d8d70de3f3282",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest/wildlife.js": {
+      "bytes": 6226,
+      "sha256": "292f55ae49b7bb919055d2c6fc6d0c46414865e1727e3a8af4d53343a371e9c3",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/hud/game-hud.css": {
+      "bytes": 18122,
+      "sha256": "23ef049ccb0d841adb52313caf76d53d360dca540f066018c415036fd2e88d49",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/hud/game-hud.js": {
+      "bytes": 12206,
+      "sha256": "a6b1d8a35d0babe6cf2c426382a1879dd10e9b1a7c967b6e069ff0f7cdacd938",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/hud/game-shortcuts.js": {
+      "bytes": 4543,
+      "sha256": "4016502bb842fb9470eb1fb48ddf72e105761a6d55cdf46d0a7123f5a9221b41",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/backpack.css": {
+      "bytes": 6173,
+      "sha256": "e2432cefd2bd3424f46d16a9b6eeee03ee4136d363adf6b9cdabf85eeef5738c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/backpack.js": {
+      "bytes": 11765,
+      "sha256": "687d33968031f9bd686f4bfb76089d8ddf6236cf3d81393dc3597288c1f6cd0c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/crystal-wings.js": {
+      "bytes": 12229,
+      "sha256": "c897805701d37e00a6f29fd85e67c03a52bb5c740a0ac0e400fef88e3df606c5",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/food-pickups.js": {
+      "bytes": 3531,
+      "sha256": "7e16561c596c91ef47580f1bb0c7293e91b4fec1c7553c7640360517a2cf82dd",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/gift-code.js": {
+      "bytes": 3437,
+      "sha256": "394621057804daa7cedabaae0c3354bcc081b588b8a0108107137a3c0f8a8a5a",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/inventory-layout.js": {
+      "bytes": 2295,
+      "sha256": "2d0ad79f9f100708d2c2b8eadabf5aaaff3d700dac711378d4953633af6d7eaa",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/inventory-workspace.js": {
+      "bytes": 4951,
+      "sha256": "84d2a6042eeb8edd1ef2b3b20b6128f8cfaab88a12efbac05b2f6d58c9e19bf7",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/snow-crystals.js": {
+      "bytes": 2487,
+      "sha256": "80d0ef5f25e3a84c58d794229006816e0fb598179c5b921e28320992684e7bc8",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/solar-flashlight.js": {
+      "bytes": 7234,
+      "sha256": "0a127b99fbe395c06581075dfae7ef7cb9eabd0dc21fd07ac9244128192c3386",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/temple-supplies.js": {
+      "bytes": 8814,
+      "sha256": "e30adf4f479fd8966ad4b917d73413f67de5a43f40f96b875f33edc9a947c92f",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/tree-wood.js": {
+      "bytes": 3172,
+      "sha256": "8276bdaef3ca6de304d4a67335d3c42cc012f80b7e31422b30c1a6a3d2a6db38",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lake/lake-monsters.js": {
+      "bytes": 15514,
+      "sha256": "b24924330f521ebbbe40c08cd7a0757d567cb11943dd38ee4aae7ee1e65d59d1",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/library/field-guide.js": {
+      "bytes": 34756,
+      "sha256": "a3f1c4b637a3326323e20d7e52c575c0f9fb804e2e220e9da0ea72430fd86fb6",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/library/library-previews.js": {
+      "bytes": 8630,
+      "sha256": "3329fc0acab351c41ea8ee771cbe5c976b7b3670bc7b687e15164780c247a69a",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/lobby-music.js": {
+      "bytes": 2006,
+      "sha256": "467006a201c4c8c596a0cf6114c4b472911e613b1d4ef9d0ccf17ffa92437686",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/lobby-settings.js": {
+      "bytes": 14492,
+      "sha256": "fdf8f7b7ce9f50ba803d01b7eea34230a12747764ad6bbb81aa3c49d440c246f",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/lobby.css": {
+      "bytes": 7231,
+      "sha256": "38b3db6a68fb880076eea6775b80ad1e5ae78d93300b9adbebf3918095d08b5f",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mangrove/mangrove-life.js": {
+      "bytes": 2998,
+      "sha256": "8cc1222602ff2f2ae5854db02bc6dd29eff4daac7226e76413c7c46b8a7382ef",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mangrove/mangrove-realm.js": {
+      "bytes": 21719,
+      "sha256": "c3f5a6429bc2e6e173ed216dc70005ea4beedd7ebaba91bc103b716e855ea41c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mountain/bach-khuyet.css": {
+      "bytes": 906,
+      "sha256": "ae4ee76114a8fbd96387a609e1490a60ae28a8156600c7434a88233e25946f01",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mountain/bach-khuyet.js": {
+      "bytes": 15459,
+      "sha256": "d37f9937522195448ff2a386a23b97ec0ac9dc5985b4f4c11b0ea7cc0286c6f2",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/highland-railway.js": {
+      "bytes": 6279,
+      "sha256": "377507df347f45a772e5d92e0ed14d4177fc60ee04435405fa1cf7e2ab72353f",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/moon-railway.js": {
+      "bytes": 64905,
+      "sha256": "3a0edb652bfe4d7b45d13c7be98bfd6870d6f596e95a66edbb8cc5ebc9337f5a",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/railway-clearance.js": {
+      "bytes": 30873,
+      "sha256": "5347298d1590dcb9afdb50ce27b11fa93ef426993fd47400d4ab6eb5882c2358",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/railway.css": {
+      "bytes": 2028,
+      "sha256": "a3310bd56fcf08fc9f1e91cddfa2a958a7a09da919767656796d3bf37b593b0c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/station-grounding.js": {
+      "bytes": 14382,
+      "sha256": "2f07741d5926f555695a4e0527a4e5377dfa3b572293669a475ab33aa603a43b",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/station-mobility.js": {
+      "bytes": 22516,
+      "sha256": "3d38bcf2206f15072e311bac805ee15154437d3ec1877639fdac8e0a08a82a2b",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/river/mountain-life.js": {
+      "bytes": 3263,
+      "sha256": "cd0ae7028fa35bbf06c2126f66ae07edc5b52d25bf6fd4fa124a35a75ff4569d",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/river/thermal-river.css": {
+      "bytes": 703,
+      "sha256": "002afe28b8d62d0722c0164266f7e16d474e5c8c11e1cc8f9760ecb7984803b4",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/river/thermal-river.js": {
+      "bytes": 29601,
+      "sha256": "57abe11b6610917d5c00a6c5ef79632a84097477ddd7eed93045fdc813b8f971",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/survival/player-life.js": {
+      "bytes": 5586,
+      "sha256": "1533e526710675e8067c92c5c53e238c55633b0528faa346f60670918d8bd10c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/survival/player-survival.js": {
+      "bytes": 6153,
+      "sha256": "76b4b021aa81499a7beaccbaaa6fe523299bcc0f484c7d6fae83ec6b4502c0a5",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/technology/river-boat.js": {
+      "bytes": 11925,
+      "sha256": "23876d565609efee6ffe341b8b993f1557f53ea18bc23c85ea7f7434012bc0e5",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/technology/technology-base.js": {
+      "bytes": 8704,
+      "sha256": "40f6d4c0021387389e4ad1efb1c9ed9ae013598f892f6cc2bdd1e4fd1e91417c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/apartment-doors.js": {
+      "bytes": 4646,
+      "sha256": "b392a522ec57641829fef80f1559476672cedb889905d9f66a372c2f09b2f620",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/cave-treasury.js": {
+      "bytes": 4539,
+      "sha256": "13e343f174fdbe410f0704665bffca886ef9c1a85f06384c46150d754ee0c171",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/rage-armor.js": {
+      "bytes": 846,
+      "sha256": "8859651e4a74c23b633e58292d07d264fa8f4640888d787f7ad9b2653aa48c7c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/void-art.js": {
+      "bytes": 6990,
+      "sha256": "2c3e3aa57c6fc9b37bbf3112ea1e948d63f91efaa1b6b0f0ac6ea40c8dcba9e3",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/void-district.js": {
+      "bytes": 20356,
+      "sha256": "8d97e3733eaa59c2c50f2398a7624e48b4463192d65d035ca446ab47d09e4d50",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/void-update.css": {
+      "bytes": 3519,
+      "sha256": "4aac41085464945ba9023fa46383e83a07df1b55b89b81662c76fb6c9935c7da",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/winter-architecture.js": {
+      "bytes": 12684,
+      "sha256": "0be31a441517629e4fb0de7137e3c2fd27c9728ecc5734472ae176accf70cf20",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/world-weather.js": {
+      "bytes": 5565,
+      "sha256": "c50af36d09d1163fcf75f92599a148112143fc96ea7d0a07f7ed023f4f4baafc",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/volcano/dragon-flight.js": {
+      "bytes": 4558,
+      "sha256": "411f0e8fcb98dbf6e472a9bbef178a037e9ce01e664fe194541b2e6b9d324ec7",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/volcano/volcanic-valley.js": {
+      "bytes": 24662,
+      "sha256": "6275b003b5fc94103f0912521036c399b2a9ca0f672cd9753ca486f03aac023c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/antarctic-realm.js": {
+      "bytes": 9262,
+      "sha256": "d2dd91337d8a83d3429352a52462c4f2236cd4e63e9322bd01e3156883a75b26",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/aquatic-ecology.js": {
+      "bytes": 6179,
+      "sha256": "a0ecf54821b5daf459dbe3bcbc48d238d5ce7a207a46eb1434405596e10215ed",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/candy-fortress.js": {
+      "bytes": 3975,
+      "sha256": "e4e23ea11cd82e0056fd3ba7b82e4c546e6e6b99f2a4a751a6690f8725751d08",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/candy-kingdom.js": {
+      "bytes": 15255,
+      "sha256": "f5934da2e2568620c2cdfca8762fc48e18dc1a32c391d8820539292129dfc144",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/candy-provisions.js": {
+      "bytes": 4201,
+      "sha256": "42df90fbfdcaddf9620b904931156f62d12b8028d545218bc14e86c54c33cfc6",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/construction-zones.js": {
+      "bytes": 3155,
+      "sha256": "2e197b2d8616d11d94974a85554424ff0b5e31f887ba91537a34ad2e16fdf9e7",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/expanded-realm.js": {
+      "bytes": 9145,
+      "sha256": "f6bbbe0995b2ef7521b8552b2afc54f895efc52f65cbfcea222f7f8953be3448",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/exploration-update.css": {
+      "bytes": 595,
+      "sha256": "dc848ee71bfeb9b8d23b8999f81e245d77fed02ed65e8e005da147874da3b636",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/exploration-update.js": {
+      "bytes": 21821,
+      "sha256": "253c92a65b24bf11f4f440d0e570910518040bb7b084c9c9b0c33d522263f042",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/graphics-quality.js": {
+      "bytes": 9602,
+      "sha256": "bca0881fc690cea05f17238453214a15d33a5bef67b5f2b86dfbdf4c14d0af17",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/highland-trails.js": {
+      "bytes": 22286,
+      "sha256": "b034f8d6dbef5c8710d2d0314b2cf0da03a3229974ce303e389572a626970a15",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/living-world.js": {
+      "bytes": 15874,
+      "sha256": "331e1c4434590fa34af8589a81ab39ceb398bfd7b2dbf9345cfb3a41f4b135af",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/lunar-biome.js": {
+      "bytes": 5084,
+      "sha256": "d6ee3f48dbfcb5425842e728fa7febbc73188a25ddde80fb0ed74b02efb0d540",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/lunar-surface-finish.js": {
+      "bytes": 13519,
+      "sha256": "8beb573d05f55658a44a8160d2c617a05029f3544d3f6691668ce14683e89be9",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/lunar-village-art.js": {
+      "bytes": 6207,
+      "sha256": "034fceba87f787a5ea9f30f50e9c3451a36df3614a0ecf5b91a68a402ba5e30c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/map-visual-repair.js": {
+      "bytes": 4744,
+      "sha256": "59f95b980ef241cfa0aeadf18ada07bca11db951270acff90f91707349ed458d",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/monster-camps.js": {
+      "bytes": 20516,
+      "sha256": "d6ee8f83452181369970ad07ad62420c39d87048e9990a6306a6f605fec4dbf9",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/monster-skills.js": {
+      "bytes": 11231,
+      "sha256": "be3bd05b3a6a390f3e2a32b200f5cf5b3fc856da62ff27f0909d42f6b1dabb1d",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/moon-underlayer.js": {
+      "bytes": 1200,
+      "sha256": "e3e8c7e9ceba40114b43c29db149e1726b90484413702b038cb86f437e7215c5",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/polar-ecology.js": {
+      "bytes": 4108,
+      "sha256": "6664bb5d8a859e3db40a5f9a7274c781b32f8336a34117bbcfcd1d9631b2ac17",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/realm-scenery.js": {
+      "bytes": 7324,
+      "sha256": "23968bf69b3bc322ef43cb5c2c409a91698da2b5fc3fa591db294ea7b23adcf8",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/realm-transit-update.js": {
+      "bytes": 25203,
+      "sha256": "1f821c666a0c8ae6a207d4b12e2ac5e288291674973fd15869d4c379f64ef79b",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/santa-gifts.js": {
+      "bytes": 9463,
+      "sha256": "33817b5b0b7b2cb95c625aafdb8993c1e134ee9cd8d742498619ff83a807949e",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/snow-queen.js": {
+      "bytes": 6972,
+      "sha256": "772ef4d32fcdd2ea7b47cb889beea4110ce2fa463c559393dc407da2f2ecc340",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/southern-expansion.js": {
+      "bytes": 10793,
+      "sha256": "8968ba419733a531e43bc707127f5036f57d76abe85c5e2c9a58d57787488cd7",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/surface-sync.js": {
+      "bytes": 5876,
+      "sha256": "d57bdd766ce5cc6586067a37e7c599c43330c16fdd0a5a7122fcb7f75a3578bc",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/terrain-continuity.js": {
+      "bytes": 6599,
+      "sha256": "7d0a862451d2796731b9a33de55afbc9dbdb26e1779f4a9256fd5d917257fa33",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/terrain-traversal.js": {
+      "bytes": 3349,
+      "sha256": "329d9c3cc689fd57afad5f42422f5bf105647f95f8acfe774c1eeba5882257d4",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/western-highlands.js": {
+      "bytes": 16570,
+      "sha256": "ede2d6b17c88235f5fb1834528ccbe9d66d000f0319f0de00d09dcb3e69c7370",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/world-residents.js": {
+      "bytes": 11709,
+      "sha256": "5aa78f56a3645c1e7c8df71cf257ab2f96c231634d1328495f9846cdcb567046",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/data/expanded-realm.js": {
+      "bytes": 987959,
+      "sha256": "271138ccdf94a1c645bbd6e83da59001f94ab31c6c825b1062a87fb085076ba4",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/data/highland-walking-routes.js": {
+      "bytes": 3063149,
+      "sha256": "3740d9998a27ea7d10eb33df901c5c5163a8cce3f3bc9ce51e3513610ec48c43",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/data/lunar-village-assets.js": {
+      "bytes": 480769,
+      "sha256": "104e5fe0241b53abd06ec9bb511480471bcb911095fcc086e9054fcf99cc46e4",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/volcano/data/volcanic-assets.js": {
+      "bytes": 237836,
+      "sha256": "f5e0e945c38e6c099f20904fd65943830b7e986f8745c93fb0074282140aa177",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/data/void-assets.js": {
+      "bytes": 677407,
+      "sha256": "503338f59b241eb7b4af6321f403c5272b2d85fa3c08430a719e116ff9f240c1",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/river/data/thermal-river.js": {
+      "bytes": 5906858,
+      "sha256": "fc6387ad948a0cd893654fc1ff649a30d97c8f391d0cee37eb95b2d427833d2f",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/data/railway-assets.js": {
+      "bytes": 140119,
+      "sha256": "008c81d3675800a49c87ab5ed5b172468f7de311e81923fc701229e79df90704",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mountain/data/bach-khuyet.js": {
+      "bytes": 1367903,
+      "sha256": "ed2e81097b2738a605e06f24bea56f442dd4fcbad419c266b5e94e4f6842018f",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mangrove/data/mangrove-assets.js": {
+      "bytes": 825617,
+      "sha256": "4c5351a366e7e5f1cbcf2eb3f47cc170899407f01715f3fbfc70a7c3243e0881",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/background.jpg": {
+      "bytes": 931339,
+      "sha256": "16c86e9ba9e90f72b559e01e926ba7a82087a6ed4e0e2ce88a2db1d20241b496",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/tsuventure-lobby.webm": {
+      "bytes": 1939811,
+      "sha256": "c2351ca4efc7eb190a9fbde9108c5c67b814e97b56c8dcbb51c32235cb15f37b",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/tsuventure-logo-v2.png": {
+      "bytes": 1487472,
+      "sha256": "51dc98caaf00aefc6312eee0a9ef095dae7ebc50f7c6ef17c629bcf5b57a4651",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/tsuventure-logo.png": {
+      "bytes": 1197995,
+      "sha256": "cceb9b5339104a54c877e50515cbc7f480f0788935eec8f527d552c2434e7d54",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/favicon.ico": {
+      "bytes": 145052,
+      "sha256": "0b907ccacb838ece5fcfda954d730bb727155ed522f3e95a0496b69dc828ab58",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/icon-1024.png": {
+      "bytes": 1319941,
+      "sha256": "0cd5c8746cde363bcf1841585f137bf71e8b4e9f218564f6201c4828a21c349b",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/icon-180.png": {
+      "bytes": 52243,
+      "sha256": "72465e54d0f31496c860b1dcf3d046b0b08e19bed434f69e7ebf7aea3d64f3dd",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/icon-192.png": {
+      "bytes": 58983,
+      "sha256": "695cdd6c5372005e04092fc44be1faacd2c674dc9599397f07cd450e5042a462",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/icon-32.png": {
+      "bytes": 2340,
+      "sha256": "25c47c1881e5317e7964d9031dbc94f6ad45e9b8658fccdbe4b61411b2daef13",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/icon-512.png": {
+      "bytes": 368411,
+      "sha256": "3369c7043ead7ba035c80ecf606e83aa7d2bbbffc4cb84a2d0b5c9080fa614c4",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/audio/the-pale-lunar-tide.mp3": {
+      "bytes": 3748322,
+      "sha256": "6e27811ded08eb18597b67d60b3d5b64fbc95bb1d17f36200f2ee814e54107bd",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lake/data/lake-monsters.js": {
+      "bytes": 639021,
+      "sha256": "75df5ebaec9601bf6c5c6f2e38e6b6f8e0d34086e799c06c35ca2fb3ed166722",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/bandage.svg": {
+      "bytes": 383,
+      "sha256": "4c41f901c7fc99dbd13431b24dbf541cc3d34daf6c3b2f3501d95b2cb6934bed",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/chocolate.svg": {
+      "bytes": 1265,
+      "sha256": "29c724947319c01d88b8a048af33190c30d8cd834fd04a5288fb7ca3d57fc5b6",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/crystal-wings.svg": {
+      "bytes": 696,
+      "sha256": "5b2898a16341f4896efc8295f79dd431e1791b459914f7782d17ae5485c474cd",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/diving_suit.png": {
+      "bytes": 40120,
+      "sha256": "c5233c2ebb40c340ac772ea7e950da5143ab651370317340c38c325091d0983a",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/elixir.svg": {
+      "bytes": 600,
+      "sha256": "4f3f030d835b4fd2510b2161370d4796e1e857e0329e60ce6421d934bf681569",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/engine.png": {
+      "bytes": 50675,
+      "sha256": "32913ee4e654e0795acff05b66ef99cb8fdb63f98a27583a4c4b6e45ce7b3708",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/iron_armor.png": {
+      "bytes": 39136,
+      "sha256": "8efb003e7c5a1f5ca82071858bb187b715f3c4d5df808af8c4a79552dcc05bde",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/lava_sword.png": {
+      "bytes": 35371,
+      "sha256": "9773c624f805d22fbaeae209dcc9483e8d3878496cee6354f315178cc0b73192",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/nakat.png": {
+      "bytes": 24401,
+      "sha256": "96e836007fbfd8283ab585b1e4e5fc84aa0634564b1b1546a0a3481060c884f5",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/rage_armor.png": {
+      "bytes": 40314,
+      "sha256": "5e407a193d128c4908b22a27eba6ed68eb98dd767b019073c31be25ac7b44918",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/snow_crystal.png": {
+      "bytes": 34820,
+      "sha256": "7b5145ab9445a945ddb7fd94c5ac85b9b4a495d8edf0c91a4d348b7483fc9573",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/void_fragment.png": {
+      "bytes": 31537,
+      "sha256": "84918b9940e54154d1974a1897fafb7505781f5fa3c9f3ccafef25f5f28fa8d6",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/data/solar-flashlight.js": {
+      "bytes": 122167,
+      "sha256": "d1e3af285f0d30df530ee427a74fd0ad99b458d4bb6f767e9820974c5ed1c43d",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest/data/ancient-grove.js": {
+      "bytes": 3183365,
+      "sha256": "66deb2ba080e78e76c22465fd6c67071e158bcc3e1e126f0e6319a36ec379ac9",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest/data/forest-guardian.js": {
+      "bytes": 196343,
+      "sha256": "d2a1b3a471f5fb9c8e707caaca2450c2596eac33fdf096356db5e6a2b34ec6c4",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/data/desert-assets.js": {
+      "bytes": 151144,
+      "sha256": "800bcef529111eb09e0f5592085c110e0278829dc72dc29e6bc32b7299400647",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/creatures/data/creature-studio.js": {
+      "bytes": 9531457,
+      "sha256": "0fbbe0ba648ca9b4c034b6dc7018a0fc74704e38fd161816636986b5e44e8ecd",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/assets/hamster_warrior.jpg": {
+      "bytes": 750925,
+      "sha256": "843fe7c7f84f84bf8add52083ad8d9f5b1c6f1c167db895b6eed7d5e7592c8f8",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/assets/rabbit_mage.jpg": {
+      "bytes": 842861,
+      "sha256": "9e4d0259478033e21e64417137ffda84dbbaba48e32207e38de2349299ce851f",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/dragon-knight/model.js": {
+      "bytes": 436589,
+      "sha256": "bf3cd5bf5e37d55f2262623949bb2ad2bebac4e75bda1ad7e17ba86dced0aa71",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/dragon-knight/portrait-art.png": {
+      "bytes": 2687699,
+      "sha256": "c69216cfb93ccfcb75379efa67a0510472ddfe1519555d9f51f1bb8945d162b0",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/dragon-knight/portrait.png": {
+      "bytes": 142635,
+      "sha256": "fe864b8c715901c026879fcb18a5eb36826ddcc3ca4d782e4df666ca140e7bdb",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/kingkong/ART.md": {
+      "bytes": 1686,
+      "sha256": "fcac6157090c0add476f3b6ef4037065f12f744b73b944f2581cf0a7b88cdb5d",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/kingkong/kingkong.js": {
+      "bytes": 1938,
+      "sha256": "ed752b23607ce6fdb4e36efe1f425f3ddae787d846d0a19760e6acf0431b9451",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/kingkong/model.js": {
+      "bytes": 449727,
+      "sha256": "722d76bb5b2b64759e31367ec3be20fc2deff841c18a6c91859b164337d0a00c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/kingkong/portrait-art.png": {
+      "bytes": 2765632,
+      "sha256": "4c9633d3b2af970b0c274f4cf38de0e5c60856dc5e80e2fb552b7678cdc19460",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/ninja-yinyang/abilities.js": {
+      "bytes": 5302,
+      "sha256": "0ef5da650072b2d9d1d0503009b4e5d5b2c0f473192b5826798f3a54c509934c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/ninja-yinyang/model.js": {
+      "bytes": 241072,
+      "sha256": "6d3bcbff9e913ebc99373aeae455413b7f3c2eb409da111e90cf01459bfb9578",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/ninja-yinyang/ninja.js": {
+      "bytes": 2150,
+      "sha256": "b65adf20eb510bd6c817dad83b9bf9d850ec00aaf1a96c9f38b9d017731237fb",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/ninja-yinyang/portrait-art-v2.png": {
+      "bytes": 2883035,
+      "sha256": "e587645f4fb08231021cad5eb060e64331617f5944422509e51fa00666ccdd8c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/ninja-yinyang/portrait.png": {
+      "bytes": 324294,
+      "sha256": "c137ff000e9aadb2f55cd9218c2beb95303c1ac8fd387316be470aa1f3ac85a7",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/cavern/data/evil-cavern.js": {
+      "bytes": 1112811,
+      "sha256": "c96382c18808ba7f346f2a96af8a3442a957e50ff5d8cdd89b1645e0a49720c9",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/castle/data/castle-extension.js": {
+      "bytes": 4407405,
+      "sha256": "ced182c6fd9d76b70ae451ce683fc8692e79d57a0bec86562e119f62d5f85e66",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/arena_beast.png": {
+      "bytes": 24058,
+      "sha256": "c9f8b0c7b0acf2c29322a9b543255ba546c1b67066c7e28331bdba9a09b26b9d",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/arena_dark_horse.png": {
+      "bytes": 20491,
+      "sha256": "62e5c68ea656f3565faf6dd818a909d304405eefbf95718d30767805cdee714f",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/arena_levels-report.json": {
+      "bytes": 7472,
+      "sha256": "ee22ffea63ac6474a648bff10de64240d14e57171218df1fa687335830e4eaeb",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/arena_speed-report.json": {
+      "bytes": 321,
+      "sha256": "8144ea27b5752ba570923c18e6a0ba83ca23cd9c1e9e435ad7572c23aeef4213",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/arena_spinosaurus.png": {
+      "bytes": 18888,
+      "sha256": "058acce3c8da7e0fe5e15a95c1b2cbb734179523a9fb386c9ccc74919117b8c3",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/arena_station_walk-report.json": {
+      "bytes": 724,
+      "sha256": "4fb3739baba52221d2109887e7997843053a0f3035a9d82b81a516201e8a7b33",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/arena_trex.png": {
+      "bytes": 19083,
+      "sha256": "c2e9c01f14177c1f82bd705d781edd4c7d18726340a829b81ed680f01c70811c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/arena_zeus.png": {
+      "bytes": 23828,
+      "sha256": "94bdacae1b220e58775bcb1b42e94f2c4e01881e20be86a9dc91a24dbb04910e",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/camp_dwarf.png": {
+      "bytes": 19003,
+      "sha256": "ddf4461b2e0ccc1b68b0b7f393f7e9ba5b307d8bf56a7f2a766be36ca13d25eb",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/camp_rabbit.png": {
+      "bytes": 24556,
+      "sha256": "eda49b727e144f5f0658746fcd51ea6f2962b014bbc535637a10bf1974d60d85",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/camp_robot.png": {
+      "bytes": 20367,
+      "sha256": "65d68da77edee8eb7700786dd218b0095062c5fa8f3c1e3b504ea089a3aa34c7",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/camp_wolf.png": {
+      "bytes": 20957,
+      "sha256": "cf2726cba81595482a410f8f5bbd89443e5fecb69f259a895ca063eb4106ceb7",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/candy_cavity.png": {
+      "bytes": 18750,
+      "sha256": "0308087bba118ab9624f0b8bc91d08e8718990b37ad98eb068f92fda11cc1ae6",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/check-persist.js-report.json": {
+      "bytes": 155,
+      "sha256": "840655648dbe162a0908f51fab38193af36ad1b1382e3eb8fc5e60a7ba839ab3",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/creature_upright-report.json": {
+      "bytes": 16976,
+      "sha256": "bb49feea48a6f28710834ac25504c0e20fa8e1ea76e79708621d8f4cabd65011",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/cursed_warrior.png": {
+      "bytes": 13709,
+      "sha256": "658e0250244f7c5014258ed266ee2ae285277545b6eddd6d2a06fe3d65c7897a",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/flying_reindeer.png": {
+      "bytes": 9613,
+      "sha256": "f2d74a48c219b15d163bb4a779810ee998ef7b35e1bd6411d6be195966748a87",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/forest_guardian.png": {
+      "bytes": 21924,
+      "sha256": "1997a8a97201b74cdbb4096751d35cc64487d33bb5c769ef0ce08666337cd91d",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/forest_sapling.png": {
+      "bytes": 18122,
+      "sha256": "af17e22e8bda814ef1d2ba68ae97166ceb2f90acc60caee04d2a70ebf1807259",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/giant_stone_worm.png": {
+      "bytes": 18662,
+      "sha256": "133f4ff47ac0a8a17e27202ae83553ec13ddf76bd47bea082a69dab5b6ddcbdd",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/lunar_unicorn.png": {
+      "bytes": 4659,
+      "sha256": "e40cca3cea1de70733f1a62ce380d7d79fb2ae72be5f0562506604289f56e83b",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/meaningful_interactions-report.json": {
+      "bytes": 3907,
+      "sha256": "47bc35d232b061ac6ccb5a4b607b7b6894c02c91f7198cc705a99652e48a5caa",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/ness.png": {
+      "bytes": 15753,
+      "sha256": "012f07f466379a15379a5fef5cf8eb4df084a2f1a0a5a70cec4ccfc106c1b61b",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/network_fish_0.png": {
+      "bytes": 16825,
+      "sha256": "a5d1c83e0110745644c15aab892cced5829f892cb4bdbc580133940859fbbf99",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/network_fish_1.png": {
+      "bytes": 19760,
+      "sha256": "b519d5959bb741cb4fa3edc05529dba606cb45491e052df5430ae4b7d7792d21",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/network_fish_2.png": {
+      "bytes": 13198,
+      "sha256": "274222977b334f1dfb247732ef7378de175aa68af2e30b939c63c9d25a7eb3c9",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/network_fish_3.png": {
+      "bytes": 15954,
+      "sha256": "cf7c8ded3e9ef1cf7b8f7215769afb56a8e02bc0262886160d59d0684219c3bf",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/network_fish_4.png": {
+      "bytes": 15944,
+      "sha256": "e76f122da2b6c30879515f3fe00e90f2c384e11c31dedce466c5fe7de25c6c47",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/network_fish_5.png": {
+      "bytes": 17093,
+      "sha256": "15ca109f48c3ba1ce13a4410617325d784741452a1b7ac6c225497aa9ec8a96f",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/polar_penguin.png": {
+      "bytes": 23500,
+      "sha256": "76b2e2a0268ee57912dd3fdb135d6a72b562b8086b8eeaf902f99e26f5a46e80",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/polar_polar_bear.png": {
+      "bytes": 23277,
+      "sha256": "494fc3cd1e51b36a3f3d986922dbe24998d7156c1d90a90c6fc6f8f09f9e51f6",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/pyramid_cobra.png": {
+      "bytes": 14745,
+      "sha256": "fb13c06780f522a58fa6066f59e08b80fabd0a11ec979d0b1ce942a595673f6c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/pyramid_spider.png": {
+      "bytes": 21980,
+      "sha256": "be3050f3acbfe1bf0ab41fb1b9ebae2f5c5bb404735d1a5f7b7376b099a2349c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/railway_service-report.json": {
+      "bytes": 109919,
+      "sha256": "1cdc4c40005441589162d95cbb23c91bf28a42e0a9e261450edf73cf92286ff5",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/red_rumped_monkey.png": {
+      "bytes": 12000,
+      "sha256": "efa6ef7b553ee8e4e50b5b8380a56002366ba90f18017840032b566cf5529770",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/review-v2-final.js-report.json": {
+      "bytes": 200,
+      "sha256": "d9be37eb73d9ad85cb4425bb25f3b9ebf752c1b4e9f9ce1836ab719f86c7eb5a",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/review_creature_library-report.json": {
+      "bytes": 9593,
+      "sha256": "531e7280b5be0a44e1aa73a318623b882fe9b37ed3b117f1eb04c08c570b6a63",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/river_crab.png": {
+      "bytes": 29178,
+      "sha256": "81617420e2f4531dc856b4d581ef979dcc9ae63a40cf9c4d9b5f6db7d4fffcf0",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/river_fish_0.png": {
+      "bytes": 19880,
+      "sha256": "6ed58936a3ae8fe643b816f600d2ee34c967c83032db2276a61e04596e633d6a",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/river_fish_1.png": {
+      "bytes": 13677,
+      "sha256": "5fc63db626085dad8bfc9a10c62151738e12ee643a8a9e17a7eb48f4252bcc12",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/river_fish_2.png": {
+      "bytes": 16402,
+      "sha256": "142ae07d9e13463dc69917695b5ec25495c4494bd5ab2e8eee9e7cb5b7ed51da",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/river_glass_shrimp.png": {
+      "bytes": 20229,
+      "sha256": "aafb4448069954046ba4ad33aa1f270486735cbdb21e51077de072cbb6c505ef",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/river_ice_snail.png": {
+      "bytes": 15303,
+      "sha256": "00dea636daf36dd52a8481e108283ad968de1901be7b87ca945d86de89d3df48",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/river_moon_crab.png": {
+      "bytes": 27104,
+      "sha256": "1b731579a081554d9e0f219b380f7dad75a7b0be545382e0d5a99be4d28d9c6b",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/river_shrimp.png": {
+      "bytes": 18388,
+      "sha256": "4a37d454e6001347393800c7269cc28e9bbe48256fe0375ca02a2573eb19713c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/river_snail.png": {
+      "bytes": 20002,
+      "sha256": "6a82a533fdc671355c9b843a29fada747955349552bcedf80b8acf064b1a2a20",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/roaming_buffalo.png": {
+      "bytes": 19240,
+      "sha256": "ec805f1b054334dd1260506eb3774002846f795a57fcc9c2b533e66b1172af4a",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/roaming_bull.png": {
+      "bytes": 22890,
+      "sha256": "8ea1758f5c94545be5652a5acdb6596b02fa2c1e01f86ad7110928f325abf819",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/roaming_butterfly.png": {
+      "bytes": 16801,
+      "sha256": "6079f78bb51218ea931162a84860d796a11c471c83cebc8d2fea1f29fe9323c3",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/roaming_cat.png": {
+      "bytes": 21271,
+      "sha256": "7f1d0132f5671bfc9a5603b2a9098f7752607a5c1db97378604abb5512bb12cc",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/roaming_chicken.png": {
+      "bytes": 20168,
+      "sha256": "6fd4ccec4b664095512790e7782da360b54876141a705fe0159105ad2ae937bb",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/roaming_deer.png": {
+      "bytes": 17502,
+      "sha256": "426e7b6e1a1aef58f2ee0ef8ae45da7b85fce23bcd4135502398167a0acd95fa",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/roaming_doe.png": {
+      "bytes": 19258,
+      "sha256": "be0641f570f6d9369f6b577f76fc6e09e286e0e57bf2e1a79f4a2e6e24f52d09",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/roaming_dog.png": {
+      "bytes": 23796,
+      "sha256": "94d167bf24c8d1ba722a1dcea03700a94e6f234974446616e63c7236a1ec3777",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/roaming_elephant.png": {
+      "bytes": 24145,
+      "sha256": "36e879c531761d5ef9eda36331d61823c19913ed311243f44fb084539e752e7c",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/roaming_goat.png": {
+      "bytes": 18687,
+      "sha256": "d4474b39d4c2f6031b0a2a3af1e45304b13a9ba334730d60c31629be21e411a0",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/snow_queen.png": {
+      "bytes": 15001,
+      "sha256": "baca0c76742c425ff490b380f61a557572b898f7ea3fdbbf0679e82c5ab73ff7",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/space_croc.png": {
+      "bytes": 20478,
+      "sha256": "9e10dab00f711087f8b61a4ba030a1ec11f38ce63d0338629227100051a4b420",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/space_sabertooth.png": {
+      "bytes": 15232,
+      "sha256": "1d42b2ddeebefb8b572e9efcec9bc57f7054d9314281578908cc5ebe706b8fcd",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/speed_wolf.png": {
+      "bytes": 17374,
+      "sha256": "1a2115dad9a51775f1241df460a29b1c641261e4f345766dd6b01506fc822419",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/swamp_crab.png": {
+      "bytes": 22563,
+      "sha256": "b67159015d15f9189ef59afca4a29e110a52250dc863bdf941c6169f90b20f35",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/swamp_crocodile.png": {
+      "bytes": 23536,
+      "sha256": "9527e622b3595d08e9d994dda6a32dce3e0a3a1081613804ef2cb3163abfdc57",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/swamp_fish.png": {
+      "bytes": 17119,
+      "sha256": "233d8b721b53f4536e204b63e23bd65fc1037214b259dd7ae36f0536bb811da6",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/swamp_turtle.png": {
+      "bytes": 23159,
+      "sha256": "eb16a4d9e7d317bd3834d56b3fc3091c83b90a7f07929190bf817a435d3c1777",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/thermal_coral.png": {
+      "bytes": 16633,
+      "sha256": "ac2390a8b4c0bbce906d90146a9286263c53c253fb56e764f42b9194e063c2ed",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/vine-riding.png": {
+      "bytes": 366524,
+      "sha256": "691ffbed375cfb2ee7abdd5e5b2ca4fc154b1e51f0fa8a2cd5748b6970021029",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/walking-elephant.png": {
+      "bytes": 386908,
+      "sha256": "3eddac3cfe3021f5114481a588fcb575715b3b87a9b1cf0014dcdaef3ef97261",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/war_dragon.png": {
+      "bytes": 16135,
+      "sha256": "6b8af2b86b19506dfa233f6e89874fd21742cc2a1f0c317ccf8f14f15e903166",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/wildlife_frog.png": {
+      "bytes": 27852,
+      "sha256": "c1784980699069263a33970d6346b6bc94a252631e3b95a195c4e6d8a702ceba",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/wildlife_horse.png": {
+      "bytes": 20357,
+      "sha256": "6a0f498c2451ebbf9b3ddf9cf8077fea28421f5b6a6e52757b5d84cd3ef42c64",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/wildlife_pig.png": {
+      "bytes": 21767,
+      "sha256": "0f01d020adbcfb0d73107be56b7e3cd8ff9be8569e686b6a18759d08ffd95208",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/wildlife_rabbit.png": {
+      "bytes": 21892,
+      "sha256": "49bbd66b6df1da47bd0fd64cde6c1b5fd3ec39dca4d8359a55f3247157b2006a",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/void-update/wise_sphinx.png": {
+      "bytes": 9537,
+      "sha256": "3a90f623026f38638a5cb843e1db82a7583cf64f0ce13ea4331e9fbfabd6c4cd",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    "demo/verification/exploration-final/native-controls.json": {
+      "bytes": 567,
+      "sha256": "5f6a2e7da8be5cdcff3ed6d076a130fb00e0d4ff69f37051df0735a848fd427f",
+      "reason": "Completed build/test intermediate or duplicate verification output"
+    },
+    ".runtime/arena-opponents-final-render.log": {
+      "bytes": 2182,
+      "sha256": "7020f0f3b1cafa08fdfa4287db355a86cf5f77aff1a69394d43cc5ec3f7923c3",
+      "reason": "Finished temporary diagnostic; final reports retained in demo/verification/desktop"
+    },
+    ".runtime/arena-opponents-render.log": {
+      "bytes": 2182,
+      "sha256": "566de36c268a6ad123b04c4fa4009bee6921213c099be5260fe45c36f73a08a4",
+      "reason": "Finished temporary diagnostic; final reports retained in demo/verification/desktop"
+    },
+    ".runtime/creature-v2-blender-qa.log": {
+      "bytes": 1474,
+      "sha256": "19a2ecad138602cd82707ee1a848d655df71bbb023e9b7d4c645552cd7237084",
+      "reason": "Finished temporary diagnostic; final reports retained in demo/verification/desktop"
+    },
+    ".runtime/creature-v2-blender.log": {
+      "bytes": 6158,
+      "sha256": "db337239c780cc27c416dd7b72ada0ec493643923a5000369340dfd327275475",
+      "reason": "Finished temporary diagnostic; final reports retained in demo/verification/desktop"
+    },
+    ".runtime/creature-v2-final-build.log": {
+      "bytes": 6158,
+      "sha256": "c8531526243ad8edfdddf840dec60ba7684ceb2c51686bb9f9a4c1a71d766921",
+      "reason": "Finished temporary diagnostic; final reports retained in demo/verification/desktop"
+    },
+    ".runtime/creature-v2-final-qa.log": {
+      "bytes": 1474,
+      "sha256": "0a47d1efdb563562537b55db4987b23220d945941759d1b899372bd16f7b6e98",
+      "reason": "Finished temporary diagnostic; final reports retained in demo/verification/desktop"
+    },
+    ".runtime/desktop-test-server.json": {
+      "bytes": 28,
+      "sha256": "39c54e885cf27351bd11868420fe89278a541de4e2e50a72e8df5b2349932c90",
+      "reason": "Finished temporary diagnostic; final reports retained in demo/verification/desktop"
+    },
+    ".runtime/diagnose-creature-up.js": {
+      "bytes": 491,
+      "sha256": "06aa3245e6537eb802354a7ebc2eb0d2b4b40a16825a90743fb7f6335fd72333",
+      "reason": "Finished temporary diagnostic; final reports retained in demo/verification/desktop"
+    },
+    ".runtime/void-debug.json": {
+      "bytes": 88,
+      "sha256": "cee14fd036819363ef9b2d3acef89c06e700388c3c7a5b1d929457ae5271962a",
+      "reason": "Finished temporary diagnostic; final reports retained in demo/verification/desktop"
+    },
+    ".runtime/void-inspection.json": {
+      "bytes": 16976,
+      "sha256": "bb49feea48a6f28710834ac25504c0e20fa8e1ea76e79708621d8f4cabd65011",
+      "reason": "Finished temporary diagnostic; final reports retained in demo/verification/desktop"
+    }
+  },
+  "count": 250,
+  "bytes": 118168348,
+  "retained": [
+    "Tsuventure.exe",
+    "demo playable map and assets",
+    "current Blender authoring sources",
+    "desktop source/build tools",
+    "current regression reports",
+    "rollback archives",
+    "game-server logs",
+    "Git metadata"
+  ],
+  "applied": true,
+  "removed": [
+    ".runtime/desktop-build/BuildInfo.cs",
+    ".runtime/desktop-build/game.zip",
+    ".runtime/desktop-build/tsuventure.ico",
+    ".runtime/desktop-test/Tsuventure.exe",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/index.html",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/manifest.webmanifest",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/vendor/THREE-LICENSE.txt",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/vendor/three-r128.min.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/arena-relocation.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/arena-tournament.css",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/arena-tournament.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/arena-warrior-tunnels.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/roman-arena-details.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena/roman-arena.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/castle/castle-integrity.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/castle/castle-upgrade.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/cavern/cavern-surfaces.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/cavern/evil-cavern.css",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/cavern/evil-cavern.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/combat-balance.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/dragon-knight.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/hero-animation.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/hero-motion.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/hero-stat-sync.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/player-experience.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/creatures/creature-art.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/creatures/creature-refresh.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/desert-enemies.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/desert-layout.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/desert-realm.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/pyramid-floors.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/pyramid-interior.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest/ancient-grove.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest/forest-guardian.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest/wildlife.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/hud/game-hud.css",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/hud/game-hud.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/hud/game-shortcuts.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/backpack.css",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/backpack.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/crystal-wings.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/food-pickups.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/gift-code.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/inventory-layout.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/inventory-workspace.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/snow-crystals.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/solar-flashlight.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/temple-supplies.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/tree-wood.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lake/lake-monsters.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/library/field-guide.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/library/library-previews.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/lobby-music.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/lobby-settings.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/lobby.css",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mangrove/mangrove-life.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mangrove/mangrove-realm.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mountain/bach-khuyet.css",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mountain/bach-khuyet.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/highland-railway.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/moon-railway.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/railway-clearance.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/railway.css",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/station-grounding.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/station-mobility.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/river/mountain-life.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/river/thermal-river.css",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/river/thermal-river.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/survival/player-life.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/survival/player-survival.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/technology/river-boat.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/technology/technology-base.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/apartment-doors.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/cave-treasury.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/rage-armor.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/void-art.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/void-district.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/void-update.css",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/winter-architecture.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/world-weather.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/volcano/dragon-flight.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/volcano/volcanic-valley.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/antarctic-realm.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/aquatic-ecology.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/candy-fortress.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/candy-kingdom.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/candy-provisions.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/construction-zones.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/expanded-realm.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/exploration-update.css",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/exploration-update.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/graphics-quality.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/highland-trails.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/living-world.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/lunar-biome.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/lunar-surface-finish.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/lunar-village-art.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/map-visual-repair.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/monster-camps.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/monster-skills.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/moon-underlayer.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/polar-ecology.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/realm-scenery.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/realm-transit-update.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/santa-gifts.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/snow-queen.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/southern-expansion.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/surface-sync.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/terrain-continuity.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/terrain-traversal.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/western-highlands.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/world-residents.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/data/expanded-realm.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/data/highland-walking-routes.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/data/lunar-village-assets.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/volcano/data/volcanic-assets.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/data/void-assets.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/river/data/thermal-river.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/data/railway-assets.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mountain/data/bach-khuyet.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mangrove/data/mangrove-assets.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/background.jpg",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/tsuventure-lobby.webm",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/tsuventure-logo-v2.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/tsuventure-logo.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/favicon.ico",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/icon-1024.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/icon-180.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/icon-192.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/icon-32.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app/icon-512.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/audio/the-pale-lunar-tide.mp3",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lake/data/lake-monsters.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/bandage.svg",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/chocolate.svg",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/crystal-wings.svg",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/diving_suit.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/elixir.svg",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/engine.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/iron_armor.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/lava_sword.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/nakat.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/rage_armor.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/snow_crystal.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets/void_fragment.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/data/solar-flashlight.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest/data/ancient-grove.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest/data/forest-guardian.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/data/desert-assets.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/creatures/data/creature-studio.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/assets/hamster_warrior.jpg",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/assets/rabbit_mage.jpg",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/dragon-knight/model.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/dragon-knight/portrait-art.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/dragon-knight/portrait.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/kingkong/ART.md",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/kingkong/kingkong.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/kingkong/model.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/kingkong/portrait-art.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/ninja-yinyang/abilities.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/ninja-yinyang/model.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/ninja-yinyang/ninja.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/ninja-yinyang/portrait-art-v2.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/ninja-yinyang/portrait.png",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/cavern/data/evil-cavern.js",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/castle/data/castle-extension.js",
+    "demo/verification/void-update/arena_beast.png",
+    "demo/verification/void-update/arena_dark_horse.png",
+    "demo/verification/void-update/arena_levels-report.json",
+    "demo/verification/void-update/arena_speed-report.json",
+    "demo/verification/void-update/arena_spinosaurus.png",
+    "demo/verification/void-update/arena_station_walk-report.json",
+    "demo/verification/void-update/arena_trex.png",
+    "demo/verification/void-update/arena_zeus.png",
+    "demo/verification/void-update/camp_dwarf.png",
+    "demo/verification/void-update/camp_rabbit.png",
+    "demo/verification/void-update/camp_robot.png",
+    "demo/verification/void-update/camp_wolf.png",
+    "demo/verification/void-update/candy_cavity.png",
+    "demo/verification/void-update/check-persist.js-report.json",
+    "demo/verification/void-update/creature_upright-report.json",
+    "demo/verification/void-update/cursed_warrior.png",
+    "demo/verification/void-update/flying_reindeer.png",
+    "demo/verification/void-update/forest_guardian.png",
+    "demo/verification/void-update/forest_sapling.png",
+    "demo/verification/void-update/giant_stone_worm.png",
+    "demo/verification/void-update/lunar_unicorn.png",
+    "demo/verification/void-update/meaningful_interactions-report.json",
+    "demo/verification/void-update/ness.png",
+    "demo/verification/void-update/network_fish_0.png",
+    "demo/verification/void-update/network_fish_1.png",
+    "demo/verification/void-update/network_fish_2.png",
+    "demo/verification/void-update/network_fish_3.png",
+    "demo/verification/void-update/network_fish_4.png",
+    "demo/verification/void-update/network_fish_5.png",
+    "demo/verification/void-update/polar_penguin.png",
+    "demo/verification/void-update/polar_polar_bear.png",
+    "demo/verification/void-update/pyramid_cobra.png",
+    "demo/verification/void-update/pyramid_spider.png",
+    "demo/verification/void-update/railway_service-report.json",
+    "demo/verification/void-update/red_rumped_monkey.png",
+    "demo/verification/void-update/review-v2-final.js-report.json",
+    "demo/verification/void-update/review_creature_library-report.json",
+    "demo/verification/void-update/river_crab.png",
+    "demo/verification/void-update/river_fish_0.png",
+    "demo/verification/void-update/river_fish_1.png",
+    "demo/verification/void-update/river_fish_2.png",
+    "demo/verification/void-update/river_glass_shrimp.png",
+    "demo/verification/void-update/river_ice_snail.png",
+    "demo/verification/void-update/river_moon_crab.png",
+    "demo/verification/void-update/river_shrimp.png",
+    "demo/verification/void-update/river_snail.png",
+    "demo/verification/void-update/roaming_buffalo.png",
+    "demo/verification/void-update/roaming_bull.png",
+    "demo/verification/void-update/roaming_butterfly.png",
+    "demo/verification/void-update/roaming_cat.png",
+    "demo/verification/void-update/roaming_chicken.png",
+    "demo/verification/void-update/roaming_deer.png",
+    "demo/verification/void-update/roaming_doe.png",
+    "demo/verification/void-update/roaming_dog.png",
+    "demo/verification/void-update/roaming_elephant.png",
+    "demo/verification/void-update/roaming_goat.png",
+    "demo/verification/void-update/snow_queen.png",
+    "demo/verification/void-update/space_croc.png",
+    "demo/verification/void-update/space_sabertooth.png",
+    "demo/verification/void-update/speed_wolf.png",
+    "demo/verification/void-update/swamp_crab.png",
+    "demo/verification/void-update/swamp_crocodile.png",
+    "demo/verification/void-update/swamp_fish.png",
+    "demo/verification/void-update/swamp_turtle.png",
+    "demo/verification/void-update/thermal_coral.png",
+    "demo/verification/void-update/vine-riding.png",
+    "demo/verification/void-update/walking-elephant.png",
+    "demo/verification/void-update/war_dragon.png",
+    "demo/verification/void-update/wildlife_frog.png",
+    "demo/verification/void-update/wildlife_horse.png",
+    "demo/verification/void-update/wildlife_pig.png",
+    "demo/verification/void-update/wildlife_rabbit.png",
+    "demo/verification/void-update/wise_sphinx.png",
+    "demo/verification/exploration-final/native-controls.json",
+    ".runtime/arena-opponents-final-render.log",
+    ".runtime/arena-opponents-render.log",
+    ".runtime/creature-v2-blender-qa.log",
+    ".runtime/creature-v2-blender.log",
+    ".runtime/creature-v2-final-build.log",
+    ".runtime/creature-v2-final-qa.log",
+    ".runtime/desktop-test-server.json",
+    ".runtime/diagnose-creature-up.js",
+    ".runtime/void-debug.json",
+    ".runtime/void-inspection.json"
+  ],
+  "emptyDirectories": [
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/app",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets/audio",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/castle/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/cavern/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/assets",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/dragon-knight",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/kingkong",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters/ninja-yinyang",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/creatures/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/assets",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lake/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby/assets",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mangrove/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mountain/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/river/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/volcano/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world/data",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/arena",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/castle",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/cavern",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/characters",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/creatures",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/desert",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/forest",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/hud",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/inventory",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lake",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/library",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/lobby",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mangrove",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/mountain",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/railway",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/river",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/survival",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/technology",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/void",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/volcano",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features/world",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/features",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38/vendor",
+    ".runtime/desktop-test/cache/c82d15773b9b0a0150901c38",
+    ".runtime/desktop-test/cache",
+    ".runtime/desktop-build",
+    ".runtime/desktop-test",
+    "demo/verification/exploration-final",
+    "demo/verification/void-update"
+  ]
+}

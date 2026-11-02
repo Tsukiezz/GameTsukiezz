@@ -3,14 +3,14 @@ import sys
 import os
 import subprocess
 import json
+import shutil
 
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding="utf-8")
 
 from ai_blender_bridge import BlenderAIBridge
 
-BLENDER_EXE = os.environ.get("BLENDER_EXE", r"D:\blender.exe")
-MODELS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Assets", "Art", "Models"))
+BLENDER_EXE = next((p for p in [os.environ.get("BLENDER_EXE"),r"E:\blender.exe",r"D:\blender.exe",shutil.which('blender')] if p and os.path.isfile(p)), 'blender')
 
 def run_headless_script(python_code):
     """Chạy script Python trong Blender chế độ ngầm (Headless)"""
@@ -37,12 +37,14 @@ def main():
     args = parser.parse_args()
 
     bridge = BlenderAIBridge()
-    ping_res = bridge.ping()
+    # This installed bridge exposes get_scene_info; ping is not a reliable command.
+    scene_res = bridge.get_scene_info()
+    connected = scene_res.get("status") == "success"
 
     if args.status:
         print("=== TRẠNG THÁI KẾT NỐI BLENDER ===")
         print(f"Đường dẫn Blender: {BLENDER_EXE} (Tồn tại: {os.path.exists(BLENDER_EXE)})")
-        if ping_res.get("status") == "success":
+        if connected:
             print("🟢 Blender Live Server (Port 9876): ĐANG KẾT NỐI TRỰC TIẾP!")
         else:
             print("🟡 Blender Live Server (Port 9876): Chưa bật.")
@@ -51,16 +53,15 @@ def main():
         return
 
     if args.info:
-        if ping_res.get("status") == "success":
-            info = bridge.get_scene_info()
-            print(json.dumps(info, indent=2, ensure_ascii=False))
+        if connected:
+            print(json.dumps(scene_res, indent=2, ensure_ascii=False))
         else:
             print("Cần mở Blender và bấm 'Connect to Claude' để xem thông tin Scene trực tiếp.")
         return
 
     if args.exec:
         code = args.exec
-        if ping_res.get("status") == "success":
+        if connected:
             print("🚀 Đang gửi lệnh tới Blender GUI (Live)...")
             res = bridge.execute_code(code)
             print(json.dumps(res, indent=2, ensure_ascii=False))

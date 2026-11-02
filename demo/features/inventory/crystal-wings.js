@@ -56,13 +56,13 @@ function installCrystalWings(){
         touchButton.parentElement.classList.toggle('has-flight',equipped);
         hint.hidden=!flying;hint.textContent=matchMedia('(pointer:coarse)').matches?tr('Đang bay · ↥ Lên · ↧ Xuống · ✧↓ Ngừng bay','Flying · ↥ Up · ↧ Down · ✧↓ Stop'):tr('Đang bay · Space ↑ · Q/Ctrl ↓ · Shift nhanh · F ngừng bay','Flying · Space ↑ · Q/Ctrl ↓ · Shift faster · F stop flying');
     }
-    function stopFlight(){flying=false;keys.swimUp=false;keys.dive=false;keys.jump=false;jumpVelocityY=0;jumpY=0;render();}
+    function stopFlight(){window.playerLife?.resetFall();flying=false;keys.swimUp=false;keys.dive=false;keys.jump=false;jumpVelocityY=0;jumpY=0;render();}
     function equip(value=!equipped){
         if(!owned||!gameState.isPlaying)return false;equipped=Boolean(value);if(!equipped&&flying)stopFlight();save();render();return true;
     }
     function toggleFlight(){
-        if(!active()||!equipped||window.monsterSkills?.captured||window.riverRealm?.stunned)return false;
-        if(flying){stopFlight();return true;}flying=true;isGrounded=false;isSitting=false;castleSafeAnchor=null;jumpVelocityY=0;jumpY=0;keys.jump=false;render();return true;
+        if(!active()||!equipped||window.monsterSkills?.captured||window.riverRealm?.stunned||window.desertRealm?.petrified)return false;
+        if(flying){stopFlight();return true;}window.playerLife?.resetFall();flying=true;isGrounded=false;isSitting=false;castleSafeAnchor=null;jumpVelocityY=0;jumpY=0;keys.jump=false;render();return true;
     }
     function interact(target){
         if(target!==item)return false;if(!active()||playerGroup.position.distanceTo(item.pos)>item.radius||owned)return true;
@@ -82,7 +82,7 @@ function installCrystalWings(){
         return [...nearbyColliders(x,z)].some(c=>!c.disabled&&overlaps(c,x,z)&&y<c.maxY-.001&&y+PLAYER_HEIGHT>c.minY+.001);
     }
     function vertical(dt){
-        if(!flying)return false;if(!equipped||window.monsterSkills?.captured){stopFlight();return false;}if(!active())return true;
+        if(!flying)return false;window.playerLife?.resetFall();if(!equipped||window.monsterSkills?.captured){stopFlight();return false;}if(!active())return true;
         dt=Math.max(0,Math.min(.1,dt));const p=playerGroup.position,previous=p.y,velocity=(keys.swimUp?1:0)-(keys.dive?1:0);let next=Math.min(500,previous+velocity*(keys.shift?9:5)*dt);
         for(const c of nearbyColliders(p.x,p.z)){
             if(c.disabled||!overlaps(c,p.x,p.z))continue;
@@ -96,8 +96,8 @@ function installCrystalWings(){
     function update(dt){
         if(window.monsterSkills?.captured&&flying)stopFlight();if(active())time+=Math.min(.1,Math.max(0,dt));
         const target=owned?-1.8:0;lidAngle+=(target-lidAngle)*(1-Math.exp(-Math.min(.1,dt)*6));lid.rotation.x=lidAngle;
-        joints.forEach((joint,i)=>{const side=i===0?-1:1;joint.rotation.y=side*(flying?-.22:-.6);joint.rotation.z=side*(flying?Math.sin(time*6)*.18:Math.sin(time*1.5)*.025);});
+        joints.forEach((joint,i)=>{const side=i===0?-1:1;const blend=1-Math.exp(-10*Math.min(.1,Math.max(0,dt)));joint.rotation.y+=(side*(flying?-.22:-.6)-joint.rotation.y)*blend;joint.rotation.z+=(side*(flying?Math.sin(time*6)*.18:Math.sin(time*1.5)*.025)-joint.rotation.z)*blend;});
     }
     new MutationObserver(render).observe(document.getElementById('modal-backpack'),{attributes:true,attributeFilter:['class']});
-    window.crystalWings={model,joints,chest,lid,chestCollider,item,approach,row,button,touchButton,hint,interact,equip,toggleFlight,stopFlight,blockedAt,vertical,update,render,get owned(){return owned;},get equipped(){return equipped;},get flying(){return flying;},get speed(){return keys.shift?18:10;}};render();if(owned){lidAngle=-1.8;lid.rotation.x=lidAngle;}
+    window.crystalWings={grant(){owned=true;save();render();},model,joints,chest,lid,chestCollider,item,approach,row,button,touchButton,hint,interact,equip,toggleFlight,stopFlight,blockedAt,vertical,update,render,get owned(){return owned;},get equipped(){return equipped;},get flying(){return flying;},get speed(){return keys.shift?18:10;}};render();if(owned){lidAngle=-1.8;lid.rotation.x=lidAngle;}
 }

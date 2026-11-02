@@ -17,10 +17,10 @@ function installForestGuardian(){
     const marker=new THREE.Mesh(new THREE.RingGeometry(3.2,3.45,40),new THREE.MeshBasicMaterial({color:0xdca343,side:THREE.DoubleSide,transparent:true,opacity:.85,depthWrite:false}));marker.rotation.x=-Math.PI/2;marker.visible=false;scene.add(marker);
     let health=7000,state='tree',blend=0,time=0,timer=0,cooldown=1,immunity=0,pending=null;const target=new THREE.Vector3();
     const tr=(vi,en)=>window.tsuventureSettings?.language==='en'?en:vi;
-    const active=()=>gameState.isPlaying&&!gameState.inDialogue&&!document.querySelector('.modal-overlay.active');
+    const active=()=>gameState.isPlaying&&!gameState.inDialogue&&!document.querySelector('.modal-overlay.active')&&!window.moonRailway?.aboard;
     const distance=()=>Math.hypot(playerGroup.position.x-p.x,playerGroup.position.z-p.z);
     function hud(){panel.hidden=!gameState.isPlaying||distance()>42||state==='tree';label.textContent=tr('Thần Rừng','Forest Guardian');hp.textContent=health+' / 7000';bar.setAttribute('aria-label',label.textContent);bar.setAttribute('aria-valuenow',health);fill.style.width=health/70+'%';status.textContent=state==='dead'?tr('Đã bị hạ','Defeated'):state==='windup'?tr('Thần Rừng chuẩn bị đập tay!','The guardian is preparing a slam!'):tr('Kẻ bảo vệ Rừng Nguyên Sinh','Defender of the Primordial Forest');}
-    function hit(amount){if(!active()||health<=0||!Number.isFinite(amount)||amount<=0)return false;health=Math.max(0,health-amount);if(health===0){state='dead';timer=0;marker.visible=false;collider.disabled=true;window.fieldGuide?.record(data.id,true);}else if(state==='tree'){state='waking';timer=0;}hud();return true;}
+    function hit(amount){if(!active()||health<=0||!Number.isFinite(amount)||amount<=0)return false;health=Math.max(0,health-heroOutgoingDamage(amount));if(health===0){state='dead';timer=0;marker.visible=false;collider.disabled=true;window.fieldGuide?.record(data.id,true);}else if(state==='tree'){state='waking';timer=0;}hud();return true;}
     function playerAttack(hero){
         const range=hero==='rabbit'?22:2.6;if(distance()-1.7>range||Math.abs(playerGroup.position.y-p.y)>4||health<=0)return false;
         const start=playerGroup.position.clone().add(new THREE.Vector3(0,.4,0)),end=p.clone().add(new THREE.Vector3(0,.7,0)),dir=end.sub(start),length=dir.length();
@@ -31,9 +31,9 @@ function installForestGuardian(){
     }
     function hurt(){
         if(!active()||immunity>0||Math.abs(playerGroup.position.y-target.y)>2||playerGroup.position.distanceTo(target)>3.2)return false;
-        const amount=heroIncomingDamage(32),armor=Math.min(gameState.armor,amount);gameState.armor-=armor;gameState.health=Math.max(0,gameState.health-(amount-armor));immunity=.8;
+        window.playerLife?.noteDamage('guardian');const amount=heroIncomingDamage(32),armor=Math.min(gameState.armor,amount);gameState.armor-=armor;gameState.health=Math.max(0,gameState.health-(amount-armor));immunity=.8;
         gameHud.classList.add('monster-hit');setTimeout(()=>gameHud.classList.remove('monster-hit'),250);
-        if(gameState.health===0){Object.assign(gameState,{health:100,armor:100,stamina:100,oxygen:100});resetGameplayInput();ancientGrove.travel();pause();immunity=3;showNotification(tr('Thần Rừng đã đánh bại bạn. Hồi phục tại cổng rừng.','The guardian defeated you. Recovered at the forest gate.'));}
+        if(gameState.health===0){if(window.playerLife){playerLife.die();return true;}Object.assign(gameState,{health:100,armor:100,stamina:100,oxygen:100});resetGameplayInput();ancientGrove.travel();pause();immunity=3;showNotification(tr('Thần Rừng đã đánh bại bạn. Hồi phục tại cổng rừng.','The guardian defeated you. Recovered at the forest gate.'));}
         updatePlayerVitals();return true;
     }
     function update(dt){

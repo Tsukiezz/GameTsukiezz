@@ -5,6 +5,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
+# One-click playable desktop build (runtime is embedded, below GitHub's file limit).
+/Tsuventure.exe -text
+
 # Unity YAML text files (Enable merge tools for scenes, prefabs, materials)
 *.unity text merge=unityyamlmerge
 *.prefab text merge=unityyamlmerge

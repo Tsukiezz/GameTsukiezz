@@ -1,0 +1,29 @@
+(async()=>{
+ const checks=[],check=(name,ok,detail)=>{checks.push({name,ok,detail});if(!ok)throw Error(name+' '+JSON.stringify(detail));},guide=fieldGuide;
+ check('No portrait rendering while library closed',libraryPreviews.cache.size===0,libraryPreviews.cache.size);
+ const expected=[...livingWorld.species.map(s=>'roaming_'+s),...['frog','rabbit','pig','horse'].map(s=>'wildlife_'+s),...Object.keys(monsterCamps.specs).map(s=>'camp_'+s),...polarEcology.species.map(s=>'polar_'+s),...aquaticEcology.types.map((_,i)=>'network_fish_'+i),...aquaticEcology.weedTypes.map((_,i)=>'river_seagrass_'+i),...Object.keys(mangroveRealm.life.populations).map(s=>'swamp_'+s),...LAKE_MONSTER_DATA.models.map(m=>m.id),'snow_queen','wise_sphinx','pyramid_cobra','pyramid_spider','forest_guardian','forest_sapling','swamp_crocodile','giant_stone_worm','cursed_warrior','war_dragon','space_sabertooth','speed_wolf','red_rumped_monkey','river_fish_0','river_fish_1','river_fish_2','river_kelp','thermal_coral','royal_guards','lunar_unicorn','cavern_sentinels','royal_train_driver','santa_claus','flying_reindeer'];
+ for(const id of expected)check('Runtime species registered: '+id,guide.catalog.some(c=>c.id===id));
+ check('No duplicate entry ids',new Set(guide.catalog.map(c=>c.id)).size===guide.catalog.length);
+ check('No automatic discovery from catalog',Object.keys(guide.records).length===0);
+ const state={queen:snowQueen.boss.health,queenPosition:snowQueen.group.position.toArray(),camp:monsterCamps.actors[0].group.position.toArray(),santa:santaGifts.santa.children.length};
+ const portraits=[];
+ for(const item of guide.catalog.filter(c=>c.type!=='places')){
+  const png=libraryPreviews.get(item.id);check('Real mesh portrait: '+item.id,typeof png==='string'&&png.startsWith('data:image/png;base64,')&&png.length>1000,png?.length);
+  const image=new Image();image.src=png;await image.decode();const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;const ctx=canvas.getContext('2d');ctx.drawImage(image,0,0);const data=ctx.getImageData(0,0,canvas.width,canvas.height).data,colors=new Set();for(let i=0;i<data.length;i+=16)colors.add(data[i]+','+data[i+1]+','+data[i+2]);check('Portrait is not blank: '+item.id,colors.size>=2,colors.size);
+  check('Portrait cached: '+item.id,libraryPreviews.get(item.id)===png);portraits.push({id:item.id,bytes:png.length,colors:colors.size});
+ }
+ check('Portraits do not move live actors',JSON.stringify(state)===JSON.stringify({queen:snowQueen.boss.health,queenPosition:snowQueen.group.position.toArray(),camp:monsterCamps.actors[0].group.position.toArray(),santa:santaGifts.santa.children.length}));
+ guide.open();const search=document.getElementById('field-guide-search');search.value='nu chua tuyet';search.dispatchEvent(new Event('input'));
+ check('Unencountered monster is searchable by unaccented name',document.querySelectorAll('.field-guide-entry').length===1&&document.querySelector('[data-entry="snow_queen"] img'));
+ check('Unencountered monster has skills and honest status',document.querySelector('[data-entry="snow_queen"]').textContent.includes('16000')&&document.querySelector('[data-entry="snow_queen"] .field-guide-status').textContent==='Chưa gặp');
+ check('Browsing does not mark encounter',!guide.records.snow_queen);closeModal('modal-field-guide');enterGame();setGraphicsProfile('low');
+ function lookAtActor(actor,height=1){const p=actor.getWorldPosition(new THREE.Vector3());camera.position.copy(p).add(new THREE.Vector3(4,3,8));camera.lookAt(p.clone().add(new THREE.Vector3(0,height,0)));camera.updateMatrixWorld(true);}
+ guide.record('space_sabertooth',true);
+ const camp=monsterCamps.actors.find(a=>a.health>0);fastTravelTo(camp.home.x,camp.home.z+6,'Camp',camp.home.y);monsterCamps.update(0);lookAtActor(camp.group);guide.update(.5);check('Seeing camp enemy records species',!!guide.records['camp_'+camp.kind]);monsterCamps.hit(camp,1e9);check('Defeating camp enemy records victory',guide.records['camp_'+camp.kind]?.defeated);
+ fastTravelTo(snowQueen.home.x,snowQueen.home.z+20,'Queen',snowQueen.home.y);snowQueen.update(0);lookAtActor(snowQueen.group,3);guide.update(.5);check('Seeing Snow Queen records encounter',!!guide.records.snow_queen);snowQueen.hit(1e9);check('Snow Queen victory recorded',guide.records.snow_queen?.defeated);
+ for(const kind of polarEcology.species){const actor=polarEcology.actors.find(a=>a.kind===kind);fastTravelTo(actor.home.x,actor.home.z+5,'Polar wildlife',actor.home.y);polarEcology.update(1);lookAtActor(actor.group);guide.update(.5);check('Seeing polar species: '+kind,!!guide.records['polar_'+kind]);}
+ const h=aquaticEcology.habitats.find(h=>h.z<-2200&&Math.abs(h.x)>1500);fastTravelTo(h.x,h.z,'Aquatic life',h.y-3);aquaticEcology.update(1);playerSurvival.refresh();camera.position.set(h.x,h.y-2,h.z+6);camera.lookAt(h.x,h.y-2,h.z);camera.updateMatrixWorld(true);guide.update(.5);check('Underwater fish encounter recorded',Object.keys(guide.records).some(id=>id.startsWith('network_fish_')));check('Underwater weed encounter recorded',Object.keys(guide.records).some(id=>id.startsWith('river_seagrass_')));
+ santaGifts.update(0);const s=santaGifts.group.position;fastTravelTo(s.x,s.z,'Santa',worldSurface.height(s.x,s.z));camera.position.copy(playerGroup.position).add(new THREE.Vector3(0,2,15));camera.lookAt(s.clone().add(new THREE.Vector3(0,3,0)));camera.updateMatrixWorld(true);guide.update(.5);check('Flying Santa encounter',!!guide.records.santa_claus);check('Flying reindeer encounter',!!guide.records.flying_reindeer);
+ search.value='';search.dispatchEvent(new Event('input'));guide.open();
+ return {checks,portraits,catalog:guide.catalog.length,counts:Object.fromEntries(['monsters','wildlife','npcs','places'].map(type=>[type,guide.catalog.filter(c=>c.type===type).length])),records:guide.records,expected};
+})()

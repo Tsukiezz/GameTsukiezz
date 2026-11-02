@@ -34,9 +34,9 @@ Các `<type>` được khuyến nghị:
 
 ---
 
-## ⚠️ 3. Nguyên Tắc Làm Việc Với Unity & Git
+## 3. Nguyên tắc làm việc với game trình duyệt và Blender
 
-1. **Luôn giữ file `.meta` song hành:** Mỗi khi thêm asset (ảnh, script, prefab), Unity tạo ra một file `.meta` tương ứng. **Bắt buộc commit kèm file `.meta`** để Unity không làm hỏng GUID của asset.
-2. **Hạn chế sửa chung một Scene:** Scene trong Unity dễ bị xung đột (conflict) khi merge. Hãy phân chia màn chơi thành các **Prefab**, mỗi người chỉnh sửa Prefab riêng của mình.
-3. **Không bao giờ commit thư mục `Library/` hay `Temp/`:** Đảm bảo `.gitignore` luôn hoạt động chính xác.
+1. **Bản chơi chính ở `demo/`:** sửa các mô-đun trong `demo/features/`, giữ đồng bộ hình học, va chạm và địa hình. Bộ khung Unity cũ đã được dọn.
+2. **Kiểm tra nguồn Blender trước khi ghi đè:** các nguồn từng vùng cùng thuộc map hiện tại; bản ghép mới nhất được ghi trong README.
+3. **Không commit cache hoặc báo cáo sinh tự động:** chạy `python tools/refresh_web_assets.py` sau khi sửa JS/CSS và kiểm tra bằng `node tools/tests/verify_current_map.js`.
 4. **Sử dụng Git LFS:** Với các file đồ họa dung lượng lớn (PSD, FBX, WAV), hãy để Git LFS quản lý để tránh vượt hạn ngạch của GitHub.

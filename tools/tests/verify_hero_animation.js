@@ -5,7 +5,7 @@ const os = require('node:os');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const url = process.env.GAME_URL || 'http://127.0.0.1:8765/';
-const output = path.resolve(__dirname, '../../demo/verification');
+const output = process.env.GAME_VERIFY_OUTPUT||path.join(os.tmpdir(),'tsuventure-hero-animation-verification');
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'tsukiezz-castle-'));
 const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', [
     '--headless=new', '--remote-debugging-port=9384', `--user-data-dir=${profile}`,
@@ -65,6 +65,7 @@ async function main() {
           const tick=(state)=>{for(let i=0;i<fps;i++)updateHeroAnimation(l,{dt:1/fps,time:i/fps,moving:false,sprint:false,grounded:true,velocity:0,sitting:false,attacking:false,attackProgress:0,hero,...state});};
           tick({moving:true});check(hero+' walk '+fps,Math.abs(l.leftLeg.rotation.x)>.08);
           tick({moving:true,sprint:true});check(hero+' run '+fps,Math.abs(l.leftLeg.rotation.x)>.08);
+          tick({moving:true,moveForward:0,strafe:1});check(hero+' sidestep '+fps,Math.abs(l.leftLeg.rotation.z)>.04&&Math.abs(l.leftLeg.rotation.x)<.02);
           tick({grounded:false,velocity:3});const ascent=l.leftLeg.rotation.x;
           tick({grounded:false,velocity:-3});check(hero+' ascent differs from fall '+fps,Math.abs(l.leftLeg.rotation.x-ascent)>.2);
           tick({sitting:true});check(hero+' sitting '+fps,l.body.position.y<base-.12&&l.leftLeg.rotation.x<-.8);

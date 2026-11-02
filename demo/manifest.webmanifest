@@ -1,0 +1,25 @@
+{
+  "id": "./",
+  "name": "Tsuventure | Echoes of the Moonlit Realm",
+  "short_name": "Tsuventure",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#08152c",
+  "theme_color": "#0c2334",
+  "icons": [
+    {
+      "src": "features/lobby/assets/app/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "features/lobby/assets/app/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

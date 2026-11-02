@@ -3,6 +3,7 @@ function installBachKhuyet(){
     const data=BACH_KHUYET_DATA,t=data.terrain,n=t.n,group=new THREE.Group();group.name='BachKhuyetMountain';scene.add(group);
     function contains(x,z){return x>=t.x0&&z>=t.z0&&x<=t.x0+n*t.step&&z<=t.z0+n*t.step;}
     function ground(x,z){
+        if(contains(x,z)&&window.worldSurface?.modifiedAt(x,z))return worldSurface.height(x,z);
         if(!contains(x,z))return null;const u=Math.min(n-1e-7,(x-t.x0)/t.step),v=Math.min(n-1e-7,(z-t.z0)/t.step),i=Math.floor(u),j=Math.floor(v),fx=u-i,fz=v-j,a=t.heights[j*(n+1)+i],b=t.heights[j*(n+1)+i+1],c=t.heights[(j+1)*(n+1)+i],d=t.heights[(j+1)*(n+1)+i+1];
         return fx+fz<=1?a+(b-a)*fx+(c-a)*fz:d+(c-d)*(1-fx)+(b-d)*(1-fz);
     }
@@ -36,8 +37,8 @@ function installBachKhuyet(){
         const proto=data.prototypes[ore.kind],g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(proto.vertices.flat(),3));g.setIndex(proto.indices);g.computeVertexNormals();const model=new THREE.Mesh(g,materials[ore.kind]);model.position.set(ore.x,ore.y,ore.z);model.visible=!collected.includes(ore.id);group.add(model);oreModels.set(ore.id,model);
         interactables.push({id:ore.id,type:'mountain_ore',kind:ore.kind,pos:new THREE.Vector3(ore.x,ore.y,ore.z),radius:2.8,prompt:ore.kind==='gold'?'Khai thác quặng vàng nguyệt':'Thu thập tinh thể không gian',collected:!model.visible});
     }
-    const oreRow=document.createElement('article');oreRow.className='backpack-item';oreRow.id='mountain-minerals';document.querySelector('#modal-backpack .backpack-hint').before(oreRow);
-    const renderOres=()=>{oreRow.textContent='Khoáng sản Bạch Khuyết · Vàng nguyệt: '+inventory.gold+' · Tinh thể không gian: '+inventory.crystal;};renderOres();
+    const oreRow=document.createElement('article');oreRow.className='backpack-item';oreRow.id='mountain-minerals';oreRow.dataset.category='materials';oreRow.innerHTML='<div aria-hidden="true" style="font-size:36px">💎</div><div><h3>Khoáng sản Bạch Khuyết</h3><p>Nguyên liệu thu thập khi khám phá vùng núi tuyết.</p><strong></strong></div>';document.querySelector('#modal-backpack .backpack-hint').before(oreRow);
+    const renderOres=()=>{oreRow.querySelector('strong').textContent='Vàng nguyệt: '+inventory.gold+' · Tinh thể không gian: '+inventory.crystal;};renderOres();
     function interact(item){if(item?.type!=='mountain_ore')return false;if(!gameState.isPlaying||item.collected||item.pos.distanceTo(playerGroup.position)>3.8)return true;item.collected=true;collected.push(item.id);inventory[item.kind]++;oreModels.get(item.id).visible=false;try{localStorage.setItem(inventoryKey,JSON.stringify({...inventory,collected}));}catch{}renderOres();showNotification('Đã thu thập khoáng sản. Nhấn I xem balo.');return true;}
     const tigerGroup=new THREE.Group();tigerGroup.name='SpaceSabertooth';group.add(tigerGroup);const joints={};
     for(const [key,pivot] of Object.entries(data.tiger.joints)){const j=new THREE.Group();j.position.fromArray(pivot);joints[key]=j;tigerGroup.add(j);}
@@ -51,11 +52,11 @@ function installBachKhuyet(){
     let pending=null,time=0;
     function sync(){const p=tigerGroup.position;tigerCollider.x=p.x;tigerCollider.z=p.z;tigerCollider.minY=p.y;tigerCollider.maxY=p.y+2.9;tigerCollider.disabled=tiger.health<=0;}
     function moveToward(target,speed,dt){const p=tigerGroup.position,dx=target.x-p.x,dz=target.z-p.z,d=Math.hypot(dx,dz);if(d<.1)return;const step=Math.min(d,speed*dt);for(const turn of [0,.7,-.7]){const x=p.x+(dx*Math.cos(turn)-dz*Math.sin(turn))/d*step,z=p.z+(dx*Math.sin(turn)+dz*Math.cos(turn))/d*step,y=ground(x,z);tigerCollider.disabled=true;const blocked=y===null||checkCollision(x,z,y,.8);tigerCollider.disabled=tiger.health<=0;if(blocked)continue;p.set(x,y,z);tigerGroup.rotation.y=Math.atan2(dx,dz);break;}}
-    function hit(amount){if(!gameState.isPlaying||tiger.health<=0||!Number.isFinite(amount)||amount<=0)return false;tiger.health=Math.max(0,tiger.health-amount);if(tiger.health===0){tiger.state='dead';window.fieldGuide?.record('space_sabertooth',true);tiger.timer=0;marker.visible=false;tigerCollider.disabled=true;showNotification('Đã hạ Hổ Răng Kiếm Không Gian!');}return true;}
+    function hit(amount){if(!gameState.isPlaying||tiger.health<=0||!Number.isFinite(amount)||amount<=0)return false;tiger.health=Math.max(0,tiger.health-heroOutgoingDamage(amount));if(tiger.health===0){tiger.state='dead';window.fieldGuide?.record('space_sabertooth',true);tiger.timer=0;marker.visible=false;tigerCollider.disabled=true;showNotification('Đã hạ Hổ Răng Kiếm Không Gian!');}return true;}
     function playerAttack(hero){const p=playerGroup.position,range=hero==='rabbit'?22:3.5;if(p.distanceTo(tigerGroup.position)>range||tiger.health<=0)return false;const ray=new THREE.Raycaster(p.clone().add(new THREE.Vector3(0,.45,0)),tigerGroup.position.clone().add(new THREE.Vector3(0,1,0)).sub(p).normalize(),.1,Math.max(0,p.distanceTo(tigerGroup.position)-1));if(ray.intersectObject(terrain,false).length)return false;return hit(hero==='rabbit'?110:145);}
     function pause(){pending=null;marker.visible=false;tiger.timer=0;if(tiger.health>0){tiger.state='hidden';tiger.cooldown=Math.max(2,tiger.cooldown);}}
     function update(dt){
-        dt=Math.min(.1,Math.max(0,dt));if(!gameState.isPlaying||gameState.inDialogue||document.querySelector('.modal-overlay.active')){pause();panel.hidden=true;return;}time+=dt;tiger.timer+=dt;tiger.cooldown=Math.max(0,tiger.cooldown-dt);tiger.specialCooldown=Math.max(0,tiger.specialCooldown-dt);
+        dt=Math.min(.1,Math.max(0,dt));if(!gameState.isPlaying||gameState.inDialogue||window.moonRailway?.aboard||document.querySelector('.modal-overlay.active')){pause();panel.hidden=true;return;}time+=dt;tiger.timer+=dt;tiger.cooldown=Math.max(0,tiger.cooldown-dt);tiger.specialCooldown=Math.max(0,tiger.specialCooldown-dt);
         if(pending){pending.time-=dt;if(pending.time<=0){playerAttack(pending.hero);pending=null;}}
         const p=playerGroup.position,distance=p.distanceTo(tigerGroup.position),near=contains(p.x,p.z)&&distance<40;
         panel.hidden=!near||tiger.health<=0;const bar=panel.querySelector('[role=progressbar]');bar.setAttribute('aria-valuenow',tiger.health);bar.firstChild.style.width=tiger.health/36+'%';panel.querySelector('small').textContent=tiger.state==='bite'?'Cắn xé không gian — né vòng hồng!':tiger.state==='windup'?'Hổ chuẩn bị vồ!':tiger.health+' / 3600 · Đang săn mồi';
@@ -66,7 +67,7 @@ function installBachKhuyet(){
             else if(tiger.cooldown===0){tiger.state=tiger.specialCooldown===0?'bite':'windup';tiger.timer=0;tiger.attackTarget=p.clone();marker.position.copy(p).y+=.07;marker.visible=true;}
         }else if(tiger.state==='windup'||tiger.state==='bite'){
             const special=tiger.state==='bite',duration=special?1.25:.75;joints.jaw.rotation.x=Math.sin(Math.min(1,tiger.timer/duration)*Math.PI)*.7;
-            if(tiger.timer>=duration){if(p.distanceTo(tiger.attackTarget)<2.7&&distance<4.2){if(monsterSkills.landDamage(special?40:18)&&special&&contains(playerGroup.position.x,playerGroup.position.z))monsterSkills.applyBleed();}if(special)tiger.specialCooldown=13;tiger.cooldown=2.1;tiger.state='recover';tiger.timer=0;marker.visible=false;}
+            if(tiger.timer>=duration){if(p.distanceTo(tiger.attackTarget)<2.7&&distance<4.2){if(monsterSkills.landDamage(special?40:18,false,'sabertooth')&&special&&contains(playerGroup.position.x,playerGroup.position.z))monsterSkills.applyBleed();}if(special)tiger.specialCooldown=13;tiger.cooldown=2.1;tiger.state='recover';tiger.timer=0;marker.visible=false;}
         }else if(tiger.state==='recover'&&tiger.timer>1){tiger.state='stalk';joints.jaw.rotation.x=0;}
         const moving=tiger.state==='hidden'||tiger.state==='stalk';for(const [i,key] of ['legFL','legFR','legBL','legBR'].entries())joints[key].rotation.x=moving?Math.sin(time*7+(i===0||i===3?0:Math.PI))*.35:0;joints.tail.rotation.y=Math.sin(time*2)*.22;sync();
     }
@@ -78,5 +79,5 @@ function installBachKhuyet(){
     for(const spot of window.backpack?.spots||[])if(contains(spot.x,spot.z))spot.y=ground(spot.x,spot.z);
     const button=document.createElement('button');button.className='tour-btn';button.id='btn-travel-bach-khuyet';button.textContent='🏔 Núi Bạch Khuyết';button.onclick=()=>{gameHUD.closePanels();travel();};document.querySelector('#hud-travel .hud-destinations').append(button);
     landmarksData.push({id:'bach_khuyet',name:'Núi Bạch Khuyết',icon:'🏔',x:610,z:610,radius:300,color:'#b5dce8'});
-    window.bachKhuyet={data,group,terrain,ground,contains,clipCamera,travel,interact,inventory,oreModels,rockColliders,tiger,tigerCollider,marker,panel,update,pause,hit,playerAttack,beginPlayerAttack(hero){pending={hero,time:.18};}};sync();
+    window.bachKhuyet={addOres(amount){if(!Number.isSafeInteger(amount)||amount<=0)return false;for(const k of Object.keys(inventory))inventory[k]=Math.min(99999,inventory[k]+amount);localStorage.setItem(inventoryKey,JSON.stringify({...inventory,collected}));renderOres();return true;},data,group,terrain,ground,contains,clipCamera,travel,interact,inventory,oreModels,rockColliders,tiger,tigerCollider,marker,panel,update,pause,hit,playerAttack,beginPlayerAttack(hero){pending={hero,time:.18};}};sync();
 }

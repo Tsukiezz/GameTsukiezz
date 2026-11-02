@@ -9,4 +9,4 @@ function buildKingKongModel(){
     const shadow=new THREE.Mesh(new THREE.CircleGeometry(.7,24),new THREE.MeshBasicMaterial({color:0x010308,transparent:true,opacity:.45,depthWrite:false}));shadow.rotation.x=-Math.PI/2;shadow.position.y=.015;root.add(shadow);
     root.swordArm=nodes.arm_R;root.limbs={body:nodes.body,leftLeg:nodes.leg_L,rightLeg:nodes.leg_R,leftArm:nodes.arm_L,rightArm:nodes.arm_R,shadow};root.userData.bones=nodes;return root;
 }
-function heroIncomingDamage(amount){return activeHeroType==='kingkong'?amount*.8:amount;}
+function heroIncomingDamage(amount){window.combatEffects?.receive();return amount;}

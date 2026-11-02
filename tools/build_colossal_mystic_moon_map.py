@@ -1,8 +1,8 @@
+from pathlib import Path
 import bpy
 import math
 import random
 import os
-import shutil
 import mathutils
 
 print("=== BẮT ĐẦU TẠO BẢN ĐỒ MẶT TRĂNG SIÊU KHỔNG LỒ 520M (ĐẤU TRƯỜNG LA MÃ, TRẠM VŨ TRỤ, TẾ ĐÀN THỦY NGÂN & CỎ BIẾN DỊ) ===")
@@ -1492,7 +1492,7 @@ cam_cave.data.lens = 22.0
 # -----------------------------------------------------------------------------
 # 14. XUẤT FILE BLEND, FBX VÀ RENDER TẤT CẢ ẢNH PREVIEW
 # -----------------------------------------------------------------------------
-output_dir = r"c:\Users\Admin\OneDrive\Máy tính\Desktop\CODE\Tsukiezz\projects\GameTsukiezz\Assets\Art\Blender\Environments"
+output_dir = str(Path(__file__).resolve().parents[1]/'Assets/Art/Blender/Environments')
 os.makedirs(output_dir, exist_ok=True)
 
 blend_path = os.path.join(output_dir, "MysticMoonMap.blend")
@@ -1532,28 +1532,6 @@ for cam_obj, out_img, title in renders_list:
 bpy.context.scene.camera = cam_pan
 bpy.ops.wm.save_as_mainfile(filepath=blend_path)
 
-# Đồng bộ tự động sang thư mục cha và Desktop
-desktop_dir = r"c:\Users\Admin\OneDrive\Máy tính\Desktop\Blender"
-os.makedirs(desktop_dir, exist_ok=True)
-root_art_dir = r"c:\Users\Admin\OneDrive\Máy tính\Desktop\CODE\Tsukiezz\projects\GameTsukiezz\Assets\Art\Blender"
-
-sync_files = [
-    ("MysticMoonMap.blend", blend_path),
-    ("MysticMoonMap.fbx", fbx_path),
-    ("MysticMoonMap_Preview.png", render_pan),
-    ("MysticMoonMap_Colosseum_Preview.png", render_colo),
-    ("MysticMoonMap_AltarMercury_Preview.png", render_altar),
-    ("MysticMoonMap_SpaceStation_Preview.png", render_station),
-    ("MysticMoonMap_CastleInterior_Preview.png", render_castle),
-    ("MysticMoonMap_Cave_Preview.png", render_cave)
-]
-
-for fname, src in sync_files:
-    shutil.copy2(src, os.path.join(root_art_dir, fname))
-    shutil.copy2(src, os.path.join(desktop_dir, fname))
-
-shutil.copy2(blend_path, r"c:\Users\Admin\OneDrive\Máy tính\Desktop\MysticMoonMap_3D.blend")
-
 print(f"✅ HOÀN TẤT VÀ LƯU THÀNH CÔNG VÀO BLENDER:")
 print(f"  - Blend: {blend_path}")
 print(f"  - FBX: {fbx_path}")
@@ -1563,4 +1541,3 @@ print(f"  - Render Tế đàn & Hồ Thủy ngân: {render_altar}")
 print(f"  - Render Trạm Vũ trụ: {render_station}")
 print(f"  - Render Nội thất Lâu đài: {render_castle}")
 print(f"  - Render Hang động: {render_cave}")
-print(f"  - Đã sao chép sang Desktop: {desktop_dir}")

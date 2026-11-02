@@ -1,0 +1,33 @@
+/* A connected western itinerary serves both village ridges without rail crossings. */
+function expandHighlandRailNetwork(anchors){
+    const strip=[[-2580,1100],[-2580,-3130],[-3230,-3130],[-3230,3130],[-2580,3130],[-2580,1400],[-2420,1400],[-2420,3200]];
+    anchors.splice(22,6,...strip);for(let i=22+strip.length;i<anchors.length;i++)if(anchors[i][0]<-2350)anchors[i][0]=-2350;
+    return {from:22,to:22+strip.length};
+}
+
+function classifyHighlandRails(services,height,waterAt){
+    for(const service of services){const ps=service.points;for(let i=0;i<ps.length;i++){const p=ps[i];if(p.x>=-2470)continue;const d=p.railDirection||new THREE.Vector3(0,0,1),floor=height(p.x,p.z);let wet=false;for(const a of [-7,0,7])for(const b of [-7,0,7])if(waterAt(p.x+a,p.z+b)!==null)wet=true;const shoulder=Math.min(height(p.x+d.x*85,p.z+d.z*85),height(p.x-d.x*85,p.z-d.z*85)),pass=p.y-floor>14&&shoulder>floor+14;p.terrainMode=wet?'river':pass?'mountain-pass':'ground';}}
+}
+
+/* Ground routes receive a continuous earth cutting/embankment in the SAME mesh
+   used by walking and ecology. Open water and true defiles remain bridge spans. */
+function gradeHighlandRailTerrain(services,terrain,height,waterAt,plans=[]){
+    const grid=new Map(),cell=40,samples=[];for(const service of services)for(let i=0;i<service.points.length;i+=3){const p=service.points[i];if(p.x>=-2470||p.terrainMode!=='ground')continue;const sample={x:p.x,z:p.z,y:p.y-.12};samples.push(sample);const key=Math.floor(p.x/cell)+','+Math.floor(p.z/cell);if(!grid.has(key))grid.set(key,[]);grid.get(key).push(sample);}
+    const p=terrain.geometry.attributes.position;let modified=0;
+    for(let i=0;i<p.count;i++){const x=p.getX(i),z=p.getZ(i),floor=p.getY(i);if(window.westernHighlands.villages.some(v=>Math.hypot(x-v.center.x,z-v.center.z)<70))continue;if(x>=-2440||worldExpansion.waterRegion(x,z)&&floor<worldExpansion.waterY+5)continue;const gx=Math.floor(x/cell),gz=Math.floor(z/cell);let y=floor,best=Infinity,near=null;for(let a=-2;a<=2;a++)for(let b=-2;b<=2;b++)for(const s of grid.get((gx+a)+','+(gz+b))||[]){const d=Math.hypot(x-s.x,z-s.z);if(d<best){best=d;near=s;}}if(!near||best>58)continue;for(const plan of plans){if(plan.center.x>=-2470)continue;const q=new THREE.Vector3(x-plan.center.x,0,z-plan.center.z).applyAxisAngle(new THREE.Vector3(0,1,0),-plan.yaw),edge=Math.max(THREE.MathUtils.smoothstep(Math.abs(q.x-14),24,48),THREE.MathUtils.smoothstep(Math.abs(q.z),55,78));if(edge<1)y=THREE.MathUtils.lerp(y,Math.max(y,plan.trackY-.12),1-edge);}const blend=1-THREE.MathUtils.smoothstep(best,15,58);y=THREE.MathUtils.lerp(y,Math.max(y,near.y),blend);if(y>floor+.001){p.setY(i,y);modified++;}}
+    if(modified){p.needsUpdate=true;terrain.geometry.computeVertexNormals();terrain.geometry.computeBoundingBox();terrain.geometry.computeBoundingSphere();}return modified;
+}
+
+function finishMountainRailBridges(rail){
+    const root=new THREE.Group();root.name='BlenderMountainSuspensionRail';rail.group.add(root);const spans=[];
+    for(const service of rail.services){let run=[];const flush=()=>{if(run.length>=18){const rows=run.filter((_,i)=>i%3===0).map(p=>({p:p.clone().add(new THREE.Vector3(0,-.8,0))}));const forward=rows.at(-1).p.clone().sub(rows[0].p);forward.y=0;forward.normalize();const side=new THREE.Vector3(forward.z,0,-forward.x);for(const row of rows)row.side=side;const group=new THREE.Group();group.name='MountainRailSuspension_'+spans.length;root.add(group);const details=finishSuspensionBridge(group,rows,side,rows[Math.floor(rows.length/2)].p,true);spans.push({group,rows,details});}run=[];};for(const p of service.points){if(p.x<-2470&&rail.isBridge(p)&&p.y-rail.terrainHeight(p.x,p.z)>8)run.push(p);else flush();}flush();}
+    return {root,spans};
+}
+
+function connectVillageStations(){
+    for(const village of westernHighlands.villages){const station=village.station,delta=station.access.entrance.clone().sub(village.center);delta.y=0;delta.normalize();const side=new THREE.Vector3(-delta.z,0,delta.x),start=village.center.clone().addScaledVector(delta,43);let rows=null;
+        for(const offset of [18,-18,32,-32,0]){const control=village.center.clone().addScaledVector(delta,75).addScaledVector(side,offset),curve=new THREE.CatmullRomCurve3([start,control,station.access.entrance]),n=Math.max(25,Math.ceil(start.distanceTo(station.access.entrance)/2)),candidate=[];let blocked=false;for(let i=0;i<=n;i++){const p=curve.getPoint(i/n),t=curve.getTangent(i/n);p.y=worldSurface.height(p.x,p.z)+.03;const s=new THREE.Vector3(-t.z,0,t.x).normalize();candidate.push({p,side:s});if(checkCollision(p.x,p.z,p.y,.25)||riverBoat.waterAt(p.x,p.z))blocked=true;}if(!blocked){rows=candidate;break;}}
+        if(!rows)rows=[{p:start,side},{p:station.access.entrance.clone(),side}];const vertices=[],indices=[];for(const row of rows)for(const sign of [-1,1]){const p=row.p.clone().addScaledVector(row.side,sign*1.2);p.y=worldSurface.height(p.x,p.z)+.035;vertices.push(p.x,p.y,p.z);}for(let i=0;i<rows.length-1;i++){const a=i*2;indices.push(a,a+2,a+1,a+1,a+2,a+3);}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));g.setIndex(indices);g.computeVertexNormals();const path=new THREE.Mesh(g,new THREE.MeshBasicMaterial({color:village.plan.z>1500?0xc7d1d5:0xb08d6d,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2}));path.name='VillageStationFootpath';village.root.add(path);village.stationPath=rows;
+        const canvas=document.createElement('canvas');canvas.width=768;canvas.height=160;const ctx=canvas.getContext('2d');ctx.fillStyle='#233e49';ctx.fillRect(0,0,768,160);ctx.strokeStyle='#c2a26a';ctx.lineWidth=6;ctx.strokeRect(4,4,760,152);ctx.fillStyle='#e9d7ae';ctx.textAlign='center';ctx.font='bold 31px sans-serif';ctx.fillText(station.name,384,62);ctx.font='25px sans-serif';ctx.fillText('↗ '+Math.round(start.distanceTo(station.access.entrance))+' m · Hai chiều tàu',384,117);const sign=new THREE.Mesh(new THREE.PlaneGeometry(4.8,1),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(canvas),side:THREE.DoubleSide}));sign.position.copy(start).addScaledVector(side,2).y+=1.5;sign.rotation.y=Math.atan2(delta.x,delta.z)+Math.PI;village.root.add(sign);
+    }
+}

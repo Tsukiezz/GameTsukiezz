@@ -1,0 +1,16 @@
+/* One nearby interaction, spatially indexed over every authored tree family. */
+function installTreeWood(){
+    const cells=new Map(),trees=[],dedup=new Set(),cooldowns={},key='tsuventure_tree_wood_v1',matrix=new THREE.Matrix4(),pos=new THREE.Vector3();
+    try{for(const [id,t] of Object.entries(JSON.parse(localStorage.getItem(key)||'{}')))if(Number.isFinite(t)&&t>Date.now())cooldowns[id]=Math.min(t,Date.now()+30000);}catch{}
+    function add(x,z,family){const id=Math.round(x)+','+Math.round(z);if(dedup.has(id)||!Number.isFinite(x+z))return;dedup.add(id);const y=Math.max(worldSurface.height(x,z),playerSurvival.surfaceAt(x,z)??-Infinity),tree={id,x,z,y,family};trees.push(tree);const k=Math.floor(x/12)+','+Math.floor(z/12);if(!cells.has(k))cells.set(k,[]);cells.get(k).push(tree);}
+    scene.updateMatrixWorld(true);scene.traverse(mesh=>{if(!mesh.isInstancedMesh||!/(bark|trunk|tree_wood)/i.test(mesh.name)||/root/i.test(mesh.name))return;for(let i=0;i<mesh.count;i++){mesh.getMatrixAt(i,matrix);if(new THREE.Vector3().setFromMatrixScale(matrix).lengthSq()<1e-6)continue;pos.setFromMatrixPosition(matrix).applyMatrix4(mesh.matrixWorld);add(pos.x,pos.z,mesh.name);}});
+    for(const p of livingWorld.placements)if(p.kind==='tree'||p.kind==='pine')add(p.x,p.z,p.kind);
+    for(const p of window.mangroveRealm?.data.trees||[])add(p.x??p.position?.[0],p.z??p.position?.[2],'mangrove');
+    let target=null,clock=0;const item={id:'nearest_tree_wood',type:'tree_wood',pos:new THREE.Vector3(),radius:3.4,prompt:'Nhấn E · Lấy gỗ ×2',collected:true};interactables.push(item);
+    function nearest(){const p=playerGroup.position,gx=Math.floor(p.x/12),gz=Math.floor(p.z/12);let best=null,distance=3.4;for(let i=-1;i<=1;i++)for(let j=-1;j<=1;j++)for(const t of cells.get((gx+i)+','+(gz+j))||[]){const d=Math.hypot(t.x-p.x,t.z-p.z);if(d<distance&&Math.abs(p.y-t.y)<5&&!(cooldowns[t.id]>Date.now())){distance=d;best=t;}}return best;}
+    function refresh(){target=nearest();item.collected=!target;if(target)item.pos.set(target.x,target.y,target.z);return target;}
+    function harvest(){const t=refresh();if(!t||!gameState.isPlaying||gameState.inDialogue||document.querySelector('.modal-overlay.active'))return false;riverBoat.addWood(2);cooldowns[t.id]=Date.now()+30000;try{localStorage.setItem(key,JSON.stringify(cooldowns));}catch{}showNotification('Đã lấy 2 gỗ · '+riverBoat.stock.wood+' / 10 gỗ để đóng thuyền');refresh();render();return true;}
+    const row=document.createElement('article');row.id='inventory-wood';row.className='backpack-item';row.dataset.category='materials';row.innerHTML='<div aria-hidden="true" style="font-size:36px">🪵</div><div><h3>Gỗ</h3><p>Đứng gần cây và nhấn E để lấy gỗ. Thuyền cần 10 gỗ.</p><strong></strong></div>';document.querySelector('#modal-backpack .backpack-hint').before(row);
+    function render(){row.querySelector('strong').textContent='Đang có: '+riverBoat.stock.wood+' gỗ';}
+    window.treeWood={trees,cells,item,nearest,refresh,harvest,interact(i){return i===item?harvest():false;},update(dt){clock+=dt;if(clock>.15){clock=0;refresh();render();}}};refresh();render();
+}

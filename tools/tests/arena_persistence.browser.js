@@ -1,0 +1,1 @@
+(()=>{const t=romanArena.tournament;return {checks:[{name:'Five medals and final victory survive browser restart',ok:t.completed===5&&!t.opponent&&t.rows.filter(r=>r.dataset.owned==='true').length===5},{name:'Terrain remains cached after restart',ok:highlandTrails.fromCache}],saved:JSON.parse(localStorage.getItem('tsuventure_arena_tournament_v1'))};})()

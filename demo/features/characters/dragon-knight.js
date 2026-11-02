@@ -11,14 +11,14 @@ function buildDragonKnightModel() {
     for(const [name,color] of Object.entries(data.colors))palette[name]=new THREE.MeshStandardMaterial({color:parseInt(color,16),roughness:.6,metalness:['silver','gold','steel'].includes(name)?.4:0,side:THREE.DoubleSide});
     for(const material of Object.values(palette))material.color.convertSRGBToLinear();
     for(const part of data.parts) {
-        const key=part.bone+':'+part.material;
-        if(!bins.has(key))bins.set(key,{bone:part.bone,material:part.material,positions:[],indices:[]});
+        const weapon=/sword|moonblade/.test(part.name),key=part.bone+':'+part.material+':'+weapon;
+        if(!bins.has(key))bins.set(key,{bone:part.bone,material:part.material,weapon,positions:[],indices:[]});
         const bin=bins.get(key),offset=bin.positions.length/3;
         bin.positions.push(...part.vertices.flat());bin.indices.push(...part.indices.map(i=>i+offset));
     }
     for(const bin of bins.values()) {
         const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(bin.positions,3));g.setIndex(bin.indices);g.computeVertexNormals();
-        const mesh=new THREE.Mesh(g,palette[bin.material]);mesh.castShadow=true;mesh.receiveShadow=true;nodes[bin.bone].add(mesh);
+        const mesh=new THREE.Mesh(g,palette[bin.material]);mesh.userData.defaultWeapon=bin.weapon;mesh.castShadow=true;mesh.receiveShadow=true;nodes[bin.bone].add(mesh);
     }
     const shadow=new THREE.Mesh(new THREE.CircleGeometry(.7,24),new THREE.MeshBasicMaterial({color:0x010308,transparent:true,opacity:.45,depthWrite:false}));
     shadow.rotation.x=-Math.PI/2;shadow.position.y=.015;root.add(shadow);

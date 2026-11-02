@@ -3,6 +3,7 @@ function installForestWildlife(){
     const species=['frog','rabbit','pig','horse'],templates={},materials=new Map(),sphere=new THREE.SphereGeometry(1,10,7),box=new THREE.BoxGeometry(1,1,1);
     function material(color){if(!materials.has(color))materials.set(color,new THREE.MeshStandardMaterial({color,roughness:.88}));return materials.get(color);}
     function make(kind){
+        if(creatureArt.kinds.includes(kind))return creatureArt.create(kind).root;
         const root=new THREE.Group();root.name='Wildlife_'+kind;
         const color={frog:0x638d46,rabbit:0xd8d0bd,pig:0xc98c8c,horse:0x8e6040}[kind];
         function part(name,x,y,z,sx,sy,sz,tint=color,cube=false){const mesh=new THREE.Mesh(cube?box:sphere,material(tint));mesh.name=name;mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);root.add(mesh);return mesh;}
@@ -37,7 +38,7 @@ function installForestWildlife(){
     let scan=0,time=0;
     function spawn(home){
         const slot=pool.findIndex(a=>a.kind===home.kind),actor=slot>=0?pool.splice(slot,1)[0]:{kind:home.kind,model:templates[home.kind].clone(true)};
-        Object.assign(actor,{home,angle:random()*Math.PI*2,turn:1+random()*3,phase:random()*6,pauseOffset:random()*6,fade:0});actor.model.position.set(home.x,ancientGrove.ground(home.x,home.z),home.z);actor.model.visible=true;actor.model.scale.setScalar(.001);group.add(actor.model);actors.set(home.id,actor);return actor;
+        Object.assign(actor,{home,angle:random()*Math.PI*2,turn:1+random()*3,phase:random()*6,pauseOffset:random()*6,fade:0});actor.model.position.set(home.x,(window.worldSurface?.height(home.x,home.z)??ancientGrove.ground(home.x,home.z)),home.z);actor.model.visible=true;actor.model.scale.setScalar(.001);group.add(actor.model);actors.set(home.id,actor);return actor;
     }
     function update(dt){
         if(!gameState.isPlaying||gameState.inDialogue||document.querySelector('.modal-overlay.active'))return;
@@ -52,11 +53,11 @@ function installForestWildlife(){
             const speed={frog:.28,rabbit:.55,pig:.4,horse:.65}[a.kind],nx=pos.x+Math.sin(a.angle)*speed*dt,nz=pos.z+Math.cos(a.angle)*speed*dt;
             const moving=Math.sin(time*.55+a.pauseOffset)>-.35;
             if(moving&&valid(nx,nz,a.kind==='horse'?.4:.23)){pos.x=nx;pos.z=nz;}else if(moving)a.angle+=dt*3;
-            const ground=ancientGrove.ground(pos.x,pos.z);a.phase+=dt*(a.kind==='rabbit'?8:5);
+            const ground=window.worldSurface?.height(pos.x,pos.z)??ancientGrove.ground(pos.x,pos.z);a.phase+=dt*(a.kind==='rabbit'?8:5);
             pos.y=ground+((a.kind==='frog'||a.kind==='rabbit')&&moving?Math.max(0,Math.sin(a.phase))*.09:0);
             a.model.rotation.y+=Math.atan2(Math.sin(a.angle-a.model.rotation.y),Math.cos(a.angle-a.model.rotation.y))*(1-Math.exp(-dt*4));
             a.model.children.filter(c=>c.name==='leg').forEach((leg,i)=>leg.rotation.x=moving?Math.sin(a.phase+(i%2)*Math.PI)*.3:0);
-            if(Math.hypot(pos.x-p.x,pos.z-p.z)<18)window.fieldGuide?.record('wildlife_'+a.kind);
+            if(Math.hypot(pos.x-p.x,pos.z-p.z)<18&&Math.abs(pos.y-p.y)<6)window.fieldGuide?.record('wildlife_'+a.kind);
         }
     }
     window.forestWildlife={group,habitats,actors,pool,species,update,preview:kind=>templates[kind]};

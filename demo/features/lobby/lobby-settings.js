@@ -3,8 +3,9 @@
     const key='tsuventure_settings';
     let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch{}
     const volume=(value,fallback)=>Number.isFinite(Number(value))?Math.min(100,Math.max(0,Number(value))):fallback;
-    const settings={language:saved.language==='en'?'en':'vi',bgm:volume(saved.bgm,80),sfx:volume(saved.sfx,90),muted:saved.muted===true};
+    const settings={language:saved.language==='en'?'en':'vi',bgm:volume(saved.bgm,80),sfx:volume(saved.sfx,90),muted:saved.muted===true,bgmEnabled:saved.bgmEnabled!==false};
     const pairs={
+        'M\u01b0\u1ee3t':'Smooth','Trung B\u00ecnh':'Medium','Cao':'High',
         'King Kong Đấm Bốc':'King Kong Boxer','Hộ Vệ • Quyền Anh':'Guardian • Boxing','Đấm bốc':'Boxing',
         'Gorilla nhỏ với găng đấm bốc đỏ và giáp vai xanh. Hộ vệ cận chiến, giảm 20% sát thương nhận từ quái vật.':'A little gorilla with red boxing gloves and blue pauldrons. A melee guardian who takes 20% less monster damage.',
         'Thể lực':'Stamina','Oxy':'Oxygen','Thư viện (B)':'Library (B)',
@@ -15,7 +16,7 @@
         'Rời cầu: có thể bị phát hiện':'Off the bridge: monsters can detect you',
         'Tuần tra':'Patrolling','Đang săn đuổi':'Hunting','Chuẩn bị tấn công':'Preparing attack','Đang hồi đòn':'Recovering','Đã bị hạ':'Defeated',
         'Loch Ness — Kẻ Nuốt Trăng':'Loch Ness — Moon Devourer','Cá Sấu Không Gian — Hàm Hư Không':'Space Crocodile — Void Maw',
-        'BẢN ĐỒ · 2080m':'MAP · 2080m','Hồ Thủy Ngân — Vực Tĩnh Lặng':'Mercury Lake — Silent Abyss',
+        'BẢN ĐỒ · 6720m':'MAP · 6720m','Hồ Thủy Ngân — Vực Tĩnh Lặng':'Mercury Lake — Silent Abyss',
         'Rừng Nguyên Sinh':'Primordial Forest','Thần Rừng':'Forest Guardian',
         'Rừng ngoại vi':'Forest outskirts','Cổ thụ đã khám phá':'Discovered Elder Tree',
         'Đại Cổ Thụ Nguyệt Tộc':'Ancient Moon Tree','Rừng Bạch Nguyệt':'Moon Birch Forest',
@@ -55,7 +56,7 @@
         'Địa điểm':'Destinations','Chọn điểm đến':'Choose a destination','Di chuyển nhanh đến khu vực bạn muốn khám phá.':'Travel to an area you want to explore.',
         'Nhân vật':'Characters','Đổi nhân vật':'Change character','Thế giới':'World','Lâu đài':'Castle',
         'Cài đặt':'Settings','Cài đặt đồ họa':'Graphics settings','Điều khiển':'Controls','Trang chủ':'Lobby','Về trang chủ':'Return to lobby',
-        'Giữ chuột phải để nhìn quanh, lăn chuột để đổi khoảng cách.':'Hold the right mouse button to look around. Scroll to zoom.',
+        'Nhấn chuột phải một lần để nhìn quanh. Esc hiện con trỏ; lăn chuột đổi khoảng cách.':'Right-click once to look around. Esc releases the cursor; scroll to zoom.',
         'Di chuyển':'Move','Nhảy':'Jump','Tương tác':'Interact','Ngồi / đứng':'Sit / stand','Chuột phải':'Right mouse',
         'Đại điện':'Great Hall','Phòng tiếp khách':'Reception','Ngai vàng':'Throne','Gác mái':'Attic',
         'Cửa hầm bí mật':'Secret entrance','Đấu trường':'Arena','Tế đàn':'Altar','Cổ thụ':'Ancient tree',
@@ -64,7 +65,7 @@
         'Phòng tranh':'Art Gallery','Phòng đọc':'Reading Room','Kho sách':'Book Archive','Phòng nghiên cứu':'Study',
         'Phòng Vũ Khí':'Armory','Đại Điện':'Great Hall','Sảnh Tiếp Khách':'Reception',
         'Hầm Bí Mật':'Secret Basement','Mật Thất':'Hidden Crypt','Trạm Vũ Trụ':'Space Station',
-        'Hồ Thủy Ngân':'Mercury Lake','Hang Động':'Cave','Đài Thiên Văn':'Observatory',
+        'Hồ Thủy Ngân':'Mercury Lake','Hang Động':'Cave','Hang Tà Thần':'Evil God Cavern','Đài Thiên Văn':'Observatory',
         'Chém kiếm':'Sword attack','Vung trượng':'Staff attack','Chạy nhanh':'Sprint',
         'VỊ TRÍ HIỆN TẠI':'CURRENT LOCATION','BẢN ĐỒ':'MAP',
         'Menu sảnh chính':'Lobby menu','Bật/Tắt Âm Thanh':'Toggle audio',
@@ -96,7 +97,7 @@
     const draft={...settings,graphics:currentProfileKey};
     const saveButton=document.getElementById('btn-save-settings'),saveStatus=document.getElementById('settings-save-status');
     function dirty(){
-        const changed=['language','bgm','sfx'].some(k=>draft[k]!==settings[k]) || draft.graphics!==currentProfileKey;
+        const changed=['language','bgm','sfx','bgmEnabled'].some(k=>draft[k]!==settings[k]) || draft.graphics!==currentProfileKey;
         saveButton.disabled=!changed;
         saveStatus.textContent=translate(changed?'Chưa lưu thay đổi':'Đã lưu và áp dụng');
     }
@@ -110,9 +111,9 @@
     select.addEventListener('change',()=>{draft.language=select.value==='en'?'en':'vi';dirty();});
     function applyAudio(){
         sfx.muted=settings.muted;
-        if(sfx.bgmGain)sfx.bgmGain.gain.value=settings.bgm/100*.1;
+        if(sfx.bgmGain)sfx.bgmGain.gain.value=(settings.bgmEnabled?settings.bgm/100:0)*.1;
         if(sfx.sfxGain)sfx.sfxGain.gain.value=settings.sfx/100;
-        document.getElementById('btn-audio-toggle').textContent=settings.muted?'🔇':'🔊';
+        document.getElementById('btn-audio-toggle').textContent=settings.muted?'🔇':'🔊';window.lobbyMusic?.sync();
     }
     const init=sfx.init.bind(sfx);sfx.init=function(){init();applyAudio();};
     for(const type of ['bgm','sfx']){
@@ -120,19 +121,21 @@
         slider.addEventListener('input',()=>{draft[type]=volume(slider.value,80);dirty();});
     }
     saveButton.addEventListener('click',()=>{
-        for(const k of ['language','bgm','sfx'])settings[k]=draft[k];
+        for(const k of ['language','bgm','sfx','bgmEnabled'])settings[k]=draft[k];
         if(currentProfileKey!==draft.graphics)setGraphicsProfile(draft.graphics);
         save();applyAudio();localize();dirty();window.dispatchEvent(new Event('tsuventure-settings-saved'));
     });
     window.resetSettingsDraft=()=>{
-        Object.assign(draft,settings,{graphics:currentProfileKey});select.value=settings.language;
+        Object.assign(draft,settings,{graphics:currentProfileKey});select.value=settings.language;document.getElementById('setting-bgm-enabled').checked=settings.bgmEnabled;
         for(const type of ['bgm','sfx'])document.getElementById('slider-'+type).value=settings[type];
         chooseGraphics(currentProfileKey);
     };
     document.getElementById('btn-audio-toggle').addEventListener('click',()=>{settings.muted=sfx.muted;save();applyAudio();});
     applyAudio();
     let queued=false;
-    observer=new MutationObserver(()=>{if(!queued){queued=true;requestAnimationFrame(()=>{queued=false;localize();});}});
+    // Runtime labels are authored in Vietnamese. Only translate mutations for English;
+    // traversing the entire HUD each animation frame wastes weak-PC frame time.
+    observer=new MutationObserver(()=>{if(settings.language==='en'&&!queued){queued=true;setTimeout(()=>{queued=false;localize();},200);}});
     localize();
     const video=document.getElementById('lobby-video'),home=document.getElementById('home-screen');
     const reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -143,6 +146,6 @@
     new MutationObserver(syncVideo).observe(home,{attributes:true,attributeFilter:['class']});
     document.addEventListener('visibilitychange',syncVideo);reduced.addEventListener('change',syncVideo);
     video.addEventListener('error',()=>{video.style.display='none';});syncVideo();
-    window.tsuventureSettings={get language(){return settings.language;},translate,chooseGraphics};
+    window.tsuventureSettings={get language(){return settings.language;},get audio(){return {...settings};},translate,chooseGraphics,setMusicEnabled(value){settings.bgmEnabled=draft.bgmEnabled=!!value;save();applyAudio();dirty();},setMusicVolume(value){settings.bgm=draft.bgm=volume(value,80);save();applyAudio();dirty();}};document.getElementById('setting-bgm-enabled').checked=settings.bgmEnabled;installLobbyMusic();
     dirty();
 })();

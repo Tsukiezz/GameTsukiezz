@@ -15,6 +15,7 @@ function installMercuryLake(){
     }
     const bins=new Map();
     for(const part of data.parts){
+        if(/lake-basalt-cliff|lake-outer-spire/.test(part.name))continue;
         if(!bins.has(part.material))bins.set(part.material,{vertices:[],indices:[]});
         const b=bins.get(part.material),offset=b.vertices.length/3;b.vertices.push(...part.vertices.flat());b.indices.push(...part.indices.map(i=>i+offset));
     }
@@ -23,6 +24,7 @@ function installMercuryLake(){
         const mesh=new THREE.Mesh(geometry,material[key]);mesh.name='MercuryArchitecture_'+key;mesh.receiveShadow=true;group.add(mesh);
     }
     for(const c of data.colliders){
+        if(/lake-basalt-cliff|lake-outer-spire/.test(c.name))continue;
         if(c.type==='box')addBoxCollider(data.x+c.x,data.z+c.z,c.width,c.depth,c.minY,c.maxY,Boolean(c.standable));
         else addCylinderCollider(data.x+c.x,data.z+c.z,c.radius,c.minY,c.maxY,false);
         Object.assign(colliders.at(-1),{name:c.name,stepHeight:MAX_STEP_HEIGHT});
@@ -38,7 +40,8 @@ function installMercuryLake(){
         for(const id of ids)shoreVertices.push(groundPositions.getX(id)-data.x,groundPositions.getZ(id)+.025,-groundPositions.getY(id)-data.z);
     }
     const shoreGeometry=new THREE.BufferGeometry();shoreGeometry.setAttribute('position',new THREE.Float32BufferAttribute(shoreVertices,3));shoreGeometry.computeVertexNormals();
-    const shore=new THREE.Mesh(shoreGeometry,material.obsidian);shore.name='MercuryObsidianShore';group.add(shore);
+    const shoreMat=material.obsidian.clone();shoreMat.polygonOffset=true;shoreMat.polygonOffsetFactor=-1;shoreMat.polygonOffsetUnits=-2;
+    const shore=new THREE.Mesh(shoreGeometry,shoreMat);shore.name='MercuryObsidianShore';group.add(shore);
     const waterUniforms={time:{value:0},fogColor:{value:scene.fog.color},fogDensity:{value:scene.fog.density}};
     const waterMaterial=new THREE.ShaderMaterial({uniforms:waterUniforms,side:THREE.DoubleSide,
         vertexShader:`varying vec3 worldPos;varying vec3 eyeVector;
@@ -84,6 +87,14 @@ function installMercuryLake(){
     }
     interactables.push({id:'mercury_lake',type:'mercury_lake',pos:new THREE.Vector3(data.x,5.4,data.z+154),radius:12,prompt:'Ngắm Hồ Thủy Ngân Vực Tĩnh Lặng'});
     interactables.push({id:'mercury_shrine',type:'mercury_lake',pos:new THREE.Vector3(data.x,5.4,data.z-8),radius:11,prompt:'Chạm vào di tích giữa Hồ Thủy Ngân'});
-    window.mercuryLake={data,group,water,support,travel(){fastTravelTo(data.x,data.z+154,'Hồ Thủy Ngân — Vực Tĩnh Lặng',5.4);},
+    const shorePosts=[];
+    function finishShore(){
+        if(shorePosts.length)return;const points=[];
+        for(let i=0;i<48;i++){const a=i*Math.PI/24,x=data.x+Math.sin(a)*data.rx*1.13,z=data.z+Math.cos(a)*data.rz*1.17;if(z>data.z+80&&Math.abs(x-data.x)<85||playerSurvival.surfaceAt(x,z)!==null||moonRailway.infrastructureAt(x,z))continue;const y=worldSurface.height(x,z);if(Math.hypot(worldSurface.height(x+1,z)-worldSurface.height(x-1,z),worldSurface.height(x,z+1)-worldSurface.height(x,z-1))>1.1)continue;points.push({x,y,z});}
+        const mesh=new THREE.InstancedMesh(new THREE.ConeGeometry(.55,1.7,5),material.obsidian,points.length),o=new THREE.Object3D();mesh.name='MercuryGroundedShorePosts';mesh.frustumCulled=false;
+        for(const [i,p] of points.entries()){o.position.set(p.x-data.x,p.y+.85,p.z-data.z);o.rotation.y=i*.7;o.updateMatrix();mesh.setMatrixAt(i,o.matrix);shorePosts.push(p);addCylinderCollider(p.x,p.z,.42,p.y,p.y+1.7,false);colliders.at(-1).name='mercury-shore-post';}group.add(mesh);mesh.computeBoundingSphere?.();
+        const pos=shore.geometry.attributes.position,v=[];for(let i=0;i<pos.count;i+=3){const x=(pos.getX(i)+pos.getX(i+1)+pos.getX(i+2))/3+data.x,z=(pos.getZ(i)+pos.getZ(i+1)+pos.getZ(i+2))/3+data.z;if(riverRealm.waterAt(x,z))continue;for(let j=0;j<3;j++)v.push(pos.getX(i+j),pos.getY(i+j),pos.getZ(i+j));}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(v,3));g.computeVertexNormals();shore.geometry.dispose();shore.geometry=g;
+    }
+    window.mercuryLake={data,group,water,support,shorePosts,finishShore,travel(){fastTravelTo(data.x,data.z+154,'Hồ Thủy Ngân — Vực Tĩnh Lặng',5.4);},
         update(time){waterUniforms.time.value=time;waterUniforms.fogDensity.value=scene.fog.density;}};
 }

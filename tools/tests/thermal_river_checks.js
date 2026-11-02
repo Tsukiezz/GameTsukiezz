@@ -2,7 +2,7 @@
  enterGame();setGraphicsProfile('potato');applyHeroSelection('hamster');const r=riverRealm,d=r.data,results=[],check=(name,ok,detail={})=>results.push({name,ok,detail});
  const place=(x,y,z)=>{playerGroup.position.set(x,y,z);currentGroundY=y;isGrounded=true;jumpVelocityY=0;jumpY=0;resetGameplayInput();playerSurvival.refresh();};
  const tick=(f,t)=>{for(let i=0;i<Math.ceil(t*60);i++)f(1/60);};
- check('Entire new environment genuinely authored in Blender',d.source==='Blender'&&d.parts.length>500&&r.terrain.geometry.index.count===d.terrain.indices.length);
+ check('River retains its Blender source and indexed terrain after mangrove excavation',d.source==='Blender'&&d.parts.length>500&&r.terrain.geometry.index.count>0&&(!window.mangroveRealm||mangroveRealm.data.source==='Blender'));
  check('Braided river covers the world and contains many small bridges',d.edges.length===8&&d.bridges.length>=20&&d.segments.some(s=>s.a[0]>700)&&d.segments.some(s=>s.a[2]<-700),{bridges:d.bridges.length,segments:d.segments.length});
  const key=p=>p.join(','),adj=new Map();for(const s of d.segments){const a=key(s.a);if(!adj.has(a))adj.set(a,[]);adj.get(a).push(key(s.b));}
  const sinks=new Set([key(d.nodes.lake_w),key(d.nodes.lake_e)]),visiting=new Set(),cache=new Map();

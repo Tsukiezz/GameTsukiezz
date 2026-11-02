@@ -1,3 +1,4 @@
+from pathlib import Path
 import bpy
 import math
 import os
@@ -507,7 +508,7 @@ bpy.context.scene.render.resolution_y = 960
 # -----------------------------------------------------------------------------
 # 7. XUẤT FILE .BLEND, .FBX & RENDER ẢNH THỰC TẾ
 # -----------------------------------------------------------------------------
-output_dir = r"c:\Users\Admin\OneDrive\Máy tính\Desktop\CODE\Tsukiezz\projects\GameTsukiezz\Assets\Art\Blender\Characters"
+output_dir = str(Path(__file__).resolve().parents[1]/'Assets/Art/Blender/Characters')
 os.makedirs(output_dir, exist_ok=True)
 
 blend_path = os.path.join(output_dir, "HamsterWarrior.blend")

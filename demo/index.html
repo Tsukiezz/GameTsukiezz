@@ -4,46 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tsuventure | Echoes of the Moonlit Realm</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="features/lobby/assets/app/icon-32.png?v=25c47c1881e5">
+    <link rel="apple-touch-icon" sizes="180x180" href="features/lobby/assets/app/icon-180.png?v=72465e54d0f3">
+    <link rel="manifest" href="manifest.webmanifest?v=2ce440ac22a7">
+    <meta name="theme-color" content="#0c2334">
+    <meta name="apple-mobile-web-app-title" content="Tsuventure">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Noto+Serif:italic,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="vendor/three-r128.min.js?v=9274bbcec8d9"></script>
     <script src="features/castle/data/castle-extension.js?v=ced182c6fd9d"></script>
-    <script src="features/castle/castle-upgrade.js?v=f03451deb517"></script>
+    <script src="features/characters/combat-balance.js?v=9c6fbc0a51ce"></script>
+    <script src="features/lobby/lobby-music.js?v=467006a201c4"></script>
+    <script src="features/castle/castle-integrity.js?v=e27b00cbc521"></script>
+    <script src="features/castle/castle-upgrade.js?v=796a566fba64"></script>
     <script src="features/world/moon-underlayer.js?v=e3e8c7e9ceba"></script>
     <script src="features/arena/roman-arena-details.js?v=7452cf051847"></script>
-    <script src="features/arena/arena-warrior-tunnels.js?v=c9f344a3ed92"></script>
-    <script src="features/arena/roman-arena.js?v=8991145515b6"></script>
+    <script src="features/arena/arena-warrior-tunnels.js?v=821029b44e44"></script>
+    <script src="features/arena/arena-tournament.js?v=2ed06aec1670"></script>
+    <link rel="stylesheet" href="features/arena/arena-tournament.css?v=83af43d86974">
+    <script src="features/arena/arena-relocation.js?v=762fa6ae6866"></script>
+    <script src="features/arena/roman-arena.js?v=f6bcc67514f3"></script>
     <script src="features/characters/dragon-knight/model.js?v=bf3cd5bf5e37"></script>
-    <script src="features/characters/hero-animation.js?v=44c3006afafd"></script>
+    <script src="features/characters/hero-motion.js?v=740bb0a6ab69"></script>
+    <script src="features/characters/hero-animation.js?v=0228592d5d3b"></script>
+    <script src="features/characters/ninja-yinyang/model.js?v=6d3bcbff9e91"></script>
+    <script src="features/characters/ninja-yinyang/ninja.js?v=b65adf20eb51"></script>
+    <script src="features/characters/ninja-yinyang/abilities.js?v=0ef5da650072"></script>
     <script src="features/characters/kingkong/model.js?v=722d76bb5b2b"></script>
-    <script src="features/characters/kingkong/kingkong.js?v=231956cba8ae"></script>
-    <script src="features/characters/dragon-knight.js?v=b573e7c2d12a"></script>
-    <script src="features/hud/game-hud.js?v=edecb7d8145a"></script>
+    <script src="features/characters/kingkong/kingkong.js?v=ed752b23607c"></script>
+    <script src="features/characters/dragon-knight.js?v=5335e7614815"></script>
+    <script src="features/hud/game-hud.js?v=a6b1d8a35d0b"></script>
     <script src="features/forest/data/ancient-grove.js?v=66deb2ba080e"></script>
-    <script src="features/forest/ancient-grove.js?v=2cce2fe4214d"></script>
+    <script src="features/forest/ancient-grove.js?v=aa82f23f60ef"></script>
     <script src="features/world/data/expanded-realm.js?v=271138ccdf94"></script>
-    <script src="features/world/expanded-realm.js?v=4ce54f6b0843"></script>
+    <script src="features/world/expanded-realm.js?v=f6bbbe0995b2"></script>
     <script src="features/lake/data/lake-monsters.js?v=75df5ebaec96"></script>
-    <script src="features/lake/lake-monsters.js?v=70d38c5ff10e"></script>
-    <script src="features/survival/player-survival.js?v=ca9f94da7281"></script>
+    <script src="features/lake/lake-monsters.js?v=b24924330f52"></script>
+    <script src="features/survival/player-survival.js?v=76b4b021aa81"></script>
     <script src="features/forest/data/forest-guardian.js?v=d2a1b3a471f5"></script>
-    <script src="features/forest/wildlife.js?v=1f6dbc26b7d9"></script>
-    <script src="features/inventory/backpack.js?v=07fa2040c90e"></script>
-    <script src="features/inventory/crystal-wings.js?v=f6d9944ceed0"></script>
-    <link rel="stylesheet" href="features/inventory/backpack.css?v=fc644ec621a7">
-    <script src="features/forest/forest-guardian.js?v=8dbaeab439d5"></script>
-    <script src="features/library/library-previews.js?v=24a1c1601029"></script>
-    <script src="features/library/field-guide.js?v=9a2ff5bb5744"></script>
+    <script src="features/creatures/data/creature-studio.js?v=0fbbe0ba648c"></script>
+    <script src="features/creatures/creature-art.js?v=191ec66a1a50"></script>
+    <script src="features/creatures/creature-refresh.js?v=9265c4740691"></script>
+    <script src="features/forest/wildlife.js?v=292f55ae49b7"></script>
+    <script src="features/inventory/temple-supplies.js?v=e30adf4f479f"></script>
+    <script src="features/inventory/backpack.js?v=687d33968031"></script>
+    <script src="features/inventory/data/solar-flashlight.js?v=d1e3af285f0d"></script>
+    <script src="features/inventory/solar-flashlight.js?v=0a127b99fbe3"></script>
+    <script src="features/inventory/crystal-wings.js?v=c897805701d3"></script>
+    <link rel="stylesheet" href="features/inventory/backpack.css?v=e2432cefd2bd">
+    <script src="features/forest/forest-guardian.js?v=eb635d59e833"></script>
+    <script src="features/library/library-previews.js?v=3329fc0acab3"></script>
+    <script src="features/world/data/lunar-village-assets.js?v=104e5fe0241b"></script>
+    <script src="features/world/lunar-village-art.js?v=034fceba87f7"></script>
+    <script src="features/world/western-highlands.js?v=ede2d6b17c88"></script>
+    <script src="features/world/candy-fortress.js?v=e4e23ea11cd8"></script>
+    <script src="features/world/candy-provisions.js?v=42df90fbfdca"></script>
+    <script src="features/world/candy-kingdom.js?v=f5934da2e256"></script>
+    <script src="features/world/realm-scenery.js?v=23968bf69b3b"></script>
+    <script src="features/hud/game-shortcuts.js?v=4016502bb842"></script>
+    <script src="features/characters/player-experience.js?v=f752d5c0fc4e"></script>
+    <script src="features/world/lunar-surface-finish.js?v=8beb573d05f5"></script>
+    <script src="features/world/realm-transit-update.js?v=1f821c666a0c"></script>
+    <script src="features/library/field-guide.js?v=a3f1c4b637a3"></script>
     <script src="features/mountain/data/bach-khuyet.js?v=ed2e81097b27"></script>
-    <script src="features/mountain/bach-khuyet.js?v=4092ab6dcdd7"></script>
-    <script src="features/world/monster-skills.js?v=3eb6f690e344"></script>
+    <script src="features/mountain/bach-khuyet.js?v=d37f99375221"></script>
+    <script src="features/world/monster-skills.js?v=be3bd05b3a6a"></script>
     <link rel="stylesheet" href="features/mountain/bach-khuyet.css?v=ae4ee76114a8">
     <script src="features/river/data/thermal-river.js?v=fc6387ad948a"></script>
-    <script src="features/river/thermal-river.js?v=1c61368658e0"></script>
-    <script src="features/river/mountain-life.js?v=518dae62aa28"></script>
+    <script src="features/river/thermal-river.js?v=57abe11b6610"></script>
+    <script src="features/river/mountain-life.js?v=cd0ae7028fa3"></script>
     <link rel="stylesheet" href="features/river/thermal-river.css?v=002afe28b8d6">
-    <script src="features/world/lunar-biome.js?v=f89568379109"></script>
+    <link rel="stylesheet" href="features/cavern/evil-cavern.css?v=e71edfb4927f">
+    <script src="features/cavern/data/evil-cavern.js?v=c96382c18808"></script>
+    <script src="features/cavern/cavern-surfaces.js?v=257b29748ccb"></script>
+    <script src="features/world/exploration-update.js?v=253c92a65b24"></script>
+    <link rel="stylesheet" href="features/world/exploration-update.css?v=dc848ee71bfe">
+    <script src="features/cavern/evil-cavern.js?v=46c4c00aec45"></script>
+    <script src="features/world/lunar-biome.js?v=d6ee3f48dbfc"></script>
+    <script src="features/desert/data/desert-assets.js?v=800bcef52911"></script>
+    <script src="features/world/terrain-continuity.js?v=7d0a862451d2"></script>
+    <script src="features/technology/technology-base.js?v=40f6d4c00213"></script>
+    <script src="features/characters/hero-stat-sync.js?v=4b028192b7ca"></script>
+    <script src="features/inventory/tree-wood.js?v=8276bdaef3ca"></script>
+    <script src="features/inventory/food-pickups.js?v=7e16561c596c"></script>
+    <script src="features/inventory/gift-code.js?v=394621057804"></script>
+    <script src="features/inventory/inventory-layout.js?v=2d0ad79f9f10"></script>
+    <script src="features/technology/river-boat.js?v=23876d565609"></script>
+    <script src="features/desert/desert-layout.js?v=018c33b83436"></script>
+    <script src="features/desert/desert-enemies.js?v=5e0bc2b7aa39"></script>
+    <script src="features/desert/pyramid-floors.js?v=83171a31d1dd"></script>
+    <script src="features/desert/pyramid-interior.js?v=c773c511a193"></script>
+    <script src="features/desert/desert-realm.js?v=f3f1560a783f"></script>
+    <script src="features/volcano/data/volcanic-assets.js?v=f5e0e945c38e"></script>
+    <script src="features/volcano/dragon-flight.js?v=411f0e8fcb98"></script>
+    <script src="features/volcano/volcanic-valley.js?v=6275b003b5fc"></script>
+    <script src="features/world/living-world.js?v=331e1c443459"></script>
+    <script src="features/world/aquatic-ecology.js?v=a0ecf54821b5"></script>
+    <script src="features/world/polar-ecology.js?v=6664bb5d8a85"></script>
+    <script src="features/inventory/snow-crystals.js?v=80d0ef5f25e3"></script>
+    <script src="features/world/graphics-quality.js?v=bca0881fc690"></script>
+    <script src="features/world/southern-expansion.js?v=8968ba419733"></script>
+    <script src="features/world/antarctic-realm.js?v=d2dd91337d8a"></script>
+    <script src="features/world/snow-queen.js?v=772ef4d32fcd"></script>
+    <script src="features/world/santa-gifts.js?v=33817b5b0b7b"></script>
+    <script src="features/survival/player-life.js?v=1533e5267106"></script>
+    <script src="features/world/monster-camps.js?v=d6ee8f834521"></script>
+    <script src="features/world/map-visual-repair.js?v=59f95b980ef2"></script>
+    <link rel="stylesheet" href="features/railway/railway.css?v=a3310bd56fcf">
+    <script src="features/world/surface-sync.js?v=d57bdd766ce5"></script>
+    <script src="features/railway/data/railway-assets.js?v=008c81d36758"></script>
+    <script src="features/railway/highland-railway.js?v=377507df347f"></script>
+    <script src="features/world/data/highland-walking-routes.js?v=3740d9998a27"></script>
+    <script src="features/world/highland-trails.js?v=b034f8d6dbef"></script>
+    <script src="features/world/terrain-traversal.js?v=329d9c3cc689"></script>
+    <script src="features/railway/station-mobility.js?v=3d38bcf2206f"></script>
+    <script src="features/railway/railway-clearance.js?v=5347298d1590"></script>
+    <script src="features/railway/station-grounding.js?v=2f07741d5926"></script>
+    <script src="features/railway/moon-railway.js?v=3a0edb652bfe"></script>
+    <script src="features/mangrove/data/mangrove-assets.js?v=4c5351a366e7"></script>
+    <script src="features/mangrove/mangrove-life.js?v=8cc1222602ff"></script>
+    <script src="features/mangrove/mangrove-realm.js?v=c3f5a6429bc2"></script>
     <style>
         :root {
             --gold-primary: #ffd700;
@@ -1056,8 +1137,21 @@
         body.lightweight * { backdrop-filter: none !important; }
         body.lightweight .ambient-glow { display: none; }
     </style>
-    <link rel="stylesheet" href="features/lobby/lobby.css?v=eb62ccfbbb13">
-    <link rel="stylesheet" href="features/hud/game-hud.css?v=d623b7019c9a">
+    <link rel="stylesheet" href="features/lobby/lobby.css?v=38b3db6a68fb">
+    <link rel="stylesheet" href="features/hud/game-hud.css?v=23ef049ccb0d">
+<style>.hud-touch-actions.has-flashlight{display:grid;grid-template-columns:repeat(3,44px)}</style>
+    <link rel="stylesheet" href="features/void/void-update.css?v=4aac41085464">
+    <script src="features/void/data/void-assets.js?v=503338f59b24"></script>
+    <script src="features/world/construction-zones.js?v=2e197b2d8616"></script>
+    <script src="features/world/world-residents.js?v=5aa78f56a364"></script>
+    <script src="features/void/void-art.js?v=2c3e3aa57c6f"></script>
+    <script src="features/void/winter-architecture.js?v=0be31a441517"></script>
+    <script src="features/void/apartment-doors.js?v=b392a522ec57"></script>
+    <script src="features/void/void-district.js?v=8d97e3733eaa"></script>
+    <script src="features/void/cave-treasury.js?v=13e343f174fd"></script>
+    <script src="features/void/rage-armor.js?v=8859651e4a74"></script>
+    <script src="features/void/world-weather.js?v=c50af36d09d1"></script>
+    <script src="features/inventory/inventory-workspace.js?v=84d2a6042eeb"></script>
 </head>
 <body>
     <canvas id="webgl-canvas"></canvas>
@@ -1083,7 +1177,7 @@
         <!-- CENTER LOGO & MAIN MENU -->
         <div class="home-center">
             <!-- Brand Crest -->
-            <div class="brand-crest" aria-hidden="true"></div>
+            <img class="brand-logo" src="features/lobby/assets/tsuventure-logo-v2.png?v=51dc98caaf00" alt="Tsuventure — vương quốc ánh trăng" width="2172" height="724">
             <h1 class="main-title">TSUVENTURE</h1>
             <div class="title-sub">Echoes of the Moonlit Realm</div>
             <p class="title-desc">Thế giới phế tích cổ xưa chìm dưới vầng trăng khuyết huyền bí. Hãy chọn nhân vật bảo hộ, giải mã những phiến đá thì thầm và thắp lại ngọn lửa linh thiêng!</p>
@@ -1091,7 +1185,7 @@
             <nav class="menu-list" aria-label="Menu sảnh chính">
                 <button class="btn-menu primary" id="btn-play-game"><span>CHƠI</span><span aria-hidden="true">&#8250;</span></button>
                 <button class="btn-menu inventory-pending" id="btn-inventory" disabled><span>KHO ĐỒ<small>Sẽ cập nhật trong tương lai</small></span><span aria-hidden="true">&#8250;</span></button>
-                <button class="btn-menu hero-menu" id="btn-open-heroes"><span>NHÂN VẬT</span><span aria-hidden="true">&#8250;</span></button>
+                <button class="btn-menu hero-menu" id="btn-open-heroes"><span>SKIN</span><span aria-hidden="true">&#8250;</span></button>
                 <button class="btn-menu" id="btn-open-settings"><span>CÀI ĐẶT</span><span aria-hidden="true">&#8250;</span></button>
             </nav>
         </div>
@@ -1114,8 +1208,8 @@
         <div class="modal-card">
             <div class="modal-close" onclick="closeModal('modal-heroes')">✕</div>
             <div class="modal-header">
-                <h2>CHỌN NHÂN VẬT</h2>
-                <p>Mỗi nhân vật mang phong cách chiến đấu, vũ khí và phép thuật thần bí riêng biệt</p>
+                <h2>BỘ SƯU TẬP SKIN</h2>
+                <p>Chọn ngoại hình yêu thích. Các skin dùng chung chỉ số và cơ chế chiến đấu.</p>
             </div>
 
             <div class="hero-grid">
@@ -1198,6 +1292,13 @@
                     </div>
                     <p style="font-size:13px;color:#94a3b8;line-height:1.5">Rồng nhỏ màu ngọc bích, đôi cánh ngắn và bộ giáp xanh. Một người bạn dũng cảm, thân thiện trong chuyến phiêu lưu ánh trăng.</p>
                 </div>
+                <div class="hero-card" id="card-hero-ninja_yinyang" onclick="selectHero('ninja_yinyang')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectHero('ninja_yinyang')}">
+                    <div class="hero-img-wrap"><img src="features/characters/ninja-yinyang/portrait-art-v2.png?v=e587645f4fb0" alt="Ninja Âm Dương — sát thủ gấu trúc nhỏ với hai đoản đao" style="object-fit:cover"></div>
+                    <h3 class="hero-name">Ninja Âm Dương</h3>
+                    <div class="hero-class">Sát Thủ • Song Đoản Đao</div>
+                    <p class="hero-desc">Ninja gấu trúc nhỏ với đôi mắt hai màu, áo đen trắng và khăn choàng ngắn. Đánh nhanh, mỗi đòn thứ ba chí mạng; F dùng Ảnh Bộ lướt né tránh.</p>
+                    <div class="hero-stats"><div class="stat-row"><span>Tấn Công</span><div class="stat-bar"><div class="stat-fill" style="width:90%"></div></div></div><div class="stat-row"><span>Phòng Thủ</span><div class="stat-bar"><div class="stat-fill" style="width:45%"></div></div></div><div class="stat-row"><span>Tốc Độ</span><div class="stat-bar"><div class="stat-fill" style="width:100%"></div></div></div></div>
+                </div>
                 <div class="hero-card" id="card-hero-kingkong" onclick="selectHero('kingkong')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectHero('kingkong')}">
                     <div class="hero-img-wrap"><img src="features/characters/kingkong/portrait-art.png?v=4c9633d3b2af" alt="King Kong Guardian" style="object-fit:cover"></div>
                     <h3>King Kong Đấm Bốc</h3>
@@ -1261,7 +1362,7 @@
                         <h4>Nhạc Nền (BGM Music)</h4>
                         <p>Âm hưởng huyền bí đêm trăng Tsuventure</p>
                     </div>
-                    <input type="range" class="setting-slider" id="slider-bgm" min="0" max="100" value="80">
+                    <div class="music-controls"><label><input id="setting-bgm-enabled" type="checkbox" checked> Bật nhạc sảnh</label><div><input type="range" class="setting-slider" id="slider-bgm" min="0" max="100" value="80" aria-label="Âm lượng nhạc nền"><output id="bgm-volume">80%</output></div><small id="bgm-status" role="status">The Pale Lunar Tide</small></div>
                 </div>
                 <div class="setting-item">
                     <div class="setting-info">
@@ -1284,29 +1385,24 @@
                             <h4 style="color: #00f5d4; display: flex; align-items: center; gap: 6px;">
                                 <span>⚡</span> Tối Ưu Hóa Đồ Họa & Máy Yếu
                             </h4>
-                            <span id="current-profile-label" style="font-size: 12px; color: #ffd700; font-weight: 700;">Cân Bằng (Mặc định)</span>
+                            <span id="current-profile-label" style="font-size: 12px; color: #ffd700; font-weight: 700;">Trung Bình</span>
                         </div>
-                        <p>Chọn Cực Mượt cho máy yếu: giảm hiệu ứng và tự hạ độ phân giải khi FPS thấp.</p>
+                        <p>Mượt: máy rất yếu · Trung Bình: cảnh quan · Cao: ánh sáng, bóng đổ và chi tiết.</p>
                     </div>
                     <div class="graphics-presets-grid">
-                        <button class="btn-preset" id="btn-preset-potato" onclick="tsuventureSettings.chooseGraphics('potato')">
-                            <span class="preset-icon">⚡</span>
-                            <span class="preset-name">Cực Mượt</span>
-                            <span class="preset-desc">Máy rất yếu · độ phân giải tự động</span>
-                        </button>
                         <button class="btn-preset" id="btn-preset-low" onclick="tsuventureSettings.chooseGraphics('low')">
                             <span class="preset-icon">🚀</span>
-                            <span class="preset-name">Siêu Mượt</span>
+                            <span class="preset-name">Mượt</span>
                             <span class="preset-desc">Dành cho máy yếu, laptop onboard</span>
                         </button>
                         <button class="btn-preset active" id="btn-preset-balanced" onclick="tsuventureSettings.chooseGraphics('balanced')">
                             <span class="preset-icon">⚖️</span>
-                            <span class="preset-name">Cân Bằng</span>
+                            <span class="preset-name">Trung Bình</span>
                             <span class="preset-desc">Cân đối hình ảnh và hiệu năng</span>
                         </button>
                         <button class="btn-preset" id="btn-preset-ultra" onclick="tsuventureSettings.chooseGraphics('ultra')">
                             <span class="preset-icon">✨</span>
-                            <span class="preset-name">Tuyệt Đẹp</span>
+                            <span class="preset-name">Cao</span>
                             <span class="preset-desc">Máy mạnh, độ phân giải cao</span>
                         </button>
                     </div>
@@ -1354,13 +1450,10 @@
                 <button class="tour-btn" onclick="fastTravelTo(-110, 115, 'Lâu Đài (Hầm Ngục & Kho Báu)', 1.0)">🗝️ Hầm Ngục</button>
                 <button class="tour-btn" onclick="fastTravelTo(-121.225, 118.5, 'Cửa Hầm Bí Mật — nhấn E để mở', 1.0)">🚪 Cửa Hầm Bí Mật</button>
                 <button class="tour-btn" onclick="fastTravelTo(-119.7, 129.5, 'Nhà tù Nguyệt Thạch — nhấn E tại nút điều khiển', -5.0)">🔒 Nhà Tù</button>
-                <button class="tour-btn" onclick="fastTravelTo(115, 72, 'Đấu Trường La Mã Bị Bỏ Hoang')">⚔️ Đấu Trường</button>
-                <button class="tour-btn" onclick="fastTravelTo(-147, -28, 'Trạm Vũ Trụ Công Nghệ Tối Tân')">🛸 Trạm Vũ Trụ</button>
-                <button class="tour-btn" onclick="fastTravelTo(-85, -100, 'Trụ Tế Đàn 2 Tầng Huyết Sắc')">🩸 Tế Đàn 2 Tầng</button>
+                <button class="tour-btn" onclick="romanArena.travel()">⚔️ Đấu Trường</button>
                 <button class="tour-btn" onclick="mercuryLake.travel()">🌊 Hồ Thủy Ngân</button>
                 <button class="tour-btn" id="btn-travel-grove" onclick="ancientGrove.travel()">🌲 Rừng Nguyên Sinh</button>
-                <button class="tour-btn" onclick="fastTravelTo(133, -116, 'Hang Động Nguyệt Tinh')">💎 Hang Động</button>
-                <button class="tour-btn" onclick="fastTravelTo(-120, -118, 'Đài Thiên Văn Tổ Tiên')">🔭 Đài Thiên Văn</button>
+                <button class="tour-btn" onclick="evilCavern.travel()">🕳 Hang Tà Thần</button>
                 <button class="tour-btn" id="btn-toggle-sit" onclick="toggleSitting()" style="background: rgba(255, 215, 0, 0.25); border-color: #ffd700; color: #ffd700; font-weight: 700; box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);">🧘 Ngồi Nghỉ (C)</button>
             </div>
 
@@ -1368,7 +1461,7 @@
             <div style="display: flex; gap: 12px; align-items: flex-start;">
                 <div class="hud-minimap-card">
                     <div class="hud-minimap-header">
-                        <span>📡 RADAR 2080M</span>
+                        <span>📡 RADAR 6720M</span>
                         <span id="minimap-coords" style="color: #94a3b8; font-family: monospace;">(0, 0)</span>
                     </div>
                     <canvas id="minimap-canvas" width="130" height="130"></canvas>
@@ -1445,7 +1538,7 @@
                     this.sfxGain.gain.value = 0.8;
                     this.bgmGain.connect(this.ctx.destination);
                     this.sfxGain.connect(this.ctx.destination);
-                    this.startAmbientMusic();
+                    // The lobby uses the supplied MP3; avoid overlapping synthesized BGM.
                 }
             }
             playTone(freq, type = 'sine', duration = 0.2, gainVal = 0.15) {
@@ -1553,7 +1646,7 @@
         scene.fog = new THREE.FogExp2(0x080e22, 0.0030);
 
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1500);
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance', precision: 'mediump' });
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance', precision: 'highp' });
         renderer.setSize(window.innerWidth, window.innerHeight);
         // Default pixel ratio capped to 1.0 for instant 3x-4x fill-rate performance boost on low-end laptops
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.0));
@@ -2008,7 +2101,7 @@
         }
         let particleIdx = 0;
         function emitFootstepSparkle(x, y, z) {
-            if (currentProfileKey === 'potato') return;
+            if (currentProfileKey === 'low') return;
             const p = footstepParticles[particleIdx];
             p.mesh.position.set(x, y + 0.04, z);
             p.mesh.scale.set(1, 1, 1);
@@ -2168,11 +2261,11 @@
             rightArmPivot.position.set(0.76, 0.5, 0.15);
             const swordBlade = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.13, 0.95), matSteel);
             swordBlade.position.set(0.15, 0, 0.65);
-            rightArmPivot.add(swordBlade);
+            swordBlade.userData.defaultWeapon=true;rightArmPivot.add(swordBlade);
             const swordGlow = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.85), matCyanGlow);
             swordGlow.rotation.x = Math.PI / 2;
             swordGlow.position.set(0.15, 0, 0.65);
-            rightArmPivot.add(swordGlow);
+            swordGlow.userData.defaultWeapon=true;rightArmPivot.add(swordGlow);
             bodyRoot.add(rightArmPivot);
             limbs.rightArm = rightArmPivot;
 
@@ -2312,14 +2405,14 @@
             const staffWood = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 2.0), new THREE.MeshStandardMaterial({ color: 0x5a3214 }));
             staffWood.position.set(0.15, 0.4, 0.5);
             staffWood.rotation.x = 0.2;
-            rightArmPivot.add(staffWood);
+            staffWood.userData.defaultWeapon=true;rightArmPivot.add(staffWood);
             const staffMoon = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.05, 8, 16), matGold);
             staffMoon.position.set(0.15, 1.4, 0.7);
             staffMoon.rotation.y = Math.PI / 2;
-            rightArmPivot.add(staffMoon);
+            staffMoon.userData.defaultWeapon=true;rightArmPivot.add(staffMoon);
             const staffOrb = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 12), matPurpleGlow);
             staffOrb.position.set(0.15, 1.4, 0.7);
-            rightArmPivot.add(staffOrb);
+            staffOrb.userData.defaultWeapon=true;rightArmPivot.add(staffOrb);
             bodyRoot.add(rightArmPivot);
             limbs.rightArm = rightArmPivot;
 
@@ -2349,10 +2442,11 @@
 
         const dragonVisualGroup=buildDragonKnightModel();
         const kingkongVisualGroup=buildKingKongModel();
+        const ninjaVisualGroup=buildNinjaYinYangModel();
         hamsterVisualGroup = buildHamsterModel();
         rabbitVisualGroup = buildRabbitModel();
 
-        for(const model of [hamsterVisualGroup,rabbitVisualGroup,dragonVisualGroup,kingkongVisualGroup])registerHeroAnimation(model);
+        for(const model of [hamsterVisualGroup,rabbitVisualGroup,dragonVisualGroup,kingkongVisualGroup,ninjaVisualGroup])registerHeroAnimation(model);
         playerGroup.add(hamsterVisualGroup);
         activeWeaponArm = hamsterVisualGroup.swordArm;
         activeLimbs = hamsterVisualGroup.limbs;
@@ -2360,14 +2454,17 @@
 
 
         function applyHeroSelection(type) {
-            if (!['hamster','rabbit','dragon_knight','kingkong'].includes(type)) return;
-            for(const model of [hamsterVisualGroup,rabbitVisualGroup,dragonVisualGroup,kingkongVisualGroup])resetHeroAnimation(model);
-            heroMoveDirection?.set(0,0,0);
+            if (!['hamster','rabbit','dragon_knight','kingkong','ninja_yinyang'].includes(type)) return;
+            for(const model of [hamsterVisualGroup,rabbitVisualGroup,dragonVisualGroup,kingkongVisualGroup,ninjaVisualGroup])resetHeroAnimation(model);
+            heroMoveDirection?.set(0,0,0);window.heroMotion?.reset();
             activeHeroType = type;
             playerGroup.remove(hamsterVisualGroup);
             playerGroup.remove(rabbitVisualGroup);
             playerGroup.remove(dragonVisualGroup);
             playerGroup.remove(kingkongVisualGroup);
+            playerGroup.remove(ninjaVisualGroup);
+            window.ninjaAbilities?.reset();
+            if(type==='ninja_yinyang'){playerGroup.add(ninjaVisualGroup);activeWeaponArm=ninjaVisualGroup.swordArm;activeLimbs=ninjaVisualGroup.limbs;for(const id of ['home-hero-name','hud-name'])document.getElementById(id).textContent='Ninja \u00c2m D\u01b0\u01a1ng';for(const id of ['home-hero-avatar','hud-avatar-icon'])document.getElementById(id).textContent='\ud83e\udd77';document.getElementById('hud-attack-name').textContent='Song \u0111o\u1ea3n \u0111ao';return;}
             if(type==='kingkong'){
                 playerGroup.add(kingkongVisualGroup);activeWeaponArm=kingkongVisualGroup.swordArm;activeLimbs=kingkongVisualGroup.limbs;
                 for(const id of ['home-hero-name','hud-name'])document.getElementById(id).textContent='King Kong Đấm Bốc';
@@ -2416,6 +2513,8 @@
         const castleCameraRay = new THREE.Raycaster();
 
         function clipCastleCamera(origin, desired) {
+            if(window.voidDistrict?.inside(origin))return voidDistrict.clipCamera(origin,desired);
+            if(window.evilCavern?.inside(origin))return evilCavern.clipCamera(origin,desired);
             if (!window.castlePhysics) return desired;
             const direction = desired.clone().sub(origin);
             const distance = direction.length();
@@ -2440,8 +2539,15 @@
         }
 
         function resolveCastleCeiling(x, z, previousY, nextY) {
+            nextY=window.voidDistrict?.ceiling(x,z,previousY,nextY)??nextY;
+            nextY=window.antarcticRealm?.ceiling(x,z,previousY,nextY)??nextY;
             if (nextY <= previousY) return nextY;
-            let resolved = window.riverRealm?.ceiling(x,z,previousY,nextY)??nextY;
+            let resolved=window.evilCavern?.ceiling(x,z,previousY,nextY)??nextY;
+            resolved=window.riverRealm?.ceiling(x,z,previousY,resolved)??resolved;
+            resolved=window.mangroveRealm?.ceiling(x,z,previousY,resolved)??resolved;
+            resolved=window.explorationUpdate?.ceiling(x,z,previousY,resolved)??resolved;
+            resolved=window.desertRealm?.ceiling(x,z,previousY,resolved)??resolved;
+            resolved=window.technologyBase?.ceiling(x,z,previousY,resolved)??resolved;
             const deck=castleBridgeTop(x,z), underside=deck===null?null:deck-.8;
             if(underside!==null && previousY+PLAYER_HEIGHT<=underside && nextY+PLAYER_HEIGHT>underside)resolved=underside-PLAYER_HEIGHT;
             if(x < -136 || x > -84 || z < 88 || z > 148)return resolved;
@@ -2460,7 +2566,10 @@
         // Small movement slices prevent running through thin walls after a slow frame.
         // Both animation and the castle regression tests use this movement function.
         function movePlayerWithCollisions(dx, dz) {
-            if(window.monsterSkills?.captured||window.riverRealm?.stunned)return;
+            if(window.explorationUpdate?.climbing||(window.snowQueen?.frozen||window.candyRealm?.hypnotized))return;
+            if(window.riverBoat?.aboard||window.stationMobility?.riding||window.voidDistrict?.riding)return;
+            if(window.moonRailway?.movePassenger(dx,dz))return;
+            if(window.monsterSkills?.captured||window.riverRealm?.stunned||window.desertRealm?.petrified)return;
             recoverFromFurniture();
             const slices = Math.max(1, Math.ceil(Math.hypot(dx, dz) / 0.08));
             for (let slice = 0; slice < slices; slice++) {
@@ -2468,8 +2577,11 @@
                     if (Math.abs(distance) < 1e-10) continue;
                     const x = playerGroup.position.x + (axis === 'x' ? distance : 0);
                     const z = playerGroup.position.z + (axis === 'z' ? distance : 0);
+                    const onRailwayGround=window.moonRailway?.onGradedGround(x,z,playerGroup.position.y);
+                    if(!onRailwayGround&&window.volcanicValley&&!volcanicValley.canTraverse(playerGroup.position,x,z,Boolean(window.crystalWings?.flying)))continue;
                     if(window.crystalWings?.blockedAt(x,z,playerGroup.position.y))continue;
-                    if(window.riverRealm&&!riverRealm.canTraverse(playerGroup.position,x,z,Boolean(window.crystalWings?.flying)))continue;
+                    if(!onRailwayGround&&window.riverRealm&&!riverRealm.canTraverse(playerGroup.position,x,z,Boolean(window.crystalWings?.flying)))continue;
+                    if(window.terrainTraversal&&!terrainTraversal.canMove(playerGroup.position,x,z))continue;
                     if(isGrounded && jumpY===0 && !canCastleStep(x,z,playerGroup.position.y)) continue;
                     if (!checkCollision(x, z, playerGroup.position.y, PLAYER_RADIUS)) {
                         playerGroup.position[axis] += distance;
@@ -2507,9 +2619,20 @@
             return Math.abs(x+110)<=3.6 && z>=41.5 && z<=95 ? .35+(z-41.5)/53.5*5.65 : null;
         }
         function getGroundElevation(px, pz, py = currentGroundY) {
-            const riverGround=window.riverRealm?.ground(px,pz);if(riverGround!==null&&riverGround!==undefined)return Math.max(riverGround,riverRealm.support(px,pz,py));
-            const mountainGround=window.bachKhuyet?.ground(px,pz);if(mountainGround!==null&&mountainGround!==undefined)return mountainGround;
-            if(window.moonSafetyLayer && py < -6 && !window.playerSurvival?.inLakeColumn(px,pz) && moonSafetyLayer.contains(px,pz))return moonSafetyLayer.top;
+            const voidSupport=window.voidDistrict?.support(px,pz,py);if(Number.isFinite(voidSupport))return voidSupport;
+            const liftSupport=window.stationMobility?.support(px,pz,py);if(Number.isFinite(liftSupport))return liftSupport;
+            const trailSupport=window.highlandTrails?.support(px,pz,py);if(Number.isFinite(trailSupport))return trailSupport;
+            const footbridgeSupport=window.realmTransitUpdate?.support(px,pz,py);if(Number.isFinite(footbridgeSupport))return footbridgeSupport;
+            const polarSupport=window.antarcticRealm?.support(px,pz,py);if(Number.isFinite(polarSupport))return polarSupport;
+            const treeSupport=window.explorationUpdate?.treeSupport(px,pz,py);if(Number.isFinite(treeSupport))return treeSupport;
+            const pyramidSupport=window.desertRealm?.support(px,pz,py);if(Number.isFinite(pyramidSupport))return pyramidSupport;
+            const railwaySupport=window.moonRailway?.support(px,pz,py);if(Number.isFinite(railwaySupport))return railwaySupport;
+            const mangroveGround=window.mangroveRealm?.ground(px,pz);if(mangroveGround!==null&&mangroveGround!==undefined)return Math.max(window.worldSurface?.height(px,pz)??mangroveGround,mangroveGround,mangroveRealm.support(px,pz,py),window.riverRealm?.support(px,pz,py)??-Infinity);
+            const volcanicGround=window.volcanicValley?.ground(px,pz);if(volcanicGround!==null&&volcanicGround!==undefined)return Math.max(volcanicGround,window.worldSurface?.height(px,pz)??-Infinity);
+            const caveGround=window.evilCavern?.ground(px,pz,py);if(caveGround!==null&&caveGround!==undefined)return caveGround;
+            const riverGround=window.riverRealm?.ground(px,pz);if(riverGround!==null&&riverGround!==undefined)return Math.max(window.worldSurface?.height(px,pz)??riverGround,riverGround,riverRealm.support(px,pz,py));
+            const mountainGround=window.bachKhuyet?.ground(px,pz);if(mountainGround!==null&&mountainGround!==undefined)return Math.max(mountainGround,window.worldSurface?.height(px,pz)??-Infinity);
+            if(window.moonSafetyLayer && py < -6 && !window.playerSurvival?.inLakeColumn(px,pz) && moonSafetyLayer.contains(px,pz))return window.worldSurface?.height(px,pz)??moonSafetyLayer.top;
             // 1. BASE TERRAIN & ARCHITECTURAL FLOOR ELEVATION
             let baseElev = 0;
 
@@ -2522,29 +2645,12 @@
             else if (px >= -136 && px <= -84 && pz >= 88 && pz <= 148) {
                 baseElev = 0;
             }
-            // Altar 2-tier platforms
-            else if (Math.hypot(px - (-85), pz - (-95)) <= 5.6) {
-                baseElev = 5.2;
-            } else if (Math.hypot(px - (-85), pz - (-95)) <= 9.2) {
-                baseElev = 1.8;
-            } else if (px >= -88.0 && px <= -82.0 && pz >= -104.0 && pz <= -95.0) {
-                const stepT = (pz - (-104.0)) / ((-95.0) - (-104.0));
-                baseElev = Math.max(0, stepT * 1.8);
-            }
-            // Space station landing pad
-            else if (Math.hypot(px - (-145), pz - (-35)) <= 18.0) {
-                baseElev = 0.5;
-            }
             // Colosseum arena floor
             else if (Math.hypot(px - 115, pz - 110) <= 26.0) {
                 baseElev = 0.25;
             }
-            // Observatory platform
-            else if (Math.hypot(px - (-120), pz - (-125)) <= 14.5) {
-                baseElev = 1.0;
-            }
             // Shared Blender-authored terrain in the expanded realm.
-            else {baseElev=realmTerrainHeight(px,pz);}
+            else {baseElev=window.worldSurface?.height(px,pz)??realmTerrainHeight(px,pz);}
 
             // Central Crystal Plaza elevation (Y = 0.35m at radius <= 16.0m with smooth beveled edge to 16.8m)
             const distPlaza = Math.hypot(px, pz);
@@ -2627,6 +2733,13 @@
         // (Allows stepping up onto standable obstacles, blocks horizontal walls)
         // =====================================================================
         function checkCollision(px, pz, py = (playerGroup ? playerGroup.position.y : 0), playerRadius = 0.20) {
+            if(window.voidDistrict?.blocked(px,pz,py,playerRadius))return true;
+            if(window.stationMobility?.blocked(px,pz,py,playerRadius))return true;
+            if(window.highlandTrails?.blocked(px,pz,py,playerRadius))return true;
+            if(window.explorationUpdate?.blocked(px,pz,py,playerRadius))return true;
+            if(window.desertRealm?.blocked(px,pz,py,playerRadius))return true;
+            if(window.moonRailway?.blocked(px,pz,py,playerRadius))return true;
+            if(window.mangroveRealm?.blocked(px,pz,py,playerRadius))return true;
             if (window.romanArena?.blocked(px,pz,py)||window.riverRealm?.blocked(px,pz,py,playerRadius)) return true;
             // World Boundary (Expanded realm, playable bounds scale by four on each axis)
             if (Math.abs(px) > EXPANDED_REALM_DATA.bound || Math.abs(pz) > EXPANDED_REALM_DATA.bound) return true;
@@ -2708,12 +2821,9 @@
             { name: "Đền Thần Điện Tsuventure", x: 0, z: 0, color: "#00f5d4", icon: "🏛️" },
             { name: "Lâu Đài Hoàng Gia", x: -110, z: 120, color: "#ffd700", icon: "🏰" },
             { name: "Đấu Trường La Mã", x: 115, z: 110, color: "#ff4d6d", icon: "⚔️" },
-            { name: "Trạm Vũ Trụ Tối Tân", x: -145, z: -35, color: "#00f5d4", icon: "🛸" },
-            { name: "Tế Đàn 2 Tầng Huyết Sắc", x: -85, z: -95, color: "#ff1744", icon: "🩸" },
             { name: "Hồ Thủy Ngân — Vực Tĩnh Lặng", x: -370, z: -430, color: "#93c5fd", icon: "🌊" },
             { id:'ancient_tree',name: "Rừng Nguyên Sinh", x: 202, z: -206, color: "#4ade80", icon: "🌳",hidden:true },
-            { name: "Hang Động Nguyệt Tinh", x: 125, z: -110, color: "#a855f7", icon: "💎" },
-            { name: "Đài Thiên Văn", x: -120, z: -125, color: "#38bdf8", icon: "🔭" }
+            { id:'evil_cavern',name: "Hang Tà Thần", x: 125, z: -110, color: "#81758c", icon: "🕳" },
         ];
 
         // 1. ĐỀN THỜ TRUNG TÂM (0, 0)
@@ -4047,218 +4157,11 @@
         installCastleUpgrade();
 
         // 3. ĐẤU TRƯỜNG LA MÃ (115, 110)
-        buildRuinedRomanArena();
+        // Arena is installed after expanded terrain.
 
-        // 4. TRẠM VŨ TRỤ CÔNG NGHỆ TỐI TÂN (-145, -35)
-        function buildSpaceStation3D() {
-            const sg = new THREE.Group();
-            const matDark = new THREE.MeshStandardMaterial({ color: 0x121722, roughness: 0.4, metalness: 0.85 });
-            const matWhite = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.3, metalness: 0.7 });
-            const matSolar = new THREE.MeshStandardMaterial({ color: 0x0369a1, emissive: 0x0284c7, emissiveIntensity: 1.5, metalness: 0.9 });
-            const matHazard = new THREE.MeshStandardMaterial({ color: 0xeab308, emissive: 0xca8a04, emissiveIntensity: 1.2 });
 
-            // Octagonal Landing Pad (Radius 18m)
-            const pad = new THREE.Mesh(new THREE.CylinderGeometry(18, 18, 1.0, 8), matDark);
-            pad.position.y = 0.5;
-            sg.add(pad);
 
-            const hazard = new THREE.Mesh(new THREE.TorusGeometry(17.2, 0.35, 8, 32), matHazard);
-            hazard.rotation.x = Math.PI / 2;
-            hazard.position.y = 1.05;
-            sg.add(hazard);
 
-            // 8 Runway Beacons
-            for(let i = 0; i < 8; i++) {
-                const ang = i * (Math.PI * 2 / 8);
-                const bMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, 0.6, 8), matCyanGlow);
-                bMesh.position.set(Math.cos(ang) * 16.5, 1.3, Math.sin(ang) * 16.5);
-                sg.add(bMesh);
-            }
-
-            // Command Habitation Hub Module
-            const hubX = -12, hubZ = 12;
-            const hub = new THREE.Mesh(new THREE.CylinderGeometry(9, 9, 7, 8), matWhite);
-            hub.position.set(hubX, 4.5, hubZ);
-            sg.add(hub);
-
-            const dome = new THREE.Mesh(new THREE.SphereGeometry(5.5, 20, 16), new THREE.MeshStandardMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.7, roughness: 0.1 }));
-            dome.scale.set(1.0, 0.65, 1.0);
-            dome.position.set(hubX, 8.0, hubZ);
-            sg.add(dome);
-
-            const neonRing = new THREE.Mesh(new THREE.TorusGeometry(9.2, 0.15, 8, 32), matCyanGlow);
-            neonRing.rotation.x = Math.PI / 2;
-            neonRing.position.set(hubX, 4.5, hubZ);
-            sg.add(neonRing);
-
-            // Quantum Solar Array Wings
-            [-1, 1].forEach(side => {
-                const wing = new THREE.Mesh(new THREE.BoxGeometry(10, 0.25, 6), matSolar);
-                wing.position.set(hubX + side * 18, 5.0, hubZ);
-                wing.rotation.x = 0.45;
-                sg.add(wing);
-
-                const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 10, 8), matDark);
-                arm.position.set(hubX + side * 13, 5.0, hubZ);
-                arm.rotation.z = Math.PI / 2;
-                sg.add(arm);
-
-                addBoxCollider(-145 + hubX + side * 18, -35 + hubZ, 10, 6);
-            });
-
-            // Communications Radar Dish
-            const dishMast = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.0, 4.0, 12), matDark);
-            dishMast.position.set(hubX + 8, 3.0, hubZ + 14);
-            sg.add(dishMast);
-
-            const dish = new THREE.Mesh(new THREE.SphereGeometry(4.5, 16, 12), matWhite);
-            dish.scale.set(1.0, 0.4, 1.0);
-            dish.rotation.set(0.6, 0.2, 0.8);
-            dish.position.set(hubX + 8, 5.8, hubZ + 14);
-            sg.add(dish);
-
-            // 4 Sci-Fi Cargo Crates
-            [[4, 6], [6.5, 4], [-5, 8], [8, -4]].forEach(([cx, cz]) => {
-                const crate = new THREE.Mesh(new THREE.BoxGeometry(2.4, 1.8, 1.6), matDark);
-                crate.position.set(cx, 1.8, cz);
-                sg.add(crate);
-
-                const cLight = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.1, 0.2), matCyanGlow);
-                cLight.position.set(cx, 2.7, cz);
-                sg.add(cLight);
-
-                addBoxCollider(-145 + cx, -35 + cz, 2.6, 2.0);
-            });
-
-            // Sci-Fi Hologram Console on the pad
-            const consoleBase = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1.1, 1.0), matDark);
-            consoleBase.position.set(-2, 1.1, 7);
-            sg.add(consoleBase);
-            const consoleScreen = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 0.8), matCyanGlow);
-            consoleScreen.rotation.x = -0.4;
-            consoleScreen.position.set(-2, 1.7, 7.2);
-            sg.add(consoleScreen);
-
-            sg.position.set(-145, 0, -35);
-            scene.add(sg);
-
-            // Hub central collider
-            addCylinderCollider(-145 + hubX, -35 + hubZ, 8.8);
-            addCylinderCollider(-145 + hubX + 8, -35 + hubZ + 14, 2.2);
-
-            interactables.push({
-                id: 'space_station_console',
-                pos: new THREE.Vector3(-147, 0.5, -28),
-                radius: 9.0,
-                prompt: 'Kích hoạt Trạm Vũ Trụ Tối Tân (Hologram Console)',
-                type: 'space_station'
-            });
-        }
-        buildSpaceStation3D();
-
-        // 5. TRỤ TẾ ĐÀN 2 TẦNG HUYẾT SẮC (-85, -95)
-        function buildAltar2Tier3D() {
-            const ag = new THREE.Group();
-            const matAltarDark = new THREE.MeshStandardMaterial({ color: 0x11131a, roughness: 0.7, metalness: 0.2 });
-            const matBloodRune = new THREE.MeshStandardMaterial({ color: 0xff1744, emissive: 0xff1744, emissiveIntensity: 3.5 });
-
-            // Altar Tier 1 (18m diameter, 1.8m tall)
-            const t1 = new THREE.Mesh(new THREE.CylinderGeometry(9.0, 9.5, 1.8, 32), matAltarDark);
-            t1.position.y = 0.9;
-            t1.receiveShadow = true;
-            ag.add(t1);
-
-            const runeRing1 = new THREE.Mesh(new THREE.TorusGeometry(8.8, 0.18, 8, 36), matBloodRune);
-            runeRing1.rotation.x = Math.PI / 2;
-            runeRing1.position.y = 1.85;
-            ag.add(runeRing1);
-
-            // 4 Mystical Pillars with Purple Fire Braziers on Tier 1
-            for(let i = 0; i < 4; i++) {
-                const ang = i * (Math.PI / 2) + Math.PI / 4;
-                const px = Math.cos(ang) * 5.2;
-                const pz = Math.sin(ang) * 5.2;
-                const pil = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.8, 4.8, 12), matAltarDark);
-                pil.position.set(px, 4.2, pz);
-                ag.add(pil);
-
-                const flame = new THREE.Mesh(new THREE.SphereGeometry(0.5, 8, 8), matPurpleGlow);
-                flame.position.set(px, 6.8, pz);
-                ag.add(flame);
-
-                const lt = new THREE.PointLight(0xa855f7, 2.8, 16);
-                lt.position.set(px, 7.0, pz);
-                ag.add(lt);
-
-                addCylinderCollider(-85 + px, -95 + pz, 1.2);
-            }
-
-            // Stone Steps leading up to Tier 1 and Tier 2
-            for(let s = 0; s < 6; s++) {
-                const step = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.4, 1.4), matAltarDark);
-                step.position.set(0, 0.3 + s * 0.35, -9.5 + s * 1.2);
-                ag.add(step);
-            }
-
-            // Altar Tier 2 (11m diameter, 5.2m tall)
-            const t2 = new THREE.Mesh(new THREE.CylinderGeometry(5.5, 5.8, 1.0, 24), matAltarDark);
-            t2.position.y = 5.2;
-            ag.add(t2);
-
-            const runeRing2 = new THREE.Mesh(new THREE.TorusGeometry(5.2, 0.15, 8, 32), matBloodRune);
-            runeRing2.rotation.x = Math.PI / 2;
-            runeRing2.position.y = 5.75;
-            ag.add(runeRing2);
-
-            // Center Sacrificial Pillar
-            const sPil = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.5, 2.4, 12), matAltarDark);
-            sPil.position.y = 6.9;
-            ag.add(sPil);
-
-            // Floating Void Heart Relic
-            const voidHeart = new THREE.Mesh(new THREE.IcosahedronGeometry(0.95, 2), matBloodRune);
-            voidHeart.position.y = 9.4;
-            ag.add(voidHeart);
-
-            const vLight = new THREE.PointLight(0xff1744, 3.8, 25);
-            vLight.position.set(0, 9.6, 0);
-            ag.add(vLight);
-
-            // 6 Orbiting Rune Crystal Shards
-            for(let i = 0; i < 6; i++) {
-                const ang = i * (Math.PI * 2 / 6);
-                const shard = new THREE.Mesh(new THREE.ConeGeometry(0.3, 1.2, 4), matBloodRune);
-                shard.position.set(Math.cos(ang) * 2.6, 9.4, Math.sin(ang) * 2.6);
-                shard.rotation.z = 0.45;
-                ag.add(shard);
-            }
-
-            // 4 Guardian Obelisks around outer altar
-            for(let g = 0; g < 4; g++) {
-                const gang = g * (Math.PI / 2);
-                const gx = Math.cos(gang) * 12.0;
-                const gz = Math.sin(gang) * 12.0;
-                const obelisk = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.9, 5.5, 6), matAltarDark);
-                obelisk.position.set(gx, 2.75, gz);
-                ag.add(obelisk);
-                addCylinderCollider(-85 + gx, -95 + gz, 1.4);
-            }
-
-            ag.position.set(-85, 0, -95);
-            scene.add(ag);
-
-            // Central pillar collider (player can walk on Tier 1 and Tier 2 around it)
-            addCylinderCollider(-85, -95, 2.0);
-
-            interactables.push({
-                id: 'void_altar',
-                pos: new THREE.Vector3(-85, 1.8, -95),
-                radius: 12.0,
-                prompt: 'Thức Tỉnh Phong Ấn Trái Tim Hư Không (Trụ Tế Đàn 2 Tầng)',
-                type: 'altar'
-            });
-        }
-        buildAltar2Tier3D();
 
         // 6. HỒ NƯỚC THỦY NGÂN GƯƠNG BẠC (-35, -135)
         installMercuryLake();
@@ -4266,105 +4169,9 @@
         // 7. Hidden ancient grove, authored in Blender.
         installAncientGrove();
 
-        // 8. HANG ĐỘNG NGUYỆT TINH (125, -110)
-        function buildCave3D() {
-            const cg = new THREE.Group();
-            const matRock = new THREE.MeshStandardMaterial({ color: 0x161822, roughness: 0.95 });
-            const matStarlight = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 1.8, roughness: 0.1 });
+        // Underground Evil God maze is installed after the shared game systems.
 
-            // Entrance Arch
-            const arch = new THREE.Mesh(new THREE.TorusGeometry(7.0, 2.4, 12, 24), matRock);
-            arch.rotation.y = Math.PI / 4;
-            arch.position.set(0, 5.0, 0);
-            cg.add(arch);
 
-            // Subterranean Starlight Pond
-            const pool = new THREE.Mesh(new THREE.CylinderGeometry(8.5, 8.5, 0.4, 20), matStarlight);
-            pool.position.set(9.0, 0.2, -9.0);
-            cg.add(pool);
-
-            // Stalactites
-            for(let i = 0; i < 6; i++) {
-                const ang = i * (Math.PI * 2 / 6);
-                const st = new THREE.Mesh(new THREE.ConeGeometry(0.4, 3.5, 6), matPurpleGlow);
-                st.rotation.x = Math.PI;
-                st.position.set(9.0 + Math.cos(ang) * 5.0, 9.0, -9.0 + Math.sin(ang) * 5.0);
-                cg.add(st);
-            }
-
-            // Treasure Chest
-            const chestGroup = new THREE.Group();
-            const chestBox = new THREE.Mesh(new THREE.BoxGeometry(2.0, 1.2, 1.4), new THREE.MeshStandardMaterial({ color: 0x3e2723, roughness: 0.8 }));
-            chestBox.position.y = 0.6;
-            chestGroup.add(chestBox);
-
-            const chestLid = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 2.0, 12, 1, false, 0, Math.PI), matGold);
-            chestLid.rotation.z = Math.PI / 2;
-            chestLid.position.y = 1.2;
-            chestGroup.add(chestLid);
-
-            chestGroup.position.set(11.0, 0, -9.0);
-            cg.add(chestGroup);
-
-            cg.position.set(125, 0, -110);
-            scene.add(cg);
-
-            // Cave entrance walls & chest colliders
-            addBoxCollider(125 - 6, -110, 4.5, 12);
-            addBoxCollider(125 + 6, -110, 4.5, 12);
-            addBoxCollider(125 + 11.0, -110 - 9.0, 2.4, 2.4);
-
-            interactables.push({
-                id: 'cave_chest',
-                pos: new THREE.Vector3(125 + 11.0, 0, -110 - 9.0),
-                radius: 7.5,
-                prompt: 'Mở Rương Báu Nguyệt Tinh',
-                type: 'chest'
-            });
-        }
-        buildCave3D();
-
-        // 9. ĐÀI THIÊN VĂN TỔ TIÊN (-120, -125)
-        function buildObservatory3D() {
-            const og = new THREE.Group();
-            const matDarkStone = new THREE.MeshStandardMaterial({ color: 0x1a2130, roughness: 0.8 });
-            const matBrass = new THREE.MeshStandardMaterial({ color: 0xd4af37, roughness: 0.3, metalness: 0.85 });
-
-            // Platform
-            const base = new THREE.Mesh(new THREE.CylinderGeometry(14, 15, 2.0, 24), matDarkStone);
-            base.position.y = 1.0;
-            og.add(base);
-
-            // Observatory Dome
-            const dome = new THREE.Mesh(new THREE.SphereGeometry(7.0, 24, 16, 0, Math.PI * 2, 0, Math.PI * 0.55), matDarkStone);
-            dome.position.y = 2.0;
-            og.add(dome);
-
-            // Great Brass Telescope
-            const scope = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.2, 14, 16), matBrass);
-            scope.rotation.x = -0.75;
-            scope.position.set(0, 9.0, 2.0);
-            og.add(scope);
-
-            const scopeLens = new THREE.Mesh(new THREE.SphereGeometry(0.9, 12, 10), matCyanGlow);
-            scopeLens.position.set(0, 13.5, -3.2);
-            og.add(scopeLens);
-
-            og.position.set(-120, 0, -125);
-            scene.add(og);
-
-            // Telescope central pedestal collider
-            addCylinderCollider(-120, -125, 3.4);
-
-            interactables.push({
-                id: 'observatory',
-                pos: new THREE.Vector3(-120, 1.0, -125),
-                radius: 10.0,
-                prompt: 'Chiêm Ngưỡng Thiên Hà Tsuventure (Kính Viễn Vọng)',
-                type: 'observatory'
-            });
-        }
-        buildObservatory3D();
 
         // 10. CỎ BIẾN DỊ DẠ QUANG (HIGH-PERFORMANCE GPU INSTANCED MUTANT FLORA)
         // Optimizes 1,380 individual meshes down into 3 ultra-fast GPU InstancedMeshes!
@@ -4437,6 +4244,7 @@
                 }
                 instBlades.instanceMatrix.needsUpdate = true;
                 instBlades.matrixAutoUpdate = false;
+                instBlades.name='LegacyFlora_Blades';
                 instBlades.userData.optionalFlora = true;
                 scene.add(instBlades);
             }
@@ -4450,6 +4258,7 @@
                 }
                 instSpores.instanceMatrix.needsUpdate = true;
                 instSpores.matrixAutoUpdate = false;
+                instSpores.name='LegacyFlora_Spores';
                 instSpores.userData.optionalFlora = true;
                 scene.add(instSpores);
             }
@@ -4462,6 +4271,7 @@
         interactables.forEach((item, idx) => {
             // The unicorn's silhouette and glowing horn are its own marker.
             if (['lunar_unicorn','prison_control','prison_emergency','colosseum','arena_ticket','arena_vip_gate','arena_warrior_gate'].includes(item.type)) return;
+            if(!isUsefulInteraction(item))return;
             if(item.type==='dragon_display' || item.type==='tree' || item.type==='mercury_lake') return;
             const bg = new THREE.Group();
 
@@ -4510,8 +4320,14 @@
         // FAST TRAVEL TOUR & REAL-TIME MINIMAP RADAR
         // =====================================================================
         function fastTravelTo(tx, tz, name, explicitY = null) {
+            window.playerLife?.resetFall();window.snowQueen?.release();window.candyRealm?.release();window.moonRailway?.leaveForRespawn();
+            window.riverBoat?.packForTravel();
+            window.mangroveRealm?.pause();
+            window.volcanicValley?.pause();
+            window.evilCavern?.pause();
             window.crystalWings?.stopFlight();window.riverRealm?.pause();
-            window.monsterSkills?.pause();window.bachKhuyet?.pause();
+            window.volcanicValley?.pause();
+            window.evilCavern?.pause();window.monsterSkills?.pause();window.bachKhuyet?.pause();
             let gy = (explicitY !== null) ? explicitY : getGroundElevation(tx, tz);
             currentGroundY = gy;
             playerGroup.position.set(tx, gy, tz);
@@ -4523,24 +4339,27 @@
             camPitch = 0.28;
             camDistance = 3.2; // 5x scale view distance
             camera.position.set(tx, gy + 1.2, tz + 3.2);
-            camera.lookAt(tx, gy + 0.35, tz);
+            camera.lookAt(tx, gy + 0.35, tz);window.heroMotion?.reset();
             sfx.pickup();
             showNotification(`🚀 Đã dịch chuyển đến: ${name}!`);
             const badgeName = document.getElementById('landmark-current-name');
             if (badgeName) badgeName.textContent = name;
+            window.evilCavern?.environment();
         }
 
         const minimapCanvas = document.getElementById('minimap-canvas');
         const minimapCtx = minimapCanvas ? minimapCanvas.getContext('2d') : null;
 
         function updateMinimap(px, pz, pRot) {
-            window.ancientGrove?.update(px,pz);
+            if(!window.evilCavern?.inside())window.ancientGrove?.update(px,pz);
             if (!minimapCtx) return;
             const w = minimapCanvas.width;
             const h = minimapCanvas.height;
-            const cx = w / 2;
-            const cy = h / 2;
-            const scale = w / EXPANDED_REALM_DATA.mapSpan;
+            const riding = Boolean(window.moonRailway?.aboard);
+            const span = riding ? 1800 : EXPANDED_REALM_DATA.mapSpan;
+            const scale = w / span;
+            const cx = w / 2 - (riding ? px * scale : 0);
+            const cy = h / 2 - (riding ? pz * scale : 0);
 
             minimapCtx.clearRect(0, 0, w, h);
 
@@ -4551,12 +4370,15 @@
             minimapCtx.strokeStyle = "rgba(0, 245, 212, 0.15)";
             minimapCtx.lineWidth = 1;
             minimapCtx.beginPath();
-            minimapCtx.arc(cx, cy, 28, 0, Math.PI * 2);
-            minimapCtx.arc(cx, cy, 52, 0, Math.PI * 2);
+            minimapCtx.arc(w / 2, h / 2, 28, 0, Math.PI * 2);
+            minimapCtx.arc(w / 2, h / 2, 52, 0, Math.PI * 2);
             minimapCtx.stroke();
 
             // Landmarks blips
+            window.worldExpansion?.drawMinimap(minimapCtx,cx,cy,scale);
             window.riverRealm?.drawMinimap(minimapCtx,cx,cy,scale);
+            window.mangroveRealm?.drawMinimap(minimapCtx,cx,cy,scale);
+            window.moonRailway?.drawMinimap(minimapCtx,cx,cy,scale);
             landmarksData.filter(lm=>!lm.hidden).forEach(lm => {
                 const lx = cx + lm.x * scale;
                 const ly = cy + lm.z * scale;
@@ -4586,6 +4408,7 @@
             const coordsEl = document.getElementById('minimap-coords');
             if (coordsEl) coordsEl.textContent = `(${Math.round(px)}m, ${Math.round(pz)}m)`;
 
+            window.santaGifts?.drawMinimap(minimapCtx,px,pz,scale,cx,cy);
             // Check nearest landmark for indicator
             let nearest = landmarksData[0];
             let minDist = 9999;
@@ -4645,7 +4468,7 @@
         const dialogueLines = [
             "Hỡi Người Bảo Hộ Anh Hùng! Ngươi cuối cùng đã thức tỉnh dưới ánh trăng bạc...",
             "Vương quốc Tsuventure đã chìm trong giấc ngủ ngàn năm bởi kết giới bóng tối.",
-            "Hãy chu du qua 9 kỳ quan nguyệt tộc: Lâu Đài, Đấu Trường, Trạm Vũ Trụ, Tế Đàn 2 Tầng, Hồ Thủy Ngân, Cổ Thụ, Hang Động và Đài Thiên Văn!",
+            "Khám phá lâu đài, kim tự tháp và trụ sở công nghệ; chế tạo thuyền để phiêu lưu trên sông!",
             "Nhấn [E] để tương tác với từng công trình và đánh thức nguồn sức mạnh cổ xưa!"
         ];
         let dIdx = 0;
@@ -4663,6 +4486,7 @@
                 if (dInterval) clearInterval(dInterval);
                 hudDialogue.style.display = 'none';
                 gameState.inDialogue = false;
+                window.gameMouse?.resume();
                 gameState.hasTalkedToMonolith = true;
                 updateQuestTracker();
                 return;
@@ -4708,7 +4532,7 @@
                 if (gameState.inDialogue) advanceDialogue();
                 else if (gameState.isPlaying) keys.jump = true;
             }
-            if (k === 'e' && gameState.isPlaying && !e.repeat) { checkInteractables(); handleInteraction(); }
+            if (k === 'e' && gameState.isPlaying && !e.repeat) { if(window.riverBoat?.aboard){if(window.treeWood?.nearest())treeWood.harvest();else riverBoat.disembark();}else{checkInteractables(); handleInteraction();} }
             if (k === 'j' && gameState.isPlaying) triggerAttack();
             if (k === 'c' && gameState.isPlaying && !gameState.inDialogue) toggleSitting();
         });
@@ -4738,6 +4562,8 @@
         let isSitting = false;
 
         function toggleSitting() {
+            if(window.explorationUpdate?.climbing||window.riverBoat?.aboard)return;
+            if(window.moonRailway?.aboard){moonRailway.toggleSeat();return;}
             if (!gameState.isPlaying || gameState.inDialogue) return;
             isSitting = !isSitting;
             sfx.pickup();
@@ -4788,85 +4614,60 @@
         });
 
         window.addEventListener('mousedown', (e) => {
-            if(document.querySelector('.modal-overlay.active') || e.target?.closest?.('#game-hud'))return;
-            if (e.button === 2 && gameState.isPlaying && !gameState.inDialogue) {
-                isRightMouseDown = true;
-                mouseLastX = e.clientX;
-                mouseLastY = e.clientY;
-
-                // Lock and hide cursor when clicking right mouse button
-                if (!isPointerLocked && document.body.requestPointerLock) {
-                    document.body.requestPointerLock().catch(() => {});
-                }
-            } else if (e.button === 0 && gameState.isPlaying && !gameState.inDialogue) {
-                triggerAttack();
-            }
+            if(e.target?.closest?.('button,a,input,textarea,select,summary,.modal-overlay,#game-hud')&&!isPointerLocked)return;
+            if(!gameState.isPlaying||gameState.inDialogue||document.querySelector('.modal-overlay.active'))return;
+            if(e.button===2){e.preventDefault();window.gameMouse?.capture();}
+            else if(e.button===0)triggerAttack();
         });
-
-        window.addEventListener('mouseup', (e) => {
-            if (e.button === 2) {
-                isRightMouseDown = false;
-                // Exit pointer lock when right mouse button is released
-                if (isPointerLocked && document.exitPointerLock) {
-                    document.exitPointerLock();
-                }
-            }
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if ((isRightMouseDown || isPointerLocked) && gameState.isPlaying) {
-                // High-precision pointer movement when locked or mouse dragging
-                const deltaX = (typeof e.movementX !== 'undefined' && e.movementX !== 0) ? e.movementX : (e.clientX - mouseLastX);
-                const deltaY = (typeof e.movementY !== 'undefined' && e.movementY !== 0) ? e.movementY : (e.clientY - mouseLastY);
-                mouseLastX = e.clientX;
-                mouseLastY = e.clientY;
-
-                const sensX = isPointerLocked ? 0.0035 : 0.006;
-                const sensY = isPointerLocked ? 0.0030 : 0.005;
-
-                // Orbit camera horizontally and vertically
-                camYaw -= deltaX * sensX;
-                camPitch = Math.max(-1.25, Math.min(1.25, camPitch + deltaY * sensY));
-
-                // Always rotate character to face the camera direction when right-clicking or locked
-                if (playerGroup) {
-                    playerGroup.rotation.y = camYaw;
-                }
-            }
+        window.addEventListener('mousemove',e=>{
+            if(!isPointerLocked||!gameState.isPlaying||gameState.inDialogue||document.querySelector('.modal-overlay.active'))return;
+            camYaw-=e.movementX*.0035;camPitch=THREE.MathUtils.clamp(camPitch+e.movementY*.003,-1.25,1.25);
         });
 
         window.addEventListener('wheel', (e) => {
             if(e.target?.closest?.('#game-hud,.modal-overlay'))return;
             if (gameState.isPlaying) {
-                camDistance = Math.max(1.0, Math.min(24.0, camDistance + e.deltaY * 0.008));
+                if(window.moonRailway?.aboard){moonRailway.zoomBy(e.deltaY*.025);return;}
+                camDistance = Math.max(0, Math.min(24.0, camDistance + e.deltaY * 0.008));
             }
         }, { passive: true });
 
         let isAttacking = false;
         let heroAttackElapsed=0;
         function triggerAttack() {
-            if(window.riverRealm?.stunned)return;
+            if(window.explorationUpdate?.climbing)return;
+            if((window.snowQueen?.frozen||window.candyRealm?.hypnotized)||window.riverRealm?.stunned||window.desertRealm?.petrified)return;
             if (isAttacking || !activeWeaponArm || gameState.inDialogue || !gameState.isPlaying || document.querySelector('.modal-overlay.active')) return;
-            if(window.playerSurvival&&!playerSurvival.spend(8)){showNotification('Không đủ thể lực');return;}
             isAttacking = true;
+            window.combatEffects?.playerAttack();
             if(activeHeroType==='kingkong'){sfx.playTone(95,'sine',.13,.24);sfx.playTone(210,'triangle',.07,.08);}else sfx.attackSound(activeHeroType === 'rabbit');
 
             heroAttackElapsed=0;
-            window.lakeMonsters?.beginPlayerAttack(activeHeroType);
-            window.forestGuardian?.beginPlayerAttack(activeHeroType);
-            window.monsterSkills?.beginPlayerAttack(activeHeroType);
-            window.bachKhuyet?.beginPlayerAttack(activeHeroType);
-            window.riverRealm?.beginPlayerAttack(activeHeroType);
+            const combatSkin='hamster';
+            window.lakeMonsters?.beginPlayerAttack(combatSkin);
+            window.forestGuardian?.beginPlayerAttack(combatSkin);
+            window.monsterSkills?.beginPlayerAttack(combatSkin);
+            window.bachKhuyet?.beginPlayerAttack(combatSkin);
+            window.riverRealm?.beginPlayerAttack(combatSkin);
+            window.evilCavern?.beginPlayerAttack(combatSkin);
+            window.volcanicValley?.beginPlayerAttack(combatSkin);
+            window.mangroveRealm?.beginPlayerAttack(combatSkin);
+            window.desertRealm?.beginPlayerAttack(combatSkin);
+            window.monsterCamps?.beginPlayerAttack(combatSkin);
+            window.romanArena?.beginPlayerAttack?.(combatSkin);
+            window.snowQueen?.beginPlayerAttack(combatSkin);window.candyRealm?.beginPlayerAttack(combatSkin);
         }
 
         // ACCURATE 2D HORIZONTAL INTERACTION DETECTION (NO HEIGHT BARRIER BUG)
         let nearbyItem = null;
         function checkInteractables() {
+            window.treeWood?.refresh();
+            if(window.explorationUpdate?.climbing){nearbyItem=null;hudPrompt.style.display="none";return;}
             const p = playerGroup.position;
-            let found = window.backpack?.nearbyLoot(p)||null;
+            let found = window.explorationUpdate?.nearby(p)||[window.santaGifts?.nearby(p),window.foodPickups?.nearby(p),window.candyProvisions?.nearby(p),window.westernHighlands?.nearby(p),window.monsterCamps?.nearby(p),window.templeSupplies?.nearby(p),window.solarFlashlight?.nearby(p),window.backpack?.nearbyLoot(p)].filter(item=>item&&isUsefulInteraction(item)).sort((a,b)=>a.pos.distanceToSquared(p)-b.pos.distanceToSquared(p))[0]||null;
             for (const item of interactables) {
-                if(found?.type==='world_loot')break;
-                if (item.collected) continue;
+                if(found)break;
+                if (item.collected || !isUsefulInteraction(item)) continue;
                 const dx = p.x - item.pos.x;
                 const dz = p.z - item.pos.z;
                 const distXZ = Math.hypot(dx, dz);
@@ -4894,6 +4695,23 @@
             if(window.riverRealm?.stunned)return;
             if (!nearbyItem || gameState.inDialogue) return;
             const item = nearbyItem;
+            if(!isUsefulInteraction(item)||window.explorationUpdate?.climbing)return;
+            if(window.explorationUpdate?.interact(item))return;
+            if(window.mangroveRealm?.interact(item))return;
+            if(window.caveTreasury?.interact(item))return;
+            if(window.evilCavern?.interact(item))return;
+            if(window.templeSupplies?.interact(item))return;
+            if(window.monsterCamps?.interact(item))return;
+            if(window.foodPickups?.interact(item))return;
+            if(window.candyProvisions?.interact(item))return;
+            if(window.westernHighlands?.interact(item))return;
+            if(window.santaGifts?.interact(item))return;
+            if(window.snowCrystals?.interact(item))return;
+            if(window.volcanicValley?.interact(item))return;
+            if(window.desertRealm?.interact(item))return;
+            if(window.treeWood?.interact(item))return;
+            if(window.riverBoat?.interact(item))return;
+            if(window.solarFlashlight?.interact(item))return;
             if(window.crystalWings?.interact(item))return;
             if(window.bachKhuyet?.interact(item))return;
             if(window.backpack?.interact(item))return;
@@ -4902,36 +4720,6 @@
 
             if (item.type === 'npc') {
                 startDialogue();
-            }
-            else if (item.type === 'colosseum') {
-                showNotification('🏛️ Đấu trường cổ bỏ hoang. Bậc thang phía bắc dẫn lên khán đài.');
-            }
-            else if (item.type === 'space_station') {
-                sfx.playTone(880, 'square', 0.4, 0.25);
-                sfx.playTone(1174, 'sine', 0.5, 0.2);
-                showNotification("🛸 TRẠM VŨ TRỤ TSUVENTURE: Vệ tinh lượng tử kích hoạt! Chiếu chùm laser định vị thiên hà!");
-            }
-            else if (item.type === 'altar') {
-                sfx.portalOpen();
-                showNotification("🩸 TRỤ TẾ ĐÀN 2 TẦNG: Trái Tim Hư Không bừng sáng! Cột lửa huyết sắc bùng cháy, hồi 100% Sinh Lực & Mana!");
-            }
-            else if (item.type === 'mercury_lake') {
-                sfx.pickup();
-                sfx.playTone(720, 'sine', 0.5, 0.2);
-                showNotification("🌊 HỒ THỦY NGÂN GƯƠNG BẠC: Dòng nước phản chiếu thiên hà! Nhận Khiên Thủy Ngân Gương Bạc (+100 Giáp)!");
-            }
-            else if (item.id === 'castle_shelter_bunker') {
-                sfx.pickup();
-                showNotification("🛡️ HẦM TRÚ ẨN BÍ MẬT: Đã bước vào Căn Cứ Sinh Tồn Hoàng Gia! Lò Sưởi Đá & Sa Bàn Tác Chiến đang sưởi ấm!");
-            }
-            else if (item.id === 'castle_dungeon_cell') {
-                sfx.pickup();
-                showNotification("🗝️ NGỤC GIAM BÍ MẬT: Nhặt được Hộp Sọ Dạ Quang & Chìa Khóa Hư Không của Tù Nhân Cổ Đại!");
-            }
-            else if (item.id === 'castle_dungeon_treasury') {
-                sfx.pickup();
-                sfx.playTone(987, 'sine', 0.4, 0.25);
-                showNotification("🗝️ HẦM NGỤC HOÀNG GIA: Đã mở rương kho báu bí mật! Tinh thể phát sáng bùng nổ (+1000 Nguyệt Tinh)!");
             }
             else if (item.id === 'castle_hall_banquet') {
                 sfx.pickup();
@@ -4946,43 +4734,19 @@
             else if (item.id === 'castle_library') {
                 window.fieldGuide?.open();
                 sfx.playTone(840, 'sine', 0.35, 0.2);
-                showNotification("📜 THƯ VIỆN HOÀNG GIA (TẦNG 2): Đọc Mật Điển Ma Thuật! Mở khóa bí mật cầu thang dẫn lên Gác Mái!");
+
             }
-            else if (item.id === 'castle_attic_core') {
-                sfx.portalOpen();
-                sfx.playTone(1046, 'sine', 0.6, 0.3);
-                showNotification("✨ GÁC MÁI BÍ MẬT (TẦNG 3): Kích hoạt Trái Tim Nguyệt Tộc! Mưa sao băng tinh tú bùng nổ quanh gác mái!");
-            }
-            else if (item.id === 'castle_balcony_fl2') {
-                sfx.portalOpen();
-                showNotification("🏰 BAN CÔNG HOÀNG GIA (TẦNG 2): Đang đứng dưới Mái Che Vòm Hoàng Gia! Toàn cảnh Đại Lộ Pha Lê & Cầu Dẫn rực sáng trước mắt!");
-            }
-            else if (item.id === 'castle_balcony_fl3') {
-                sfx.portalOpen();
-                showNotification("✨ BAN CÔNG VỌNG CẢNH (TẦNG 3): Bạn đang đứng tại Mái Che Tinh Tú cao nhất lâu đài! Toàn cõi Tsuventure lung linh dưới chân!");
-            }
-            else if (item.type === 'tree') {
-                sfx.pickup();
-                speedBuffTimer = 25.0;
-                showNotification("🌳 ĐẠI CỔ THỤ NGUYỆT TỘC: Tinh hoa 1000 năm ban tặng phước lành ánh sáng (+40% Tốc Độ)!");
-            }
-            else if (item.type === 'cave' || item.type === 'chest') {
-                sfx.pickup();
-                sfx.playTone(880, 'sine', 0.4, 0.25);
-                showNotification("💎 HANG ĐỘNG NGUYỆT TINH: Đã mở Rương Báu Pha Lê! Nhận 500 Tinh Thể Nguyệt Quang Cổ Đại!");
-            }
-            else if (item.type === 'observatory') {
-                sfx.playTone(920, 'sine', 0.4, 0.2);
-                sfx.playTone(1318, 'sine', 0.5, 0.2);
-                showNotification("🔭 ĐÀI THIÊN VĂN: Kính viễn vọng tự động xoay và chiếu chùm tia laser lên vành đai Sao Thổ!");
-            }
+
         }
 
         // =====================================================================
         // UI MODAL & TRANSITION HANDLERS
         // =====================================================================
         function openModal(id) {
-            window.monsterSkills?.pause();window.bachKhuyet?.pause();
+            window.gameMouse?.release(true);
+            window.mangroveRealm?.pause();
+            window.volcanicValley?.pause();
+            window.evilCavern?.pause();window.monsterSkills?.pause();window.bachKhuyet?.pause();
             if(id==='modal-settings')window.resetSettingsDraft?.();
             window.resetGameplayInput?.();
             window.gameHUD?.closePanels();
@@ -4991,10 +4755,12 @@
         }
         function closeModal(id) {
             document.getElementById(id).classList.remove('active');
+            if(gameState.isPlaying)renderer.domElement.focus({preventScroll:true});
+            window.gameMouse?.resume();
         }
 
         function selectHero(type) {
-            if (!['hamster','rabbit','dragon_knight','kingkong'].includes(type)) return;
+            if (!['hamster','rabbit','dragon_knight','kingkong','ninja_yinyang'].includes(type)) return;
             if (isAttacking) return;
             document.querySelectorAll('.hero-card').forEach(card=>card.classList.toggle('selected',card.id==='card-hero-'+type));
             applyHeroSelection(type);
@@ -5007,6 +4773,7 @@
             homeScreen.classList.add('hidden');
             gameHud.classList.add('active');
             gameState.isPlaying = true;
+            window.worldSurface?.resetCamera();
             const gy = getGroundElevation(playerGroup.position.x, playerGroup.position.z);
             currentGroundY = gy;
             playerGroup.position.y = gy;
@@ -5016,12 +4783,16 @@
         }
 
         function returnToHome() {
+            window.mangroveRealm?.pause();
+            window.volcanicValley?.pause();
+            window.evilCavern?.pause();
             window.crystalWings?.stopFlight();window.riverRealm?.pause();
             window.lakeMonsters?.pause();
             window.forestGuardian?.pause();
-            window.monsterSkills?.pause();window.bachKhuyet?.pause();
+            window.volcanicValley?.pause();
+            window.evilCavern?.pause();window.monsterSkills?.pause();window.bachKhuyet?.pause();
             isAttacking=false;heroAttackElapsed=0;
-            for(const model of [hamsterVisualGroup,rabbitVisualGroup,dragonVisualGroup,kingkongVisualGroup])resetHeroAnimation(model);
+            for(const model of [hamsterVisualGroup,rabbitVisualGroup,dragonVisualGroup,kingkongVisualGroup,ninjaVisualGroup])resetHeroAnimation(model);
             window.resetGameplayInput?.();
             window.gameHUD?.closePanels();
             hudVictory.style.display = 'none';
@@ -5051,57 +4822,28 @@
         // Performance depends on hardware; the lightweight preset reduces GPU and CPU work.
         // =====================================================================
         const graphicsProfiles = {
-            potato: {
-                name: 'Cực Mượt (Máy rất yếu)', tag: 'CỰC MƯỢT',
-                pixelRatio: 0.6, shadows: false, shadowMapSize: 256,
-                lightDistance: 0, fogDensity: 0.012
-            },
-            low: {
-                name: 'Siêu Mượt (Máy yếu)',
-                tag: 'MƯỢT',
-                pixelRatio: 1.0,
-                shadows: false,
-                shadowMapSize: 512,
-                lightDistance: 70,
-                fogDensity: 0.0035
-            },
-            balanced: {
-                name: 'Cân Bằng (Mặc định)',
-                tag: 'CHUẨN',
-                pixelRatio: 1.0,
-                shadows: true,
-                shadowMapSize: 1024,
-                lightDistance: 95,
-                fogDensity: 0.0030
-            },
-            ultra: {
-                name: 'Tuyệt Đẹp (Ultra)',
-                tag: 'MAX',
-                pixelRatio: Math.min(window.devicePixelRatio, 1.5),
-                shadows: true,
-                shadowMapSize: 1024,
-                lightDistance: 140,
-                fogDensity: 0.0025
-            }
+            low:{name:'M\u01b0\u1ee3t',tag:'M\u01af\u1ee2T',pixelRatio:.65,shadows:false,shadowMapSize:256,lightDistance:0,fogDensity:.009,drawDistance:280},
+            balanced:{name:'Trung B\u00ecnh',tag:'TRUNG B\u00ccNH',pixelRatio:Math.min(devicePixelRatio,1),shadows:false,shadowMapSize:1024,lightDistance:95,fogDensity:.0035,drawDistance:900},
+            ultra:{name:'Cao',tag:'CAO',pixelRatio:Math.min(devicePixelRatio,1.5),shadows:true,shadowMapSize:2048,lightDistance:160,fogDensity:.0018,drawDistance:2200}
         };
-
-        let currentProfileKey = 'potato';
+        let currentProfileKey = 'low';
         let adaptiveRatio = 0.6;
         let slowSamples = 0;
         let fastSamples = 0;
         try {
             const saved = localStorage.getItem('tsukiezz_graphics_profile');
-            if (saved && graphicsProfiles[saved]) currentProfileKey = saved;
+            if(saved==='potato')currentProfileKey='low';else if(saved&&graphicsProfiles[saved])currentProfileKey=saved;
         } catch(e) {}
 
         function applyRenderResolution() {
-            const ratio = currentProfileKey === 'potato'
+            const ratio = currentProfileKey === 'low'
                 ? Math.min(adaptiveRatio, 960 / Math.max(1, window.innerWidth), 540 / Math.max(1, window.innerHeight))
                 : graphicsProfiles[currentProfileKey].pixelRatio;
-            renderer.setPixelRatio(ratio);
+            if(Math.abs(renderer.getPixelRatio()-ratio)>.001)renderer.setPixelRatio(ratio);
         }
 
         function setGraphicsProfile(key) {
+            if(key==='potato')key='low';
             if (!graphicsProfiles[key]) return;
             currentProfileKey = key;
             const p = graphicsProfiles[key];
@@ -5110,9 +4852,9 @@
             adaptiveRatio = p.pixelRatio;
             slowSamples = fastSamples = 0;
             applyRenderResolution();
-            const lightweight = key === 'potato';
+            const lightweight = key === 'low';
             document.body.classList.toggle('lightweight', lightweight);
-            camera.far = lightweight ? 220 : EXPANDED_REALM_DATA.size*1.5;
+            camera.far = p.drawDistance;
             camera.updateProjectionMatrix();
             scene.traverse(obj => {
                 if (obj.isPointLight) obj.visible = !lightweight;
@@ -5126,7 +4868,7 @@
             renderer.shadowMap.enabled = p.shadows;
             moonLight.castShadow = p.shadows;
             if (renderer.shadowMap.enabled) {
-                renderer.shadowMap.type = THREE.PCFShadowMap;
+                renderer.shadowMap.type = key==='ultra'?THREE.PCFSoftShadowMap:THREE.PCFShadowMap;
                 moonLight.shadow.mapSize.width = p.shadowMapSize;
                 moonLight.shadow.mapSize.height = p.shadowMapSize;
                 if (moonLight.shadow.map) moonLight.shadow.map.dispose();
@@ -5136,6 +4878,8 @@
             // Apply celestial fog
             if (scene.fog) scene.fog.density = p.fogDensity;
 
+            window.graphicsQuality?.apply(key);
+            window.aquaticEcology?.applyProfile(key);window.polarEcology?.applyProfile(key);
             // Update UI buttons
             document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
             const activeBtn = document.getElementById(`btn-preset-${key}`);
@@ -5185,6 +4929,9 @@
             requestAnimationFrame(animate);
             const delta = clock.getDelta();
             const safeDt = Math.min(delta, 0.05);
+            window.stationMobility?.update(safeDt);
+            window.voidDistrict?.update(safeDt);
+            window.worldResidents?.update(safeDt);
             const time = clock.getElapsedTime();
             window.mercuryLake?.update(time);
             frameCount++;
@@ -5198,14 +4945,14 @@
                 const fps = Math.round((fpsFrames * 1000) / (now - fpsLastTime));
                 fpsFrames = 0;
                 fpsLastTime = now;
-                if (currentProfileKey === 'potato' && !document.hidden) {
-                    slowSamples = fps < 40 ? slowSamples + 1 : 0;
-                    fastSamples = fps > 55 ? fastSamples + 1 : 0;
-                    if (slowSamples >= 4 && adaptiveRatio > 0.35) {
+                if (currentProfileKey === 'low' && !document.hidden) {
+                    slowSamples = fps < 54 ? slowSamples + 1 : 0;
+                    fastSamples = fps > 62 ? fastSamples + 1 : 0;
+                    if (slowSamples >= 12 && adaptiveRatio > 0.35) {
                         adaptiveRatio = Math.max(0.35, adaptiveRatio - 0.05);
                         slowSamples = 0;
                         applyRenderResolution();
-                    } else if (fastSamples >= 16 && adaptiveRatio < 0.6) {
+                    } else if (fastSamples >= 60 && adaptiveRatio < 0.6) {
                         adaptiveRatio = Math.min(0.6, adaptiveRatio + 0.05);
                         fastSamples = 0;
                         applyRenderResolution();
@@ -5234,7 +4981,7 @@
                     const lz = light.parent ? (light.parent.position.z + light.position.z) : light.position.z;
                     const distSq = (px - lx) * (px - lx) + (pz - lz) * (pz - lz);
                     const range = Math.min(item.maxDist, maxRange);
-                    light.visible = currentProfileKey !== 'potato' && (distSq <= range * range);
+                    light.visible = currentProfileKey !== 'low' && (distSq <= range * range);
                 }
             }
 
@@ -5244,7 +4991,7 @@
             }
 
             // Real-time Castle Dynamic Atmospheric Animations (Torches, Banners, Fireplace, Crystals, Core)
-            if (currentProfileKey !== 'potato' && window.castleAnimators && window.castleAnimators.length > 0) {
+            if (currentProfileKey !== 'low' && window.castleAnimators && window.castleAnimators.length > 0) {
                 for (let i = 0; i < window.castleAnimators.length; i++) {
                     const anim = window.castleAnimators[i];
                     if (anim.type === 'spireGem') {
@@ -5304,6 +5051,7 @@
             }
 
             if (gameState.isPlaying && !gameState.inDialogue && !document.querySelector('.modal-overlay.active')) {
+                window.heroMotion?.look(safeDt);
                 let inputX = 0;
                 let inputZ = 0;
 
@@ -5316,9 +5064,9 @@
 
                 // Handle speed buff
                 if (speedBuffTimer > 0) speedBuffTimer -= delta;
-                const buffMultiplier = (speedBuffTimer > 0) ? 1.4 : 1.0;
-                playerSurvival.update(safeDt,isMoving);
-                const currentSpeed = (window.crystalWings?.flying?crystalWings.speed:playerSurvival.speed) * buffMultiplier;
+                const buffMultiplier=((speedBuffTimer>0)?1.4:1.0)*(window.evilCavern?.speedMultiplier||1)*(window.romanArena?.tournament?.movementMultiplier||1);
+                playerSurvival.update(safeDt,window.riverBoat?.aboard?false:isMoving);
+                const currentSpeed = ((window.snowQueen?.frozen||window.candyRealm?.hypnotized)?0:1) * (window.crystalWings?.flying?crystalWings.speed:playerSurvival.speed) * buffMultiplier;
 
                 // Auto-standup if sitting and player starts moving or jumps
                 if (isSitting && (isMoving || keys.jump)) {
@@ -5333,13 +5081,13 @@
 
                 // Animate rotating magic aura ring beneath feet
                 if (magicAuraRing) {
-                    magicAuraRing.rotation.z += 0.025;
+                    magicAuraRing.rotation.z += safeDt*1.5;
                     magicAuraRing.scale.setScalar(1.0 + Math.sin(time * 3.0) * 0.05);
                 }
 
                 // Animate floating crown if active
                 if (crownGroup && crownGroup.visible) {
-                    crownGroup.rotation.y += 0.03;
+                    crownGroup.rotation.y += safeDt*1.8;
                     crownGroup.position.y = 2.2 + Math.sin(time * 3.0) * 0.08;
                 }
 
@@ -5355,42 +5103,8 @@
 
                 // Highway glowing crystals are rendered with high-performance GPU instancing
 
-                if (!isMoving || isSitting)heroMoveDirection.set(0,0,0);
-                if (isMoving && !isSitting) {
-                    // Camera forward & right vectors on XZ ground plane
-                    const forwardX = -Math.sin(camYaw);
-                    const forwardZ = -Math.cos(camYaw);
-                    const rightX = Math.cos(camYaw);
-                    const rightZ = -Math.sin(camYaw);
-
-                    const moveDir = new THREE.Vector3(
-                        inputX * rightX + inputZ * (-forwardX),
-                        0,
-                        inputX * rightZ + inputZ * (-forwardZ)
-                    ).normalize();
-
-                    // Blend world velocity instead of snapping to the opposite direction.
-                    // A reversal slows through zero before moving the other way.
-                    heroMoveDirection.lerp(moveDir,1-Math.exp(-10*safeDt));
-                    const facing=heroMoveDirection.lengthSq()>.01?heroMoveDirection:moveDir;
-                    const targetAngle = Math.atan2(facing.x, facing.z);
-                    const angleDelta=Math.atan2(Math.sin(targetAngle-playerGroup.rotation.y),Math.cos(targetAngle-playerGroup.rotation.y));
-                    playerGroup.rotation.y+=angleDelta*(1-Math.exp(-8*safeDt));
-
-                    const stepX = heroMoveDirection.x * currentSpeed * safeDt;
-                    const stepZ = heroMoveDirection.z * currentSpeed * safeDt;
-
-                    movePlayerWithCollisions(stepX, stepZ);
-
-                    // Increment walk cadence
-                    walkCycle += delta * (keys.shift ? 18 : 11.5);
-
-                    // Emit footstep sparkle on road / ground every step
-                    if (!playerSurvival.swimming && isGrounded && (Math.sin(walkCycle) > 0.95 || Math.sin(walkCycle) < -0.95)) {
-                        emitFootstepSparkle(playerGroup.position.x, playerGroup.position.y, playerGroup.position.z);
-                    }
-
-                }
+                const motion=heroMotion.step(inputX,inputZ,currentSpeed,safeDt);
+                if(motion.moving&&!playerSurvival.swimming&&isGrounded){walkCycle+=motion.speed*safeDt*(keys.shift?18:11.5);if(Math.abs(Math.sin(walkCycle))>.97)emitFootstepSparkle(playerGroup.position.x,playerGroup.position.y,playerGroup.position.z);}
                 updatePlayerVertical(safeDt);
                 window.lakeMonsters?.update(safeDt);
                 window.forestGuardian?.update(safeDt);
@@ -5398,12 +5112,22 @@
                 window.monsterSkills?.update(safeDt);
                 window.bachKhuyet?.update(safeDt);
                 window.riverRealm?.update(safeDt);
+                window.evilCavern?.update(safeDt);
+                window.caveTreasury?.update();window.rageArmor?.update();window.worldWeather?.update(safeDt);window.antarcticRealm?.winterStructure?.update(safeDt,performance.now()*.001);
+                window.volcanicValley?.update(safeDt);
+                window.desertRealm?.update(safeDt);
+                window.romanArena?.update?.(safeDt);window.creatureRefresh?.update(safeDt);
+                window.mangroveRealm?.update(safeDt);
+                window.realmTransitUpdate?.update(safeDt);
+                window.moonRailway?.update(safeDt);
+                window.riverBoat?.update(safeDt);
+                window.ninjaAbilities?.update(safeDt);
                 window.fieldGuide?.update(safeDt);
                 if(isAttacking){heroAttackElapsed+=Math.min(delta,.1);if(heroAttackElapsed>=.5)isAttacking=false;}
-                if(activeLimbs)updateHeroAnimation(activeLimbs,{dt:Math.min(delta,.1),time,moving:isMoving,sprint:playerSurvival.sprinting,swimming:playerSurvival.swimming,diving:playerSurvival.underwater,grounded:isGrounded,velocity:jumpVelocityY,sitting:isSitting,attacking:isAttacking,attackProgress:heroAttackElapsed/.5,hero:activeHeroType});
+                if(activeLimbs)updateHeroAnimation(activeLimbs,{dt:Math.min(delta,.1),time,moving:motion.moving,speed:motion.speed,turn:motion.turn,moveForward:motion.forward,strafe:motion.strafe,flashlight:Boolean(window.solarFlashlight?.equipped),sprint:playerSurvival.sprinting,swimming:playerSurvival.swimming,diving:playerSurvival.underwater,grounded:isGrounded,velocity:jumpVelocityY,sitting:isSitting,attacking:isAttacking,attackProgress:heroAttackElapsed/.5,hero:activeHeroType,ropeRiding:Boolean(window.explorationUpdate?.climbing)});
 
                 checkInteractables();
-                if (currentProfileKey !== 'potato' || frameCount % 6 === 0) updateMinimap(playerGroup.position.x, playerGroup.position.z, playerGroup.rotation.y);
+                if (frameCount % (currentProfileKey==='low'?20:8) === 0) updateMinimap(playerGroup.position.x, playerGroup.position.z, playerGroup.rotation.y);
 
                 // Animate floating holographic 3D interaction beacons
                 beaconGroups.forEach((b, idx) => {
@@ -5431,18 +5155,18 @@
                 const inCastle = (playerGroup.position.x >= -133.0 && playerGroup.position.x <= -87.0 &&
                                   playerGroup.position.z >= 95.0 && playerGroup.position.z <= 145.0) || onBalconyFl2 || onBalconyFl3;
 
-                let effectiveDist = camDistance;
-                let effectivePitch = Math.max(0.12,Math.min(camPitch,0.95));
+                let effectiveDist = heroMotion.state.distance;
+                let effectivePitch = Math.max(0.12,Math.min(heroMotion.state.pitch,0.95));
                 if (inCastle) {
-                    effectiveDist = Math.min(camDistance, 2.2);
+                    effectiveDist = Math.min(heroMotion.state.distance, 2.2);
                     // Keep the orbit above the floor; mouse aim remains free
                     // to look up/down independently of this safe camera offset.
-                    effectivePitch = Math.max(0.12, Math.min(camPitch, 0.6));
+                    effectivePitch = Math.max(0.12, Math.min(heroMotion.state.pitch, 0.6));
                 }
 
-                let targetCamX = playerGroup.position.x + Math.sin(camYaw) * Math.cos(effectivePitch) * effectiveDist;
+                let targetCamX = playerGroup.position.x + Math.sin(heroMotion.state.yaw) * Math.cos(effectivePitch) * effectiveDist;
                 let targetCamY = playerGroup.position.y + 0.42 + Math.sin(effectivePitch) * effectiveDist;
-                let targetCamZ = playerGroup.position.z + Math.cos(camYaw) * Math.cos(effectivePitch) * effectiveDist;
+                let targetCamZ = playerGroup.position.z + Math.cos(heroMotion.state.yaw) * Math.cos(effectivePitch) * effectiveDist;
 
                 if (inCastle) {
                     // Confine camera within interior walls (Outer walls at X=[-131, -89], Z=[94, 143])
@@ -5469,14 +5193,16 @@
 
                 const inArena=window.romanArena && romanArena.region(playerGroup.position.x,playerGroup.position.z).r<39;
                 let desiredCamera = new THREE.Vector3(targetCamX, targetCamY, targetCamZ);
-                if (inCastle || inArena) {
+                if (inCastle || inArena || window.evilCavern?.inside()) {
                     desiredCamera = clipCastleCamera(playerGroup.position.clone().add(new THREE.Vector3(0, 0.45, 0)), desiredCamera);
                 }
-                camera.position.lerp(desiredCamera, 1 - Math.exp(-12 * safeDt));
-                if (inCastle || inArena) {
+                if(window.worldSurface?.cameraNeedsReset(playerGroup.position))camera.position.copy(desiredCamera);
+                else camera.position.lerp(desiredCamera, 1 - Math.exp(-12 * safeDt));
+                if (inCastle || inArena || window.evilCavern?.inside()) {
                     camera.position.copy(clipCastleCamera(playerGroup.position.clone().add(new THREE.Vector3(0, 0.45, 0)), camera.position));
                 }
-                camera.lookAt(camera.position.clone().add(castleLookDirection(camYaw,camPitch)));
+                if(!inCastle)camera.position.copy(window.mapVisualRepair?.clipCamera(playerGroup.position.clone().add(new THREE.Vector3(0,.45,0)),camera.position)||camera.position);
+                camera.lookAt(camera.position.clone().add(castleLookDirection(heroMotion.state.yaw,heroMotion.state.pitch)));
             } else if (!gameState.isPlaying) {
                 // Atmospheric cinematic camera slow orbit around the moonlit ruins for Home Screen
                 const orbitAngle = time * 0.08;
@@ -5484,9 +5210,26 @@
                 camera.lookAt(0, 2.5, 0);
             }
 
+            window.moonRailway?.updateCamera();
+            window.explorationUpdate?.updateCamera();
+            window.playerExperience?.update(Math.min(delta,.1));
             window.backpack?.update(Math.min(delta,.1));
+            window.monsterCamps?.update(Math.min(delta,.1));
+            window.foodPickups?.update(Math.min(delta,.1));
+            window.aquaticEcology?.update(Math.min(delta,.1));window.polarEcology?.update(Math.min(delta,.1));window.snowCrystals?.update(Math.min(delta,.1));
+            window.playerLife?.update(Math.min(delta,.1));window.snowQueen?.update(Math.min(delta,.1));window.santaGifts?.update(Math.min(delta,.1));window.candyRealm?.update(Math.min(delta,.1));window.westernHighlands?.update(Math.min(delta,.1));window.candyProvisions?.update(Math.min(delta,.1));window.realmScenery?.update();
+            window.pyramidInterior?.update(Math.min(delta,.1));
             window.crystalWings?.update(Math.min(delta,.1));
             window.playerSurvival?.environment();
+            window.evilCavern?.environment();
+            window.livingWorld?.update(Math.min(delta,.1));
+            window.treeWood?.update(Math.min(delta,.1));
+            window.technologyBase?.update?.(Math.min(delta,.1));
+            window.templeSupplies?.update(Math.min(delta,.1));
+            window.templeSupplies?.environment();
+            window.caveTreasury?.environment();
+            window.solarFlashlight?.update(Math.min(delta,.1));
+            window.antarcticRealm?.environment();window.candyRealm?.environment();window.worldWeather?.camera();window.graphicsQuality?.update(Math.min(delta,.1));
             renderer.render(scene, camera);
         }
 
@@ -5504,20 +5247,90 @@
         installPlayerSurvival();
         installForestGuardian();
         installForestWildlife();
+        installHeroMotion();
         installBackpack();
         installCrystalWings();
         installBachKhuyet();
         installThermalRiver();
         installMonsterSkills();
+        installEvilCavern();
+        installSolarFlashlight();
+        installTempleSupplies();
+        installVolcanicValley();
+        installVolcanicDragonFlight();
+        installMangroveRealm();
+        installMapVisualRepair();
+        installTerrainContinuity();
+        installSouthernExpansion();
+        installArenaRelocation();
+        installDesertRealm();
+        installAntarcticRealm();
+        installTechnologyBase();
+        installCandyRealm();
+        installWesternVillages();
+        installMoonRailway();
+        installWorldSurfaceSync();
+        moonRailway.mountainBridges=finishMountainRailBridges(moonRailway);
+        installHighlandTrails();
+        installWesternNature();
+        worldExpansion.rebuildWater();
+        antarcticRealm.finishTerrainArt();
+        desertRealm.connectStation();
+        romanArena.connectStation();
+        installRiverBoat();
+        installNinjaAbilities();
+        installLivingWorld();
+        installPlayerLife();
+        installSnowQueen();
+        installAquaticEcology();
+        installPolarEcology();
+        installSnowCrystals();
+        installSantaGifts();
+        antarcticRealm.attachTravel();
+        installTreeWood();
+        sealCastleIntegrity();
+        installConstructionZones();
+        installMonsterCamps();
+        installFoodPickups();
+        installCandyProvisions();
+        installInventoryLayout();
+        installGiftCode();
+        installHeroStatSync();
+        window.mercuryLake?.finishShore?.();
         installLibraryPreviews();
+        installCreatureRefresh();
         installFieldGuide();
         installLunarBiome();
+        installLunarSurfaceFinish();
         rebuildCollisionGrid();
+        installRealmTransitUpdate();
+        installStationMobility();
+        installVoidDistrict();
+        installCaveTreasury();
+        installRageArmor();
+        installWorldWeather();
+        installInventoryWorkspace();
+        installWorldResidents();
+        installTerrainTraversal();
+        installExplorationUpdate();
+        installGraphicsQuality();
+        installPlayerExperience();
+        installGameShortcuts();
+        installRealmScenery();
         if(new URLSearchParams(location.search).has('mountain')){enterGame();bachKhuyet.travel();}
         if(new URLSearchParams(location.search).has('river')){enterGame();riverRealm.travel(new URLSearchParams(location.search).get('river')||'base');}
+        if(new URLSearchParams(location.search).has('cavern')){enterGame();evilCavern.travel();}
+        if(new URLSearchParams(location.search).has('volcano')){enterGame();volcanicValley.travel();}
+        if(new URLSearchParams(location.search).has('mangrove')){enterGame();mangroveRealm.travel();}
+        if(new URLSearchParams(location.search).has('antarctic')){enterGame();fastTravelTo(-700,2114,'Nam Cực');}
+        if(new URLSearchParams(location.search).has('technology')){enterGame();technologyBase.travel();}
+        if(new URLSearchParams(location.search).has('boat')){enterGame();riverBoat.travelDock();}
+        if(new URLSearchParams(location.search).has('desert')){enterGame();desertRealm.travel();}
+        if(new URLSearchParams(location.search).has('arena')){enterGame();romanArena.travel();}
+        if(new URLSearchParams(location.search).has('railway')){enterGame();moonRailway.travel(0);}
         animate();
     
 </script>
-<script src="features/lobby/lobby-settings.js?v=5782ff736f7a"></script>
+<script src="features/lobby/lobby-settings.js?v=fdf8f7b7ce9f"></script>
 </body>
 </html>

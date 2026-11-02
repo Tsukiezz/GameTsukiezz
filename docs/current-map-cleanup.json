@@ -1,0 +1,1066 @@
+﻿{
+    "project":  "C:\\Users\\Admin\\OneDrive\\Máy tính\\Desktop\\CODE\\Tsukiezz\\projects\\GameTsukiezz",
+    "applied":  true,
+    "files":  176,
+    "bytes":  396468407,
+    "entries":  [
+                    {
+                        "path":  ".github\\workflows\\csharp-lint-and-validate.yml",
+                        "bytes":  1207,
+                        "sha256":  "10FCCB90BA495ECC093E7AD21FD971A1D6376477255A4D832AEDF0FACDCDEC6E",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Characters\\SwampCrocodile.blend1",
+                        "bytes":  672670,
+                        "sha256":  "A674EE6E09F7993A0F3B8A16C11FA9CF40202494F23196A7CC9F150132CC68EA",
+                        "reason":  "Blender backup copy"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\DenseSharedRailServices.blend",
+                        "bytes":  14820665,
+                        "sha256":  "1B38B831811963851B2AA6061A722A202D069178D903A6FC75D6F9792B4058DB",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\DenseSharedRailServicesWorkspace.blend",
+                        "bytes":  34241120,
+                        "sha256":  "DAAFC211F1BB761D3579461006FCBBFCF3712AB03C1E33741AADCF57872AFACD",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\DesertOfTheWiseSphinx.blend1",
+                        "bytes":  200424,
+                        "sha256":  "6D42A834E19558929FFFC7F2D94D94343BE7B3DBB1EE24A2FF18D1B7C67AA2E3",
+                        "reason":  "Blender backup copy"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\DesertRailwayWorkspace.blend",
+                        "bytes":  15330059,
+                        "sha256":  "E1458154D132C999025766E7495033F138E36C1735663242CE5821A265697633",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\GroundRailServices.blend",
+                        "bytes":  15069249,
+                        "sha256":  "B75B4A53FBD6CACCADE2D607EF0C72FC0AD7B2AD5C7D4C1F88B534E96CCCB65E",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\MangroveRealm.blend1",
+                        "bytes":  672567,
+                        "sha256":  "E77F479ED7D9A555763867CAD82974924AF774955281ECAB6F59D0C6E165814A",
+                        "reason":  "Blender backup copy"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\MoonRailway.blend1",
+                        "bytes":  9609963,
+                        "sha256":  "C53935AC711CD3301008A090B9DAF7EECA7F3DA0282A7827CB7AEF8C5ADC7FD3",
+                        "reason":  "Blender backup copy"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\RailwayCivilEngineering.blend",
+                        "bytes":  2736325,
+                        "sha256":  "8FBB79A8579DA7E39737D6CD54A7A8DBC9E5E5C3CB18C81482914F541BA7A182",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\RailwayJunctionsReviewed.blend",
+                        "bytes":  5673232,
+                        "sha256":  "A777F3B02841941AF40A7456004F7D2C7ADC20CB67732520AA4090B3407D4CF9",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\RailwayJunctionsWorkspace.blend",
+                        "bytes":  7832457,
+                        "sha256":  "3AA689AA31B1FB863ED468C51F0EA49C06A27732A9EF4D63C774D79810E96660",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\RoyalTechnologyRiverAdventure.blend",
+                        "bytes":  17133992,
+                        "sha256":  "2023706E1EE22E4EDA63C29938338EBA5B43A0D5796E93157794135C93917A8B",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\RoyalTechnologyRiverAdventureFinal.blend",
+                        "bytes":  17137824,
+                        "sha256":  "02968B7C19F5E9B7734E1E6197EC218101DECFB1CC71188F6413213A1BE9D41E",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\SharedRailServices.blend",
+                        "bytes":  12142843,
+                        "sha256":  "5FA44299BD3679342E6B3E69E5E0DBBA510D13B78EFFD5856714DBDB4DE138DF",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\SharedRailServicesWorkspace.blend",
+                        "bytes":  19998010,
+                        "sha256":  "F6352D975E36ED129AA746CDF2CD1168BB594B0CB95B6D06FC30194AB0468750",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Blender\\Environments\\SphinxLabyrinthWorkspace.blend",
+                        "bytes":  15622149,
+                        "sha256":  "16193B4D86CD3A961987368B4FDC06A61CE31B5580B35B57F12DB2146987F50E",
+                        "reason":  "Superseded combined scene; current review is YinYangPyramid13Floors.blend"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Models\\HamsterWarrior.blend",
+                        "bytes":  283639,
+                        "sha256":  "34BF3C38A0A4E64835D2DD6A8714E19D5EC807061A4C2C989A34A5CDBC79D1FE",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Art\\Models\\HamsterWarrior.fbx",
+                        "bytes":  399020,
+                        "sha256":  "B09DA6E1C6011E8C322038D3AF978C3518286E0C58CB43BE4F35D0086762A6E6",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Camera\\CameraFollow3D.cs",
+                        "bytes":  1477,
+                        "sha256":  "A409A0B8ED833D2596B514CB535558946DE5194A1FB767EB3B362CCA54114053",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Core\\GameEnums.cs",
+                        "bytes":  401,
+                        "sha256":  "5DB060C1465E7E56ABADB1F99B2688F542D37EDD72598AB62A9B3968CD3A9A3F",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Core\\GameManager.cs",
+                        "bytes":  2775,
+                        "sha256":  "C652F0D1D117C538A39396F7A7BBF94C211483AC5C0F16DDCEBA77E6FA239AF4",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Dialogue\\DialogueManager.cs",
+                        "bytes":  8016,
+                        "sha256":  "D213375279617F8FC1B829F58C67D1663D513AD34496C83AFD172497629B4AB8",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Dialogue\\DialogueNode.cs",
+                        "bytes":  1450,
+                        "sha256":  "F1D879F2B763476BEB538CAFDE0A567D9F9AAD7D6EE2CBD1BF671D17C8825613",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Dialogue\\DialogueTrigger.cs",
+                        "bytes":  1886,
+                        "sha256":  "E896F37BB440A684B75B51A8674D0EA9422A8BD6DF8D32D286F51E007CCCDB7C",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Interaction\\IInteractable.cs",
+                        "bytes":  242,
+                        "sha256":  "1B562F2AED0F24D4B53FF43AEBEB65C8134848BB11361C461C37D111E0394D74",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Interaction\\InteractableBase.cs",
+                        "bytes":  1557,
+                        "sha256":  "3D5B9318A9424DFD1E46D6A1D7E0D5263F1EFC3C44E0B2EE153840FAE4935A6B",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Interaction\\LockedDoor.cs",
+                        "bytes":  2453,
+                        "sha256":  "60CCFD3EB53E21B8EDC1D0441C6B28C03570405D69A7C0B8C558BF3BB781C07D",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Interaction\\PickupItem.cs",
+                        "bytes":  1214,
+                        "sha256":  "9A8D81BAC1DEDD961BA8A192393528407C287BBFE2645E02E1FDC2512E73AAC2",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Interaction\\PlayerInteraction.cs",
+                        "bytes":  3500,
+                        "sha256":  "774A603D7D5400A8730DD5D3BA6AC8AC4F821DC2E2D35328931E81E80F69F613",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Inventory\\InventoryManager.cs",
+                        "bytes":  1505,
+                        "sha256":  "C07D38920674FC6092EF7835395D27EE82885325A4A7951A879AC768086F8F55",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Inventory\\ItemData.cs",
+                        "bytes":  624,
+                        "sha256":  "609052CAF4EE4E71BC4AEBFB1709F958F8087F15BB16CF22038EBD49463C2D45",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Player\\PlayerController.cs",
+                        "bytes":  2950,
+                        "sha256":  "DF789391C46BCD55B03CA18EB6BEB81F770929B2F6134E11EB1D4A587D1D4366",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Player\\PlayerController3D.cs",
+                        "bytes":  4033,
+                        "sha256":  "84D5A52AD95972F2F311A217323B6D0C8108F87E23CF43BD119CDA40F4517A01",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Quests\\QuestData.cs",
+                        "bytes":  1170,
+                        "sha256":  "6857ADE3B44D4F62A5A6BBA05BA270066A5135839304B9C48D6163A4184C1E6E",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\Quests\\QuestManager.cs",
+                        "bytes":  2143,
+                        "sha256":  "1DFC0467866685B279A7E023FD005B28BCCC5F7691178AC3ED4B238B14EB612E",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\UI\\AdventureHUD.cs",
+                        "bytes":  4272,
+                        "sha256":  "0D3DF8CD264AED29DA75C1F220686CAB0E9C581DC40B5DAE4E67FA52246D54CF",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "Assets\\Scripts\\UI\\MainMenuManager.cs",
+                        "bytes":  8858,
+                        "sha256":  "36ED794A8E4B568AA46D06BE8D10A311FB7541EDF3994FA5D80F6906B651487E",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "demo\\verification\\autumn-upgrade\\railway-final.log",
+                        "bytes":  20294,
+                        "sha256":  "73D522198D9C97A4294F58760FB2F795B1BEE5DB9C493D2EADF49F9C2A4B9B68",
+                        "reason":  "Failed railway run superseded by railway-final-2.log"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\acceptance.json",
+                        "bytes":  2246,
+                        "sha256":  "4A92A4FC192A1128C3A5C73FCAB0A23229730CA6AC5AE05458E630C3158AA40C",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\attempt10.log",
+                        "bytes":  12724,
+                        "sha256":  "8ABACFEAE26B769234270DE8555CF3A09F4029144A60E850D45A561B43F20C65",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\attempt2.log",
+                        "bytes":  2576,
+                        "sha256":  "F32B54C67467890D6BE598DFC52CB145E4718B1446181AC41445A8C4951D8119",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\attempt3.log",
+                        "bytes":  21420,
+                        "sha256":  "023FAF0722492FB3096D82A75BB4E8379B7819B0E107E3E5E271A20C50CCA245",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\attempt4.log",
+                        "bytes":  3266,
+                        "sha256":  "DAE75402C6C3617F8444FB2DB4FD4BCCF95FB16CB891B051FAF4B0A1CFFAD930",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\attempt5.log",
+                        "bytes":  2634,
+                        "sha256":  "D47C41EA1EB44DA852D72C45CA41A2860D37840ADB92700B1E851F35467CE812",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\attempt6.log",
+                        "bytes":  10556,
+                        "sha256":  "F3083C38AD9020C49D4C71B7B8351328D9A467E1C17B284D214D1661EB3C7A0E",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\attempt7.log",
+                        "bytes":  12406,
+                        "sha256":  "E179C2DAF157219796BDD1718E1C4D36AB44746E7F6F704B7C92074655D3EDAB",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\attempt8.log",
+                        "bytes":  10852,
+                        "sha256":  "07C8F57109765FC81F386EE303E04EB1451471A83079F1F56108C6A2C4F34661",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\attempt9.log",
+                        "bytes":  10852,
+                        "sha256":  "3B1CFC3A1BA2CA9DD8B0CDF66494319A1D29F3FE4BE15FC4EB64042495E76EB7",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\blender.png",
+                        "bytes":  332305,
+                        "sha256":  "B8EF85C7AB35F6F16DBC1257679050276E7F276DC73D3667628CBD1080BD0FCF",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\blender-build.log",
+                        "bytes":  1094,
+                        "sha256":  "70A6DC2DC52B928F798FE771E097660481955C5E1CB93016F762E7F044ED7C83",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\blender-review.json",
+                        "bytes":  963,
+                        "sha256":  "7034A41699BCEA5BA37A482E46BEC5A5F55B362A13A04A2FE57226CFE48AE4F9",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\engineering.json",
+                        "bytes":  30136728,
+                        "sha256":  "E5D5E22D6245CB1BFE28141E457DA630CF62D98F3CFB581527FC72B5EFBA05E4",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\guard-report.json",
+                        "bytes":  53,
+                        "sha256":  "F5EDE4CD12BD63D67C48D29F17D4F4E1ABC9BCDF33A0A5CA58C59D95A0F31ABF",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\guards.log",
+                        "bytes":  120,
+                        "sha256":  "94A38C2D7396C57487852E2B218D713771516956E2F278148E21AE8BFD66F441",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\line-ui.log",
+                        "bytes":  132,
+                        "sha256":  "C1E628A5B9B5D3649522DDBF1037A0693CA7E4C9AAF673624FEFFA82DEACF6F8",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\line-ui-report.json",
+                        "bytes":  93,
+                        "sha256":  "0C55698A7AC4A9FC4685D74F5D29B6A0294660C89F0CABAA7D3302325EF023BD",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\run.log",
+                        "bytes":  2306,
+                        "sha256":  "EC4CAA87E21C321EB8CF4D905AB08FE7EE8769CD9C280EF48B4C5ACC5FE37611",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\station.png",
+                        "bytes":  516913,
+                        "sha256":  "E67321798AB4D7975AA7794C1779A917F4EAD96CCAC7D1ACB3DC826F42DD75C1",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\surface.log",
+                        "bytes":  34648,
+                        "sha256":  "77B260062C4D56D2BDD7A564DD21B49AD236BBDEB7112E26F4805A342C3FADDF",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\surface-ninja-report.json",
+                        "bytes":  16908,
+                        "sha256":  "FBE02B2F9ED79B2C6279BE93964B683FCEE031FF60F1794B770DFC8330485565",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\dense-shared-services\\three-services-report.json",
+                        "bytes":  3871,
+                        "sha256":  "E0ABA8B17C2BC6E68417FCF7C0727F0858D7B59C9AFDCEAE85D7CB4EBE8CF241",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-labyrinth\\acceptance.json",
+                        "bytes":  2388,
+                        "sha256":  "42E34C011E335A567EAE042A2943A22EF3B74B1B8F4861B87DE7457918B6FA73",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-labyrinth\\blender-review.json",
+                        "bytes":  290,
+                        "sha256":  "AC36DE3E7F253EC36A68F5109A9EA0B81FD240A6AB59DEB48528A38BA3E9AEFD",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-labyrinth\\desert.png",
+                        "bytes":  277210,
+                        "sha256":  "F43CD515D835B0864613D655A5AAEACBD97C08449D4A78199390DC0D20E0DDA0",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-labyrinth\\desert-report.json",
+                        "bytes":  10234,
+                        "sha256":  "3ADD90E502F0CB85AB143757B913C639FDE39EF18B70AC9C36ECC6CF89B2C094",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-labyrinth\\engineering.json",
+                        "bytes":  33829773,
+                        "sha256":  "F3095D2779C2EF2D22A591B077DE38F570AB8294CFED74691D1F43D81E06B7D0",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-labyrinth\\interior.png",
+                        "bytes":  58583,
+                        "sha256":  "A0190FBE5C1DD64DCDD1C8E128F6B364B47C15ADC5431B880FB198C8CBEFAD32",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-labyrinth\\labyrinth-final.log",
+                        "bytes":  20960,
+                        "sha256":  "44B96CB4F627DBBD557A3CD2163E0AB0E38F91B3389A1FE84C13D8819F6B7F4E",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-labyrinth\\railway-regression.log",
+                        "bytes":  11140,
+                        "sha256":  "60B131D832E306A256FA8121768E7C2A75DFA3703AD2D771C7468E374D0FEBD3",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-labyrinth\\railway-regression-2.log",
+                        "bytes":  13244,
+                        "sha256":  "697906F7204BF31D602907D429A039DDF81F83AEF9E7ACA4DC9C13D8F557C1FE",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-labyrinth\\station.png",
+                        "bytes":  516789,
+                        "sha256":  "AE0AA6018237EBBE2BEC4D28FDDA5FD867D58B3B3EC9ABD94F2B23EA5ADADE28",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-labyrinth\\three-services-report.json",
+                        "bytes":  3983,
+                        "sha256":  "FAB1A73D19BF90DD8707BE5BCF4FF9B57FD66E282B3C2B66709559884B3D7E43",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\acceptance.json",
+                        "bytes":  2388,
+                        "sha256":  "E415B4A317F0A163D8B5BECA592A33B900CC762C29D94916887A1ADA1485FD7D",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\blender-review.json",
+                        "bytes":  378,
+                        "sha256":  "F3AD73FE1D13A6134AFC6E122166B260C2347997974BCAD383AFAF372F305A42",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\desert.png",
+                        "bytes":  340243,
+                        "sha256":  "73D057985EBCC8181C53C2B69F585487DA706F1EBCB516E30016BBEDF20589F9",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\desert-final.log",
+                        "bytes":  4528,
+                        "sha256":  "62BC55DE675EE65F2CE4B228F1D99D58E1F2632D232D03D2A1909AF3CAED0728",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\desert-realm-before-labyrinth.js",
+                        "bytes":  15178,
+                        "sha256":  "20CFEAF63A0DFB4341120C1FDFAE3CC6FADC8B924EE06B60F3AD1212229FBB41",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\desert-report.json",
+                        "bytes":  2214,
+                        "sha256":  "B3A75C491817EA563953B37DA8A5401338B315BA997BD74EE10F5E36C8DC1753",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\engineering.json",
+                        "bytes":  30478821,
+                        "sha256":  "AA27841BB890DF7AB139D72D30C56AEC581812C998BB4BC080B860E7AD81C8E8",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\interior.png",
+                        "bytes":  69563,
+                        "sha256":  "3A8B588774DCB97120C6FA80F4A0547D6A8F3E2F3BF13C0DC863ADD69FC59483",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\railway-regression.log",
+                        "bytes":  26196,
+                        "sha256":  "A2D56FE1CA02EDCEF154D37CED715B5C287E5A15F7E72838483E57BA8C0C8C37",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\railway-regression-2.log",
+                        "bytes":  2590,
+                        "sha256":  "F0531791FC5537C85BF19A881E9D61319352FBF1AAE22E0C22DAC086DA963A1E",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\railway-regression-3.log",
+                        "bytes":  2948,
+                        "sha256":  "311B67208EA06BAD6A6C67BEA7638EF4024EA2004B61325D65BAC06CCE79B15F",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\railway-regression-4.log",
+                        "bytes":  2620,
+                        "sha256":  "B93490969B997799B058AC56DCC271DE47EB9262E6D52B0184B7D7F053E70106",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\railway-regression-5.log",
+                        "bytes":  13244,
+                        "sha256":  "E2B43B92AE45939753040D9051E54CF1762756D3D1FFA3ADFABBB50D5D462BD3",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\station.png",
+                        "bytes":  516295,
+                        "sha256":  "69DD70042102361D0753FA0A5449EC6457E4B70EC3CAC581858CB7AF939B3290",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\three-services-report.json",
+                        "bytes":  3983,
+                        "sha256":  "852626057F6AD041F84725179F11826822C10D8A7D57653BBFB31AC8339A89C2",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\desert-pyramid\\visual-final.log",
+                        "bytes":  136,
+                        "sha256":  "F71E045E4D56592BB1208D224522FB15D0DF8C03597A5A12F050E351F49F19D3",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway\\network-report.json",
+                        "bytes":  1109,
+                        "sha256":  "B42463926248CA30D70D86A87E3DB92A27EEC7EE7B2E21C429AE00D40DFA3913",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway\\railway.png",
+                        "bytes":  216940,
+                        "sha256":  "0CDD2409DEF327A377C0FD837491A7BEC9AC4598D2C43EE793AB97D9D6D9BF86",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway\\railway-driver.png",
+                        "bytes":  456052,
+                        "sha256":  "E44DF2B7126E25012C74697D45591B6D623305B08F7F22291AEB5A51F66AF730",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway\\railway-ground.png",
+                        "bytes":  830759,
+                        "sha256":  "B451F014915C1424C260ABE68F733B0F5729B4E912AC5C75C696116B6477CD44",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway\\run.log",
+                        "bytes":  18504,
+                        "sha256":  "BD3BE9EAD474A318C57D4858F33D9C9773318CEEEB05C03077E128CFEEBA61FA",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway\\stations.png",
+                        "bytes":  521962,
+                        "sha256":  "5D8BF9F4AFC49AFDE41ADCCDCDCA171282B92F8903BAB27D1C1FBB201BC40697",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway\\stations-report.json",
+                        "bytes":  8985,
+                        "sha256":  "7FACAD7E03EE72C51FDF087DA7E057A41105A97067EEA0366FB6EE26DC9AACA5",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway\\studio-export-test.js",
+                        "bytes":  140769,
+                        "sha256":  "FAF8B85262A2F9BF1A8C1D6B0E53AF87AED3DFB1D157E81E8BB98B8A90D3A457",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-clearance\\bridge.png",
+                        "bytes":  690032,
+                        "sha256":  "21A77DFFB599F17FA8EE7633EDA5633A2EF900321FCF91AEF8FB70E768AE1D1F",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-clearance\\clearance-report.json",
+                        "bytes":  41428,
+                        "sha256":  "E71AFA48C9D90598739AD08EF96ACE1D6F9400735BA76ADFDE1E757DA8D64486",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-clearance\\engineering.json",
+                        "bytes":  1293846,
+                        "sha256":  "14034AD7A460702E1FDCCD1A53DF59C0B2FAAE608730243297D6C338E3152D80",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-clearance\\junction-run.log",
+                        "bytes":  1454,
+                        "sha256":  "4952FB0398DE9B8B42765A5DF117593AC2353461B13D9FAD14A1F5BE748159AF",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-clearance\\run.log",
+                        "bytes":  78448,
+                        "sha256":  "2D3C7DDB386F3995DEDEEEB030D2067D6266A486EB6F8E12F96715338BB8449D",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-clearance\\station.png",
+                        "bytes":  694004,
+                        "sha256":  "A51CCC3B22826729A54AC80E51B2D385C4D358857411DEDD58D7DFB9C72AA19D",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-junctions\\blender-junction.png",
+                        "bytes":  534301,
+                        "sha256":  "537252898894648D3BCD8DB63A02855B230DCE080E649FF90E9D94EF886E1C46",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-junctions\\blender-review.json",
+                        "bytes":  200,
+                        "sha256":  "FFB17F9B0EC0FD18C90331466F199745FE86526A41DC9C587700941310A67A92",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-junctions\\bridge.png",
+                        "bytes":  671836,
+                        "sha256":  "0AFB0E29DA4D5C62AC434F6F91ABFB77CC4626263A30BD3AE3400C91CCB4F2FE",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-junctions\\clearance-report.json",
+                        "bytes":  47696,
+                        "sha256":  "EFCB938380C88125920C7FB34715C84FB09C15D764E9AFFA801E33D43B10D009",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-junctions\\engineering.json",
+                        "bytes":  2014277,
+                        "sha256":  "DD07989A921AAB19EF9F17B0EBD87BF1E05A8D3773227AD7B49D4D16B5C24A42",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-junctions\\guard-report.json",
+                        "bytes":  54,
+                        "sha256":  "180EB063A71C49535FA1476BBBC74708E4DEBCFD773B5C181425C4FDD7CF600D",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-junctions\\inventory.json",
+                        "bytes":  14885,
+                        "sha256":  "A2CD6919C17932EA33F784364EEA5833813222E18A489CCAEE9E181D54AFDC68",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-junctions\\junction.png",
+                        "bytes":  672394,
+                        "sha256":  "F32C5D55862DABD8D37738B92F9294CF79A221421DA77FB1185E0611F97BBB7D",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-junctions\\run.log",
+                        "bytes":  1772,
+                        "sha256":  "00F6B63F76BA6D9FF0E6560B376948932A793AC524C4E5BD109ED8F230CD59A1",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-junctions\\station.png",
+                        "bytes":  700390,
+                        "sha256":  "15600E1D3BED4C39AA75609F9FC65A54377EAC6CD6C45CF7AC599A48B2A6E81C",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-network\\network-report.json",
+                        "bytes":  1108,
+                        "sha256":  "65EC46CB67E9343C903906F3ACB499B2A49641D4C4974EF0B38B944B95895146",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\railway-network\\run.log",
+                        "bytes":  2548,
+                        "sha256":  "A0AB7AAFEE53808E1256E6C1D0D7ABE32010ED3F65717380D9DEBE31F0FB1968",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\acceptance.json",
+                        "bytes":  2157,
+                        "sha256":  "38315887F497C5F8E902C2554038011E23757797E8404278C44A37B840DC4571",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\blender.png",
+                        "bytes":  227971,
+                        "sha256":  "08C9E3C1F9269BDE5A158B2BBD7E50DB49BA3ACE7826D2AE5401A6A5E8700432",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\blender-build.log",
+                        "bytes":  1074,
+                        "sha256":  "9DB7786F76810AF2CE6C2139AAD0730448DE24331F900FCDC58A690C25FEF925",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\blender-review.json",
+                        "bytes":  874,
+                        "sha256":  "EFBF95BC3A52FC53032F4370DB8CA69C4B416536119847B6F860D0D11D3914CD",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\engineering.json",
+                        "bytes":  26865842,
+                        "sha256":  "8067A785FF011CC3DE76A0ED35E63286BEEF5A59FEC1539BF76249D54C97649D",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\final.log",
+                        "bytes":  12462,
+                        "sha256":  "F1F23D97973C6228B69EADAD718E8B23DDDABA4524FC5AF8638D8CFEA85463F9",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\guard-report.json",
+                        "bytes":  52,
+                        "sha256":  "4C672A274DE24B47BA5C1963C93FCA49A0C2412E81DAD32BA14275A91052AD61",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\guards.log",
+                        "bytes":  118,
+                        "sha256":  "F6426D35FA63264C84995B58020A01B482B73C1D94D87AC9F61D4C857F304CCA",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\run.log",
+                        "bytes":  10512,
+                        "sha256":  "6602FFBF41311BE6C1A59898442CDE919349C2CBF43AD6EFA84353C4EA41774B",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\station.png",
+                        "bytes":  513819,
+                        "sha256":  "196E453333D0D5C7B8750F84ECA70E5819536D059370DBE53CD654DEE79C69D4",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\surface.log",
+                        "bytes":  35160,
+                        "sha256":  "7C79A28F5EEAC5D1A10C950576DCF6C3D3F87C61D2C9BCF7B959A3CE436A9FFE",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\surface-ninja-report.json",
+                        "bytes":  17160,
+                        "sha256":  "598D0D39277E46839E002B64892CB120633B91018AC39C5180DEA822D0D279BE",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\shared-services\\three-services-report.json",
+                        "bytes":  3832,
+                        "sha256":  "238A5ADE7C4A45ADC458ACBEC2D71CA55DD370FA50E583D7147C9CD1D4710466",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\surface-ninja\\run.log",
+                        "bytes":  34776,
+                        "sha256":  "62B630FC719C2C6B7001E679640D80CEF635A7B3FE3EAB4BE22A43AB09180947",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\surface-ninja\\surface-ninja-report.json",
+                        "bytes":  16971,
+                        "sha256":  "5DA44D6321D963A42EB7A4AE36E9B6C17095669D2FAD1098AB04D0D2E7D673A3",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\acceptance.json",
+                        "bytes":  2388,
+                        "sha256":  "42E34C011E335A567EAE042A2943A22EF3B74B1B8F4861B87DE7457918B6FA73",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\adventure-final.log",
+                        "bytes":  11212,
+                        "sha256":  "F8AE32698931BED35E51E579B7053A44DAE6D63F26F77208C9909AD4FA9C2E50",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\adventure-report.json",
+                        "bytes":  5445,
+                        "sha256":  "D778C1BB03D0B168D3D372215324A8891E0DDEADCDE2758C9274E2594E740657",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\blender-review.json",
+                        "bytes":  360,
+                        "sha256":  "B13EE5C48087281C62F8D1F9DEE4E770126CA96FD16CA0AF9460051BF7D80EA3",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\engineering.json",
+                        "bytes":  36944278,
+                        "sha256":  "7361E84D2D8A329C89D0D9CCE2E1871055D04ACA58DE6D1147EEA3712CD3F45F",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\persistence.json",
+                        "bytes":  38,
+                        "sha256":  "C55851DA062B0F7DC3C36350FAA51598F5B3E505E7B292A215D703160ABE78DB",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\railway-final.log",
+                        "bytes":  13262,
+                        "sha256":  "234363FFEB4C557E2DBCC021DE4072A72C17BF33EF58E6A9C9700326AEDF77E0",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\railway-regression.log",
+                        "bytes":  13262,
+                        "sha256":  "234363FFEB4C557E2DBCC021DE4072A72C17BF33EF58E6A9C9700326AEDF77E0",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\station.png",
+                        "bytes":  515011,
+                        "sha256":  "2E6392E36CBB495FAEC5EC5BD0B004AAAED15A93CACC8F2AD29F5B7598074944",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\surface-ninja-report.json",
+                        "bytes":  20569,
+                        "sha256":  "DE2ED0C67DD07B1426F448BC881F752E832831B93FFBD5E439486D81F2219D47",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\surface-regression.log",
+                        "bytes":  42146,
+                        "sha256":  "AB8A0AFF2A4D065E33A3B4E6DA57A3C313E3B25CCF653C330E6585EDD37781BB",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\technology.png",
+                        "bytes":  369935,
+                        "sha256":  "3E49224486B6D33A2B251E6F9D379130B809AB4257DF6BD720B5356124122336",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\technology-adventure\\three-services-report.json",
+                        "bytes":  3992,
+                        "sha256":  "67EA9A4451B5A0C597D65177B89A70B2D11C85E7B35464E62E5A2007B44E6969",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\three-services\\acceptance.json",
+                        "bytes":  79996,
+                        "sha256":  "5056EB75707EAB1FAD68640A97C950229225573B1165239F4D4028DDDDEDC7D6",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\three-services\\blender-build.log",
+                        "bytes":  1074,
+                        "sha256":  "07FE33443813BFFE06989F287582892ABCF53FB69463EBC9D0C5671D4F725816",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\three-services\\engineering.json",
+                        "bytes":  33891988,
+                        "sha256":  "503573B086BA7A4DAD1F7C95197A61BC7919A1223D533356BBA221B1FE678E8F",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\three-services\\run.log",
+                        "bytes":  10486,
+                        "sha256":  "147B4F0202718D1A60647195B02BC4AD00F1555A029555C7AA387A8A0DA1F2B3",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "demo\\verification\\three-services\\three-services-report.json",
+                        "bytes":  3838,
+                        "sha256":  "E00DFE5CE0A0A399F5E9976C12056300BBCB6B9E6433354329A33167DD8C497A",
+                        "reason":  "Superseded generated test output"
+                    },
+                    {
+                        "path":  "Packages\\manifest.json",
+                        "bytes":  460,
+                        "sha256":  "CC008D4E70BABDD3D50A874175E702268E52172C505BC84051F1A704C50AB270",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "ProjectSettings\\ProjectSettings.asset",
+                        "bytes":  497,
+                        "sha256":  "985A862DDF7A19358DE584AFA3C01E8158F64BB95B138B65BC396B997625D7B5",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "ProjectSettings\\ProjectVersion.txt",
+                        "bytes":  85,
+                        "sha256":  "B72BB1539E3A2F11A4E5D803D9660C08896ECAC85CFB2C2820507F55423B5021",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "tools\\__pycache__\\ai_blender_bridge.cpython-313.pyc",
+                        "bytes":  4543,
+                        "sha256":  "493EBC79052757538F3196090C8A576DBA4D9656CBADE0DA457CF3B09CFAEC38",
+                        "reason":  "Regenerable Python bytecode"
+                    },
+                    {
+                        "path":  "tools\\__pycache__\\ai_blender_cli.cpython-313.pyc",
+                        "bytes":  5492,
+                        "sha256":  "2BF6FBB2F305B96FE6E1CFA1743640E596347D109FDABB7636822A7AD3AA4A18",
+                        "reason":  "Regenerable Python bytecode"
+                    },
+                    {
+                        "path":  "tools\\__pycache__\\build_desert_labyrinth_review.cpython-313.pyc",
+                        "bytes":  6899,
+                        "sha256":  "22E2D6ED4D42EEE454A27545D871B5BA5A7634C90C58DB487A7F4732A2D0D303",
+                        "reason":  "Regenerable Python bytecode"
+                    },
+                    {
+                        "path":  "tools\\__pycache__\\build_desert_pyramid.cpython-313.pyc",
+                        "bytes":  10409,
+                        "sha256":  "668E209AE9B30430E1D8134FB63A174232A386C40FF6C17A00CFDD680324B36E",
+                        "reason":  "Regenerable Python bytecode"
+                    },
+                    {
+                        "path":  "tools\\__pycache__\\build_technology_adventure_review.cpython-313.pyc",
+                        "bytes":  7221,
+                        "sha256":  "C05A85A1E3FC66855A2D9272E39B537DE25D28A5EBBA5741C591D4CC60D5981C",
+                        "reason":  "Regenerable Python bytecode"
+                    },
+                    {
+                        "path":  "tools\\__pycache__\\connect_railway_blender.cpython-313.pyc",
+                        "bytes":  670,
+                        "sha256":  "96A6ACFB858C8593A0EC4D823F09321162DADEFE36A0817874EC05B297D935AB",
+                        "reason":  "Regenerable Python bytecode"
+                    },
+                    {
+                        "path":  "tools\\__pycache__\\export_railway_engineering.cpython-313.pyc",
+                        "bytes":  18716,
+                        "sha256":  "1DF731719179679BAB1BFEA6A789545B8715AC902B09BC9913D87B0DF2C5B642",
+                        "reason":  "Regenerable Python bytecode"
+                    },
+                    {
+                        "path":  "tools\\__pycache__\\review_dense_shared_railway.cpython-313.pyc",
+                        "bytes":  5247,
+                        "sha256":  "DEE73C7D36F9F32D27229ADB71C830868371F176204F152DFF5D455B3E84D9E3",
+                        "reason":  "Regenerable Python bytecode"
+                    },
+                    {
+                        "path":  "tools\\__pycache__\\review_desert_railway.cpython-313.pyc",
+                        "bytes":  4388,
+                        "sha256":  "35B8DE012E1395A198675601880C3BF892D0CA3055FCDBB7F30BF6AA79EB0689",
+                        "reason":  "Regenerable Python bytecode"
+                    },
+                    {
+                        "path":  "tools\\__pycache__\\review_railway_engineering.cpython-313.pyc",
+                        "bytes":  7478,
+                        "sha256":  "6EDC825A21B599D07BF8415D209547D3FC427CC01AC098EE5D213164A32CFAD9",
+                        "reason":  "Regenerable Python bytecode"
+                    },
+                    {
+                        "path":  "tools\\build_desert_labyrinth_review.py",
+                        "bytes":  3300,
+                        "sha256":  "DD1E97517372B6F313621A17E5367B9FFF0ED1849ABFEC92B4D00F5661D71AC0",
+                        "reason":  "Exporter for a superseded combined scene"
+                    },
+                    {
+                        "path":  "tools\\build_technology_adventure_review.py",
+                        "bytes":  3618,
+                        "sha256":  "D389474A09033CFB6D45F077572BFE53EC7638D1AB741A0F941EABCB42008C04",
+                        "reason":  "Exporter for a superseded combined scene"
+                    },
+                    {
+                        "path":  "tools\\export_to_unity.py",
+                        "bytes":  1730,
+                        "sha256":  "58CD403106BA6752AC7AEEF8DED8C247D820EB54898E2C53D4331F87FE39E614",
+                        "reason":  "Legacy Unity-only prototype; active game is the browser demo"
+                    },
+                    {
+                        "path":  "tools\\review_dense_shared_railway.py",
+                        "bytes":  2459,
+                        "sha256":  "2483242ED4EF23CE43EE007322B11488D7799E78D4E607BD088850CFC74F1A52",
+                        "reason":  "Exporter for a superseded combined scene"
+                    },
+                    {
+                        "path":  "tools\\review_desert_railway.py",
+                        "bytes":  2331,
+                        "sha256":  "D5BFCA68B3B013D40D095519C829FCE27CBB59486540D2BB81D85C78F571BEA3",
+                        "reason":  "Exporter for a superseded combined scene"
+                    },
+                    {
+                        "path":  "tools\\review_railway_engineering.py",
+                        "bytes":  2715,
+                        "sha256":  "320CB6DD1BE8F5B4F677DF64F6EEC5757449E343B23EDFD23043626CA30C95A6",
+                        "reason":  "Exporter for a superseded combined scene"
+                    },
+                    {
+                        "path":  "tools\\review_shared_railway.py",
+                        "bytes":  2172,
+                        "sha256":  "A2EA6FD3D58EF044C646BF1B05BD32A0E5252636BA518A614E3E17504285858A",
+                        "reason":  "Exporter for a superseded combined scene"
+                    },
+                    {
+                        "path":  "tools\\tests\\desert_acceptance.browser.js",
+                        "bytes":  4438,
+                        "sha256":  "747581DB80E7B6B3FDB7D5A9AA9BD8532371D02D02E5EF9B4CE1B0AA1BD74135",
+                        "reason":  "Superseded test assumptions or one-off diagnostic; current upgrade and railway suites retained"
+                    },
+                    {
+                        "path":  "tools\\tests\\desert_labyrinth.browser.js",
+                        "bytes":  6926,
+                        "sha256":  "2B485FB05178CCFAB64585C653B508BDAAC152863CF5636CDE542560009812A9",
+                        "reason":  "Superseded test assumptions or one-off diagnostic; current upgrade and railway suites retained"
+                    },
+                    {
+                        "path":  "tools\\tests\\diagnose_railway_entries.js",
+                        "bytes":  5110,
+                        "sha256":  "BEEA0482F864A451D353A60BB60DE63C5E21F6266445DFAABCD7B66D4E799478",
+                        "reason":  "Superseded test assumptions or one-off diagnostic; current upgrade and railway suites retained"
+                    },
+                    {
+                        "path":  "tools\\tests\\diagnose_railway_junctions.js",
+                        "bytes":  4386,
+                        "sha256":  "93CF537D579BB48BEF25422BD7CE847E34D78D7F280F1E077B3357E371925A4E",
+                        "reason":  "Superseded test assumptions or one-off diagnostic; current upgrade and railway suites retained"
+                    },
+                    {
+                        "path":  "tools\\tests\\preview_railway.js",
+                        "bytes":  4897,
+                        "sha256":  "810AF9CA89111D4DBA4407522B5C6A5F9ADB5B011F80AE85E3710CBD77FCF0F6",
+                        "reason":  "Superseded test assumptions or one-off diagnostic; current upgrade and railway suites retained"
+                    },
+                    {
+                        "path":  "tools\\tests\\technology_adventure.browser.js",
+                        "bytes":  4123,
+                        "sha256":  "4D4E1FC820828CBEE65D0DD6E688F31C68EA4F966DA29CAF36DBA0EFE433C7C0",
+                        "reason":  "Superseded test assumptions or one-off diagnostic; current upgrade and railway suites retained"
+                    },
+                    {
+                        "path":  "tools\\tests\\verify_desert.js",
+                        "bytes":  5242,
+                        "sha256":  "FF5493E490A19946B14C112DACDD77471EE9F5C10A2143C98A449C695F89CBE5",
+                        "reason":  "Superseded test assumptions or one-off diagnostic; current upgrade and railway suites retained"
+                    },
+                    {
+                        "path":  "tools\\tests\\verify_technology_adventure.js",
+                        "bytes":  5222,
+                        "sha256":  "2A33C69F21279D2C12CC0CECBE5CCC27E36F82D4E4B829DB1B492F9BD1F233BD",
+                        "reason":  "Superseded test assumptions or one-off diagnostic; current upgrade and railway suites retained"
+                    }
+                ],
+    "recoveryRoot":  "C:\\Users\\Admin\\AppData\\Local\\Temp\\GameTsukiezz-current-map-20261027-151414-c669ea",
+    "runtimeFilesVerified":  90
+}

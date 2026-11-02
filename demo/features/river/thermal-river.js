@@ -5,6 +5,7 @@ function installThermalRiver(){
     data.segments.forEach((s,index)=>{const r=s.w+25;for(let x=Math.floor((Math.min(s.a[0],s.b[0])-r)/CELL);x<=Math.floor((Math.max(s.a[0],s.b[0])+r)/CELL);x++)for(let z=Math.floor((Math.min(s.a[2],s.b[2])-r)/CELL);z<=Math.floor((Math.max(s.a[2],s.b[2])+r)/CELL);z++){const key=x+','+z;if(!grid.has(key))grid.set(key,[]);grid.get(key).push(index);}});
     function nearest(x,z){let best=null,score=Infinity;for(const index of grid.get(Math.floor(x/CELL)+','+Math.floor(z/CELL))||[]){const s=data.segments[index],dx=s.b[0]-s.a[0],dz=s.b[2]-s.a[2],q=THREE.MathUtils.clamp(((x-s.a[0])*dx+(z-s.a[2])*dz)/(dx*dx+dz*dz),0,1),distance=Math.hypot(x-s.a[0]-dx*q,z-s.a[2]-dz*q);if(distance-s.w<score){score=distance-s.w;best={distance,y:s.a[1]+(s.b[1]-s.a[1])*q,width:s.w,index,q};}}return best;}
     function ground(x,z){
+        if(cells.has(Math.floor((z-t.z0)/t.step)*t.n+Math.floor((x-t.x0)/t.step))&&window.worldSurface?.modifiedAt(x,z))return worldSurface.height(x,z);
         const u=(x-t.x0)/t.step,v=(z-t.z0)/t.step;let i=Math.floor(u),j=Math.floor(v);
         if(i<0||j<0||i>t.n||j>t.n)return null;
         if(!cells.has(j*t.n+i)||i===t.n||j===t.n){const candidates=[];if(Math.abs(u-i)<1e-7)candidates.push([i-1,j]);if(Math.abs(v-j)<1e-7)candidates.push([i,j-1]);if(Math.abs(u-i)<1e-7&&Math.abs(v-j)<1e-7)candidates.push([i-1,j-1]);const valid=candidates.find(([a,b])=>a>=0&&b>=0&&a<t.n&&b<t.n&&cells.has(b*t.n+a));if(!valid)return null;[i,j]=valid;}
@@ -60,7 +61,7 @@ function installThermalRiver(){
         const mat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,uniforms:{time:timeUniform,fogDensity:fogUniform,kind:{value:surface.kind==='fall'?2:surface.kind==='spring'?1:0}},
             vertexShader:'varying vec2 p;varying vec3 world;varying float depth;void main(){p=uv;vec4 w=modelMatrix*vec4(position,1.);world=w.xyz;vec4 eye=viewMatrix*w;depth=length(eye.xyz);gl_Position=projectionMatrix*eye;}',
             fragmentShader:`uniform float time;uniform float kind;uniform float fogDensity;varying vec2 p;varying vec3 world;varying float depth;
-            void main(){if(kind<.5&&length((world.xz-vec2(-370.,-430.))/vec2(150.,125.))<.985)discard;
+            void main(){if(kind<.5&&(length((world.xz-vec2(-370.,-430.))/vec2(150.,125.))<.985||length((world.xz-vec2(70.,-825.))/vec2(230.,125.))<.995))discard;
             float waves=sin(p.y*4.-time*2.4+sin(p.x*23.+time)*.4);float ripples=sin(p.x*70.+sin(p.y*2.-time)*3.);vec3 color=mix(vec3(.035,.17,.22),vec3(.22,.53,.58),.45+waves*.18+ripples*.07);float alpha=.72;
             if(kind>1.5){float bands=sin(p.x*180.+sin(p.y*3.-time*5.)*3.);color=mix(vec3(.17,.44,.53),vec3(.82,.94,.96),.6+.22*bands+.12*waves);alpha=.9;}
             else if(kind>.5){color=mix(vec3(.025,.24,.28),vec3(.13,.62,.65),.5+waves*.15+ripples*.05);alpha=.82;}
@@ -93,7 +94,7 @@ function installThermalRiver(){
     const stunStatus=document.createElement('div');stunStatus.id='river-stun-status';stunStatus.setAttribute('role','status');stunStatus.hidden=true;gameHud.append(stunStatus);
     const stars=new THREE.Group();for(let i=0;i<5;i++){const mesh=new THREE.Mesh(new THREE.OctahedronGeometry(.07),new THREE.MeshBasicMaterial({color:0xffdd72}));mesh.position.set(Math.cos(i*Math.PI*.4)*.38,0,Math.sin(i*Math.PI*.4)*.38);stars.add(mesh);}stars.visible=false;scene.add(stars);
     let stun=0,immunity=0,pending=null,time=0;
-    const active=()=>gameState.isPlaying&&!gameState.inDialogue&&!document.querySelector('.modal-overlay.active');
+    const active=()=>gameState.isPlaying&&!gameState.inDialogue&&!document.querySelector('.modal-overlay.active')&&!window.moonRailway?.aboard;
     function dry(x,z){const y=ground(x,z);return y!==null&&mountainContains(x,z)&&(!waterAt(x,z)||y>=waterAt(x,z).y-.35);}
     function nearestPatrol(){let index=0,best=Infinity;patrol.forEach((p,i)=>{const d=wolf.group.position.distanceTo(new THREE.Vector3(...p));if(d<best){best=d;index=i;}});return index;}
     wolf.route=nearestPatrol();
@@ -121,12 +122,12 @@ function installThermalRiver(){
     }
     function seesPlayer(){const origin=wolf.group.position.clone().add(new THREE.Vector3(0,1.4,0)),end=playerGroup.position.clone().add(new THREE.Vector3(0,.45,0)),delta=end.sub(origin),length=delta.length();return !new THREE.Raycaster(origin,delta.normalize(),.1,Math.max(.1,length-.25)).intersectObject(terrain,false).length;}
     function pause(){stun=0;pending=null;marker.visible=false;stars.visible=false;stunStatus.hidden=true;if(wolf.health>0){wolf.state='patrol';wolf.timer=0;wolf.cooldown=Math.max(2,wolf.cooldown);wolf.route=nearestPatrol();wolf.target.fromArray(patrol[wolf.route]);}}
-    function hitWolf(amount){if(!active()||wolf.health<=0||!Number.isFinite(amount)||amount<=0)return false;wolf.health=Math.max(0,wolf.health-amount);if(wolf.health===0){wolf.state='dead';window.fieldGuide?.record('speed_wolf',true);wolf.timer=0;marker.visible=false;syncWolf();showNotification('Đã hạ Sói Tốc Độ!');}return true;}
+    function hitWolf(amount){if(!active()||wolf.health<=0||!Number.isFinite(amount)||amount<=0)return false;wolf.health=Math.max(0,wolf.health-heroOutgoingDamage(amount));if(wolf.health===0){wolf.state='dead';window.fieldGuide?.record('speed_wolf',true);wolf.timer=0;marker.visible=false;syncWolf();showNotification('Đã hạ Sói Tốc Độ!');}return true;}
     function attackWolf(hero){const p=playerGroup.position,range=hero==='rabbit'?22:3.2;if(p.distanceTo(wolf.group.position)>range)return false;wolf.collider.disabled=true;let blocked=false;const end=wolf.group.position.clone(),steps=Math.ceil(p.distanceTo(end)/.5);for(let i=1;i<steps-2;i++){const q=p.clone().lerp(end,i/steps);if(checkCollision(q.x,q.z,q.y+.2,.03)){blocked=true;break;}}wolf.collider.disabled=wolf.health<=0;return !blocked&&hitWolf(hero==='rabbit'?110:145);}
     function hurt(amount,stunning){
-        if(!active()||immunity>0)return false;amount=heroIncomingDamage(amount);const armor=Math.min(gameState.armor,amount);gameState.armor-=armor;gameState.health=Math.max(0,gameState.health-amount+armor);immunity=.7;
+        if(!active()||immunity>0)return false;window.playerLife?.noteDamage('wolf');amount=heroIncomingDamage(amount);const armor=Math.min(gameState.armor,amount);gameState.armor-=armor;gameState.health=Math.max(0,gameState.health-amount+armor);immunity=.7;
         if(stunning){stun=1.4;window.crystalWings?.stopFlight();resetGameplayInput();showNotification('Nanh Sói Tốc Độ: choáng 1,4 giây!');}
-        if(gameState.health===0){pause();Object.assign(gameState,{health:gameState.maxHealth,armor:gameState.maxArmor,stamina:100,oxygen:100});immunity=3;travel('base');showNotification('Bạn đã gục ngã. Hồi phục tại lối vào thác.');}
+        if(gameState.health===0){if(window.playerLife){playerLife.die();return true;}pause();Object.assign(gameState,{health:gameState.maxHealth,armor:gameState.maxArmor,stamina:100,oxygen:100});immunity=3;travel('base');showNotification('Bạn đã gục ngã. Hồi phục tại lối vào thác.');}
         updatePlayerVitals();return true;
     }
     function update(dt){
@@ -160,7 +161,7 @@ function installThermalRiver(){
         if(where==='spring'){camYaw=-Math.PI/2;playerGroup.rotation.y=Math.PI/2;}
     }
     function rescue(){const p=playerGroup.position;if(Math.hypot(p.x-data.spring.x,p.z-data.spring.z)<100){travel('spring');return;}const b=[...data.bridges].sort((a,b)=>Math.hypot(a.x-p.x,a.z-p.z)-Math.hypot(b.x-p.x,b.z-p.z))[0];fastTravelTo(b.x+b.nx*(b.half+b.run-.1),b.z+b.nz*(b.half+b.run-.1),'Bờ sông an toàn',bridgeY(b,b.half+b.run-.1));}
-    function clipCamera(origin,desired){const delta=desired.clone().sub(origin),samples=Math.max(8,Math.ceil(delta.length()/.2));for(let i=1;i<=samples;i++){const p=origin.clone().addScaledVector(delta,i/samples),g=ground(p.x,p.z);if(g!==null&&p.y<g+.15)return origin.clone().addScaledVector(delta,Math.max(0,(i-2)/samples));}return desired;}
+    function clipCamera(origin,desired){const delta=desired.clone().sub(origin),samples=Math.max(8,Math.ceil(delta.length()/.2));for(let i=1;i<=samples;i++){const p=origin.clone().addScaledVector(delta,i/samples),g=window.mangroveRealm?.ground(p.x,p.z)??ground(p.x,p.z);if(g!==null&&p.y<g+.15)return origin.clone().addScaledVector(delta,Math.max(0,(i-2)/samples));}return desired;}
     function drawMinimap(ctx,cx,cy,scale){ctx.save();ctx.fillStyle='#548d9b55';ctx.beginPath();ctx.ellipse(cx-370*scale,cy-430*scale,150*scale,125*scale,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#68c3ceaa';ctx.lineWidth=1;for(const edge of data.edges){ctx.beginPath();edge.points.forEach((p,i)=>{if(i===0)ctx.moveTo(cx+p[0]*scale,cy+p[2]*scale);else ctx.lineTo(cx+p[0]*scale,cy+p[2]*scale);});ctx.stroke();}ctx.fillStyle='#b1e5d5';ctx.beginPath();ctx.arc(cx+data.spring.x*scale,cy+data.spring.z*scale,2.2,0,Math.PI*2);ctx.fill();ctx.restore();}
     for(const [where,text] of [['base','🌊 Thác Núi Nguyệt Tuyền'],['spring','♨ Suối nước nóng'],['delta','🌉 Sông & cầu gỗ']]){const button=document.createElement('button');button.className='tour-btn';button.dataset.riverTravel=where;button.textContent=text;button.onclick=()=>{gameHUD.closePanels();travel(where);};document.querySelector('#hud-travel .hud-destinations').append(button);}
     landmarksData.push({id:'thermal_waterfall',name:'Thác Núi Nguyệt Tuyền',icon:'🌊',x:-760,z:650,color:'#83dbef'},{id:'thermal_spring',name:'Suối Nước Nóng',icon:'♨',x:-765,z:660,color:'#b0dfc7'});

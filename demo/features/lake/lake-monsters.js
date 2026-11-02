@@ -17,7 +17,7 @@ function installLakeMonsters(){
         return false;
     }
     function inZone(p){return Math.hypot((p.x-lake.x)/lake.rx,(p.z-lake.z)/lake.rz)<1.36&&p.y<20;}
-    function canTarget(m,p){return m.health>0&&inZone(p)&&Boolean(window.playerSurvival?.inWater(p))&&!onBridge(p)&&m.position.distanceTo(new THREE.Vector3(p.x,m.position.y,p.z))<=m.spec.detect;}
+    function canTarget(m,p){return !window.moonRailway?.aboard&&m.health>0&&inZone(p)&&Boolean(window.playerSurvival?.inWater(p))&&!onBridge(p)&&m.position.distanceTo(new THREE.Vector3(p.x,m.position.y,p.z))<=m.spec.detect;}
     for(const spec of data.models){
         const group=new THREE.Group();group.name='LakeBoss_'+spec.id;scene.add(group);
         const joints={},materials={};
@@ -61,11 +61,11 @@ function installLakeMonsters(){
     function setState(m,state){m.state=state;m.timer=0;if(state!=='windup')m.marker.visible=false;}
     function distanceToBody(m,p){return Math.min(...m.colliders.map(c=>Math.hypot(Math.max(0,Math.hypot(p.x-c.x,p.z-c.z)-c.radius),Math.max(0,c.minY-p.y,p.y-c.maxY))));}
     function damagePlayer(amount){
-        if(!Number.isFinite(amount)||amount<=0)return false;
+        if(window.moonRailway?.aboard||!Number.isFinite(amount)||amount<=0)return false;
         if(!gameState.isPlaying||gameState.inDialogue||!window.playerSurvival?.inWater(playerGroup.position)||onBridge(playerGroup.position)||immunity>0)return false;
-        amount=heroIncomingDamage(amount);const absorbed=Math.min(gameState.armor,amount);gameState.armor-=absorbed;gameState.health=Math.max(0,gameState.health-(amount-absorbed));immunity=.65;
+        window.playerLife?.noteDamage('lake_monster');amount=heroIncomingDamage(amount);const absorbed=Math.min(gameState.armor,amount);gameState.armor-=absorbed;gameState.health=Math.max(0,gameState.health-(amount-absorbed));immunity=.65;
         gameHud.classList.add('monster-hit');setTimeout(()=>gameHud.classList.remove('monster-hit'),250);
-        if(gameState.health===0){
+        if(gameState.health===0){if(window.playerLife){playerLife.die();return true;}
             gameState.health=gameState.maxHealth;gameState.armor=gameState.maxArmor;gameState.stamina=100;gameState.oxygen=100;immunity=3;pendingAttack=null;
             for(const actor of actors)if(actor.health>0)setState(actor,'patrol');
             resetGameplayInput();mercuryLake.travel();showNotification('Bạn đã gục ngã. Hồi phục tại cầu đá an toàn.');
@@ -74,7 +74,7 @@ function installLakeMonsters(){
     }
     function hitMonster(m,amount){
         if(m.health<=0||!Number.isFinite(amount)||amount<=0)return false;
-        m.health=Math.max(0,m.health-Math.max(0,amount));m.flash=.22;
+        m.health=Math.max(0,m.health-heroOutgoingDamage(amount));m.flash=.22;
         if(m.health===0){setState(m,'dead');syncColliders(m);window.fieldGuide?.record(m.spec.id,true);showNotification('Đã hạ '+m.spec.name+'!');}
         return true;
     }

@@ -1,0 +1,6 @@
+body.in-evil-cavern .hud-minimap-card{display:none!important;}
+#cavern-sense{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);max-width:min(600px,88vw);padding:10px 16px;background:#08090ef2;border:1px solid #635665;color:#d7cad9;border-radius:10px;text-align:center;font-size:12px;line-height:1.6;pointer-events:none;}
+#cavern-combat{position:fixed;top:160px;left:18px;width:min(280px,85vw);padding:12px;background:#0c1019ec;border:1px solid #686177;border-radius:12px;color:#ddd2e6;font-size:13px;}
+#cavern-combat small{display:block;margin-top:6px;color:#9e91ae;}
+#cavern-combat[hidden],#cavern-sense[hidden]{display:none;}
+@media(max-width:650px){#cavern-combat{top:176px;left:12px;width:230px;}#cavern-sense{bottom:140px;font-size:11px;}}

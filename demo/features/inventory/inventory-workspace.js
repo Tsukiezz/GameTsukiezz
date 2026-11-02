@@ -1,0 +1,24 @@
+/* Slots retain the original detail rows and action handlers. */
+function installInventoryWorkspace(){
+    const layout=inventoryLayout,modal=document.getElementById('modal-backpack'),source=layout.grid,card=modal.querySelector('.backpack-card');
+    source.className='inventory-source';const workspace=document.createElement('div');workspace.className='inventory-workspace';source.before(workspace);const slots=document.createElement('div');slots.className='inventory-grid';slots.setAttribute('role','listbox');slots.setAttribute('aria-label','Danh sách vật phẩm');workspace.append(slots);const detail=document.createElement('aside');detail.className='inventory-detail';detail.setAttribute('aria-label','Chi tiết vật phẩm');workspace.append(detail);
+    const nav=layout.toolbar.querySelector('nav');nav.replaceChildren();let category='items',selected=null,signature='',timer=0;const rows=new Set();
+    const normalize=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
+    const icons={'perpetual-engine':'engine','snow-crystal-inventory':'snow_crystal','equipment-iron':'iron_armor','equipment-diving':'diving_suit','equipment-rage':'rage_armor','void-fragment-inventory':'void_fragment','nakat-inventory':'nakat','camp-resource-nakat':'nakat'};
+    function icon(row){let kind=icons[row.id];if(/dung nham/i.test(row.querySelector('h3')?.textContent||''))kind='lava_sword';if(!kind)return;let image=row.querySelector(':scope > img');if(!image){image=document.createElement('img');const first=row.firstElementChild;if(first&&!first.querySelector('h3'))first.replaceWith(image);else row.prepend(image);}const path='features/inventory/assets/'+kind+'.png';if(image.getAttribute('src')!==path)image.src=path;image.alt=row.querySelector('h3')?.textContent||kind;}
+    function group(row){return ['equipment','travel'].includes(row.dataset.category)||row.id==='backpack-river-boat'?'equipment':'items';}
+    function render(){
+        observer.disconnect();for(const row of card.querySelectorAll('.backpack-item')){rows.add(row);icon(row);}
+        const query=normalize(layout.toolbar.querySelector('input').value),visible=[...rows].filter(r=>group(r)===category&&normalize(r.textContent).includes(query));if(!visible.includes(selected))selected=visible[0]||null;
+        for(const row of rows){row.hidden=false;if(row!==selected&&row.parentElement!==source)source.append(row);}
+        if(selected&&selected.parentElement!==detail)detail.replaceChildren(selected);else if(!selected)detail.textContent='Không có vật phẩm phù hợp.';
+        for(const b of nav.querySelectorAll('button'))b.setAttribute('aria-pressed',String(b.dataset.category===category));
+        const next=category+'|'+query+'|'+visible.map(r=>(r.id||r.querySelector('h3')?.textContent)+'|'+r.querySelector('strong')?.textContent+'|'+(r===selected)).join(';');
+        if(next!==signature){signature=next;slots.replaceChildren();for(const row of visible){const b=document.createElement('button');b.type='button';b.className='inventory-slot';b.setAttribute('role','option');b.setAttribute('aria-selected',String(row===selected));const title=row.querySelector('h3')?.textContent||'Vật phẩm',image=row.querySelector(':scope > img');b.title=title;b.setAttribute('aria-label',title+' · '+(row.querySelector('strong')?.textContent||''));if(image){const i=image.cloneNode();i.alt='';b.append(i);}else{const symbol=document.createElement('div');symbol.textContent=row.querySelector('.camp-item-icon')?.textContent||'✦';symbol.style.fontSize='30px';b.append(symbol);}const label=document.createElement('span');label.textContent=title;b.append(label);const qty=document.createElement('b');qty.textContent=(row.querySelector('strong')?.textContent||'').replace(/^Số lượng:\s*/,'');if(qty.textContent.length>13)qty.textContent=/trang bị/i.test(qty.textContent)?'✓':/sở hữu|chế tạo/i.test(qty.textContent)?'◆':'';b.append(qty);b.onclick=()=>{selected=row;render();};slots.append(b);}}
+        observer.observe(source,{childList:true,subtree:true,characterData:true});observer.observe(detail,{childList:true,subtree:true,characterData:true});
+    }
+    const observer=new MutationObserver(()=>{if(timer)return;timer=requestAnimationFrame(()=>{timer=0;render();});});
+    for(const [id,label] of [['items','Vật phẩm'],['equipment','Trang bị']]){const b=document.createElement('button');b.type='button';b.dataset.category=id;b.textContent=label;b.onclick=()=>{category=id;selected=null;render();};nav.append(b);}
+    layout.toolbar.querySelector('input').oninput=render;layout.render=render;new MutationObserver(()=>{if(modal.classList.contains('active'))render();}).observe(modal,{attributes:true,attributeFilter:['class']});
+    window.inventoryWorkspace={source,slots,detail,render,get category(){return category;},select(row){category=group(row);selected=row;render();}};render();
+}

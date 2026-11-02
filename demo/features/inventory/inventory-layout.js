@@ -1,0 +1,11 @@
+/* Keep the real item controls and handlers; organize them without cloning. */
+function installInventoryLayout(){
+    const modal=document.getElementById('modal-backpack'),card=modal.querySelector('.backpack-card'),toolbar=document.createElement('div');toolbar.className='inventory-toolbar';toolbar.innerHTML='<label class="inventory-search">Tìm vật phẩm<input type="search" placeholder="Tên vật phẩm, thuyền, gỗ…" aria-label="Tìm vật phẩm"></label><nav class="inventory-tabs" aria-label="Nhóm vật phẩm"></nav>';
+    card.querySelector('.backpack-intro').after(toolbar);const grid=document.createElement('div');grid.className='inventory-grid';grid.id='backpack-items';toolbar.after(grid);let category='all';
+    const labels={all:'Tất cả',consumables:'Vật phẩm',equipment:'Trang bị',travel:'Di chuyển',materials:'Nguyên liệu'};
+    for(const [id,label] of Object.entries(labels)){const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.category=id;b.onclick=()=>{category=id;render();};toolbar.querySelector('nav').append(b);}
+    for(const row of [...card.querySelectorAll('.backpack-item')]){if(!row.dataset.category)row.dataset.category=row.id==='backpack-river-boat'?'travel':row.id.includes('supply')||row.querySelector('#use-chocolate')?'consumables':'equipment';grid.append(row);}
+    const empty=document.createElement('p');empty.className='inventory-empty';empty.textContent='Không có vật phẩm phù hợp.';grid.after(empty);const normalize=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
+    function render(){const text=normalize(toolbar.querySelector('input').value);let visible=0;for(const row of grid.children){row.hidden=category!=='all'&&row.dataset.category!==category||!normalize(row.textContent).includes(text);if(!row.hidden)visible++;row.classList.toggle('is-equipped',!!row.querySelector('[aria-pressed="true"]'));}for(const b of toolbar.querySelectorAll('button')){b.setAttribute('aria-pressed',String(b.dataset.category===category));}empty.hidden=visible>0;}
+    toolbar.querySelector('input').oninput=render;new MutationObserver(render).observe(modal,{attributes:true,attributeFilter:['class']});window.inventoryLayout={grid,toolbar,render};render();
+}

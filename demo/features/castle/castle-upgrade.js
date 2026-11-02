@@ -38,6 +38,8 @@ function nearbyColliders(x,z,radius=PLAYER_RADIUS) {
     for(const c of window.lakeMonsters?.colliders||[])result.add(c);
     if(window.bachKhuyet?.tigerCollider)result.add(bachKhuyet.tigerCollider);
     if(window.riverRealm?.wolf.collider)result.add(riverRealm.wolf.collider);
+    for(const c of window.evilCavern?.dynamicColliders||[])result.add(c);
+    for(const c of window.volcanicValley?.dynamicColliders||[])result.add(c);
     return result;
 }
 
@@ -86,6 +88,7 @@ function installCastleUpgrade() {
     const cg = castlePhysics.group;
     const data = window.CASTLE_EXTENSION;
     if (!data) throw new Error('Missing Blender castle extension');
+    prepareCastleIntegrity(data);
     const obsoleteGuard=cg.getObjectByName('basement-west-guard');
     if(obsoleteGuard) {
         cg.remove(obsoleteGuard);
@@ -471,12 +474,19 @@ function updateCastleGate(dt) {
 
 // World-space vertical motion: a lost support starts a fall, never snaps down.
 function updatePlayerVertical(dt) {
+    if(window.explorationUpdate?.vertical(dt))return;
+    if(window.voidDistrict?.vertical())return;
+    if(window.stationMobility?.vertical())return;
+    if(window.snowQueen?.frozen)keys.jump=false;
+    if(window.riverBoat?.vertical())return;
+    if(window.moonRailway?.passengerVertical())return;
     if(window.monsterSkills?.captured)return;
     if(window.riverRealm?.stunned){keys.jump=false;keys.swimUp=false;keys.dive=false;}
     if(window.crystalWings?.vertical(dt))return;
     if(window.playerSurvival?.vertical(dt))return;
+    window.terrainTraversal?.slide(dt);
     const p=playerGroup.position;
-    const previous=p.y;
+    const previous=p.y;let landed=false;
     const support=getGroundElevation(p.x,p.z,previous);
     if(isGrounded) {
         const onFloor=[-5,1,6,9.5,13,20].some(y=>Math.abs(y-p.y)<.03);
@@ -486,9 +496,14 @@ function updatePlayerVertical(dt) {
             castleSafeAnchor=null;
         }
     }
-    if (isGrounded && support<previous-MAX_STEP_HEIGHT-.001) {
+    // Keep the feet in contact while descending a joined stair flight. This
+    // small downward reach never increases the allowed upward step or catches
+    // a player who has jumped/fallen off the stairs.
+    const stairDescent=isGrounded&&previous-support<=.55&&Number.isFinite(window.highlandTrails?.support(p.x,p.z,previous));
+    if (isGrounded && support<previous-MAX_STEP_HEIGHT-.001&&!stairDescent) {
         isGrounded=false; jumpVelocityY=0;
     }
+    if(window.desertRealm?.petrified)keys.jump=false;
     if (keys.jump) {
         if (isGrounded && (!window.playerSurvival || playerSurvival.spend(12))) { jumpVelocityY=5.4; isGrounded=false; }
         keys.jump=false;
@@ -504,7 +519,7 @@ function updatePlayerVertical(dt) {
         // the previous feet position. Catch that crossing instead of falling
         // through the ramp forever after a running jump.
         if (jumpVelocityY<=0 && next<=support && previous>=support-MAX_STEP_HEIGHT-.001) {
-            next=support; isGrounded=true; jumpVelocityY=0;
+            next=support; isGrounded=!window.terrainTraversal?.steepAt(p.x,p.z,support); jumpVelocityY=0;landed=isGrounded;
         }
         p.y=next;
     }
@@ -516,7 +531,9 @@ function updatePlayerVertical(dt) {
         // and free falling elsewhere retain their gravity-based movement.
         p.copy(castleSafeAnchor);isGrounded=true;jumpVelocityY=0;
     }
+    window.playerLife?.sample(previous,p.y,landed);
     window.romanArena?.safety();
+    window.terrainContinuity?.recover();
     window.moonSafetyLayer?.catchFall();
     currentGroundY=p.y; jumpY=0;
 }

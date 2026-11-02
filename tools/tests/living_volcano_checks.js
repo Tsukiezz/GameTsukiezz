@@ -1,0 +1,38 @@
+(()=>{
+    enterGame();setGraphicsProfile('potato');
+    const c=volcanicValley,e=livingWorld,results=[];const check=(name,ok,detail)=>{results.push({name,ok,detail});if(!ok)throw new Error(name+' '+JSON.stringify(detail));};
+    const place=(x,z,y=c.ground(x,z))=>{playerGroup.position.set(x,y,z);currentGroundY=y;isGrounded=true;jumpY=0;jumpVelocityY=0;resetGameplayInput();playerSurvival.refresh();};
+    const tick=t=>{for(let i=0;i<Math.ceil(t*60);i++)c.update(1/60);};
+    check('Flashlight is redesigned from Blender with detailed grip, fins and frame',SOLAR_FLASHLIGHT_DATA.source==='Blender'&&SOLAR_FLASHLIGHT_DATA.parts.length>=39);
+    check('All seven requested wildlife species spawn',e.species.length===7&&e.species.every(k=>e.actors.filter(a=>a.kind===k).length>=12),{population:e.population});
+    check('Vegetation spans every map quadrant with varied species',e.placements.length>3000&&new Set(e.placements.map(p=>p.kind)).size>=7&&new Set(e.placements.map(p=>Math.sign(p.x)+','+Math.sign(p.z))).size===4,{plants:e.placements.length});
+    check('All flora is grounded and excludes water, lava and entrances',e.placements.every(p=>Math.abs(e.surface(p.x,p.z)-p.y)<.001&&e.allowed(p.x,p.z)));
+    check('Animals spawn on safe dry land',e.actors.every(a=>e.allowed(a.home.x,a.home.z,true)));
+    check('Terrain seams sealed on river, mountain and volcano',mapVisualRepair.repairs.length===4&&mapVisualRepair.repairs.every(r=>r.sealedEdges>0),mapVisualRepair.repairs);
+    check('No missing materials or white fallback meshes',Object.values(VOLCANIC_ASSETS.models).flat().every(p=>VOLCANIC_ASSETS.materials[p.material])&&SOLAR_FLASHLIGHT_DATA.parts.every(p=>SOLAR_FLASHLIGHT_DATA.materials[p.material]));
+    check('Dragon and sword are actual Blender meshes',VOLCANIC_ASSETS.source==='Blender'&&VOLCANIC_ASSETS.models.dragon.length>100&&c.dragon.maxHealth===20000);
+    check('Raised caldera is a real mountain obstacle',c.ground(770,-540)>=70&&Math.max(...c.heights)>200&&c.lavaY>60&&c.ground(770,-610)<c.lavaY,{floor:c.ground(770,-540),peak:Math.max(...c.heights),lava:c.lavaY});
+    c.travel();let maxError=0;for(let z=-255;z>=-540;z-=.15){const x=825+Math.sin((z+255)/90)*8;movePlayerWithCollisions(x-playerGroup.position.x,z-playerGroup.position.z);updatePlayerVertical(1/60);maxError=Math.max(maxError,Math.abs(playerGroup.position.y-c.ground(playerGroup.position.x,playerGroup.position.z)));}
+    check('Real player climbs the raised trail without falling through',playerGroup.position.z< -539&&maxError<.35,{position:playerGroup.position.toArray(),maxError});
+    check('Trail gains over seventy metres',playerGroup.position.y>=70);
+    for(let i=0;i<400&&playerGroup.position.x>773.8;i++){movePlayerWithCollisions(-.15,0);updatePlayerVertical(1/60);}
+    check('Basalt causeway reaches the hidden sword above lava',Math.abs(playerGroup.position.z+540)<.3&&playerGroup.position.x<774&&playerGroup.position.y>c.lavaY+1,{position:playerGroup.position.toArray()});
+    checkInteractables();check('Sword can be interacted with after crossing',nearbyItem===c.item);handleInteraction();check('Sword enters backpack and cannot be collected twice',c.owned&&c.item.collected&&!c.swordModel.visible);c.row.querySelector('button').click();check('Sword can be equipped',c.equipped);
+    place(830,-590);c.dragon.group.position.set(830,c.ground(830,-590),-594);c.dragon.breathCooldown=100;c.dragon.ballCooldown=100;c.dragon.cooldown=100;c.beginPlayerAttack('hamster');tick(.25);check('Equipped sword deals its actual 600 damage',c.dragon.health===19400,{health:c.dragon.health});
+    const before=c.dragon.health;place(825,-260);c.beginPlayerAttack('hamster');tick(.25);check('Hero cannot damage the dragon remotely',c.dragon.health===before);
+    place(830,-570);c.dragon.state='patrol';c.dragon.breathCooldown=0;check('Lava breath has a dedicated warning',c.startBreath()&&c.dragon.state==='breath-warning');place(860,-570);tick(1.85);check('Breath activates after warning with locked aim',c.dragon.state==='breath'&&c.dragon.target.x===830);const dodge=gameState.health;tick(.5);check('Moving out of the breath cone dodges damage',gameState.health===dodge);
+    c.pause();c.dragon.state='patrol';c.dragon.ballCooldown=0;place(830,-565);check('Fireball skill is distinct from breath',c.startBalls());tick(1.85);check('Dragon throws three real projectiles',c.projectiles.length===3,{count:c.projectiles.length});
+    c.pause();place(830,-565);gameState.armor=0;gameState.health=100;c.fireball(playerGroup.position.clone(),playerGroup.position.clone().add(new THREE.Vector3(0,.4,2)));tick(.12);check('Fireball impact deals damage and applies burning',gameState.health<=58&&c.burn>5,{health:gameState.health,burn:c.burn});const hp=gameState.health;c.dragon.breathCooldown=100;c.dragon.ballCooldown=100;tick(1.2);check('Burn drains health over time',gameState.health<hp,{health:gameState.health});
+    c.pause();const deaths=c.deaths;place(770,-610,c.lavaY-.1);gameState.armor=100;gameState.health=100;tick(.02);check('Lava kills instantly despite full armor and rescues safely',c.deaths===deaths+1&&playerGroup.position.distanceTo(c.entry)<.01&&gameState.health===gameState.maxHealth,{deaths:c.deaths});
+    c.pause();place(c.vents[0].x,c.vents[0].z);c.eruption.vent=0;check('Eruption has explicit probability and warning phase',c.eruption.chance>0&&c.eruption.chance<1&&c.startEruption());c.eruption.vent=0;gameState.health=100;gameState.armor=0;tick(3.2);check('Eruption activates after warning and burns nearby players',c.eruption.state==='erupting'&&c.burn>0,{state:c.eruption.state,burn:c.burn});tick(.4);check('Erupting vents eject lava bombs',c.projectiles.some(p=>p.volcanic));
+    c.pause();place(825,-260);c.dragon.health=1;c.hit(1);check('Dragon can be defeated and recorded',c.dragon.state==='dead'&&fieldGuide.records.war_dragon?.defeated);
+    for(const kind of e.species){const image=libraryPreviews.get('roaming_'+kind);check('Actual wildlife portrait: '+kind,Boolean(image?.startsWith('data:image/png')));}
+    check('War Dragon library portrait renders',Boolean(libraryPreviews.get('war_dragon')?.startsWith('data:image/png')));
+    const a=e.actors.find(a=>a.kind==='dog');place(a.home.x,a.home.z,e.surface(a.home.x,a.home.z));a.group.visible=true;const start=a.group.position.clone();a.rest=0;a.destination=a.home.clone().add(new THREE.Vector3(3,0,0));for(let i=0;i<120;i++)e.update(1/60);check('Animals really wander and stay grounded',a.group.position.distanceTo(start)>.1&&Math.abs(a.group.position.y-e.surface(a.group.position.x,a.group.position.z))<.01);
+    const clipped=mapVisualRepair.clipCamera(new THREE.Vector3(825,c.ground(825,-280)+1,-280),new THREE.Vector3(825,-50,-280));check('Orbit camera is stopped above terrain',clipped.y>=c.ground(825,-280)+.14);
+    let steep=null;for(let x=570;x<970&&!steep;x+=4)for(let z=-800;z<-260;z+=4){const y=c.ground(x,z),h=c.ground(x+.08,z);if(h>y+.14&&y>10&&Math.abs(x-825)>35){steep={x,z,y};break;}}
+    check('Steep outer cliffs exist',Boolean(steep));place(steep.x,steep.z,steep.y);movePlayerWithCollisions(.08,0);check('Real movement cannot walk straight up cliff faces',Math.abs(playerGroup.position.x-steep.x)<.001);
+    check('New creatures and boss exist in the library',e.species.every(k=>fieldGuide.catalog.some(c=>c.id==='roaming_'+k))&&fieldGuide.catalog.some(c=>c.id==='war_dragon'));
+    c.dragon.health=20000;c.dragon.state='patrol';c.travel();gameState.inDialogue=true;camera.position.set(775,70,-340);camera.lookAt(770,-10,-565);playerSurvival.environment();renderer.render(scene,camera);
+    return {results,plants:e.placements.length,population:e.population};
+})()

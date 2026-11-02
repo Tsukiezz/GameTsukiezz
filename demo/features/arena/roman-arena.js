@@ -52,7 +52,7 @@ function buildRuinedRomanArena() {
             for(const axis of [0,Math.PI,Math.PI*2]){
                 const next=[];
                 for(const [lo,hi] of spans){
-                    const l=Math.max(lo,axis-.13),r=Math.min(hi,axis+.13);
+                    const l=Math.max(lo,axis-(axis===Math.PI?.34:.16)),r=Math.min(hi,axis+(axis===Math.PI?.34:.16));
                     if(l>=r){next.push([lo,hi]);continue;}
                     if(lo<l)next.push([lo,l]);if(r<hi)next.push([r,hi]);
                     if(top>3.5)sector(inner,outer,3.5,top,l,r,mat,false);
@@ -93,7 +93,7 @@ function buildRuinedRomanArena() {
         if(p.r>37||p.r<20.5)return .35;
         if(p.r>=33)return 12.35;
         if(p.gate)return .35;
-        if(p.stairs)return .35+Math.min(80,Math.floor((p.r-20.5)/12.5*80+1e-5)+1)*.15;
+        if(p.stairs)return .35+Math.min(200,Math.floor((p.r-20.5)/12.5*200+1e-5)+1)*.06;
 
         if(p.r<23)return .35;
         if(p.r<26)return 2.45;
@@ -123,13 +123,13 @@ function buildRuinedRomanArena() {
         }
     }
     // Spectators climb outside the cavea; the sand has no public stairs.
-    const accessHeight=(a)=>.35+Math.min(80,Math.floor(Math.min(Math.PI/2,Math.abs(Math.atan2(Math.cos(a),-Math.sin(a))))/(Math.PI/2)*80+1e-5)+1)*.15;
+    const accessHeight=(a)=>.35+Math.min(200,Math.floor(Math.min(Math.PI/2,Math.abs(Math.atan2(Math.cos(a),-Math.sin(a))))/(Math.PI/2)*200+1e-5)+1)*.06;
     sector(37.3,46,0,.35,0,TAU,'limestone',false);
-    for(const side of [-1,1])for(let i=0;i<80;i++){
-        const a=-Math.PI/2+side*i*Math.PI/160,b=-Math.PI/2+side*(i+1)*Math.PI/160;
-        const top=.35+(i+1)*.15;
+    for(const side of [-1,1])for(let i=0;i<200;i++){
+        const a=-Math.PI/2+side*i*Math.PI/400,b=-Math.PI/2+side*(i+1)*Math.PI/400;
+        const top=.35+(i+1)*.06;
         sector(39,43,0,top,Math.min(a,b),Math.max(a,b),'limestone',false);
-        for(const r of [39,43].filter(r=>i>=4&&(r===43||i<75)))sector(r,r+.12,top,top+.85,Math.min(a,b),Math.max(a,b),'iron',false);
+        for(const r of [39,43].filter(r=>i>=4&&(r===43||i<195)))sector(r,r+.12,top,top+.85,Math.min(a,b),Math.max(a,b),'iron',false);
     }
     for(const a of [0,Math.PI])sector(33,39,12,12.35,a-.10,a+.10,'limestone',false);
     for(const a of [0,Math.PI])sector(39,43,12,12.35,a===0?a:a-.10,a===0?a+.10:a,'limestone',false);
@@ -143,14 +143,14 @@ function buildRuinedRomanArena() {
     // No decorative bridge across the entrance or public stair aisles.
     // Continuous parapets keep spectators behind the edge even at ruined bays.
     for(const [a,b] of spans([[0,.11],[Math.PI,.11]]))sector(36.5,36.85,12.35,13.4,a,b,'limestone');
-    for(const [a,b] of spans([[0,.14],[Math.PI,.14]]))sector(22.85,23.1,.35,3.3,a,b,'limestone');
+    for(const [a,b] of spans([[0,.17],[Math.PI,.35]]))sector(22.85,23.1,.35,3.3,a,b,'limestone');
     for(let i=0;i<72;i++){
         const a=i*TAU/72;
         box(Math.cos(a)*36.68*1.15,13.5,Math.sin(a)*36.68*.9,.25,.18,.25,'worn');
     }
     box(0,.175,-30,6.6,.35,20,'limestone');
     box(0,.175,-40.5,22,.35,9,'worn');
-    box(0,.175,-8,3.8,.35,22,'sand');
+    // The continuous sand slab already covers the pit; no coplanar overlay.
     function arch(x,z,angle,base,width,height){
         const outer=width/2,inner=outer-.4;
         const shape=new THREE.Shape();shape.absarc(0,0,outer,0,Math.PI,false);
@@ -169,6 +169,7 @@ function buildRuinedRomanArena() {
     for(let row=0;row<3;row++)for(let i=0;i<36;i++){
         const a=i*TAU/36,edge=a-TAU/72;
         const x=Math.cos(edge)*36*1.15,z=Math.sin(edge)*36*.9,base=.35+row*4.7;
+        if(row<2&&Math.abs(z)<(x<0?9:4)&&Math.abs(x)>22)continue;
         if(x>22&&z>5&&z<10.5)continue;
         if(row===2&&Math.abs(x)<6&&z>25)continue;
         box(x,base+1.7,z,.9,3.4,1.1,'limestone');

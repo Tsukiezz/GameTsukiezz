@@ -1,0 +1,2610 @@
+{
+  "workspace": "C:\\Users\\Admin\\OneDrive\\Máy tính\\Desktop\\CODE\\Tsukiezz\\projects\\GameTsukiezz",
+  "retained": [
+    "demo runtime and assets",
+    "editable current Blender source",
+    "current builders/tests",
+    "active server logs",
+    "current acceptance reports",
+    "one rollback archive"
+  ],
+  "files": {
+    "Assets/Art/Blender/Characters/HamsterWarrior.fbx": {
+      "reason": "Legacy Unity FBX export; browser uses JS mesh data and editable Blender source is retained",
+      "bytes": 1833180,
+      "sha256": "1de8a4ee34846a2af992f5366c3537b042f6c5bf1cb303860d6b7eab2c343a25"
+    },
+    "Assets/Art/Blender/Characters/RabbitMageWarrior.fbx": {
+      "reason": "Legacy Unity FBX export; browser uses JS mesh data and editable Blender source is retained",
+      "bytes": 327468,
+      "sha256": "08d37306d54a7a96cc06f5e63a89aa3c43d825d6937a908c55ba33e724736211"
+    },
+    "Assets/Art/Blender/Environments/MysticMoonMap.fbx": {
+      "reason": "Legacy Unity FBX export; browser uses JS mesh data and editable Blender source is retained",
+      "bytes": 13827420,
+      "sha256": "ba6b10018c2ca62c8d4f9f2fb04f21dc78c3db80ffb21cb710d0b95c482f2a30"
+    },
+    "Assets/Art/Blender/Props/AncientKey.fbx": {
+      "reason": "Legacy Unity FBX export; browser uses JS mesh data and editable Blender source is retained",
+      "bytes": 37900,
+      "sha256": "fb5b20912a358ab6662f772e4bfa1d288861019eaa02f052586f8421402da0ae"
+    },
+    "Assets/Art/Blender/Props/AncientMonolith.fbx": {
+      "reason": "Legacy Unity FBX export; browser uses JS mesh data and editable Blender source is retained",
+      "bytes": 15404,
+      "sha256": "5e114b0324304fd3042a84da9a2ee933da7ed6a3d42c8460527cae2e26e92a1a"
+    },
+    "Assets/Art/Blender/Props/MoonstoneArtifact.fbx": {
+      "reason": "Legacy Unity FBX export; browser uses JS mesh data and editable Blender source is retained",
+      "bytes": 20012,
+      "sha256": "86233cda065211a2facb2355463d21abb1e3adc1ada31b09bd7a8a6dc63df9f9"
+    },
+    "Assets/Art/Blender/Props/TempleGate.fbx": {
+      "reason": "Legacy Unity FBX export; browser uses JS mesh data and editable Blender source is retained",
+      "bytes": 20668,
+      "sha256": "d287700c886a96e19f83f18681feb91a87644d98d2ea0fce4b311c82d7ca5d1a"
+    },
+    "Assets/Art/Blender/Environments/RomanArenaAndMoon.blend": {
+      "reason": "Superseded arena scene/exporter/tests; current scaled arena has replacement source and regressions, original archived",
+      "bytes": 3442993,
+      "sha256": "58d950146d0e2178b2cde91f2937698cfe17b5d66ff56d9804c86f8410aee3b7"
+    },
+    "tools/sync_arena_blender.py": {
+      "reason": "Superseded arena scene/exporter/tests; current scaled arena has replacement source and regressions, original archived",
+      "bytes": 3443,
+      "sha256": "1f39e9d4379cd204b8677418af8b05ecd72c9353824ba65cf3e0897eec89be4b"
+    },
+    "tools/tests/verify_arena.js": {
+      "reason": "Superseded arena scene/exporter/tests; current scaled arena has replacement source and regressions, original archived",
+      "bytes": 7318,
+      "sha256": "35abf3233c6ec6d602408dd1d7af909b54397595b81120304378a7fd7ac4dc7b"
+    },
+    "tools/tests/arena_checks.js": {
+      "reason": "Superseded arena scene/exporter/tests; current scaled arena has replacement source and regressions, original archived",
+      "bytes": 4752,
+      "sha256": "76060557a66ac4d16350f19962cc10df5f792e536b0a3c58341dc7b872712f15"
+    },
+    "demo/verification/compact-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 17161,
+      "sha256": "ab69369475db6fabe3571db9e6dcc03e512039ba535040c3de7328ffd0ce9754"
+    },
+    "demo/verification/compact-stair.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 150345,
+      "sha256": "9da5090f59bd01fe02f5427be5faca26be137a682f3cd61f451472fc655362eb"
+    },
+    "demo/verification/ecology-performance-before.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 2198,
+      "sha256": "60e8e9b3610fb4ec5a90e6bd05f38a4903dd72b5e72346e6a096ec49f4f4e459"
+    },
+    "demo/verification/ecology-performance-content.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 2174,
+      "sha256": "a4188d0aa8df158164fb4eec6bfcf9f4c7e31b2ee0745429e696b859b7a7f33c"
+    },
+    "demo/verification/ecology-performance-culling.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 2138,
+      "sha256": "b84cff865d8dcd4aa3fb3854585a465c0b52da7b511fbc304d1f310b1968623c"
+    },
+    "demo/verification/ecology-performance-final.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 2268,
+      "sha256": "804aab9585fccf2ab6326667cddd0a667283d59d02b72a315f44a5f7839db96d"
+    },
+    "demo/verification/hot-spring-underwater.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 234813,
+      "sha256": "13333d5dc4b6de4bd8dc6a14178f467e907ef16a9f106fc5dd78b982fe901f08"
+    },
+    "demo/verification/junction-inventory.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 31362,
+      "sha256": "dbec55da857a149e4fa11cb3dd66ed61456dc96e70d666a64ce2fb7e6cacf614"
+    },
+    "demo/verification/moon-economy-final.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 138,
+      "sha256": "01c47215d7ae254de90931c3f4c17d420c749aab107d4716d05a7cf182ee39c3"
+    },
+    "demo/verification/moon-economy-run.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 2484,
+      "sha256": "110f12236228d4ab9b560d7f1f296812d5af63e921bc033339b6a72dbb95ca77"
+    },
+    "demo/verification/moon-economy-verified.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 2552,
+      "sha256": "2363f969d1a8eba0f94918cb1c93597c23e2e76fc9d7720ce636ed8bf4229e6f"
+    },
+    "demo/verification/polar-dense-rail-audit.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 3466,
+      "sha256": "af1bdf65333c72b8839075074b4ae3f4f26e761b3017e058bbc0f500c76e857d"
+    },
+    "demo/verification/polar-dense-test.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 6266,
+      "sha256": "56e1befb8b7b47c6b393c5ea2be399623e6832d2e9723ee1b3a85df1ca90164e"
+    },
+    "demo/verification/polar-rail-audit.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 3472,
+      "sha256": "8db4234677402d20c48863ef446e1044bcc582e4280fc9d860fc8f4e85e952aa"
+    },
+    "demo/verification/polar-startup-2.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 528,
+      "sha256": "3d2a0a1f3f48375383814178ec80717b752973679b66d8ccd21a31f140bf6f59"
+    },
+    "demo/verification/polar-startup.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 2344,
+      "sha256": "bbc9b8c2f6eebb22e93843813a31135af0e10467a3e47c0ffaa78bfd490ad82f"
+    },
+    "demo/verification/polar-test.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 8056,
+      "sha256": "840d09788a2e57b5be00f1150d3c5008612c61e74067ddfec4508c71540912ed"
+    },
+    "demo/verification/prison-controls.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 259665,
+      "sha256": "ba84563741ecf98522ed0d63f774913f44e255527e0669c65ae33a5bd72e5fde"
+    },
+    "demo/verification/summit-hot-spring.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 302505,
+      "sha256": "65fd92ec19883298e677345e269ba19fa7fa7c6c1a44f5d8748bb80747dbcad7"
+    },
+    "demo/verification/thermal-river-bridge.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 746465,
+      "sha256": "3ff69eaec5b9cdea82c7c30e073838d435bd4e84ed38133f6555775fc0548c92"
+    },
+    "demo/verification/thermal-river-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 5313,
+      "sha256": "d2478702ff34e37333141eac7b4fe9cd437300643fb9eeb415eb55299218c17a"
+    },
+    "demo/verification/thermal-waterfall-overview.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 333924,
+      "sha256": "8b56534b05f9b2e7eaf0aecd6840c7faa94128b58dfc8b83e338926f69afa6cc"
+    },
+    "demo/verification/autumn-upgrade/acceptance.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 2388,
+      "sha256": "cf7343c83419733f608114735fa36f3659fd2f928842acc8bccfee98b7bf5985"
+    },
+    "demo/verification/autumn-upgrade/adventure-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 11005,
+      "sha256": "6ff7ea0329acae22625483b00587d5d815b5374140a23cdddede203ad628d954"
+    },
+    "demo/verification/autumn-upgrade/blender-review.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 341,
+      "sha256": "e477bc83f63a261c3128a6a4d5c7938f489f78d6139899d0319cf552aed629b2"
+    },
+    "demo/verification/autumn-upgrade/cleanup-smoke.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 250,
+      "sha256": "1ee087f37ff0cf8a44f6311c019b56ec8506a06d6b4bccb2ed0c95c4b2e910f1"
+    },
+    "demo/verification/autumn-upgrade/crafting.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 143433,
+      "sha256": "60fa3c0dec171886522c8a17bdaab2189624b0a5a6b27639014b0e1768484148"
+    },
+    "demo/verification/autumn-upgrade/engineering.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 43464319,
+      "sha256": "3429335be18370753777d81e7a2ad043e3ef3f288ec9df947607d84cb9739493"
+    },
+    "demo/verification/autumn-upgrade/inventory-mobile.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 52335,
+      "sha256": "63a86dbb7124a1df0077fb955c7e2d9e3bf2bdb5570778961f996b86e5b8d93d"
+    },
+    "demo/verification/autumn-upgrade/inventory.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 105483,
+      "sha256": "527f3cc18c4f25668297a6ebbfcf4fb7d77c332f5f4e3bfbc861e0297fb4472f"
+    },
+    "demo/verification/autumn-upgrade/persistence.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 38,
+      "sha256": "c55851da062b0f7dc3c36350faa51598f5b3e505e7b292a215d703160abe78db"
+    },
+    "demo/verification/autumn-upgrade/railway-final-2.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 13272,
+      "sha256": "483ef99f4ab0e373fb4dd7191b8a65b65a59debc47e0ca2a63c2a6adcaf95c3b"
+    },
+    "demo/verification/autumn-upgrade/station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 510004,
+      "sha256": "6dee6f0e72d9bd1d9eb4b76442fd17abcc9a59454061c824fa04773c8c36c6c0"
+    },
+    "demo/verification/autumn-upgrade/technology.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 362865,
+      "sha256": "6c2df78f706cd084914993b4b582a3b614c7ec4ff5d498e2ab2a2639fa8112fc"
+    },
+    "demo/verification/autumn-upgrade/three-services-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 3997,
+      "sha256": "a3e0128dfc601e44c1d66b9b4d15763467a1729c959bd74fbe6f7603a9ada62c"
+    },
+    "demo/verification/autumn-upgrade/upgrade-final.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 22596,
+      "sha256": "482cc1145caf2d0c9e61414c6703004d0b5221e146153f502e76682093b1c5f2"
+    },
+    "demo/verification/candy-kingdom/blender-design.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 29777108,
+      "sha256": "086f6517694c89251c53a9c43bd040558793b6410f2f0c2e1d58b828d23c1a51"
+    },
+    "demo/verification/candy-kingdom/boss.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 348208,
+      "sha256": "f53d3f5287679d6d5feda40dc200ee66ff2f9b55ebc1f613887217eb0f9039ed"
+    },
+    "demo/verification/candy-kingdom/fence.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 492255,
+      "sha256": "278619ae1d9387ce489953dbe96ddc5e5127012d7716b144bb695f7faed003d7"
+    },
+    "demo/verification/candy-kingdom/kingdom.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 460122,
+      "sha256": "c097f528d872507814178e554c7a675f4c8ccc5f520c49733dc55af82d66cc8a"
+    },
+    "demo/verification/candy-kingdom/palace.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 396215,
+      "sha256": "5df8c0337ff6402f35936e3738232a914d6452927e0454598f1794aa72715ef1"
+    },
+    "demo/verification/candy-kingdom/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1046675,
+      "sha256": "3afa4ec83379689f974e486dff669dbbc40cd1fb4f41779a8f9cd018e38844c6"
+    },
+    "demo/verification/candy-kingdom/runtime.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 18,
+      "sha256": "861f18bcf433cba1e778ffc114e58f280b62a2f21198feeb33e135018efc7ce8"
+    },
+    "demo/verification/candy-kingdom/sky.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 368255,
+      "sha256": "38e8374aec68dbfef811eec524e6a768b5a7fe24a881bf0f14d36d821d344b5d"
+    },
+    "demo/verification/candy-kingdom/station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 546603,
+      "sha256": "596a5d27749c2a8df508099eefc22edd6f91f5f5ef19efb53b712a2ff8a2c8ab"
+    },
+    "demo/verification/candy-kingdom/visual-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 166,
+      "sha256": "a2f17dfe552f5b4ca25620856614d00c212276a136f6d5c856b791a51887f584"
+    },
+    "demo/verification/candy-kingdom/waterfall.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 330635,
+      "sha256": "a4af262fbf2520870665cbf44aee7beb9a269e1c32a434aaa07d8a62d26128e7"
+    },
+    "demo/verification/complete-library/library-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 35501,
+      "sha256": "9538c318fc37f4167f625daeb6c205d13f49efb09db8c8f3289ad9ed8cdda0c1"
+    },
+    "demo/verification/complete-library/monsters.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 103495,
+      "sha256": "c5b3c41e7fa99a8bf235436071c9b16dcd51478d00ba6dc85f4a59f5dd22434b"
+    },
+    "demo/verification/complete-library/penguin-mobile.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 45276,
+      "sha256": "f071a17da4647619a5f3c23bd7e84d41dba044ee08d51993a88f19e2f70043b6"
+    },
+    "demo/verification/complete-library/persistence.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1582,
+      "sha256": "d7936fa9953aabcac5e6a22fd8131f8e67e4640a07258b032fc8954c98b2cd66"
+    },
+    "demo/verification/complete-library/snow-queen.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 81826,
+      "sha256": "fa485f33e58ba2c27b2fffac35495f07bd6d6d9d3327afe58be8f87131c53788"
+    },
+    "demo/verification/exploration-final/ancient-vine.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 340051,
+      "sha256": "b84b5c011af01a7c8c9ef103201895c27d0d2cdaf4d86c6a5e439cb1a7cdc797"
+    },
+    "demo/verification/exploration-final/cavern-entrance.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 553009,
+      "sha256": "db4ce30f86c836629ea8240f02dc170945107677f67d37f7d6bf4a2d870d403b"
+    },
+    "demo/verification/exploration-final/desert.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 199829,
+      "sha256": "dfaa99d4f58627df4484d15bdf05916b8e1961f9d0f2a196c3e346fcea05fd2a"
+    },
+    "demo/verification/exploration-final/native-controls.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 567,
+      "sha256": "5f6a2e7da8be5cdcff3ed6d076a130fb00e0d4ff69f37051df0735a848fd427f"
+    },
+    "demo/verification/exploration-final/railway-regression.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 122398,
+      "sha256": "0ebd05751488982c6524ff4d10a1ea3e064bd43d89176dd071a665e5ec838c9e"
+    },
+    "demo/verification/exploration-final/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 7370,
+      "sha256": "772554d59d226f8d8badd1c7db6683be0e9faa79c888dc1e9b61d6fdada44396"
+    },
+    "demo/verification/exploration-final/station-mobility.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 20985,
+      "sha256": "bf47effb785736bda0bc2f0ad411424adaa95aa48891ceca4567dc135cf46f15"
+    },
+    "demo/verification/exploration-final/treasury.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 604910,
+      "sha256": "43ad55bf8b41416714868e056ee4a279bd5b91e639109adca320b969a86a3986"
+    },
+    "demo/verification/exploration-final/ui.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 401587,
+      "sha256": "6fc038acd0c4074cdd37519d39ff2b54f7b440bf2af0d698b05be45732e8ba57"
+    },
+    "demo/verification/exploration-probe/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1598,
+      "sha256": "eff5ed17e588cf8a645e24900b5ab437733afa8e4a2aba7e22f5b2063a3f9a79"
+    },
+    "demo/verification/exploration-probe/ui.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 587406,
+      "sha256": "7b3fbc6d4a3c350ba2fc3dc2cdfa5215c15a1fa5d7fbee2c1b8606504bb845cd"
+    },
+    "demo/verification/highland-transit/bridge.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 307184,
+      "sha256": "5171493db27f37df0c2f6ff839809a0983877990498cfc4177923363630a8bac"
+    },
+    "demo/verification/highland-transit/fortress.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 613785,
+      "sha256": "3075c3900aade4b35a9cd3ca64f3607c75b77c244e17a947cc1b26e001d8be5b"
+    },
+    "demo/verification/highland-transit/highlands.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 276385,
+      "sha256": "ee7e7a0e346367e64103b026f46311f7f85e876ce0a2d7a00b2772c666b4846e"
+    },
+    "demo/verification/highland-transit/lunar_resident.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 17848,
+      "sha256": "7d3ecaf3fd5e90f060712657b588b55558ca597bfbdbd0a6cad0da61ce4cf135"
+    },
+    "demo/verification/highland-transit/market.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 272639,
+      "sha256": "fde5c45a11bd00d0cbed048d1870ce74badf35f7513e8258ab9bf8dcef37262b"
+    },
+    "demo/verification/highland-transit/polar_polar_bear.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 13849,
+      "sha256": "d7b607bc5d85d2d1843e49fcf9c52bd4fa88f54cef36c3a0d72047d4e4977169"
+    },
+    "demo/verification/highland-transit/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 175699,
+      "sha256": "5bdc9dbf1ad7c5164110ab6e863fe5414317484d9bdfd3a402084066a76b8854"
+    },
+    "demo/verification/highland-transit/ridge.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 151464,
+      "sha256": "ef469cbfa8c5209acef07d6eb7672825421840b9ffbd1cdd4bcdb6bcc5843e97"
+    },
+    "demo/verification/highland-transit/runtime.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 18,
+      "sha256": "861f18bcf433cba1e778ffc114e58f280b62a2f21198feeb33e135018efc7ce8"
+    },
+    "demo/verification/highland-transit/snow.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 227744,
+      "sha256": "c2969897da5d9e74740769a751bd1281d5c329db35e01fd5b6bc5051770ecf76"
+    },
+    "demo/verification/highland-transit/village.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 602741,
+      "sha256": "62b3efc262d48274180d81f5854cf90736dac2aff20341b84688b7e9fd930b63"
+    },
+    "demo/verification/lunar-rivers/atlas.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 155946,
+      "sha256": "48504f3a4b3561735575ae1a9b2da7cbf6226a5808156e4ce6bedbdf7ed5fb27"
+    },
+    "demo/verification/lunar-rivers/lunar-rivers-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 32536,
+      "sha256": "baa959c0a5facb289e3f78da472183d75e0e28d8fe6305f16911637d954d5ef3"
+    },
+    "demo/verification/lunar-rivers/paired-stations.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 503707,
+      "sha256": "3e54fef45fce4878824428c2e46807b111906897dbae331be06305e7bf2ca2de"
+    },
+    "demo/verification/lunar-rivers/river-banks-alluvium.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 392193,
+      "sha256": "4a077c6545f898a18a3ea74331f0978077818d1bf110f2427e04ea4acc939d90"
+    },
+    "demo/verification/lunar-rivers/river-bridge.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 406000,
+      "sha256": "24d36a3647d3f2610b764722347b85884a39c403bdcbe493ded6cab81feeb10c"
+    },
+    "demo/verification/lunar-rivers/riverbed-sand.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 603939,
+      "sha256": "a182669c7e6c1413cdf7c231593a26b1c1601a63683b43b9c04fcbdd83450516"
+    },
+    "demo/verification/lunar-rivers/singleton-persistence.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 231,
+      "sha256": "f0c09ac5807af15072bc29fc74a2105bb513cf18f2aa11c9eb5650b5cc48b874"
+    },
+    "demo/verification/moon-economy/blender-backup.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 398,
+      "sha256": "60fe0963edeaa49ab4c31f5fd7ea5db1b84887890deaeba67d97daefb2789290"
+    },
+    "demo/verification/moon-economy/blender-camps.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 2056755,
+      "sha256": "1f76802cb90b8ef07a2226f57106f5a5b11431d0609bb99c150aae02521cc6da"
+    },
+    "demo/verification/moon-economy/blender-update.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 255,
+      "sha256": "0f835e7fcb4a84a3cb724fc1c0517d8e3d40498e85249e988d116f08070a9130"
+    },
+    "demo/verification/moon-economy/blender-update.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1998,
+      "sha256": "ea07307954f1d1fce7166439b33a9bef2867908e1fec3099d8dbf94189f6ad3d"
+    },
+    "demo/verification/moon-economy/economy-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 4782,
+      "sha256": "6ba2b4a45fb033a7abfbcd94c3fb50e2426c379be27c2c61ee00ad671e410cba"
+    },
+    "demo/verification/moon-economy/export.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 90,
+      "sha256": "8b96e69984b22905135658e00b6faf18ff6f9b00029cffa63434fcb917b73456"
+    },
+    "demo/verification/moon-economy/lobby.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 972701,
+      "sha256": "1c317c847ae921094543a8a3d829cc9e35a3b248af6ba95b5d4aca4a12cab6ff"
+    },
+    "demo/verification/moon-economy/persistence.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 205,
+      "sha256": "3ada390608ea397d1855e8a63a4065faf228217d60c86f3304eb080188499ae8"
+    },
+    "demo/verification/moon-economy/settings.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 188204,
+      "sha256": "eab48f1560ba4872d5cbfe902bdd22ab24c2980c339f47cce5c1fd107270ea68"
+    },
+    "demo/verification/player-experience/dragon_knight-diving.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 194425,
+      "sha256": "6f5c8b93fc82d1cea083bb6370350fa5aee6cbbbeac16005a76f7cf27a70efce"
+    },
+    "demo/verification/player-experience/dragon_knight-iron.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 196387,
+      "sha256": "1e768014e20263124838e5ea4c95a897358ca2b2de6bb5bc417eb9b8e7992883"
+    },
+    "demo/verification/player-experience/hamster-diving.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 185284,
+      "sha256": "0a94a79b1c5b5bd66513dbd7ced4ad519ce9d30e4277a129437b38a5a6cfa32d"
+    },
+    "demo/verification/player-experience/hamster-iron.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 188638,
+      "sha256": "8730b63f54f4d6a38b18ac78a3e2c068462574290ce12bb7a618b60b254daf4c"
+    },
+    "demo/verification/player-experience/item-receipt.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 250997,
+      "sha256": "a05cd13c39b547ea7403c50bc452538f3704de2fe66e0d12a0b99197fc1fdf35"
+    },
+    "demo/verification/player-experience/kingkong-diving.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 189982,
+      "sha256": "5919e1b3268c8b7a76953389886811fcd7b3e0f4d1005836c88ed844663b8ba5"
+    },
+    "demo/verification/player-experience/kingkong-iron.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 196552,
+      "sha256": "99337bf7ef82f000366584c2b16c7d82d9a97c369e10bd25e86c429f7da6022e"
+    },
+    "demo/verification/player-experience/ninja_yinyang-diving.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 180882,
+      "sha256": "3d9bd8511c0a7da9236e8c4c71d246708e3246f4c5c8535f671a64196472e59c"
+    },
+    "demo/verification/player-experience/ninja_yinyang-iron.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 181768,
+      "sha256": "68948218cf350e68f9a347d599125629a5b9bcd86ab3852178d348ff9fa24334"
+    },
+    "demo/verification/player-experience/persistence.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 240,
+      "sha256": "109d7fa766329211ff1f840542316755c4663d374dda8a1ae361846ffa5de4ab"
+    },
+    "demo/verification/player-experience/player-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 11840,
+      "sha256": "d4d767a791087fb1d43561091e1fb78d80184500a45ff9c719284edcbf5bbec6"
+    },
+    "demo/verification/player-experience/rabbit-diving.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 194153,
+      "sha256": "05288cba089d1f426279d138d5d23d20315ca4f236b789d91670e7d89798711d"
+    },
+    "demo/verification/player-experience/rabbit-iron.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 194325,
+      "sha256": "4f8618584056955d06974af68e5b0212cd1873453efc1e09ece5cb44c844c4b7"
+    },
+    "demo/verification/polar-expansion/blender-backup.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 396,
+      "sha256": "9c673e27de8cf843f939f8d944788cb178a25233dc173db3711d0b9cec0f8c53"
+    },
+    "demo/verification/polar-expansion/blender-design.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 42115054,
+      "sha256": "6b5b861153f2eb465369e3889b9eff305e3d329db3d54008022f9a168f9d2206"
+    },
+    "demo/verification/polar-expansion/blender-update.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 302,
+      "sha256": "388d03872d44e7224e8b4d809148eb11cd57b810f45d52fae83b668019bf6289"
+    },
+    "demo/verification/polar-expansion/blender-update.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 4268,
+      "sha256": "6869c700d37858cf4006ec946855870a39b3f3992a296cdac8e4783f0771ac97"
+    },
+    "demo/verification/polar-expansion/death-audit.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 273,
+      "sha256": "914f72de401c13e0fce408147599fcfdcb691ba97b0782eb89c4ca192e045968"
+    },
+    "demo/verification/polar-expansion/death-audit.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 326,
+      "sha256": "e16264a61e892e761c07dd0e676a44d7f987c6205b9708cf68a80fedc8bfdefb"
+    },
+    "demo/verification/polar-expansion/export-final.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 98,
+      "sha256": "343f73f4a225cefdcb9cdbedd7b28f6b50f1804bb575b17d88bf1b8301db2330"
+    },
+    "demo/verification/polar-expansion/flying-santa.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 149526,
+      "sha256": "f59868d819653e2ac027469d3ead8292b904dae53d4d67efe07725f0ab5543a4"
+    },
+    "demo/verification/polar-expansion/ice-waterfall.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 154148,
+      "sha256": "35e4fe1ecb2491b3c7ec92073d34f7742492d30e5366e396001edf6b7f13531f"
+    },
+    "demo/verification/polar-expansion/persistence.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 166,
+      "sha256": "b699095d43097824f1003c0e575aae344f6c7f84c83654bf0399dbc55d76a273"
+    },
+    "demo/verification/polar-expansion/polar-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 145192,
+      "sha256": "e472d89372b4537605204790758adf746a2e80549bd7ecfdff3fc5b1e838d201"
+    },
+    "demo/verification/polar-expansion/rail-audit.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 3144,
+      "sha256": "f1ad9ed4a7e150753b18ff36af8386787bc70e45e9dd92744bfa9326012e66b7"
+    },
+    "demo/verification/polar-expansion/red-smoke.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 117077,
+      "sha256": "c5730b028998ea33fe6d6c2c43c97bc020e9926479d892f5f4240a6abf4f42b9"
+    },
+    "demo/verification/polar-expansion/snow-factory.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 148363,
+      "sha256": "416b9c69190d494abc337143ffdc0df72918708d0ca7766ffe2c3e64b127df32"
+    },
+    "demo/verification/polar-expansion/snow-queen.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 85281,
+      "sha256": "3888c919e477f59a1aa81f96288a55162f0f190adbb67e45a27eda32b21710b0"
+    },
+    "demo/verification/railway-service/ground-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 563953,
+      "sha256": "eec04051d48092468dc90d2f4b100ca6497663de2e1319c3556f7f2dd0969e9f"
+    },
+    "demo/verification/railway-service/mountain-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 449377,
+      "sha256": "c5b33912a619c04e900431c708d8853354a5fef2ca402c391e70eea0a511fb4a"
+    },
+    "demo/verification/railway-service/native-controls.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 107,
+      "sha256": "0248ff7bd18a72a3abf279696b8835e07034e2540c8b7fb53ddbead222a8500c"
+    },
+    "demo/verification/railway-service/open-piers.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 421642,
+      "sha256": "63d80d5d8183e5512054c236075946c4088f619156040f6f5599c5b55b6ac2fb"
+    },
+    "demo/verification/railway-service/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 111120,
+      "sha256": "ea3ac3a0beb34915a265a1b29b7a41f6737695cafe81d319604055ef5117a630"
+    },
+    "demo/verification/railway-service/ruins-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 583515,
+      "sha256": "9f202b1947c750d93cfc03fd82c6cc072bb7611c998922df4503ea0abedcf3f7"
+    },
+    "demo/verification/railway-service/window-left.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 351695,
+      "sha256": "e1fabf3e18fa2a52e326cf01d6b40f8eb1a05be10f57d733290038b3a14f3082"
+    },
+    "demo/verification/railway-service/window-right.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 299140,
+      "sha256": "6c38ec5942c4ec124a136def8811e48137c9c0996f9b6b9ad76bf9ea38fabd3f"
+    },
+    "demo/verification/railway-service-baseline/fixture.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 2328,
+      "sha256": "c1d51ff94ef1015f0428ad5673b71dfaa9cc637909a9365ae755d6f38b0e89bf"
+    },
+    "demo/verification/railway-service-baseline/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1344445,
+      "sha256": "68db16d2eceeb9c70ec3178d9e5e4926ce6b73252f4b48e6d0744b78cdac1641"
+    },
+    "demo/verification/railway-service-final/ground-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 528770,
+      "sha256": "8fa5d3afd91943adad5ced7fb1cc13fa7a5e572e1f626321f57c62201fe2e279"
+    },
+    "demo/verification/railway-service-final/mountain-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 440109,
+      "sha256": "39a8c5ff4279dbdf37e78bd07221453766c7e1f6cc480042d5460ead82c3c0e6"
+    },
+    "demo/verification/railway-service-final/native-controls.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 107,
+      "sha256": "0248ff7bd18a72a3abf279696b8835e07034e2540c8b7fb53ddbead222a8500c"
+    },
+    "demo/verification/railway-service-final/open-piers.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 499893,
+      "sha256": "c1d06c9994ae98edc2d94cad294abaea3b04207cfc3cd40690d9102d059bc8c9"
+    },
+    "demo/verification/railway-service-final/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 111047,
+      "sha256": "3e3b3c6fa1b5853845bd9b624f6f30f996fb3e171d6093075950522cfa4c45f9"
+    },
+    "demo/verification/railway-service-final/ruins-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 545977,
+      "sha256": "0ed6d24e834cceed43afb64346648578775f53b4f1d8da6b81863be7a9219436"
+    },
+    "demo/verification/railway-service-final/window-left.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 349238,
+      "sha256": "714fe23efffa10a823e3cd615731acee1258efb47a6bfb73f365f0a26cf89dcd"
+    },
+    "demo/verification/railway-service-final/window-right.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 293856,
+      "sha256": "b3ca2163efdf5ce3525d7f7a76e7225d817642639f8338503b5bbb56cf91bff6"
+    },
+    "demo/verification/railway-service-probe/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 46528,
+      "sha256": "124e065cb51dbc4e5bdc6a9f8afbd161b7228a10948202dc940da82d783d14db"
+    },
+    "demo/verification/railway-supports-after/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 107856,
+      "sha256": "849f3c65de79c557b61df0bafaabbf772480613abb8409b9ffd0f124219995cb"
+    },
+    "demo/verification/railway-supports-before/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 79813,
+      "sha256": "72aa29fde4a771e573a00fdaae136073b7b5e70bf508a7b4d30d87095e7bb151"
+    },
+    "demo/verification/railway-supports-complete/ground-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 551758,
+      "sha256": "846854819b8c0ecf0a813e72a60641071d1c38005532bfa6ce08d466cf6c36d5"
+    },
+    "demo/verification/railway-supports-complete/mountain-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 413131,
+      "sha256": "c76fde9114adb2eebb078ba54895a05f0b83058d9e63901c9f5926a64b6e5056"
+    },
+    "demo/verification/railway-supports-complete/native-controls.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 107,
+      "sha256": "0248ff7bd18a72a3abf279696b8835e07034e2540c8b7fb53ddbead222a8500c"
+    },
+    "demo/verification/railway-supports-complete/open-piers.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 513303,
+      "sha256": "ab0b8d05dd7583f3e9772845f9386c4af5ac6054b4284cca0dd29e6216ee71db"
+    },
+    "demo/verification/railway-supports-complete/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 111111,
+      "sha256": "1e732a508e436d4193fe46101b8c65a45ea1f3fc5485d52c1ffb32efa847891c"
+    },
+    "demo/verification/railway-supports-complete/ruins-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 563381,
+      "sha256": "4b951ad5f91bd9e2857cb5ed925cd50533d4bfd65168216e8275df941720f923"
+    },
+    "demo/verification/railway-supports-complete/window-left.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 362490,
+      "sha256": "fd3556b6c3a96b120885b81c8bef846700933addde7913511a9b95c04487f30f"
+    },
+    "demo/verification/railway-supports-complete/window-right.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 300671,
+      "sha256": "b4d100ce8e5ec06a16436204f03248336f46c45867f011102a0cebea3c104201"
+    },
+    "demo/verification/railway-supports-final-pass/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 116877,
+      "sha256": "67a786aa645d1a4f530965347be8f07556a45c30a8d3efe32463d4b5e7e92635"
+    },
+    "demo/verification/railway-supports-lowered/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 319609,
+      "sha256": "7f28bb010aea922d91d6c0d9081848c784be40d86eaf54d975b8336547951b21"
+    },
+    "demo/verification/railway-supports-obstacles/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 106989,
+      "sha256": "56fbc678fd6e8555fabe9076984e158fcf0808bb0b3f390c2611fd9674ddbae4"
+    },
+    "demo/verification/railway-supports-profile/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 341276,
+      "sha256": "feaed9a6240dc894b29049a3277ec87da0343b90923a6d0f7387de2f3135e8c3"
+    },
+    "demo/verification/railway-supports-verified/ground-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 544694,
+      "sha256": "fa71c3fa4aad96bb13bbed25a75f2fe68f651f2464d45ccb704f0267eb9dbbeb"
+    },
+    "demo/verification/railway-supports-verified/mountain-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 405086,
+      "sha256": "659b95bc8043f58c0c04ced502b155084ac7cb9b6a3069f6ad9e8a2433a8d6a9"
+    },
+    "demo/verification/railway-supports-verified/native-controls.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 107,
+      "sha256": "0248ff7bd18a72a3abf279696b8835e07034e2540c8b7fb53ddbead222a8500c"
+    },
+    "demo/verification/railway-supports-verified/open-piers.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 506994,
+      "sha256": "66a05a4cfa14f084d06089dbbd86921047281afd0a812762371c8bc47492468f"
+    },
+    "demo/verification/railway-supports-verified/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 116551,
+      "sha256": "1fda717bb8a8fce70cb80af8336a25588f3c464a17d234829207d9954a0eb78f"
+    },
+    "demo/verification/railway-supports-verified/ruins-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 552348,
+      "sha256": "929de9088edfd251d95925cfdc48de1ee8b07cfe9c83b00c4c8a41ac1c9fbc9e"
+    },
+    "demo/verification/railway-supports-verified/window-left.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 360489,
+      "sha256": "4b6cb8dcf3355e45b08558eee37d2acfe1d658db91da3ca57f75af2795474887"
+    },
+    "demo/verification/railway-supports-verified/window-right.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 294884,
+      "sha256": "9045aca07fa049f073d98d2ecef640c637f6f37b1ed669082b659436de309b82"
+    },
+    "demo/verification/railway-supports-views/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1597875,
+      "sha256": "45d67a6fc0496669cad92e634a303aa07c6ce93c8db46c6124034480a11700cf"
+    },
+    "demo/verification/railway-supports-views/ruins-final.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 554840,
+      "sha256": "1b026b019a8d654d06aa58d98435ff17a4c2a02115e762caeae9ba98a4571a83"
+    },
+    "demo/verification/railway-supports-views/ruins-ground.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 383973,
+      "sha256": "d163d284f0377e3617143c8f5bc43050486c88a69a52e4027c2a4d16aabc7d9d"
+    },
+    "demo/verification/realm-interiors/blender-backup.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 400,
+      "sha256": "275ae196fbba16b224d190fc8995b41501cb9964c3e04d76bd32222c88ae4b2d"
+    },
+    "demo/verification/realm-interiors/blender-design.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 26099856,
+      "sha256": "0a0f68ccd38fe812f26007c498b6deb40f96487d75f1db4aae352fbcd8051e43"
+    },
+    "demo/verification/realm-interiors/blender-update.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 284,
+      "sha256": "4aa07efe35984a14403abdad3e74a75e3f399e3d12eab0dec447694b2cc7ad27"
+    },
+    "demo/verification/realm-interiors/blender-update.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 3384,
+      "sha256": "552abb637e741ec71897832db09e0d99ca0cb4392b29bcdecb04b43553a73645"
+    },
+    "demo/verification/realm-interiors/castle-envelope-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 7818,
+      "sha256": "e448610a2ed2bc67f165e57bcbbe5b7680fc5f94a96abd35a4fd3c8bb81b5778"
+    },
+    "demo/verification/realm-interiors/castle-room.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 291109,
+      "sha256": "a428732bd99051171e03d02f97772529ca46036f5f1699ed97f106559c3150ff"
+    },
+    "demo/verification/realm-interiors/castle-walking-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 19048,
+      "sha256": "b56a6bc04b45bd73f03249131f27e40f07893b4af42e4a49bba2c39c177faaa7"
+    },
+    "demo/verification/realm-interiors/castle-walking.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 60,
+      "sha256": "d0a098020a9968e8e16cf1e5f1fa67a806ae579d74d5f849e167a06bf736671d"
+    },
+    "demo/verification/realm-interiors/persistence.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 259,
+      "sha256": "2bdb28674c144c9c0caa36cbd32f80fc9b2b2b62f547218806c3d92f8c2d4b1f"
+    },
+    "demo/verification/realm-interiors/pyramid-entry.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 329017,
+      "sha256": "bc1454150b743b08b35331a171293e815325acf36c50d0aa93428196152f9d79"
+    },
+    "demo/verification/realm-interiors/pyramid-upper.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 276640,
+      "sha256": "6d85ded76d0c9c692558d85f967ea6725c86288669e6b2acf631b804b0484398"
+    },
+    "demo/verification/realm-interiors/realm-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 14949,
+      "sha256": "b49539da662ab4015ef2df306bc64b8320aa642af695cf08d66639fd87df2adb"
+    },
+    "demo/verification/realm-interiors/realm-verified.log": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 28306,
+      "sha256": "4b56b9328d2598575e37889c7e64747dd36afbaa988b97b288ff2f7f74cf5bcd"
+    },
+    "demo/verification/realm-interiors/wolf-camp.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 584198,
+      "sha256": "64e72b7fab2afb6a1b72096aee3310075095fa7f445cb248b8ef9502c8763873"
+    },
+    "demo/verification/realm-transit/persistence.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 278,
+      "sha256": "7ab2e04069127578bdee6298191a69239e8e305cea88b28ba330161ce5190db7"
+    },
+    "demo/verification/realm-transit/transit-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 205291,
+      "sha256": "f31b89430abec7f4722bee3995fb844625a90aa4c3f165575c9183cdd5966c46"
+    },
+    "demo/verification/realm-transit/world-atlas.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 188794,
+      "sha256": "a6231d4099fd68012a0e1546f158c4ac202ef1b16c889ebc67a8c2c791f926d5"
+    },
+    "demo/verification/skin-community/apartment-security.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 84631,
+      "sha256": "2d11d83a2d370d183aa91a4bc2f898cfe089d4917429eaf13dc6bffdcc5d96d2"
+    },
+    "demo/verification/skin-community/arena-on-terrain.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 376333,
+      "sha256": "ae41cfa0a650865204ab2a1f45f464b3cebb3e28e276fb39b4bca26470e9470c"
+    },
+    "demo/verification/skin-community/candy-citizen.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 95626,
+      "sha256": "25149c0fcbabd54426392d94112641eaa91756c005db28016ed4f17fb7c79f76"
+    },
+    "demo/verification/skin-community/factory-furnished.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 52912,
+      "sha256": "87fcc97dec998d0cb6b7fe10f90194bb8dc9da2c9866a6c44c3bf3839db62ad3"
+    },
+    "demo/verification/skin-community/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 3966,
+      "sha256": "1fd2b64ae0852b1d6a9322f2437214e79ee5b256054659bcd546ff9abc02be9f"
+    },
+    "demo/verification/skin-community/river_crab.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 14497,
+      "sha256": "f56e3129bdc94bee2fa93878a4d5b05dc273c9fd5a89cbbd10284cbf494481c4"
+    },
+    "demo/verification/skin-community/river_glass_shrimp.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 10585,
+      "sha256": "9e7b86610bc34f6c356843a3ba7aaad8c1f2a5c310bd3753e5a608f09665d6a4"
+    },
+    "demo/verification/skin-community/river_ice_snail.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 15954,
+      "sha256": "76f67c3f2dadc6d814fcd2d6cda2b89a5e15f6701ef9f0e11b4103ff22d7c312"
+    },
+    "demo/verification/skin-community/river_moon_crab.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 15145,
+      "sha256": "bfdf72e18f3711727a9cd55fe60209961c0ea8ca05380df58942a1ea21e0b81d"
+    },
+    "demo/verification/skin-community/river_shrimp.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 10395,
+      "sha256": "00ce8524c0b01ede00914d486822faf76283f807de045816ea3f5ba95ce00f39"
+    },
+    "demo/verification/skin-community/river_snail.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 15488,
+      "sha256": "3c7cbfbdde64820afce71c6995b2cddb1e03b14dd0fe010670d9dce6cb8d8679"
+    },
+    "demo/verification/skin-community/skins-ui.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 433352,
+      "sha256": "71897fd5f6dc8075b2f42ea4741f08da7fdac531c4479883bbd3c0d2caf41fb2"
+    },
+    "demo/verification/skin-community/ui.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 505081,
+      "sha256": "f1db1707f299d0e6703ac0e3f640ed4d1d5ff7f6198c37b78cbe6e880523e537"
+    },
+    "demo/verification/skin-community-final/apartment-security.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 84632,
+      "sha256": "ad6e6a99c06b2b600aa8ea78b1f301a8f900fcaa154d5e9bac2e24e434b4c343"
+    },
+    "demo/verification/skin-community-final/arena-on-terrain.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 376333,
+      "sha256": "ae41cfa0a650865204ab2a1f45f464b3cebb3e28e276fb39b4bca26470e9470c"
+    },
+    "demo/verification/skin-community-final/candy-citizen.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 95582,
+      "sha256": "2f39fd631a535e12b4c088ea468cb4161a1a9ffcd451cdb2e7880d040af89753"
+    },
+    "demo/verification/skin-community-final/factory-furnished.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 52883,
+      "sha256": "a78a500cb7fcb313d2780058764848f65dc8bb592524d562a4ab24388e95b38e"
+    },
+    "demo/verification/skin-community-final/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 3966,
+      "sha256": "1fd2b64ae0852b1d6a9322f2437214e79ee5b256054659bcd546ff9abc02be9f"
+    },
+    "demo/verification/skin-community-final/river_crab.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 14497,
+      "sha256": "f56e3129bdc94bee2fa93878a4d5b05dc273c9fd5a89cbbd10284cbf494481c4"
+    },
+    "demo/verification/skin-community-final/river_glass_shrimp.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 10585,
+      "sha256": "9e7b86610bc34f6c356843a3ba7aaad8c1f2a5c310bd3753e5a608f09665d6a4"
+    },
+    "demo/verification/skin-community-final/river_ice_snail.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 15954,
+      "sha256": "76f67c3f2dadc6d814fcd2d6cda2b89a5e15f6701ef9f0e11b4103ff22d7c312"
+    },
+    "demo/verification/skin-community-final/river_moon_crab.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 15145,
+      "sha256": "bfdf72e18f3711727a9cd55fe60209961c0ea8ca05380df58942a1ea21e0b81d"
+    },
+    "demo/verification/skin-community-final/river_shrimp.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 10395,
+      "sha256": "00ce8524c0b01ede00914d486822faf76283f807de045816ea3f5ba95ce00f39"
+    },
+    "demo/verification/skin-community-final/river_snail.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 15488,
+      "sha256": "3c7cbfbdde64820afce71c6995b2cddb1e03b14dd0fe010670d9dce6cb8d8679"
+    },
+    "demo/verification/skin-community-final/ui.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 433369,
+      "sha256": "76cb5bed54bb04b3c31808dad0cf86082da336fb0a133eebd6b05b118fb56429"
+    },
+    "demo/verification/skin-community-final-regression/ground-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 494479,
+      "sha256": "9e4a7376f48764752dff3976f2fc1a13defdd99ce1a4a8e7f351dfb4fa4211be"
+    },
+    "demo/verification/skin-community-final-regression/mountain-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 408097,
+      "sha256": "744dcb5a256c33d164a04baeb2453c3b89b341a2c4f0f0e477e04ebc0075b689"
+    },
+    "demo/verification/skin-community-final-regression/native-controls.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 107,
+      "sha256": "0248ff7bd18a72a3abf279696b8835e07034e2540c8b7fb53ddbead222a8500c"
+    },
+    "demo/verification/skin-community-final-regression/open-piers.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 501544,
+      "sha256": "e5b3d7eda7ab68ed9a11805676615475371db82bc25aaad46456527aad4d48f9"
+    },
+    "demo/verification/skin-community-final-regression/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 118522,
+      "sha256": "9d7d042848949bac4581d135da14cc959d6fc1c812bb71995b41769e09435963"
+    },
+    "demo/verification/skin-community-final-regression/ruins-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 532161,
+      "sha256": "3f211f7ab1b3ffac28a977cc0f06c94375f44118123de2a9d8f025e12ac43663"
+    },
+    "demo/verification/skin-community-final-regression/window-left.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 349153,
+      "sha256": "eaf16e37a44c28766e4b7b7722038bae30266a25f12d206881351b97d60e6f67"
+    },
+    "demo/verification/skin-community-final-regression/window-right.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 292161,
+      "sha256": "a8467bed5173936f2b31135a0a1a502ae3957947c23067772245c4f97ae58db3"
+    },
+    "demo/verification/skin-community-regression/ground-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 505382,
+      "sha256": "c8bb823620758a73ebb5c28770cc809f2cf5afee35c73ed91529607587989aee"
+    },
+    "demo/verification/skin-community-regression/mountain-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 420124,
+      "sha256": "e0e1fb3d23d7e348cbb0f0a11107265fe146dae2f5ef53e87215b7e6aa7ee9b6"
+    },
+    "demo/verification/skin-community-regression/native-controls.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 107,
+      "sha256": "0248ff7bd18a72a3abf279696b8835e07034e2540c8b7fb53ddbead222a8500c"
+    },
+    "demo/verification/skin-community-regression/open-piers.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 516321,
+      "sha256": "09a4e355d0ba384436573272c3edeca436e27ab67ab211a0c86f3a25bc4fd908"
+    },
+    "demo/verification/skin-community-regression/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 118522,
+      "sha256": "50cbed5212be7d532aa94e192ee8a5e7fae2f9c9be0184be69db9576211340ee"
+    },
+    "demo/verification/skin-community-regression/ruins-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 556716,
+      "sha256": "90c42460e05ce588533508537c092a724e5f9c5042268a9852240adcc24fc14d"
+    },
+    "demo/verification/skin-community-regression/window-left.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 334743,
+      "sha256": "07025717dee7e4b6b1717f8083a02fe4e0e71929e213c7b2479b649c50aa2674"
+    },
+    "demo/verification/skin-community-regression/window-right.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 295119,
+      "sha256": "0ebd8a580f62d5da600e2407ac6b50c0c0206df21dd48ffe7be7dc35f757cee1"
+    },
+    "demo/verification/station-mobility/nguyet-que-ground-lift.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 461387,
+      "sha256": "41c2bbca8e8223a1eaadcba04f663dcb95a96da04b064993700a77d3222c154d"
+    },
+    "demo/verification/station-mobility/nguyet-que-transfer.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 517910,
+      "sha256": "9bee103d0dfb6b2e991803c141b16592b59411cf804c446bf6acced559e53bad"
+    },
+    "demo/verification/station-mobility/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1364769,
+      "sha256": "d8959104416e6809e13da36c685496db7c2c9a73f263804d92e94343df53785f"
+    },
+    "demo/verification/station-mobility-final/nguyet-que-ground-lift.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 483277,
+      "sha256": "916ce291e9fe87004fa2abb2fe0784f06f330a9a7030a59f708150b95f363bef"
+    },
+    "demo/verification/station-mobility-final/nguyet-que-transfer.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 519928,
+      "sha256": "79135d4b84a5b952801ae296de2d29362db4a887db24559aa1dd63b9565ee686"
+    },
+    "demo/verification/station-mobility-final/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 18110,
+      "sha256": "70dea48cd4bba33d6e9e7a40ecb07649b54f64e11a1e64e02f9d81b7aa7f7dd2"
+    },
+    "demo/verification/station-mobility-fixed/nguyet-que-ground-lift.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 493898,
+      "sha256": "798b2f7a7cb8e72776e2ecbde571e1e856009fedc74b7e64cc364ba695a256a3"
+    },
+    "demo/verification/station-mobility-fixed/nguyet-que-transfer.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 519825,
+      "sha256": "cc6fc082c8547d743715b8d7f74d89e211aa3507e3126d128196bd0ebdb1f669"
+    },
+    "demo/verification/station-mobility-fixed/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1367473,
+      "sha256": "c2ee82e829518688e5b980b4ed4093c8ee31a8a1d98fc6a5a28b238a28fa1e3c"
+    },
+    "demo/verification/station-mobility-regression/ground-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 467029,
+      "sha256": "6364ea8ef26aff8a3652383159020179b213d4a70f2c80105a7f52a4309e7764"
+    },
+    "demo/verification/station-mobility-regression/mountain-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 388574,
+      "sha256": "d16844c24e7ea61a105511b2ee4b66574f4bd2e8598cdaa239916f166dda33d7"
+    },
+    "demo/verification/station-mobility-regression/native-controls.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 107,
+      "sha256": "0248ff7bd18a72a3abf279696b8835e07034e2540c8b7fb53ddbead222a8500c"
+    },
+    "demo/verification/station-mobility-regression/open-piers.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 489546,
+      "sha256": "55a32ddf43d5e93da5de5b1dab35ff32274df20ff44723df45f5076ba22f3784"
+    },
+    "demo/verification/station-mobility-regression/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 116878,
+      "sha256": "b486cd120b19737504ec801d5aa196d04782916230ffa11ed17ae45a2bf236be"
+    },
+    "demo/verification/station-mobility-regression/ruins-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 507499,
+      "sha256": "f81c133faa0a5d36ae13b19531a593651b51a940a9477c6b442115906850497a"
+    },
+    "demo/verification/station-mobility-regression/window-left.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 333598,
+      "sha256": "0d8097faa4995f52259a990ac683f1766c87aab434c3d48dc63cbc55919da697"
+    },
+    "demo/verification/station-mobility-regression/window-right.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 284285,
+      "sha256": "34f7d3a16dbd5e6e33f48b9763ca0649244ecc2387e759845a90084561759584"
+    },
+    "demo/verification/terrain-probe/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 195421,
+      "sha256": "43b3ef6cbcccdf652ba39aa0c1b7b885de2b1145a184eb67a00aafd4e9e465d1"
+    },
+    "demo/verification/void-art-review/eight-towers.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 469854,
+      "sha256": "b7b43faf89cb1ea1d1f350f46348f25bb6b7914e76c4545d8ea37b051867804d"
+    },
+    "demo/verification/void-art-review/factory-gate.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 156879,
+      "sha256": "e3f8a47685ff683c29dd1b0f594071f900c0969ee99a84c24875049a455bd4d2"
+    },
+    "demo/verification/void-art-review/factory-production.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 50626,
+      "sha256": "74d2a837a67ec4d8058fce32fbc79f75846da623bdf7d6d6a975aa2722acd496"
+    },
+    "demo/verification/void-art-review/furnished-room.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 64204,
+      "sha256": "9427bc3fd1b6a130ed4f717b8e2113494e5b9997e42136be0e105b330ac523e0"
+    },
+    "demo/verification/void-art-review/queen-royal-arena.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 301129,
+      "sha256": "f4af7e82d4784cea79176b111ec18d76e884ca4000aa520340e228ea4ac7d3be"
+    },
+    "demo/verification/void-art-review/rage-armor-worn.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 132345,
+      "sha256": "b372c264765ec9da15b096393a21d4091b59621af64a7596c656a5c3c0c6689d"
+    },
+    "demo/verification/void-art-review/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 390,
+      "sha256": "b358a58138a78596278e8b6af8359f88ea95b1725fe15bf6b73c2e8644ff7cae"
+    },
+    "demo/verification/void-art-review/ui.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 125614,
+      "sha256": "840e4cb26c8391cb6023c58aee7670ab21374346ae5354c51825e20b6c251931"
+    },
+    "demo/verification/void-final-preview/eight-towers.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 372961,
+      "sha256": "98c95b545f0df0e580547973da58a1435a53daf5819c3e20163719f6fae86082"
+    },
+    "demo/verification/void-final-preview/factory-gate.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 207841,
+      "sha256": "f589935f41e646ab8e52864aab12f32322d534336d950278338a7b88cdf15042"
+    },
+    "demo/verification/void-final-preview/factory-production.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 44740,
+      "sha256": "eaf9040fad10f03ce37dbbb0fee2d4da24a802ce190ebdd115e6490b34231a90"
+    },
+    "demo/verification/void-final-preview/furnished-room.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 64204,
+      "sha256": "9427bc3fd1b6a130ed4f717b8e2113494e5b9997e42136be0e105b330ac523e0"
+    },
+    "demo/verification/void-final-preview/queen-royal-arena.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 201554,
+      "sha256": "2a07ad19eb92b272676cfca6bc5eb14f4da4d0ae37f977bff44023d584911f9a"
+    },
+    "demo/verification/void-final-preview/rage-armor-worn.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 106634,
+      "sha256": "edf72165be467315a6f6ea7213460a518cb5f11e1ff45d38f8ee15009e843ef6"
+    },
+    "demo/verification/void-final-preview/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 31159,
+      "sha256": "fa9e04cdfe8c07630441459341f60a544f881617b215396e9af0fd8485531a71"
+    },
+    "demo/verification/void-final-preview/ui.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 155347,
+      "sha256": "16b8f413c5ec3ce76abd19b2171276884244a32db29fa8cbb82f3cfe351ab5cf"
+    },
+    "demo/verification/void-update/ancient-vine.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 340055,
+      "sha256": "9137a28b1c4b1a5de270db4e5fa6b0ad2d77a314f87f471097ae2c8b2b023356"
+    },
+    "demo/verification/void-update/apartment-interior.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 64016,
+      "sha256": "16155e8e6a9426f1d8a52fd642a7b36f683db5f633df8725addb32682eb78e7b"
+    },
+    "demo/verification/void-update/arena_station_walk-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 724,
+      "sha256": "4fb3739baba52221d2109887e7997843053a0f3035a9d82b81a516201e8a7b33"
+    },
+    "demo/verification/void-update/cavern-entrance.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 553009,
+      "sha256": "db4ce30f86c836629ea8240f02dc170945107677f67d37f7d6bf4a2d870d403b"
+    },
+    "demo/verification/void-update/desert.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 199881,
+      "sha256": "e657b7b2a5dd0844f70fa5865307a258089c9dbdb348b67550598f3752edceed"
+    },
+    "demo/verification/void-update/exploration_update-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 6784,
+      "sha256": "5e01ee966c3e91923e3612b91b24de665f53654bec0c2492ae7afae552e4dc2b"
+    },
+    "demo/verification/void-update/export_current_arena-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 24857665,
+      "sha256": "ed9da410a67b0545940941722db2421e1a6c3f5e8efdbd56bb0823b956717ae5"
+    },
+    "demo/verification/void-update/features-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 8175,
+      "sha256": "ffafc39fd81062e5f00820a24f0d3332a00864a94a0d5c82c11a9136cb0caf81"
+    },
+    "demo/verification/void-update/ice-arena.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 287187,
+      "sha256": "5816fe8ba65d75ee37cbe82a0a5abab13682a2b00c9543a1e140a6525f03c377"
+    },
+    "demo/verification/void-update/meaningful_interactions-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 3821,
+      "sha256": "8c0d3d0f0be6ab4dca41e061cd54665c223a6b706d004e3a91aaca0083492cdf"
+    },
+    "demo/verification/void-update/nguyet-que-ground-lift.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 526390,
+      "sha256": "69b698e455f2f50b82f7cfdbca7925b4b96abffb52cb86d4649682b2bd4c8e3a"
+    },
+    "demo/verification/void-update/nguyet-que-transfer.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 556559,
+      "sha256": "cb2554f81db37c7e69c76e5d9a44c2a267776c577fa2db39845a3046c0fc7057"
+    },
+    "demo/verification/void-update/polar_penguin.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 23500,
+      "sha256": "76b2e2a0268ee57912dd3fdb135d6a72b562b8086b8eeaf902f99e26f5a46e80"
+    },
+    "demo/verification/void-update/polar_polar_bear.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 22652,
+      "sha256": "fa340b75d0a3dc6d4aba19cc3a107a8cf3bfa44f16080b088c7c128a5ce40ebb"
+    },
+    "demo/verification/void-update/railway_service-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 109919,
+      "sha256": "67adac8f214f0917b0b7831699f1815fb6b922345a04d4c2777d91701f11090a"
+    },
+    "demo/verification/void-update/rebuild-arena-trails.js-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 106,
+      "sha256": "caaa1f106997738b8ca8d4e0a55e52a364768806bb29bd7052f1b3cd87021d50"
+    },
+    "demo/verification/void-update/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1066332,
+      "sha256": "9d58cef9b8483ca89b1b898465278e32545c325616f9c4ae89625a486549e08c"
+    },
+    "demo/verification/void-update/review-creature-art.js-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 448,
+      "sha256": "0e189dc104af5e3c5ee2c1f33ff02efc10ed56c591ca27b30955a67ce4b293ca"
+    },
+    "demo/verification/void-update/river_crab.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 29178,
+      "sha256": "81617420e2f4531dc856b4d581ef979dcc9ae63a40cf9c4d9b5f6db7d4fffcf0"
+    },
+    "demo/verification/void-update/river_shrimp.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 18388,
+      "sha256": "4a37d454e6001347393800c7269cc28e9bbe48256fe0375ca02a2573eb19713c"
+    },
+    "demo/verification/void-update/river_snail.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 20002,
+      "sha256": "6a82a533fdc671355c9b843a29fada747955349552bcedf80b8acf064b1a2a20"
+    },
+    "demo/verification/void-update/roaming_elephant.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 24145,
+      "sha256": "36e879c531761d5ef9eda36331d61823c19913ed311243f44fb084539e752e7c"
+    },
+    "demo/verification/void-update/snow-factory.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 123772,
+      "sha256": "1a79a99c17eb133b47d94134c0a93ca2012fe7158bc7a68c108c7cecd0df237f"
+    },
+    "demo/verification/void-update/station_mobility-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 20094,
+      "sha256": "8aaf00c17f6221420f89610350bb09582e33aa85d5091322bd7803b55f08e524"
+    },
+    "demo/verification/void-update/terrain_traversal-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 10301870,
+      "sha256": "a89f8a66b83241def59425078d20009a3d8a7c2aabc595471391d575523b579d"
+    },
+    "demo/verification/void-update/treasury.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 604910,
+      "sha256": "43ad55bf8b41416714868e056ee4a279bd5b91e639109adca320b969a86a3986"
+    },
+    "demo/verification/void-update/vine-riding.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 389040,
+      "sha256": "df2161511fe972650f4865db3e31c81dec56bcf7238ed1487fd9bc7e0830cce6"
+    },
+    "demo/verification/void-update/void-district.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 368970,
+      "sha256": "8ca41486596b13e7a0d95100ff31566cf12ddf46ecda73bc2e228a3317d6290a"
+    },
+    "demo/verification/void-update/wildlife_horse.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 22935,
+      "sha256": "9456f8ee499a00a3b62e935f7b0bd98c02ab2909ea061b966aa3e428aa920ec4"
+    },
+    "demo/verification/void-update-regression/ground-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 505420,
+      "sha256": "3a9773885540e32f0936858f006861450fdb2508ab3748fd4a9fe2479514fbb2"
+    },
+    "demo/verification/void-update-regression/mountain-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 419761,
+      "sha256": "8ac34a9fca2a2f2173c8ab41da646090aea208dc66ce73d3686d2945fac28a99"
+    },
+    "demo/verification/void-update-regression/native-controls.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 107,
+      "sha256": "0248ff7bd18a72a3abf279696b8835e07034e2540c8b7fb53ddbead222a8500c"
+    },
+    "demo/verification/void-update-regression/open-piers.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 516381,
+      "sha256": "1d0f8cc16134a44efc820f8dce02f0fadfb0ba0268afe751ec1141a92c02613c"
+    },
+    "demo/verification/void-update-regression/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 118854,
+      "sha256": "6537b5ee63d161e69858303954c111c8d755a26a4ec149c3098bcc6d0f276772"
+    },
+    "demo/verification/void-update-regression/ruins-station.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 556473,
+      "sha256": "157e8ff9a6811cc14085d447d0e74c86c7ff0ea54d184cd2965c400eded35222"
+    },
+    "demo/verification/void-update-regression/window-left.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 334255,
+      "sha256": "9732423024d3a1d6994260008adbab3fb189c1748eba08620d58aed3f8923dd0"
+    },
+    "demo/verification/void-update-regression/window-right.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 295028,
+      "sha256": "49c6e5f01d390cec57b138555e9554ab29c8af1246ef11a624b3cfd60227a823"
+    },
+    "demo/verification/western-highlands/blender-design.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 110290272,
+      "sha256": "9dac41df52e5a0a235dd8c6fe2c65e94ba169bcb06e745ed121e73f387a964fd"
+    },
+    "demo/verification/western-highlands/fortress.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 591496,
+      "sha256": "54cfc076251ea298f9f40ad876d917074778139d8fa703c540b4636a1db29ba6"
+    },
+    "demo/verification/western-highlands/highlands.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 293485,
+      "sha256": "b7f263a35dc0b4f348e496e2201d71cb14eff6dfa3b44d8beb1c7529595324d4"
+    },
+    "demo/verification/western-highlands/market.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 304981,
+      "sha256": "052eb167dbbaecbaa6055a057870034ae816e483b256528c3de4e4d980499d1a"
+    },
+    "demo/verification/western-highlands/persistence.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 119,
+      "sha256": "702afada32fe12a21e1975126d589114cc3425398ca58fdc70fa21ad4d372c8e"
+    },
+    "demo/verification/western-highlands/report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 634775,
+      "sha256": "bac58cde74124eba381376f8fd9fc690dca3ceb470e2be0057ea196eff7b3249"
+    },
+    "demo/verification/western-highlands/ridge.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 180403,
+      "sha256": "bd23e9eb689e2dd90842b4f1d699b18898d33e061d5ef073600e01e365379e23"
+    },
+    "demo/verification/western-highlands/runtime.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 18,
+      "sha256": "861f18bcf433cba1e778ffc114e58f280b62a2f21198feeb33e135018efc7ce8"
+    },
+    "demo/verification/western-highlands/snow.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 255107,
+      "sha256": "c8b24d66a541de7fbbe6c39112cd4e505c4131240fe79a2339a461a950441cf0"
+    },
+    "demo/verification/western-highlands/village.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 627887,
+      "sha256": "6b428c2a7bafc37242132576fcb129415a1b60603f3a0640fd2df93908f724e5"
+    },
+    "demo/verification/world-ecology/blender-backup.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 381,
+      "sha256": "6fef635796fd5c1938ec945210e4ff4c36857ae8615761cd23b8614ac1ecbb70"
+    },
+    "demo/verification/world-ecology/blender-camps-update.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 257,
+      "sha256": "574c7bad5c74692e87896d1438dbbd27aae2eb32e11b10ce0e8b441d91005905"
+    },
+    "demo/verification/world-ecology/blender-camps.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 5983477,
+      "sha256": "924dc1faed79b3f00dff08528b94b2d9e1b9ef90a3b2dd35d227f40e134c3a42"
+    },
+    "demo/verification/world-ecology/blender-design.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 69847217,
+      "sha256": "f50ce5d8c99c638783e788cabe89e2ac4ca8605572e4ba3848c0d8bad66dae03"
+    },
+    "demo/verification/world-ecology/blender-live-audit.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 325,
+      "sha256": "e4d9c49c4e63f0fbbb42857571ca3d9f71ff2627c04864e306275df137a01c80"
+    },
+    "demo/verification/world-ecology/blender-map.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1379120,
+      "sha256": "354f4872da5b7d1a2195395ccdd2ead3a84eb8ff02ac99982caafb6f79dc82c0"
+    },
+    "demo/verification/world-ecology/blender-update.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 302,
+      "sha256": "d6e67cfa7fe31326b263a472cf74e1891a4ef4c5d98a67031f9e633f6ed2bb41"
+    },
+    "demo/verification/world-ecology/ecology-report.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 4524683,
+      "sha256": "6a80a12a293389db6359849579493ae802ef040d1c220ecfa41c44bfea2696f0"
+    },
+    "demo/verification/world-ecology/factory-crystals.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 77461,
+      "sha256": "29114b79bf6beaa8dbc8bbb0becf5d78ee15a4d7b6591058637a6723aa48b5ac"
+    },
+    "demo/verification/world-ecology/performance-before.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1064,
+      "sha256": "bd5bb3a8ab5a64dc9f807e2528bdec3d593465a002e68bd17178f5689b8fa4c8"
+    },
+    "demo/verification/world-ecology/performance-castle-final.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1102,
+      "sha256": "53bb143c1e144f2d1f78b39689f38614e7e39ae41057e7a5a354ef854bf94397"
+    },
+    "demo/verification/world-ecology/performance-castle.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1079,
+      "sha256": "e4d62c306ef8885ea1ad5ff1d7a6193df13e0c96097fa8a97a2111ce4aef98ba"
+    },
+    "demo/verification/world-ecology/performance-content.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1052,
+      "sha256": "2709641a2431558c9d35550b18d3e3c49dfe253e94f691e8684352c77e20e90d"
+    },
+    "demo/verification/world-ecology/performance-culling.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1034,
+      "sha256": "1e916ed04169a4fa057bd770ae63d13e88238b79f95175f1d6e2675b357fccbe"
+    },
+    "demo/verification/world-ecology/performance-final.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1098,
+      "sha256": "a74ee7ccd767a04888abd4087f9aac5eaaad4b7f9fbf1a3036c367382c6004c8"
+    },
+    "demo/verification/world-ecology/performance-optimized.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 1097,
+      "sha256": "8a7de6b635fc706f4b0301758b3eeed8f68e6b478cfeb0bcd97d17d63a4badb2"
+    },
+    "demo/verification/world-ecology/persistence.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 139,
+      "sha256": "44a1c524894b83c47418ad97a0d3edc44d7613f346bf2a5f9b9735978947786f"
+    },
+    "demo/verification/world-ecology/polar-wildlife.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 125066,
+      "sha256": "5606f7a8e58e5ca8c18eca40ae53f6e486925f1f520945e9172607fa457943b8"
+    },
+    "demo/verification/world-ecology/rail-audit.json": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 8870,
+      "sha256": "106d824783e22a330f9ae9787a978b5b2be1eecf6e45784add05f232774b3805"
+    },
+    "demo/verification/world-ecology/river-ecology.png": {
+      "reason": "Superseded generated diagnostic/report; current acceptance reports are retained",
+      "bytes": 102618,
+      "sha256": "39b180dea3ab8432f2947529068f4a315f87a6a2dd6cf26874b6334169b4f28e"
+    },
+    ".runtime/arena-current-build.log": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 4572,
+      "sha256": "5cba08d360100e4339f433c66dfcc1f488f1fbec30bdb7efeb84f02db10afefa"
+    },
+    ".runtime/arena-current-scene.json": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 14379642,
+      "sha256": "ff9805fdaef72889d05c54361f7f197b0d46a1cb55e606858b1f3744576b6be6"
+    },
+    ".runtime/arena-final-blender.log": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 4572,
+      "sha256": "28cd85f4d3bcca8eba0e1bfd9780216a50f82e476de6b5613cdcb3542ee517c5"
+    },
+    ".runtime/arena-inline-check.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 203399,
+      "sha256": "d84d91f69e091541150889cf72b2d385e9de59e46316febfcf1c59684412df79"
+    },
+    ".runtime/arena-site-probe.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 465,
+      "sha256": "bef8013c23a3e8e077af958800c879e5671c6c90ad377decb2b79d3e89df01a9"
+    },
+    ".runtime/arena-texture-1.png": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 970,
+      "sha256": "6f7b81768a1e6ae6570fef0766dca269dfe0dc8e3f1b613318b762aa9695eb42"
+    },
+    ".runtime/arena-texture-3.png": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 75474,
+      "sha256": "6ee4ec57bedb4befa0279a0b8d844b8f81d4435c1d84c40da58da819c0b6a147"
+    },
+    ".runtime/arena-texture-9.png": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 121933,
+      "sha256": "bc6d3759d0d86bb219fae81f3eeedb6c520245a0fcc2d2296b3a227a84463ca7"
+    },
+    ".runtime/blender-asset-checks.log": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 1474,
+      "sha256": "16ac9fee424ef33ff2d62cdfbd2541e5b95ccbaa07844a7b61e2779148657a73"
+    },
+    ".runtime/blender-final-qa.log": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 1474,
+      "sha256": "7253113d3f968626713a9cbf5548448183e7f2f97b93d3acaf16f64c8ebaf809"
+    },
+    ".runtime/check-interactions.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 132,
+      "sha256": "98909ac4023dbdea40e5bc5f86c5715215bf13f71c0cf89b32c5d2bd9e016027"
+    },
+    ".runtime/creature-studio-build.log": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 6160,
+      "sha256": "8b49e5d3beb18356179f6f6a53ff7e733a0720d11e1376bc218ee24e46ed99af"
+    },
+    ".runtime/exploration-inline-check.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 205485,
+      "sha256": "78cf602264c7467163b250aa6c0dd1b0c15a2bc4c5894625226603e6ac8010d7"
+    },
+    ".runtime/inspect-stack-current.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 663,
+      "sha256": "63dc5551032ccb5534e750648e083bbf96497e368708bf47b42d791cf4e72e1a"
+    },
+    ".runtime/inspect-stack.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 661,
+      "sha256": "5f08279262a81a75dc0a8c8811addb3bf0c222245321df663678aa96e5cd500c"
+    },
+    ".runtime/interaction-inline-check.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 203224,
+      "sha256": "9a325b5bffd2423b39015f8958318a543a44a26ab65ac342bdb3d78847fc2565"
+    },
+    ".runtime/liveedit-vine.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 1073,
+      "sha256": "e11755728099db4aa1335bfb5531b786832f645771e5bbd9c54d452e6fcf75dc"
+    },
+    ".runtime/lobby-probe.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 607,
+      "sha256": "057ad4903f80a7a416c20954291d8390150dc2b8fc5dba2f83297a6e9c78d124"
+    },
+    ".runtime/path-probe-exact.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 514,
+      "sha256": "df53ac401022e77d1367233a47005d5bdc7127e13ad9f620f220a87057779faf"
+    },
+    ".runtime/path-probe.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 474,
+      "sha256": "07cb6cba420cd57c45309d46647ae78f539fc28cddc2e87386d7002fe55f07de"
+    },
+    ".runtime/path-solid.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 658,
+      "sha256": "54346d325cebdf7bcc3d53e0b35588d115a39803e2304b7d0a89f4619dcc87ed"
+    },
+    ".runtime/path-station-solid.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 748,
+      "sha256": "fcc65861481f73142973c2ba468d9bbefb7ebfd48f35e3eb96377eeafede0c6a"
+    },
+    ".runtime/rebuild-arena-trails.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 22641,
+      "sha256": "f0a5d894e4e34c7fcfb16fb9d50b8eb6d7eba23551b27e9bfe16246c8354272a"
+    },
+    ".runtime/rebuild-walking.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 319,
+      "sha256": "937775bcb6efa546244adf1781e02c62fb055d9f23981fc89ac3520a820f4520"
+    },
+    ".runtime/review-creature-art.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 8951,
+      "sha256": "9fc0e2dfed1b433201bcec2b1b32af1d579a291291db278273b9da22651a2de9"
+    },
+    ".runtime/rope-layer.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 327,
+      "sha256": "e873d84caa5ea16fa5ef8a9e584b500dd75aa4f134d4b923621eecd1fdbe9cb9"
+    },
+    ".runtime/rope-visibility.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 529,
+      "sha256": "ab88f7044bb900d6f5d80c145d7ad132f5aeda2dac28ce8f9cdf1299265f18ce"
+    },
+    ".runtime/short-lifts.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 142,
+      "sha256": "278a097ccedbb73b28fe81954bae894fb36f9778c2e21fcd6f607b2cc8cf68b1"
+    },
+    ".runtime/station-order.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 212,
+      "sha256": "5343ee0e6fd4ab4bc9832c55495a4ce94fe335af1fce844ca16a1b1f9b99295d"
+    },
+    ".runtime/stations-probe.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 230,
+      "sha256": "bd18fad342b9e70cb801a6ee490c996c353b9a6bb398e05d4dcf62101ac2059d"
+    },
+    ".runtime/void-blender.log": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 4922,
+      "sha256": "807f784f4b178b1524f03df05b36fbec3455e56c3611a2c0723882404e9ae3f1"
+    },
+    ".runtime/void-inspection.json": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 3821,
+      "sha256": "8c0d3d0f0be6ab4dca41e061cd54665c223a6b706d004e3a91aaca0083492cdf"
+    },
+    ".runtime/void-terrain-probe.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 730,
+      "sha256": "5eb1d5e78b6314b7bb0df9f652cabd8931aa5729b6b10ff4304b73961c5d4cb1"
+    },
+    ".runtime/arena-creatures-before/CONVERSATION_HANDOFF.md": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 180214,
+      "sha256": "e73b3bbf69b253efa02ec76649234b732efbb5c62aec24487fe9c1d7943a076b"
+    },
+    ".runtime/arena-creatures-before/README.md": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 19629,
+      "sha256": "3df3f7c711ef961c47d36b9b927e770a6b216a91f4f79d0694e151022babc2d2"
+    },
+    ".runtime/meaningful-interactions-before/CONVERSATION_HANDOFF.md": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 176556,
+      "sha256": "b65c27227fe307695e13a6db3601cc253db4599facf945c921ad4db1e2899522"
+    },
+    ".runtime/meaningful-interactions-before/field-guide.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 34406,
+      "sha256": "8c5820c1b817ca42267cc7660f32a17e025b8d2dda8a44a9c9709793e71409af"
+    },
+    ".runtime/meaningful-interactions-before/README.md": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 19030,
+      "sha256": "e82a3106763b4c2a8186520e681e597d75c70297390dbcb1b58115c9a802beaf"
+    },
+    ".runtime/railway-supports-before/moon-railway.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 63079,
+      "sha256": "f35591e666380ca331721fbaaec11c0de185d18eb47d0ee18ae26698e8106550"
+    },
+    ".runtime/railway-supports-before/station-grounding.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 11432,
+      "sha256": "1c298260e73489bd51aa3f1a148af3cccad8a10da76d8bbc44c20c40e23dafdb"
+    },
+    ".runtime/station-mobility-before/moon-railway.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 64427,
+      "sha256": "2a087b8f8d525cafa9ce600ef50759f36d9d5b2198bc3a8eb8bb7f072fabbddd"
+    },
+    ".runtime/station-mobility-before/railway-clearance.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 30411,
+      "sha256": "3b9f655db47e9547f8fd167db7ad6c1aa5c83f392267ec57724c564c50267f60"
+    },
+    ".runtime/station-mobility-before/realm-transit-update.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 24381,
+      "sha256": "22d3a7823641da2aef3b1a87c5cb1be0079bf2efbff8189dc3c017d28d053564"
+    },
+    ".runtime/void-update-before/demo/index.html": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 272686,
+      "sha256": "611f42ec04e832cfc5d451beee30db02631d9d673cdcd22ffe8059c00efa528d"
+    },
+    ".runtime/void-update-before/demo/features/castle/castle-upgrade.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 31418,
+      "sha256": "326025551093aa0e15b41d83a1e7a24a467aa5aee834813c41af474253284d83"
+    },
+    ".runtime/void-update-before/demo/features/characters/combat-balance.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 287,
+      "sha256": "240c1e560729e907d0b0b4f839ad5ce4c520ec3c93e87977e2010b46f8610651"
+    },
+    ".runtime/void-update-before/demo/features/characters/player-experience.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 13117,
+      "sha256": "00c05a9be04adec2959d7f7f24ca0d85b0a91a76419f274de2b16e38cb2024d4"
+    },
+    ".runtime/void-update-before/demo/features/railway/moon-railway.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 64483,
+      "sha256": "6a1d875570b46fbb029dcb01e32d2cc6c112689cd74d2b7e23d597506df9c956"
+    },
+    ".runtime/void-update-before/demo/features/survival/player-life.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 5531,
+      "sha256": "46ca7871cf37b152f57116c6e7ae7cb0b86c7b687f1cd9a1b65bdb1e9e6a6ea8"
+    },
+    ".runtime/void-update-before/demo/features/world/antarctic-realm.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 11002,
+      "sha256": "b641ca3c4c2acaad69b3ba57dbc6ec9184f084fc9cccba938e442d6fc4ed4dd8"
+    },
+    ".runtime/void-update-before/demo/features/world/monster-camps.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 18764,
+      "sha256": "d908b7232168b0a64ca74ceeb97eceedb101fdfe646619ab8b28ee2b7ff050b8"
+    },
+    ".runtime/void-update-before/demo/features/world/realm-transit-update.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 24460,
+      "sha256": "7fb6b8e039aeec38a9473dc3f7c8015ae2f7748dade029fabb64279ac948f061"
+    },
+    ".runtime/void-update-before/demo/features/world/terrain-traversal.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 3329,
+      "sha256": "ac0534759e203282c02855c05073bf908a9e3129ec45f9cbcca38ab1f6fda051"
+    },
+    ".runtime/skins-community-before/demo/index.html": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 274329,
+      "sha256": "4c1e7f6b321c3cf71cc13533a976e34bac77f0a92085dd35f0b84564b73f5fdd"
+    },
+    ".runtime/skins-community-before/demo/features/characters/hero-stat-sync.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 1450,
+      "sha256": "a28dd6d3bf245d8ec1a23d9d30a91512256cac5bbe90c315e791f3a97d96bec2"
+    },
+    ".runtime/skins-community-before/demo/features/hud/game-hud.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 12216,
+      "sha256": "07b70fbfed57f7af1ba3e1383c1753b9669004871c35298ebe3c721a6aac8491"
+    },
+    ".runtime/skins-community-before/demo/features/hud/game-shortcuts.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 4557,
+      "sha256": "9f8d3edc58b209e4cb831e3787cd0dceffe8ce0913d46c8e814774720ef7d33f"
+    },
+    ".runtime/skins-community-before/demo/features/library/field-guide.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 34168,
+      "sha256": "cb453af90c9bc600b77e082a8a3610fa3f6de517371c79c399e7241f36b1b41f"
+    },
+    ".runtime/skins-community-before/demo/features/library/library-previews.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 7990,
+      "sha256": "8d390e19b201af6cfd1c77029b854c35132d8e0d5748d6c65f79ab429efff235"
+    },
+    ".runtime/skins-community-before/demo/features/void/void-district.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 20184,
+      "sha256": "50e557010d979e3645c897f5ffe21cc44261d6010b7579cfb327ee9cd5484978"
+    },
+    ".runtime/skins-community-before/demo/features/void/winter-architecture.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 9328,
+      "sha256": "83e5f6d8bc2e7f02dc3dbff3f55f5f2670ccd182e3d75cf52942cfb9034fbf09"
+    },
+    ".runtime/skins-community-before/demo/features/world/antarctic-realm.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 8637,
+      "sha256": "52427f7058cf707084d7f7052b444b200e687660261573755f8ec95f754540f8"
+    },
+    ".runtime/skins-community-before/demo/features/world/monster-camps.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 18882,
+      "sha256": "8650b37476fc775ba1ebda6e23d721f465a69589fe2066883c11344971fc89e7"
+    },
+    ".runtime/skins-community-before/demo/features/characters/kingkong/kingkong.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 1964,
+      "sha256": "e84dd7990e3b7a5de2d968c9855548910c444127501cbc5d2c9c07cad824de99"
+    },
+    ".runtime/skins-community-before/demo/features/characters/ninja-yinyang/abilities.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 5379,
+      "sha256": "e02bd2af10c5ca12f95f753f173a80b157375dd74ca3a135ef9da3e89f88d8fc"
+    },
+    ".runtime/meaningful-interactions-before/demo/index.html": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 275033,
+      "sha256": "b64ebc2f9505d31fda42952c698ec1396fd78605354b5af13c2a04570e7bc6af"
+    },
+    ".runtime/meaningful-interactions-before/demo/features/castle/castle-upgrade.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 31521,
+      "sha256": "796a566fba649f36ac5b1246c699dbc7f3a8c7c1aca7c6aeac435b676f08f0da"
+    },
+    ".runtime/meaningful-interactions-before/demo/features/characters/hero-animation.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 6676,
+      "sha256": "2ac96bc10d370e9cf000f8e676f7926116ed2c3806877d56b0e58548a453b53c"
+    },
+    ".runtime/meaningful-interactions-before/demo/features/world/exploration-update.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 17384,
+      "sha256": "e9a5cb1d9fe089f5d8373957d2bc79fc4017cc1c2a2a89d92bc9950b7b52410e"
+    },
+    ".runtime/meaningful-interactions-before/demo/features/world/world-residents.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 12688,
+      "sha256": "c5be29a6228f68197f67356b11c38276bccc13282a29fb9c3a2cd2c498e44cf5"
+    },
+    ".runtime/exploration-update-before/demo/index.html": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 274400,
+      "sha256": "4d719df9c88521fdaeeb0b0797aef88669f7ad5554775530efc80b7a8bd72964"
+    },
+    ".runtime/exploration-update-before/tools/tests/railway_service.browser.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 13251,
+      "sha256": "2b8be675376569d781cf6689cf2c1b61bc26233372fb34e3bf15c6972eca0d49"
+    },
+    ".runtime/exploration-update-before/demo/features/cavern/evil-cavern.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 20518,
+      "sha256": "cfe8a3843aae07ff0ef21e0eba97398146db45d07992d5575ae6177f38bc99fd"
+    },
+    ".runtime/exploration-update-before/demo/features/desert/desert-realm.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 22010,
+      "sha256": "cea5f1465ce4ccfad829339c60314e048bef0a58fde97f6a472e4c64e81052fd"
+    },
+    ".runtime/exploration-update-before/demo/features/railway/moon-railway.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 64570,
+      "sha256": "4827afc5b83f4138eeb57126736757fbb29e2b0f32578a97901aa65a858a1362"
+    },
+    ".runtime/exploration-update-before/demo/features/railway/railway-clearance.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 30596,
+      "sha256": "946f317214814c46d6ec7d097b144f86da36d328a37d1c69b5b9285370ef73d3"
+    },
+    ".runtime/exploration-update-before/demo/features/railway/station-mobility.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 20869,
+      "sha256": "37cd0f7db837eee9a0a3e22d8c333370e95e565e5e4ce304910c589ec4d50b99"
+    },
+    ".runtime/exploration-update-before/demo/features/void/cave-treasury.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 4410,
+      "sha256": "7238b6e9ecbd3a1b48b13cb901328237e110ec78307a2aaf8102a80aae0e4c5f"
+    },
+    ".runtime/exploration-update-before/demo/features/world/highland-trails.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 22286,
+      "sha256": "b034f8d6dbef5c8710d2d0314b2cf0da03a3229974ce303e389572a626970a15"
+    },
+    ".runtime/exploration-update-before/demo/features/world/lunar-surface-finish.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 13075,
+      "sha256": "7a303a4faa419f6ce55c36282d7964fcfb6d8e6867226e2f0f55dbf2507d46c9"
+    },
+    ".runtime/exploration-update-before/demo/features/world/southern-expansion.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 10769,
+      "sha256": "0dee3ce5c6836cc314a5263a55de829e3762597f88f0c101e86553e93301954f"
+    },
+    ".runtime/exploration-update-before/demo/features/world/terrain-continuity.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 6559,
+      "sha256": "0af13a326b3d9154ef8ea5fe5ae0ee546aaa8ba35f485afe6991d0a585138ae5"
+    },
+    ".runtime/exploration-update-before/demo/features/world/data/highland-walking-routes.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 3062819,
+      "sha256": "423063750fef67fc9a35fdf23b86bb982e210ab0f85fc812f5f78961809a9b4e"
+    },
+    ".runtime/arena-creatures-before/demo/index.html": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 272772,
+      "sha256": "46cdfd4a36a47bd54f2df03e119d65d0cd1f36abc5a47443701035a1de2a5b20"
+    },
+    ".runtime/arena-creatures-before/demo/features/arena/arena-warrior-tunnels.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 1826,
+      "sha256": "c9f344a3ed920ce262ba60a1215c18b750ca7914fdf12f58eceec71356039858"
+    },
+    ".runtime/arena-creatures-before/demo/features/arena/roman-arena.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 18031,
+      "sha256": "8991145515b6fe95af67e8fc9ace7be03a75d0da921046d71d5e59ba6e53bdd9"
+    },
+    ".runtime/arena-creatures-before/demo/features/forest/wildlife.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 6143,
+      "sha256": "8a0d88f39861eb91ea5e33020dfcebebe014e80cb785ffb4432a76215fc36099"
+    },
+    ".runtime/arena-creatures-before/demo/features/library/field-guide.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 34431,
+      "sha256": "43ea0f61f6e677ff728696cca577ac1727051294fa80991472551a088cd2be30"
+    },
+    ".runtime/arena-creatures-before/demo/features/library/library-previews.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 8160,
+      "sha256": "22e55d61656a11913c7bc4d43ab62d7b87780811314a69ca3ce725e9d16bd9fc"
+    },
+    ".runtime/arena-creatures-before/demo/features/railway/railway-clearance.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 30787,
+      "sha256": "f89edcfe2f7a185945d6a290f5ddd29980157d29246f3c4dc6086b14f257b48e"
+    },
+    ".runtime/arena-creatures-before/demo/features/world/aquatic-ecology.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 6011,
+      "sha256": "54bb675a675b60e6623a8d3c558303d33eb4f1b588cffd279d9f5c8d522e950b"
+    },
+    ".runtime/arena-creatures-before/demo/features/world/construction-zones.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 3027,
+      "sha256": "5d816f5c850e0246f58658c47817f31e1388ca8c2a796d931cfb5273b72cad9f"
+    },
+    ".runtime/arena-creatures-before/demo/features/world/highland-trails.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 22286,
+      "sha256": "b034f8d6dbef5c8710d2d0314b2cf0da03a3229974ce303e389572a626970a15"
+    },
+    ".runtime/arena-creatures-before/demo/features/world/living-world.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 15749,
+      "sha256": "f43e8bb42f6917bf877b4d94b73244bb701fa0d03ce6ad0b99f25b77b3adec23"
+    },
+    ".runtime/arena-creatures-before/demo/features/world/monster-camps.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 20338,
+      "sha256": "7aa1a1b01ffd696d198e39e313ab5fd5c77636109c73e0ce3323d4ee1373979d"
+    },
+    ".runtime/arena-creatures-before/demo/features/world/polar-ecology.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 4035,
+      "sha256": "36d0a0c67fcc2e3ee1a44b2613e92add33f7b6b9188242047e5f6337e2f2a299"
+    },
+    ".runtime/arena-creatures-before/demo/features/world/world-residents.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 11625,
+      "sha256": "f36daadb62059e3426df68e60cc8c9e940127b63a7d03774ec3d3ea4127ee75a"
+    },
+    ".runtime/arena-creatures-before/demo/features/world/data/highland-walking-routes.js": {
+      "reason": "Completed temporary build input, diagnostic or backed-up intermediate file",
+      "bytes": 3061151,
+      "sha256": "1d330b564248a7d70351617f68c2581a7c64a9d37dacca354ae4dca355c27849"
+    },
+    "tools/__pycache__/ai_blender_bridge.cpython-313.pyc": {
+      "reason": "Regenerable Python cache or Blender automatic backup",
+      "bytes": 4543,
+      "sha256": "493ebc79052757538f3196090c8a576dba4d9656cbade0da457cf3b09cfaec38"
+    },
+    "tools/__pycache__/build_void_update.cpython-313.pyc": {
+      "reason": "Regenerable Python cache or Blender automatic backup",
+      "bytes": 27631,
+      "sha256": "18709b08340175dd81ee7c178f525e431a0c2fbc1f883a970f7a73629a79074e"
+    }
+  },
+  "count": 432,
+  "bytes": 482430047,
+  "removed": [
+    "Assets/Art/Blender/Characters/HamsterWarrior.fbx",
+    "Assets/Art/Blender/Characters/RabbitMageWarrior.fbx",
+    "Assets/Art/Blender/Environments/MysticMoonMap.fbx",
+    "Assets/Art/Blender/Props/AncientKey.fbx",
+    "Assets/Art/Blender/Props/AncientMonolith.fbx",
+    "Assets/Art/Blender/Props/MoonstoneArtifact.fbx",
+    "Assets/Art/Blender/Props/TempleGate.fbx",
+    "Assets/Art/Blender/Environments/RomanArenaAndMoon.blend",
+    "tools/sync_arena_blender.py",
+    "tools/tests/verify_arena.js",
+    "tools/tests/arena_checks.js",
+    "demo/verification/compact-report.json",
+    "demo/verification/compact-stair.png",
+    "demo/verification/ecology-performance-before.log",
+    "demo/verification/ecology-performance-content.log",
+    "demo/verification/ecology-performance-culling.log",
+    "demo/verification/ecology-performance-final.log",
+    "demo/verification/hot-spring-underwater.png",
+    "demo/verification/junction-inventory.log",
+    "demo/verification/moon-economy-final.log",
+    "demo/verification/moon-economy-run.log",
+    "demo/verification/moon-economy-verified.log",
+    "demo/verification/polar-dense-rail-audit.log",
+    "demo/verification/polar-dense-test.log",
+    "demo/verification/polar-rail-audit.log",
+    "demo/verification/polar-startup-2.log",
+    "demo/verification/polar-startup.log",
+    "demo/verification/polar-test.log",
+    "demo/verification/prison-controls.png",
+    "demo/verification/summit-hot-spring.png",
+    "demo/verification/thermal-river-bridge.png",
+    "demo/verification/thermal-river-report.json",
+    "demo/verification/thermal-waterfall-overview.png",
+    "demo/verification/autumn-upgrade/acceptance.json",
+    "demo/verification/autumn-upgrade/adventure-report.json",
+    "demo/verification/autumn-upgrade/blender-review.json",
+    "demo/verification/autumn-upgrade/cleanup-smoke.json",
+    "demo/verification/autumn-upgrade/crafting.png",
+    "demo/verification/autumn-upgrade/engineering.json",
+    "demo/verification/autumn-upgrade/inventory-mobile.png",
+    "demo/verification/autumn-upgrade/inventory.png",
+    "demo/verification/autumn-upgrade/persistence.json",
+    "demo/verification/autumn-upgrade/railway-final-2.log",
+    "demo/verification/autumn-upgrade/station.png",
+    "demo/verification/autumn-upgrade/technology.png",
+    "demo/verification/autumn-upgrade/three-services-report.json",
+    "demo/verification/autumn-upgrade/upgrade-final.log",
+    "demo/verification/candy-kingdom/blender-design.json",
+    "demo/verification/candy-kingdom/boss.png",
+    "demo/verification/candy-kingdom/fence.png",
+    "demo/verification/candy-kingdom/kingdom.png",
+    "demo/verification/candy-kingdom/palace.png",
+    "demo/verification/candy-kingdom/report.json",
+    "demo/verification/candy-kingdom/runtime.json",
+    "demo/verification/candy-kingdom/sky.png",
+    "demo/verification/candy-kingdom/station.png",
+    "demo/verification/candy-kingdom/visual-report.json",
+    "demo/verification/candy-kingdom/waterfall.png",
+    "demo/verification/complete-library/library-report.json",
+    "demo/verification/complete-library/monsters.png",
+    "demo/verification/complete-library/penguin-mobile.png",
+    "demo/verification/complete-library/persistence.json",
+    "demo/verification/complete-library/snow-queen.png",
+    "demo/verification/exploration-final/ancient-vine.png",
+    "demo/verification/exploration-final/cavern-entrance.png",
+    "demo/verification/exploration-final/desert.png",
+    "demo/verification/exploration-final/native-controls.json",
+    "demo/verification/exploration-final/railway-regression.json",
+    "demo/verification/exploration-final/report.json",
+    "demo/verification/exploration-final/station-mobility.json",
+    "demo/verification/exploration-final/treasury.png",
+    "demo/verification/exploration-final/ui.png",
+    "demo/verification/exploration-probe/report.json",
+    "demo/verification/exploration-probe/ui.png",
+    "demo/verification/highland-transit/bridge.png",
+    "demo/verification/highland-transit/fortress.png",
+    "demo/verification/highland-transit/highlands.png",
+    "demo/verification/highland-transit/lunar_resident.png",
+    "demo/verification/highland-transit/market.png",
+    "demo/verification/highland-transit/polar_polar_bear.png",
+    "demo/verification/highland-transit/report.json",
+    "demo/verification/highland-transit/ridge.png",
+    "demo/verification/highland-transit/runtime.json",
+    "demo/verification/highland-transit/snow.png",
+    "demo/verification/highland-transit/village.png",
+    "demo/verification/lunar-rivers/atlas.png",
+    "demo/verification/lunar-rivers/lunar-rivers-report.json",
+    "demo/verification/lunar-rivers/paired-stations.png",
+    "demo/verification/lunar-rivers/river-banks-alluvium.png",
+    "demo/verification/lunar-rivers/river-bridge.png",
+    "demo/verification/lunar-rivers/riverbed-sand.png",
+    "demo/verification/lunar-rivers/singleton-persistence.json",
+    "demo/verification/moon-economy/blender-backup.json",
+    "demo/verification/moon-economy/blender-camps.json",
+    "demo/verification/moon-economy/blender-update.json",
+    "demo/verification/moon-economy/blender-update.log",
+    "demo/verification/moon-economy/economy-report.json",
+    "demo/verification/moon-economy/export.log",
+    "demo/verification/moon-economy/lobby.png",
+    "demo/verification/moon-economy/persistence.json",
+    "demo/verification/moon-economy/settings.png",
+    "demo/verification/player-experience/dragon_knight-diving.png",
+    "demo/verification/player-experience/dragon_knight-iron.png",
+    "demo/verification/player-experience/hamster-diving.png",
+    "demo/verification/player-experience/hamster-iron.png",
+    "demo/verification/player-experience/item-receipt.png",
+    "demo/verification/player-experience/kingkong-diving.png",
+    "demo/verification/player-experience/kingkong-iron.png",
+    "demo/verification/player-experience/ninja_yinyang-diving.png",
+    "demo/verification/player-experience/ninja_yinyang-iron.png",
+    "demo/verification/player-experience/persistence.json",
+    "demo/verification/player-experience/player-report.json",
+    "demo/verification/player-experience/rabbit-diving.png",
+    "demo/verification/player-experience/rabbit-iron.png",
+    "demo/verification/polar-expansion/blender-backup.json",
+    "demo/verification/polar-expansion/blender-design.json",
+    "demo/verification/polar-expansion/blender-update.json",
+    "demo/verification/polar-expansion/blender-update.log",
+    "demo/verification/polar-expansion/death-audit.json",
+    "demo/verification/polar-expansion/death-audit.log",
+    "demo/verification/polar-expansion/export-final.log",
+    "demo/verification/polar-expansion/flying-santa.png",
+    "demo/verification/polar-expansion/ice-waterfall.png",
+    "demo/verification/polar-expansion/persistence.json",
+    "demo/verification/polar-expansion/polar-report.json",
+    "demo/verification/polar-expansion/rail-audit.json",
+    "demo/verification/polar-expansion/red-smoke.png",
+    "demo/verification/polar-expansion/snow-factory.png",
+    "demo/verification/polar-expansion/snow-queen.png",
+    "demo/verification/railway-service/ground-station.png",
+    "demo/verification/railway-service/mountain-station.png",
+    "demo/verification/railway-service/native-controls.json",
+    "demo/verification/railway-service/open-piers.png",
+    "demo/verification/railway-service/report.json",
+    "demo/verification/railway-service/ruins-station.png",
+    "demo/verification/railway-service/window-left.png",
+    "demo/verification/railway-service/window-right.png",
+    "demo/verification/railway-service-baseline/fixture.json",
+    "demo/verification/railway-service-baseline/report.json",
+    "demo/verification/railway-service-final/ground-station.png",
+    "demo/verification/railway-service-final/mountain-station.png",
+    "demo/verification/railway-service-final/native-controls.json",
+    "demo/verification/railway-service-final/open-piers.png",
+    "demo/verification/railway-service-final/report.json",
+    "demo/verification/railway-service-final/ruins-station.png",
+    "demo/verification/railway-service-final/window-left.png",
+    "demo/verification/railway-service-final/window-right.png",
+    "demo/verification/railway-service-probe/report.json",
+    "demo/verification/railway-supports-after/report.json",
+    "demo/verification/railway-supports-before/report.json",
+    "demo/verification/railway-supports-complete/ground-station.png",
+    "demo/verification/railway-supports-complete/mountain-station.png",
+    "demo/verification/railway-supports-complete/native-controls.json",
+    "demo/verification/railway-supports-complete/open-piers.png",
+    "demo/verification/railway-supports-complete/report.json",
+    "demo/verification/railway-supports-complete/ruins-station.png",
+    "demo/verification/railway-supports-complete/window-left.png",
+    "demo/verification/railway-supports-complete/window-right.png",
+    "demo/verification/railway-supports-final-pass/report.json",
+    "demo/verification/railway-supports-lowered/report.json",
+    "demo/verification/railway-supports-obstacles/report.json",
+    "demo/verification/railway-supports-profile/report.json",
+    "demo/verification/railway-supports-verified/ground-station.png",
+    "demo/verification/railway-supports-verified/mountain-station.png",
+    "demo/verification/railway-supports-verified/native-controls.json",
+    "demo/verification/railway-supports-verified/open-piers.png",
+    "demo/verification/railway-supports-verified/report.json",
+    "demo/verification/railway-supports-verified/ruins-station.png",
+    "demo/verification/railway-supports-verified/window-left.png",
+    "demo/verification/railway-supports-verified/window-right.png",
+    "demo/verification/railway-supports-views/report.json",
+    "demo/verification/railway-supports-views/ruins-final.png",
+    "demo/verification/railway-supports-views/ruins-ground.png",
+    "demo/verification/realm-interiors/blender-backup.json",
+    "demo/verification/realm-interiors/blender-design.json",
+    "demo/verification/realm-interiors/blender-update.json",
+    "demo/verification/realm-interiors/blender-update.log",
+    "demo/verification/realm-interiors/castle-envelope-report.json",
+    "demo/verification/realm-interiors/castle-room.png",
+    "demo/verification/realm-interiors/castle-walking-report.json",
+    "demo/verification/realm-interiors/castle-walking.log",
+    "demo/verification/realm-interiors/persistence.json",
+    "demo/verification/realm-interiors/pyramid-entry.png",
+    "demo/verification/realm-interiors/pyramid-upper.png",
+    "demo/verification/realm-interiors/realm-report.json",
+    "demo/verification/realm-interiors/realm-verified.log",
+    "demo/verification/realm-interiors/wolf-camp.png",
+    "demo/verification/realm-transit/persistence.json",
+    "demo/verification/realm-transit/transit-report.json",
+    "demo/verification/realm-transit/world-atlas.png",
+    "demo/verification/skin-community/apartment-security.png",
+    "demo/verification/skin-community/arena-on-terrain.png",
+    "demo/verification/skin-community/candy-citizen.png",
+    "demo/verification/skin-community/factory-furnished.png",
+    "demo/verification/skin-community/report.json",
+    "demo/verification/skin-community/river_crab.png",
+    "demo/verification/skin-community/river_glass_shrimp.png",
+    "demo/verification/skin-community/river_ice_snail.png",
+    "demo/verification/skin-community/river_moon_crab.png",
+    "demo/verification/skin-community/river_shrimp.png",
+    "demo/verification/skin-community/river_snail.png",
+    "demo/verification/skin-community/skins-ui.png",
+    "demo/verification/skin-community/ui.png",
+    "demo/verification/skin-community-final/apartment-security.png",
+    "demo/verification/skin-community-final/arena-on-terrain.png",
+    "demo/verification/skin-community-final/candy-citizen.png",
+    "demo/verification/skin-community-final/factory-furnished.png",
+    "demo/verification/skin-community-final/report.json",
+    "demo/verification/skin-community-final/river_crab.png",
+    "demo/verification/skin-community-final/river_glass_shrimp.png",
+    "demo/verification/skin-community-final/river_ice_snail.png",
+    "demo/verification/skin-community-final/river_moon_crab.png",
+    "demo/verification/skin-community-final/river_shrimp.png",
+    "demo/verification/skin-community-final/river_snail.png",
+    "demo/verification/skin-community-final/ui.png",
+    "demo/verification/skin-community-final-regression/ground-station.png",
+    "demo/verification/skin-community-final-regression/mountain-station.png",
+    "demo/verification/skin-community-final-regression/native-controls.json",
+    "demo/verification/skin-community-final-regression/open-piers.png",
+    "demo/verification/skin-community-final-regression/report.json",
+    "demo/verification/skin-community-final-regression/ruins-station.png",
+    "demo/verification/skin-community-final-regression/window-left.png",
+    "demo/verification/skin-community-final-regression/window-right.png",
+    "demo/verification/skin-community-regression/ground-station.png",
+    "demo/verification/skin-community-regression/mountain-station.png",
+    "demo/verification/skin-community-regression/native-controls.json",
+    "demo/verification/skin-community-regression/open-piers.png",
+    "demo/verification/skin-community-regression/report.json",
+    "demo/verification/skin-community-regression/ruins-station.png",
+    "demo/verification/skin-community-regression/window-left.png",
+    "demo/verification/skin-community-regression/window-right.png",
+    "demo/verification/station-mobility/nguyet-que-ground-lift.png",
+    "demo/verification/station-mobility/nguyet-que-transfer.png",
+    "demo/verification/station-mobility/report.json",
+    "demo/verification/station-mobility-final/nguyet-que-ground-lift.png",
+    "demo/verification/station-mobility-final/nguyet-que-transfer.png",
+    "demo/verification/station-mobility-final/report.json",
+    "demo/verification/station-mobility-fixed/nguyet-que-ground-lift.png",
+    "demo/verification/station-mobility-fixed/nguyet-que-transfer.png",
+    "demo/verification/station-mobility-fixed/report.json",
+    "demo/verification/station-mobility-regression/ground-station.png",
+    "demo/verification/station-mobility-regression/mountain-station.png",
+    "demo/verification/station-mobility-regression/native-controls.json",
+    "demo/verification/station-mobility-regression/open-piers.png",
+    "demo/verification/station-mobility-regression/report.json",
+    "demo/verification/station-mobility-regression/ruins-station.png",
+    "demo/verification/station-mobility-regression/window-left.png",
+    "demo/verification/station-mobility-regression/window-right.png",
+    "demo/verification/terrain-probe/report.json",
+    "demo/verification/void-art-review/eight-towers.png",
+    "demo/verification/void-art-review/factory-gate.png",
+    "demo/verification/void-art-review/factory-production.png",
+    "demo/verification/void-art-review/furnished-room.png",
+    "demo/verification/void-art-review/queen-royal-arena.png",
+    "demo/verification/void-art-review/rage-armor-worn.png",
+    "demo/verification/void-art-review/report.json",
+    "demo/verification/void-art-review/ui.png",
+    "demo/verification/void-final-preview/eight-towers.png",
+    "demo/verification/void-final-preview/factory-gate.png",
+    "demo/verification/void-final-preview/factory-production.png",
+    "demo/verification/void-final-preview/furnished-room.png",
+    "demo/verification/void-final-preview/queen-royal-arena.png",
+    "demo/verification/void-final-preview/rage-armor-worn.png",
+    "demo/verification/void-final-preview/report.json",
+    "demo/verification/void-final-preview/ui.png",
+    "demo/verification/void-update/ancient-vine.png",
+    "demo/verification/void-update/apartment-interior.png",
+    "demo/verification/void-update/arena_station_walk-report.json",
+    "demo/verification/void-update/cavern-entrance.png",
+    "demo/verification/void-update/desert.png",
+    "demo/verification/void-update/exploration_update-report.json",
+    "demo/verification/void-update/export_current_arena-report.json",
+    "demo/verification/void-update/features-report.json",
+    "demo/verification/void-update/ice-arena.png",
+    "demo/verification/void-update/meaningful_interactions-report.json",
+    "demo/verification/void-update/nguyet-que-ground-lift.png",
+    "demo/verification/void-update/nguyet-que-transfer.png",
+    "demo/verification/void-update/polar_penguin.png",
+    "demo/verification/void-update/polar_polar_bear.png",
+    "demo/verification/void-update/railway_service-report.json",
+    "demo/verification/void-update/rebuild-arena-trails.js-report.json",
+    "demo/verification/void-update/report.json",
+    "demo/verification/void-update/review-creature-art.js-report.json",
+    "demo/verification/void-update/river_crab.png",
+    "demo/verification/void-update/river_shrimp.png",
+    "demo/verification/void-update/river_snail.png",
+    "demo/verification/void-update/roaming_elephant.png",
+    "demo/verification/void-update/snow-factory.png",
+    "demo/verification/void-update/station_mobility-report.json",
+    "demo/verification/void-update/terrain_traversal-report.json",
+    "demo/verification/void-update/treasury.png",
+    "demo/verification/void-update/vine-riding.png",
+    "demo/verification/void-update/void-district.png",
+    "demo/verification/void-update/wildlife_horse.png",
+    "demo/verification/void-update-regression/ground-station.png",
+    "demo/verification/void-update-regression/mountain-station.png",
+    "demo/verification/void-update-regression/native-controls.json",
+    "demo/verification/void-update-regression/open-piers.png",
+    "demo/verification/void-update-regression/report.json",
+    "demo/verification/void-update-regression/ruins-station.png",
+    "demo/verification/void-update-regression/window-left.png",
+    "demo/verification/void-update-regression/window-right.png",
+    "demo/verification/western-highlands/blender-design.json",
+    "demo/verification/western-highlands/fortress.png",
+    "demo/verification/western-highlands/highlands.png",
+    "demo/verification/western-highlands/market.png",
+    "demo/verification/western-highlands/persistence.json",
+    "demo/verification/western-highlands/report.json",
+    "demo/verification/western-highlands/ridge.png",
+    "demo/verification/western-highlands/runtime.json",
+    "demo/verification/western-highlands/snow.png",
+    "demo/verification/western-highlands/village.png",
+    "demo/verification/world-ecology/blender-backup.json",
+    "demo/verification/world-ecology/blender-camps-update.json",
+    "demo/verification/world-ecology/blender-camps.json",
+    "demo/verification/world-ecology/blender-design.json",
+    "demo/verification/world-ecology/blender-live-audit.json",
+    "demo/verification/world-ecology/blender-map.png",
+    "demo/verification/world-ecology/blender-update.json",
+    "demo/verification/world-ecology/ecology-report.json",
+    "demo/verification/world-ecology/factory-crystals.png",
+    "demo/verification/world-ecology/performance-before.json",
+    "demo/verification/world-ecology/performance-castle-final.json",
+    "demo/verification/world-ecology/performance-castle.json",
+    "demo/verification/world-ecology/performance-content.json",
+    "demo/verification/world-ecology/performance-culling.json",
+    "demo/verification/world-ecology/performance-final.json",
+    "demo/verification/world-ecology/performance-optimized.json",
+    "demo/verification/world-ecology/persistence.json",
+    "demo/verification/world-ecology/polar-wildlife.png",
+    "demo/verification/world-ecology/rail-audit.json",
+    "demo/verification/world-ecology/river-ecology.png",
+    ".runtime/arena-current-build.log",
+    ".runtime/arena-current-scene.json",
+    ".runtime/arena-final-blender.log",
+    ".runtime/arena-inline-check.js",
+    ".runtime/arena-site-probe.js",
+    ".runtime/arena-texture-1.png",
+    ".runtime/arena-texture-3.png",
+    ".runtime/arena-texture-9.png",
+    ".runtime/blender-asset-checks.log",
+    ".runtime/blender-final-qa.log",
+    ".runtime/check-interactions.js",
+    ".runtime/creature-studio-build.log",
+    ".runtime/exploration-inline-check.js",
+    ".runtime/inspect-stack-current.js",
+    ".runtime/inspect-stack.js",
+    ".runtime/interaction-inline-check.js",
+    ".runtime/liveedit-vine.js",
+    ".runtime/lobby-probe.js",
+    ".runtime/path-probe-exact.js",
+    ".runtime/path-probe.js",
+    ".runtime/path-solid.js",
+    ".runtime/path-station-solid.js",
+    ".runtime/rebuild-arena-trails.js",
+    ".runtime/rebuild-walking.js",
+    ".runtime/review-creature-art.js",
+    ".runtime/rope-layer.js",
+    ".runtime/rope-visibility.js",
+    ".runtime/short-lifts.js",
+    ".runtime/station-order.js",
+    ".runtime/stations-probe.js",
+    ".runtime/void-blender.log",
+    ".runtime/void-inspection.json",
+    ".runtime/void-terrain-probe.js",
+    ".runtime/arena-creatures-before/CONVERSATION_HANDOFF.md",
+    ".runtime/arena-creatures-before/README.md",
+    ".runtime/meaningful-interactions-before/CONVERSATION_HANDOFF.md",
+    ".runtime/meaningful-interactions-before/field-guide.js",
+    ".runtime/meaningful-interactions-before/README.md",
+    ".runtime/railway-supports-before/moon-railway.js",
+    ".runtime/railway-supports-before/station-grounding.js",
+    ".runtime/station-mobility-before/moon-railway.js",
+    ".runtime/station-mobility-before/railway-clearance.js",
+    ".runtime/station-mobility-before/realm-transit-update.js",
+    ".runtime/void-update-before/demo/index.html",
+    ".runtime/void-update-before/demo/features/castle/castle-upgrade.js",
+    ".runtime/void-update-before/demo/features/characters/combat-balance.js",
+    ".runtime/void-update-before/demo/features/characters/player-experience.js",
+    ".runtime/void-update-before/demo/features/railway/moon-railway.js",
+    ".runtime/void-update-before/demo/features/survival/player-life.js",
+    ".runtime/void-update-before/demo/features/world/antarctic-realm.js",
+    ".runtime/void-update-before/demo/features/world/monster-camps.js",
+    ".runtime/void-update-before/demo/features/world/realm-transit-update.js",
+    ".runtime/void-update-before/demo/features/world/terrain-traversal.js",
+    ".runtime/skins-community-before/demo/index.html",
+    ".runtime/skins-community-before/demo/features/characters/hero-stat-sync.js",
+    ".runtime/skins-community-before/demo/features/hud/game-hud.js",
+    ".runtime/skins-community-before/demo/features/hud/game-shortcuts.js",
+    ".runtime/skins-community-before/demo/features/library/field-guide.js",
+    ".runtime/skins-community-before/demo/features/library/library-previews.js",
+    ".runtime/skins-community-before/demo/features/void/void-district.js",
+    ".runtime/skins-community-before/demo/features/void/winter-architecture.js",
+    ".runtime/skins-community-before/demo/features/world/antarctic-realm.js",
+    ".runtime/skins-community-before/demo/features/world/monster-camps.js",
+    ".runtime/skins-community-before/demo/features/characters/kingkong/kingkong.js",
+    ".runtime/skins-community-before/demo/features/characters/ninja-yinyang/abilities.js",
+    ".runtime/meaningful-interactions-before/demo/index.html",
+    ".runtime/meaningful-interactions-before/demo/features/castle/castle-upgrade.js",
+    ".runtime/meaningful-interactions-before/demo/features/characters/hero-animation.js",
+    ".runtime/meaningful-interactions-before/demo/features/world/exploration-update.js",
+    ".runtime/meaningful-interactions-before/demo/features/world/world-residents.js",
+    ".runtime/exploration-update-before/demo/index.html",
+    ".runtime/exploration-update-before/tools/tests/railway_service.browser.js",
+    ".runtime/exploration-update-before/demo/features/cavern/evil-cavern.js",
+    ".runtime/exploration-update-before/demo/features/desert/desert-realm.js",
+    ".runtime/exploration-update-before/demo/features/railway/moon-railway.js",
+    ".runtime/exploration-update-before/demo/features/railway/railway-clearance.js",
+    ".runtime/exploration-update-before/demo/features/railway/station-mobility.js",
+    ".runtime/exploration-update-before/demo/features/void/cave-treasury.js",
+    ".runtime/exploration-update-before/demo/features/world/highland-trails.js",
+    ".runtime/exploration-update-before/demo/features/world/lunar-surface-finish.js",
+    ".runtime/exploration-update-before/demo/features/world/southern-expansion.js",
+    ".runtime/exploration-update-before/demo/features/world/terrain-continuity.js",
+    ".runtime/exploration-update-before/demo/features/world/data/highland-walking-routes.js",
+    ".runtime/arena-creatures-before/demo/index.html",
+    ".runtime/arena-creatures-before/demo/features/arena/arena-warrior-tunnels.js",
+    ".runtime/arena-creatures-before/demo/features/arena/roman-arena.js",
+    ".runtime/arena-creatures-before/demo/features/forest/wildlife.js",
+    ".runtime/arena-creatures-before/demo/features/library/field-guide.js",
+    ".runtime/arena-creatures-before/demo/features/library/library-previews.js",
+    ".runtime/arena-creatures-before/demo/features/railway/railway-clearance.js",
+    ".runtime/arena-creatures-before/demo/features/world/aquatic-ecology.js",
+    ".runtime/arena-creatures-before/demo/features/world/construction-zones.js",
+    ".runtime/arena-creatures-before/demo/features/world/highland-trails.js",
+    ".runtime/arena-creatures-before/demo/features/world/living-world.js",
+    ".runtime/arena-creatures-before/demo/features/world/monster-camps.js",
+    ".runtime/arena-creatures-before/demo/features/world/polar-ecology.js",
+    ".runtime/arena-creatures-before/demo/features/world/world-residents.js",
+    ".runtime/arena-creatures-before/demo/features/world/data/highland-walking-routes.js",
+    "tools/__pycache__/ai_blender_bridge.cpython-313.pyc",
+    "tools/__pycache__/build_void_update.cpython-313.pyc"
+  ],
+  "applied": true
+}

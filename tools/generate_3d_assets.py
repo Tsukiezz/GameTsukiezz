@@ -1,8 +1,9 @@
+from pathlib import Path
 import bpy
 import os
 import math
 
-output_dir = r"c:\Users\Admin\OneDrive\Máy tính\Desktop\CODE\Tsukiezz\projects\GameTsukiezz\Assets\Art\Models"
+output_dir = str(Path(__file__).resolve().parents[1]/'Assets/Art/Blender/Props')
 os.makedirs(output_dir, exist_ok=True)
 
 def reset_scene():

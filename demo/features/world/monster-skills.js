@@ -1,12 +1,12 @@
 /* Special attacks have independent cooldowns. Ordinary attacks stay in their AI modules. */
 function installMonsterSkills(){
-    const active=()=>gameState.isPlaying&&!gameState.inDialogue&&!document.querySelector('.modal-overlay.active');
+    const active=()=>gameState.isPlaying&&!gameState.inDialogue&&!document.querySelector('.modal-overlay.active')&&!window.moonRailway?.aboard;
     const states={ness:{cooldown:5},space_croc:{cooldown:7},forest:{cooldown:6}},projectiles=[],minions=[];
     const group=new THREE.Group();group.name='MonsterSpecialSkills';scene.add(group);
     const status=document.createElement('div');status.id='monster-skill-warning';status.setAttribute('role','status');status.hidden=true;gameHud.append(status);
     const sphere=new THREE.SphereGeometry(1,16,10),wood=new THREE.MeshStandardMaterial({color:0x564a38,roughness:1}),leaf=new THREE.MeshStandardMaterial({color:0x447b58,roughness:.9}),glow=new THREE.MeshBasicMaterial({color:0x91fff1});
     let capture=null,immunity=0,pending=null,bleed=null;
-    function previewMinion(){const model=new THREE.Group();
+    function previewMinion(){if(typeof creatureArt!=='undefined'&&CREATURE_STUDIO_DATA.models.sapling)return creatureArt.create('sapling').root;const model=new THREE.Group();
                 const trunk=new THREE.Mesh(sphere,wood);trunk.scale.set(.42,.85,.38);trunk.position.y=.7;model.add(trunk);
                 const crown=new THREE.Mesh(sphere,leaf);crown.scale.set(.85,.65,.7);crown.position.y=1.7;model.add(crown);
                 for(const side of [-1,1]){const arm=new THREE.Mesh(sphere,wood);arm.scale.set(.17,.65,.17);arm.position.set(side*.62,.9,0);arm.rotation.z=side*.7;model.add(arm);const eye=new THREE.Mesh(sphere,glow);eye.scale.set(.08,.09,.05);eye.position.set(side*.16,1.13,.35);model.add(eye);}
@@ -23,11 +23,11 @@ function installMonsterSkills(){
         resetGameplayInput();
     }
     function pause(){release();bleed=null;pending=null;status.hidden=true;for(const s of Object.values(states)){s.phase='idle';s.marker.visible=false;s.cooldown=Math.max(2,s.cooldown);}for(const p of projectiles)group.remove(p.mesh);projectiles.length=0;cleanupMinions();}
-    function landDamage(amount,ignoreArmor=false){
+    function landDamage(amount,ignoreArmor=false,cause='minion'){
         if(!active()||immunity>0||!Number.isFinite(amount)||amount<=0)return false;
-        amount=heroIncomingDamage(amount);const armor=ignoreArmor?0:Math.min(gameState.armor,amount);gameState.armor-=armor;gameState.health=Math.max(0,gameState.health-amount+armor);immunity=.45;
+        window.playerLife?.noteDamage(cause);amount=heroIncomingDamage(amount);const armor=ignoreArmor?0:Math.min(gameState.armor,amount);gameState.armor-=armor;gameState.health=Math.max(0,gameState.health-amount+armor);immunity=.45;
         gameHud.classList.add('monster-hit');setTimeout(()=>gameHud.classList.remove('monster-hit'),250);
-        if(gameState.health===0){const mountain=window.bachKhuyet?.contains(playerGroup.position.x,playerGroup.position.z);pause();Object.assign(gameState,{health:gameState.maxHealth,armor:gameState.maxArmor,stamina:100,oxygen:100});resetGameplayInput();if(mountain)bachKhuyet.travel();else ancientGrove.travel();immunity=3;showNotification('Bạn đã gục ngã. Hồi phục tại lối vào an toàn.');}
+        if(gameState.health===0){if(window.playerLife){playerLife.die();return true;}const mountain=window.bachKhuyet?.contains(playerGroup.position.x,playerGroup.position.z);pause();Object.assign(gameState,{health:gameState.maxHealth,armor:gameState.maxArmor,stamina:100,oxygen:100});resetGameplayInput();if(mountain)bachKhuyet.travel();else ancientGrove.travel();immunity=3;showNotification('Bạn đã gục ngã. Hồi phục tại lối vào an toàn.');}
         updatePlayerVitals();return true;
     }
     function applyBleed(){if(active())bleed={remaining:8,tick:1};}
@@ -53,8 +53,8 @@ function installMonsterSkills(){
     function segmentDistance(p,a,b){const d=b.clone().sub(a),t=Math.max(0,Math.min(1,p.clone().sub(a).dot(d)/(d.lengthSq()||1)));return p.distanceTo(a.clone().addScaledVector(d,t));}
     function update(dt){
         dt=Math.max(0,Math.min(.1,dt));if(!active()){pause();return;}immunity=Math.max(0,immunity-dt);
-        if(bleed){bleed.remaining-=dt;bleed.tick-=dt;if(bleed.tick<=0){bleed.tick+=1;landDamage(4,true);}if(bleed&&bleed.remaining<=0)bleed=null;}
-        if(pending){pending.time-=dt;if(pending.time<=0){const range=pending.hero==='rabbit'?22:2.8;const m=minions.filter(m=>m.health>0&&m.group.position.distanceTo(playerGroup.position)<range).sort((a,b)=>a.group.position.distanceTo(playerGroup.position)-b.group.position.distanceTo(playerGroup.position))[0];if(m){m.health-=145;if(m.health<=0)window.fieldGuide?.record('forest_sapling',true);}pending=null;}}
+        if(bleed){bleed.remaining-=dt;bleed.tick-=dt;if(bleed.tick<=0){bleed.tick+=1;landDamage(4,true,'bleed');}if(bleed&&bleed.remaining<=0)bleed=null;}
+        if(pending){pending.time-=dt;if(pending.time<=0){const range=pending.hero==='rabbit'?22:2.8;const m=minions.filter(m=>m.health>0&&m.group.position.distanceTo(playerGroup.position)<range).sort((a,b)=>a.group.position.distanceTo(playerGroup.position)-b.group.position.distanceTo(playerGroup.position))[0];if(m){m.health-=heroOutgoingDamage(145);if(m.health<=0)window.fieldGuide?.record('forest_sapling',true);}pending=null;}}
         for(const [id,s] of Object.entries(states)){
             s.cooldown=Math.max(0,s.cooldown-dt);const m=lakeMonsters.actors.find(a=>a.spec.id===id);
             const eligible=id==='forest'?forestGuardian.health>0&&ancientGrove.contains(playerGroup.position.x,playerGroup.position.z)&&playerGroup.position.distanceTo(forestGuardian.position)<30:lakeMonsters.canTarget(m,playerGroup.position);

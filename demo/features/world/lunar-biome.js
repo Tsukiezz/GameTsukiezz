@@ -24,6 +24,11 @@ function installLunarBiome(){
     const material=new THREE.MeshStandardMaterial({color:0xaac8bc,vertexColors:true,roughness:.95,side:THREE.DoubleSide,emissive:0x18312c,emissiveIntensity:.15});
     const bins=new Map(),placements=[],extent=EXPANDED_REALM_DATA.bound-18;
     function allowed(x,z){
+        if(window.technologyBase?.contains(x,z)||window.candyRealm?.contains(x,z))return false;
+        if(window.desertRealm?.contains(x,z))return false;
+        if(window.moonRailway?.infrastructureAt(x,z))return false;
+        if(window.mangroveRealm?.contains(x,z))return false;
+        if(window.volcanicValley?.contains(x,z))return false;
         if(window.riverRealm?.waterAt(x,z)||window.riverRealm?.mountainContains(x,z))return false;
         if(window.bachKhuyet?.contains(x,z))return false;
         if(Math.abs(x)>extent||Math.abs(z)>extent||Math.hypot(x,z)<24)return false;
@@ -40,14 +45,14 @@ function installLunarBiome(){
         for(let i=0;i<48;i++){
             const angle=random()*Math.PI*2,r=Math.sqrt(random())*29,x=cx+Math.cos(angle)*r,z=cz+Math.sin(angle)*r;
             if(!allowed(x,z))continue;
-            const y=window.riverRealm?.ground(x,z)??window.ancientGrove?.ground(x,z)??realmTerrainHeight(x,z),tier=i%5===0?'base':'detail';
+            const y=window.worldSurface?.height(x,z)??window.riverRealm?.ground(x,z)??window.ancientGrove?.ground(x,z)??realmTerrainHeight(x,z),tier=i%5===0?'base':'detail';
             const item={x,y,z,angle:random()*Math.PI*2,scale:.45+random()*.7,color:[0x85b59d,0xa894bd,0xa6b48b][patch%3]};placements.push(item);
             const key=Math.floor(x/96)+','+Math.floor(z/96)+','+tier;if(!bins.has(key))bins.set(key,{tier,items:[]});bins.get(key).items.push(item);
         }
     }
     const group=new THREE.Group();group.name='WorldMutantGrass';const dummy=new THREE.Object3D(),color=new THREE.Color();let baseCount=0;
     for(const {tier,items} of bins.values()){
-        const geometry=baseGeometry.clone(),mesh=new THREE.InstancedMesh(geometry,material,items.length),bounds=new THREE.Box3();mesh.name='LunarGrass_'+tier;mesh.userData.optionalFlora=tier==='detail';mesh.visible=tier==='base'||currentProfileKey!=='potato';
+        const geometry=baseGeometry.clone(),mesh=new THREE.InstancedMesh(geometry,material,items.length),bounds=new THREE.Box3();mesh.name='LunarGrass_'+tier;mesh.userData.optionalFlora=tier==='detail';mesh.visible=tier==='base'||currentProfileKey!=='low';
         items.forEach((p,i)=>{dummy.position.set(p.x,p.y,p.z);dummy.rotation.set(0,p.angle,0);dummy.scale.setScalar(p.scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);mesh.setColorAt(i,color.setHex(p.color));bounds.expandByPoint(new THREE.Vector3(p.x-1,p.y,p.z-1));bounds.expandByPoint(new THREE.Vector3(p.x+1,p.y+1,p.z+1));});
         geometry.boundingSphere=bounds.getBoundingSphere(new THREE.Sphere());group.add(mesh);if(tier==='base')baseCount+=items.length;
     }

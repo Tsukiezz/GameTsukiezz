@@ -95,7 +95,7 @@ function installAncientGrove(){
             refreshButton();showNotification('🌳 Đã khám phá cây cổ thụ trong Rừng Nguyên Sinh!');
         }
     }
-    window.ancientGrove={group,batches,ground,contains:(x,z)=>Boolean(cell(x,z)),get discovered(){return discovered;},update,refreshButton,setDetailProfile(key){for(const mesh of batches)mesh.geometry=key==='potato'?mesh.groveLow:mesh.groveHigh;},
+    window.ancientGrove={group,batches,ground,contains:(x,z)=>Boolean(cell(x,z)),get discovered(){return discovered;},update,refreshButton,setDetailProfile(key){for(const mesh of batches)mesh.geometry=(key==='potato'||key==='low')?mesh.groveLow:mesh.groveHigh;},
         travel(){fastTravelTo(290,48,'Rừng Nguyên Sinh');},
         biomeAt(x,z){return cell(x,z)?'Rừng Nguyên Sinh':null;}};
     refreshButton();rebuildCollisionGrid();

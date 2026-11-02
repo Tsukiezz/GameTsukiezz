@@ -37,7 +37,7 @@ function installBackpack(){
         count--;buffUntil=Date.now()+duration;gameState.stamina=100;save();render();updatePlayerVitals();return true;
     }
     window.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='i'&&!e.repeat&&!e.target.closest('input,textarea,select')){e.preventDefault();modal.classList.contains('active')?dismiss():open();}});
-    modal.addEventListener('keydown',e=>{if(e.key==='Tab'){const list=[...modal.querySelectorAll('button:not(:disabled)')],first=list[0],last=list.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
+    modal.addEventListener('keydown',e=>{if(e.key==='Tab'){const list=[...modal.querySelectorAll('button:not(:disabled),input,select')].filter(el=>el.getClientRects().length),first=list[0],last=list.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
     window.addEventListener('tsuventure-settings-saved',render);
     // Stable 25% occupancy per 64 m world cell, checked against actual terrain.
     const spots=[],drops=new Map(),group=new THREE.Group();group.name='ChocolateMapLoot';scene.add(group);
@@ -77,6 +77,6 @@ function installBackpack(){
         if(!active())return;scan+=Math.min(.1,Math.max(0,dt));if(scan>.6){scan=0;const p=playerGroup.position;for(const [id,d] of drops)if(Math.hypot(d.spot.x-p.x,d.spot.z-p.z)>100)remove(id);for(const spot of spots){if(drops.size>=24)break;if(!drops.has(spot.id)&&!(collected[spot.id]>Date.now())&&Math.hypot(spot.x-p.x,spot.z-p.z)<80)spawn(spot);}}
         for(const d of drops.values()){d.model.rotation.y+=dt*.25;d.model.position.y=d.spot.y+.22+Math.sin(performance.now()*.002+d.spot.x)*.035;const glow=d.model.getObjectByName('ChocolateLootGlow'),size=.7+Math.sin(performance.now()*.003+d.spot.z)*.12;glow.scale.set(size,size,1);}
     }
-    window.backpack={open,consume,interact,nearbyLoot,update,spots,drops,group,icon,spawnProbability:.25,duration,get count(){return count;},get buffUntil(){return buffUntil;},get infiniteStamina(){return remaining()>0;},get remainingSeconds(){return remaining();}};
+    window.backpack={open,consume,interact,nearbyLoot,update,spots,drops,group,icon,spawnProbability:.25,duration,add(amount){if(!Number.isSafeInteger(amount)||amount<=0||count+amount>99999)return false;count+=amount;save();render();return true;},get count(){return count;},get buffUntil(){return buffUntil;},get infiniteStamina(){return remaining()>0;},get remainingSeconds(){return remaining();}};
     render();
 }

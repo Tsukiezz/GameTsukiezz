@@ -1,0 +1,40 @@
+/* Grade dry native soil first; move architecture, physics and interactions together. */
+function installArenaRelocation(){
+    const center=new THREE.Vector3(-1520,0,-1420),scale=2.5,terrain=worldExpansion.terrain,p=terrain.geometry.attributes.position,base=worldExpansion.height(center.x,center.z);center.y=base;
+    const padWeight=(x,z)=>{const dx=x-center.x,dz=z-center.z,ellipse=(Math.hypot(dx/155,dz/132)-1)*130,pen=Math.max(-245-dx,dx+95,Math.abs(dz)-52);return 1-THREE.MathUtils.smoothstep(Math.min(ellipse,pen),0,38);};
+    let graded=0;for(let i=0;i<p.count;i++){const x=p.getX(i),z=p.getZ(i),w=padWeight(x,z),hit=w&&worldExpansion.nearest(x,z);if(!w||hit&&hit.distance<hit.width+38)continue;p.setY(i,THREE.MathUtils.lerp(p.getY(i),base,w));graded++;}p.needsUpdate=true;terrain.geometry.computeVertexNormals();terrain.geometry.computeBoundingSphere();
+    const start=colliders.length,oldItems=new Set(interactables);buildRuinedRomanArena();const a=romanArena,original={region:a.region,level:a.level,support:a.support,blocked:a.blocked};
+    a.group.position.copy(center);a.group.scale.setScalar(scale);a.group.updateWorldMatrix(true,true);
+    const point=v=>new THREE.Vector3(center.x+(v.x-115)*scale,base+v.y*scale,center.z+(v.z-110)*scale),local=(x,z,y=base)=>({x:115+(x-center.x)/scale,z:110+(z-center.z)/scale,y:(y-base)/scale});
+    for(const c of colliders.slice(start)){for(const key of ['x','minX','maxX'])if(Number.isFinite(c[key]))c[key]=center.x+(c[key]-115)*scale;for(const key of ['z','minZ','maxZ'])if(Number.isFinite(c[key]))c[key]=center.z+(c[key]-110)*scale;for(const key of ['minY','maxY'])c[key]=base+c[key]*scale;for(const key of ['radius','width','depth'])if(Number.isFinite(c[key]))c[key]*=scale;}
+    for(const i of interactables)if(!oldItems.has(i)&&i.pos)i.pos.copy(point(i.pos));
+    const roof=Math.max(...colliders.slice(start).map(c=>c.maxY));
+    a.region=(x,z)=>{const q=local(x,z);return original.region(q.x,q.z);};a.level=r=>base+scale*original.level(r);
+    a.support=(x,z,y)=>{const q=local(x,z,y),dx=q.x-115,dz=q.z-110;if((dx<-22&&dx>=-83&&Math.abs(dz)<(dx<-54?14:7)||dx>22&&dx<82&&Math.abs(dz)<3)&&q.y>=.35-MAX_STEP_HEIGHT/scale-.01)return base+.35*scale;const h=original.support(q.x,q.z,q.y);return Number.isFinite(h)?base+h*scale:-Infinity;};
+    a.blocked=(x,z,y)=>{if(y>roof+.1)return false;const q=local(x,z,y),dx=q.x-115,dz=q.z-110;if(q.y>=.25&&(dx<-22&&dx>=-83&&Math.abs(dz)<(dx<-54?14:6.8)&&q.y<8||dx>22&&dx<82&&Math.abs(dz)<2.85&&q.y<3.4))return false;return original.blocked(q.x,q.z,q.y);};
+    a.safety=()=>{const pos=playerGroup.position;if(a.region(pos.x,pos.z).r<46&&pos.y<base-3&&!window.crystalWings?.flying){pos.y=a.floor;currentGroundY=pos.y;isGrounded=true;jumpVelocityY=0;window.playerLife?.resetFall();}};
+    a.resetSafety=()=>{};Object.assign(a,{center,scale,base,roof,graded,padWeight,local,point,floor:base+.35*scale,podium:base+2.45*scale,upper:base+12.35*scale,vipFloor:base+12.35*scale,rise:base,stairs:200,contains:(x,z)=>padWeight(x,z)>.05});
+    const entrance=point(new THREE.Vector3(196,.35,110));a.travel=()=>{if(window.moonRailway?.aboard)moonRailway.travel(0);fastTravelTo(entrance.x,entrance.z,'Đấu Trường La Mã · Lối Chiến Binh',entrance.y);camYaw=Math.PI/2;camPitch=.12;};
+    const landmark=landmarksData.find(l=>l.name.includes('Đấu Trường'));if(landmark)Object.assign(landmark,{x:center.x,z:center.z,name:'Đấu Trường La Mã',id:'roman_arena'});
+    const pathRoot=new THREE.Group();pathRoot.name='ArenaWarriorApproach';pathRoot.userData.railwayIgnore=true;scene.add(pathRoot);const rows=[],vertices=[],indices=[];
+    for(let i=0;i<=80;i++){const x=entrance.x+i*.125,z=entrance.z,y=THREE.MathUtils.lerp(a.floor,worldExpansion.height(x,z),THREE.MathUtils.smoothstep(i,2,80));rows.push({x,z,y});vertices.push(x,y,z-3,x,y,z+3);if(i<80){const j=i*2;indices.push(j,j+2,j+1,j+1,j+2,j+3);}}
+    const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));g.setIndex(indices);g.computeVertexNormals();pathRoot.add(new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x9b9181,roughness:.9})));const support=a.support;a.support=(x,z,y)=>{if(x>=entrance.x&&x<=entrance.x+10&&Math.abs(z-entrance.z)<3){const t=(x-entrance.x)*8,i=Math.min(79,Math.floor(t)),h=THREE.MathUtils.lerp(rows[i].y,rows[i+1].y,t-i);if(y>=h-MAX_STEP_HEIGHT-.01)return h;}return support(x,z,y);};
+    Object.assign(a,{entrance,pathRoot,pathRows:rows});
+    a.connectStation=()=>{
+        const station=moonRailway.stations.find(s=>s.name==='Ga \u0110\u1ea5u Tr\u01b0\u1eddng');if(!station)return;
+        const i=moonRailway.stations.indexOf(station),end=new THREE.Vector3(entrance.x+10,0,entrance.z),starts=[station.access.entrance,moonRailway.reversePlatforms[i].access?.entrance].filter(Boolean),start=starts.sort((a,b)=>a.distanceTo(end)-b.distanceTo(end))[0],points=[start.clone(),new THREE.Vector3(end.x,0,start.z),end],v=[],ix=[];
+        for(let j=1;j<points.length;j++){const A=points[j-1],B=points[j],d=B.clone().sub(A);d.y=0;const side=new THREE.Vector3(-d.z,0,d.x).normalize(),n=Math.max(1,Math.ceil(d.length()/2));for(let k=0;k<=n;k++){const p=A.clone().lerp(B,k/n),off=v.length/3;for(const sign of [-1,1]){const q=p.clone().addScaledVector(side,sign*1.8);v.push(q.x,worldSurface.height(q.x,q.z)+.025,q.z);}if(k)ix.push(off-2,off,off-1,off-1,off,off+1);}}
+        const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(v,3));g.setIndex(ix);g.computeVertexNormals();const path=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x9b9181,roughness:.95}));path.name='ArenaStationPromenade';path.userData.railwayIgnore=true;scene.add(path);Object.assign(a,{station,stationPath:path,stationWaypoints:points,pedestrianPathContains(x,z){return points.slice(1).some((B,i)=>{const A=points[i],dx=B.x-A.x,dz=B.z-A.z,t=THREE.MathUtils.clamp(((x-A.x)*dx+(z-A.z)*dz)/(dx*dx+dz*dz||1),0,1);return Math.hypot(x-A.x-t*dx,z-A.z-t*dz)<3.5;});}});
+    };
+installArenaCrowd(a);rebuildCollisionGrid();
+}
+
+function installArenaCrowd(a){
+    const g=creatureArt.merged('spectator'),material=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.8}),crowd=new THREE.InstancedMesh(g,material,576),spectators=[],dummy=new THREE.Object3D();crowd.name='CheeringLunarSpectators';crowd.frustumCulled=false;crowd.userData.ecologyDynamic=true;a.group.add(crowd);
+    for(let i=0;i<576;i++){const row=(i*7)%18,angle=(Math.floor(i/18)+((i%18)*.618))*Math.PI*2/32,r=26.5+row*7/18;if(Math.abs(Math.sin(angle))<.38)continue;spectators.push({x:Math.cos(angle)*r*1.15,y:2.45+(row+1)*.55,z:Math.sin(angle)*r*.9,angle,phase:i*.7});}
+    spectators.forEach((p,i)=>{dummy.position.set(p.x,p.y,p.z);dummy.rotation.set(0,-p.angle-Math.PI/2,0);dummy.scale.setScalar(.7/a.scale);dummy.updateMatrix();crowd.setMatrixAt(i,dummy.matrix);crowd.setColorAt(i,new THREE.Color(['#d7cfbd','#a7c7d8','#dab79c','#c9aad6'][i%4]));});crowd.count=spectators.length;crowd.instanceMatrix.needsUpdate=true;
+    installArenaTournament(a);let elapsed=0,crowdClock=0;
+    a.update=dt=>{dt=Math.min(.1,Math.max(0,dt));if(!gameState.isPlaying||gameState.inDialogue||document.querySelector('.modal-overlay.active'))return;elapsed+=dt;crowdClock+=dt;const near=a.center.distanceTo(playerGroup.position)<650,limit=currentProfileKey==='low'?180:currentProfileKey==='ultra'?spectators.length:360;crowd.count=near?Math.min(spectators.length,limit):0;
+        if(near&&crowdClock>.12){crowdClock=0;for(let i=0;i<crowd.count;i++){const s=spectators[i];dummy.position.set(s.x,s.y+Math.max(0,Math.sin(elapsed*3+s.phase))*.035,s.z);dummy.rotation.set(0,-s.angle-Math.PI/2,0);dummy.scale.setScalar(.7/a.scale);dummy.updateMatrix();crowd.setMatrixAt(i,dummy.matrix);}crowd.instanceMatrix.needsUpdate=true;}a.tournament.update(dt);
+    };Object.assign(a,{crowd,spectators});
+}
