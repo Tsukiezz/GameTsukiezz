@@ -1,0 +1,62 @@
+(async()=>{
+    const checks=[],check=(ok,name,detail)=>{checks.push({ok:!!ok,name,detail});if(!ok)throw Error(name+': '+JSON.stringify(detail));};
+    enterGame();resetGameplayInput();gameState.inDialogue=false;
+    document.querySelectorAll('.modal-overlay.active').forEach(m=>m.classList.remove('active'));
+    check(castlePhysics.active===false,'Castle disabled');
+    check(!scene.getObjectByName('RoyalCastle')&&!castleGate&&!prisonState&&!lunarUnicorn,'No castle, gate, prison or unicorn');
+    check(castleSurfaces.length===0&&castleStairGuards.length===0&&castleAnimators.length===0,'No castle supports, stair guards or animation');
+    check(!landmarksData.some(l=>/lâu đài/i.test(l.name)),'No castle map marker');
+    check(![...document.querySelectorAll('#hud-travel button')].some(b=>/lâu đài|đại điện|ngai vàng|gác mái|hầm ngục|nhà tù|phòng vũ khí/i.test(b.textContent)),'No retired castle travel destinations');
+    check(!constructionZones.boxes.some(b=>b.name==='Castle grounds'),'No retired castle construction reservation');
+    check(!foodPickups.spots.some(s=>s.id.startsWith('castle-food-')),'No floating castle food');
+    for(const [x,z] of [[-110,60],[-135,110],[-110,120],[-90,140],[-121,130]]){
+        check(castleBridgeTop(x,z)===null&&!inCastleEnvelope(x,z)&&!inSecretCellar(x,z),'No invisible castle geometry '+x+','+z);
+        const y=worldSurface.height(x,z);check(Number.isFinite(getGroundElevation(x,z,y)),'Former site has finite terrain '+x+','+z);
+        check(!checkCollision(x,z,y),'Former site is walkable '+x+','+z,{y});
+    }
+    check(Boolean(actorAnimation&&moonRailway.trains.length===6&&romanArena.tournament&&backpack&&riverBoat),'Other game systems initialize');
+    fastTravelTo(0,10,'View test');camDistance=4;explorationUpdate.updateCamera();
+    const key=(repeat=false)=>window.dispatchEvent(new KeyboardEvent('keydown',{key:'1',code:'Digit1',bubbles:true,cancelable:true,repeat}));
+    renderer.domElement.focus();key();
+    check(explorationUpdate.firstPerson&&!playerGroup.visible&&camera.near===.045,'Key 1 enters first person and hides player model');
+    check(Math.abs(camera.position.y-playerGroup.position.y-.57)<.001,'First-person camera at eye level');
+    key(true);check(explorationUpdate.firstPerson,'Holding 1 does not repeatedly toggle');
+    key();check(!explorationUpdate.firstPerson&&playerGroup.visible&&camDistance===4,'Key 1 restores third-person distance');
+    openModal('modal-settings');key();check(!explorationUpdate.firstPerson,'Key 1 does not toggle behind modal');
+    const input=document.getElementById('gift-code');input.focus();input.dispatchEvent(new KeyboardEvent('keydown',{key:'1',code:'Digit1',bubbles:true}));check(!explorationUpdate.firstPerson,'Typing 1 in gift input does not change view');
+    closeModal('modal-settings');renderer.domElement.focus();document.getElementById('btn-toggle-view').click();check(explorationUpdate.firstPerson,'HUD view button enters first person');
+    document.getElementById('btn-toggle-view').click();check(!explorationUpdate.firstPerson,'HUD view button restores third person');
+    check(!giftCode.claimed,'Old claimed code is eligible for upgraded reward');
+    const before=JSON.stringify(monsterCamps.stock);check(!giftCode.redeem('wrong')&&before===JSON.stringify(monsterCamps.stock),'Invalid gift changes no resources');
+    check(giftCode.redeem('Tsukiezz'),'Legacy player can redeem updated Tsukiezz code');
+    for(const [kind,n] of Object.entries(monsterCamps.stock))check(n===(['forestHeart','nakat','galacticLava','eternalEmber'].includes(kind)?1:9999),'Real monster resource '+kind,n);
+    for(const [kind,n] of Object.entries(riverBoat.stock))check(n===9999,'Real boat material '+kind,n);
+    for(const [kind,n] of Object.entries(bachKhuyet.inventory))check(n===9999,'Real mountain mineral '+kind,n);
+    for(const [kind,n] of Object.entries(templeSupplies.counts))check(n===9999,'Real temple supply '+kind,n);
+    for(const [kind,n] of Object.entries({snow:snowCrystals.count,cookies:candyProvisions.count,engines:santaGifts.engines,chocolate:backpack.count}))check(n===(kind==='engines'?1:9999),'Real consumable '+kind,n);
+    for(const [kind,n] of Object.entries(giftCode.unique))check(n===(['wings','flashlight','lavaSword','forestSword','ancientFragment','rage'].includes(kind)?1:9999),'Saved equipment/artifact quantity '+kind,n);
+    check(crystalWings.owned&&solarFlashlight.owned&&volcanicValley.owned&&riverBoat.owned&&mangroveRealm.owned&&explorationUpdate.mapOwned&&explorationUpdate.beanOwned,'All gift artifacts usable/owned');
+    check(technologyCraft.state.ironOwned&&technologyCraft.state.divingOwned&&technologyCraft.state.rageOwned,'All craft equipment owned');
+    check(romanArena.tournament.completed===0,'Gift medals preserve arena progression');
+    check(!giftCode.redeem('Tsukiezz'),'Upgraded gift cannot be claimed twice');
+    check(monsterCamps.stock.iron===9999,'Repeated redemption does not duplicate loot');
+    inventoryWorkspace.render();
+    const rows=[...document.querySelectorAll('#modal-backpack .backpack-item')];
+    const images=rows.map(r=>({id:r.id,title:r.querySelector('h3')?.textContent,image:r.querySelector(':scope > img')}));
+    check(images.every(r=>r.image),'Every inventory item has an illustration',images.filter(r=>!r.image).map(r=>r.title));
+    await Promise.all(images.map(r=>r.image.decode()));
+    check(images.every(r=>r.image.naturalWidth>0),'All inventory illustrations decode');
+    const blender=images.filter(r=>r.image.src.includes('/assets/blender/'));
+    check(blender.length===15,'15 formerly missing illustrations use Blender renders',blender.length);
+    inventoryWorkspace.select(document.getElementById('equipment-rage'));check(document.querySelector('.inventory-slot[aria-selected="true"] b').textContent==='9999','Equipment slot displays quantity 9999');
+    inventoryWorkspace.select(document.getElementById('camp-resource-meat'));openModal('modal-backpack');
+    check(monsterCamps.spend('iron',5)&&monsterCamps.stock.iron===9994,'Granted materials are spendable through real inventory');
+    for(const hero of ['hamster','rabbit','dragon_knight','kingkong','ninja_yinyang']){applyHeroSelection(hero);check(playerGroup.children.length>0,'Skin switching still works '+hero);}
+    applyHeroSelection('hamster');
+    check(moonRailway.services.every(service=>service.points.length>100&&service.points.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)&&Number.isFinite(p.z))),'Cooperative railway planning produces finite track geometry');
+    check(moonRailway.stations.length>50&&moonRailway.stations.every(station=>station.access&&typeof station.access.then!=='function'&&Number.isFinite(station.slabTop)),'Every station access is built completely before gameplay',moonRailway.stations.length);
+    check(moonRailway.stationGrounding&&typeof moonRailway.stationGrounding.then!=='function','Station grounding is resolved before gameplay');
+    check(Number.isFinite(moonRailway.terrainHeight(0,0))&&typeof moonRailway.obstacleSurvey.top(0,0,1)==='number','Runtime terrain and clearance queries remain synchronous');
+    check(moonRailway.trains.every(train=>train.vehicles.length===4),'All six trains keep one locomotive and three coaches');
+    return {checks,items:images.map(({id,title,image})=>({id,title,src:image.getAttribute('src')})),blenderIcons:blender.length};
+})()

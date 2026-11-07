@@ -1,5 +1,6 @@
 /* Terrain is a solid slope, not an unlimited sequence of tiny automatic steps. */
-function installTerrainTraversal(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installTerrainTraversal(){
     const maxSlope=Math.tan(35*Math.PI/180),cache=new Map();
     function gradient(x,z){
         const ix=Math.round(x*2),iz=Math.round(z*2),key=ix+','+iz;
@@ -11,6 +12,7 @@ function installTerrainTraversal(){
     }
     function walkway(x,z,y){
         if(Number.isFinite(window.highlandTrails?.support(x,z,y)))return true;
+        if(Number.isFinite(window.moonveilPalace?.support(x,z,y)))return true;
         if(inCastleEnvelope(x,z)||castleBridgeTop(x,z)!==null)return true;
         for(const api of [window.voidDistrict,window.stationMobility,window.moonRailway,window.realmTransitUpdate,window.antarcticRealm,window.desertRealm]){
             const s=api?.support?.(x,z,y);if(api===window.moonRailway&&s<=worldSurface.height(x,z)+.035)continue;
@@ -20,7 +22,7 @@ function installTerrainTraversal(){
         // independent of the natural terrain below them.
         return getGroundElevation(x,z,y)>worldSurface.height(x,z)+.35;
     }
-    function bypass(water=true){return Boolean(window.crystalWings?.flying||window.moonRailway?.aboard||window.riverBoat?.aboard||water&&window.playerSurvival?.swimming||window.evilCavern?.inside());}
+    function bypass(water=true){return Boolean(window.undergroundNetwork?.inside()||window.crystalWings?.flying||window.moonRailway?.aboard||window.riverBoat?.aboard||water&&window.playerSurvival?.swimming||window.evilCavern?.inside());}
     function castleStair(x,z,y){return inCastleEnvelope(x,z)&&(onCastleTransition(x,z,y)||(window.CASTLE_EXTENSION?.compactStairs||[]).some(p=>Math.abs(x-(p.x-110))<=p.width/2+.35&&z>=p.z+119.2&&z<=p.z+p.depth+120.5&&y>=p.bottom-.4&&y<=p.top+.4));}
     function canMove(from,x,z){
         if(bypass(false))return true;

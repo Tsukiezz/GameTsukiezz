@@ -1,0 +1,26 @@
+{
+  "source": "Assets/Art/Blender/Inventory/InventoryItemStudio.blend",
+  "generator": "Blender 5.2.1 LTS",
+  "style": "cartoon 3D, transparent background",
+  "animatedSourceFrames": [
+    1,
+    121
+  ],
+  "icons": [
+    "wood",
+    "minerals",
+    "gold_coin",
+    "meat",
+    "uranium",
+    "iron",
+    "rubber",
+    "silicon",
+    "cookie",
+    "flashlight",
+    "ancient_fragment",
+    "exit_map",
+    "magic_bean",
+    "boat",
+    "scrap"
+  ]
+}

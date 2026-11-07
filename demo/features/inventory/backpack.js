@@ -1,8 +1,9 @@
 /* Local backpack, deterministic map loot and a real-time three-minute buff. */
-function installBackpack(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installBackpack(){
     const key='tsuventure_backpack_v1',duration=180000,respawnDelay=300000,icon='features/inventory/assets/chocolate.svg';
     let count=0,buffUntil=0,collected={},scan=0,lastSecond=-1,returnFocus=null;
-    try{const saved=JSON.parse(localStorage.getItem(key)||'{}');count=Number.isSafeInteger(saved.chocolate)?Math.max(0,Math.min(99999,saved.chocolate)):0;const until=Number(saved.buffUntil);buffUntil=Number.isFinite(until)&&until>Date.now()?Math.min(until,Date.now()+duration):0;for(const [id,until] of Object.entries(saved.collected||{}))if(typeof until==='number'&&Number.isFinite(until)&&until>Date.now())collected[id]=Math.min(until,Date.now()+respawnDelay);}catch{}
+    try{const saved=JSON.parse(localStorage.getItem(key)||'{}');count=Number.isSafeInteger(saved.chocolate)?Math.max(0,Math.min(99999,saved.chocolate)):0;const until=Number(saved.buffUntil);buffUntil=Number.isFinite(until)&&until>Date.now()?Math.min(until,Date.now()+duration):0;for(const [id,until] of Object.entries(saved.collected||{})){if(window.gameBoot.shouldYield())await window.gameBoot.yield();if(typeof until==='number'&&Number.isFinite(until)&&until>Date.now())collected[id]=Math.min(until,Date.now()+respawnDelay);}}catch{}
     const tr=(vi,en)=>window.tsuventureSettings?.language==='en'?en:vi;
     const active=()=>gameState.isPlaying&&!gameState.inDialogue&&!document.querySelector('.modal-overlay.active');
     function save(){try{localStorage.setItem(key,JSON.stringify({chocolate:count,buffUntil,collected}));}catch{}}
@@ -44,20 +45,20 @@ function installBackpack(){
     function randomCell(x,z,salt=0){let v=Math.imul(x+1013,374761393)^Math.imul(z+2017,668265263)^salt;v=Math.imul(v^(v>>>13),1274126177);return ((v^(v>>>16))>>>0)/4294967296;}
     function groundAt(x,z){
         if(Math.abs(x)>980||Math.abs(z)>980||Math.hypot((x-mercuryLake.data.x)/mercuryLake.data.rx,(z-mercuryLake.data.z)/mercuryLake.data.rz)<1.4)return null;
-        if(x> -142&&x< -78&&z>36&&z<154||Math.hypot((x-115)/1.15,(z-110)/.9)<60)return null;
+        if(Math.hypot((x-115)/1.15,(z-110)/.9)<60)return null;
         if(landmarksData.some(l=>l.id!=='ancient_tree'&&Math.hypot(x-l.x,z-l.z)<21)||Math.hypot(x-202,z+206)<10||Math.hypot(x-340,z+150)<8)return null;
         const y=ancientGrove.ground(x,z)??realmTerrainHeight(x,z);const support=getGroundElevation(x,z,y+1);if(Math.abs(support-y)>.7||checkCollision(x,z,support,.4))return null;return support;
     }
-    for(let iz=-15;iz<=15;iz++)for(let ix=-15;ix<=15;ix++){
+    for(let iz=-15;iz<=15;iz++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(let ix=-15;ix<=15;ix++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         if(randomCell(ix,iz)>=.25)continue;const x=ix*64+(randomCell(ix,iz,71)-.5)*50,z=iz*64+(randomCell(ix,iz,931)-.5)*50,y=groundAt(x,z);
         if(y!==null)spots.push({id:ix+':'+iz,x,y,z});
-    }
+    }}
     // One introductory drop near the plaza so the mechanic is discoverable.
-    for(const [x,z] of [[22,16],[24,8],[-23,12],[24,-15]]){const y=groundAt(x,z);if(y!==null){spots.push({id:'intro',x,y,z});break;}}
+    for(const [x,z] of [[22,16],[24,8],[-23,12],[24,-15]]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const y=groundAt(x,z);if(y!==null){spots.push({id:'intro',x,y,z});break;}}
     const brown=new THREE.MeshStandardMaterial({color:0x623a29,roughness:.8}),gold=new THREE.MeshStandardMaterial({color:0xd0a34b,metalness:.3,roughness:.6}),foil=new THREE.MeshStandardMaterial({color:0xc9c9be,metalness:.6,roughness:.4});
     const prototype=new THREE.Group(),geometry=new THREE.BoxGeometry(1,1,1);
     function part(x,y,z,sx,sy,sz,material){const mesh=new THREE.Mesh(geometry,material);mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);prototype.add(mesh);}
-    part(0,0,0,.34,.07,.5,brown);for(const x of [-.09,.09])for(const z of [-.16,0,.16])part(x,.05,z,.145,.04,.13,brown);part(0,.045,.15,.36,.09,.16,gold);part(0,.05,.065,.35,.095,.025,foil);
+    part(0,0,0,.34,.07,.5,brown);for(const x of [-.09,.09]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(const z of [-.16,0,.16]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();part(x,.05,z,.145,.04,.13,brown);}}part(0,.045,.15,.36,.09,.16,gold);part(0,.05,.065,.35,.095,.025,foil);
     const glowCanvas=document.createElement('canvas');glowCanvas.width=glowCanvas.height=64;const glowContext=glowCanvas.getContext('2d'),gradient=glowContext.createRadialGradient(32,32,0,32,32,32);
     gradient.addColorStop(0,'rgba(255,255,225,1)');gradient.addColorStop(.12,'rgba(255,235,143,1)');gradient.addColorStop(.35,'rgba(255,196,65,.65)');gradient.addColorStop(1,'rgba(255,172,32,0)');glowContext.fillStyle=gradient;glowContext.fillRect(0,0,64,64);
     const glowTexture=new THREE.CanvasTexture(glowCanvas),glowMaterial=new THREE.SpriteMaterial({map:glowTexture,transparent:true,depthWrite:false,depthTest:true,blending:THREE.AdditiveBlending});

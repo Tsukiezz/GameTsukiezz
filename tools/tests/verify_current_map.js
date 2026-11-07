@@ -33,7 +33,7 @@ async function main() {
     fs.mkdirSync(output, {recursive:true});
     const root=path.resolve(__dirname,'../../demo');
     function collect(directory){return fs.readdirSync(directory,{withFileTypes:true}).flatMap(e=>e.isDirectory()?collect(path.join(directory,e.name)):[path.join(directory,e.name)]);}
-    const assets=[path.join(root,'index.html'),...collect(path.join(root,'features'))];
+    const assets=[path.join(root,'index.html'),...collect(path.join(root,'core')),...collect(path.join(root,'features'))];
     const assetFailures=[];
     for(const file of assets){const relative=path.relative(root,file).split(path.sep).map(encodeURIComponent).join('/');const response=await fetch(new URL(relative,url));if(response.status!==200||Number(response.headers.get('content-length'))!==fs.statSync(file).size)assetFailures.push(relative);await response.arrayBuffer();}
     assert.deepEqual(assetFailures,[],'All shipped files must load from the game server');

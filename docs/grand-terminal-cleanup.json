@@ -1,0 +1,317 @@
+{
+  "date": "2026-11-06",
+  "removedTargets": 50,
+  "removedBytes": 9489253018.0,
+  "targets": [
+    {
+      "path": ".runtime\\native-desktop\\checks\\bundle-cache",
+      "bytes": 2001275861.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client",
+      "bytes": 34913792.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793798638193",
+      "bytes": 120496992.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793799109864",
+      "bytes": 119186553.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793799341990",
+      "bytes": 121697619.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793799779166",
+      "bytes": 127136633.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793800625792",
+      "bytes": 127174735.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793801846709",
+      "bytes": 127151607.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793804035184",
+      "bytes": 135272206.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793804862256",
+      "bytes": 135211376.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793872099567",
+      "bytes": 101886164.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793872266214",
+      "bytes": 138082289.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793872640045",
+      "bytes": 138092928.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793875383240",
+      "bytes": 138387641.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793875826544",
+      "bytes": 138406405.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793959645443",
+      "bytes": 94003533.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793959733527",
+      "bytes": 138456294.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793962014335",
+      "bytes": 138428646.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793962417221",
+      "bytes": 138471338.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793962859758",
+      "bytes": 138469230.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793972843041",
+      "bytes": 138661248.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793973700892",
+      "bytes": 137666264.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793974061717",
+      "bytes": 144785799.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793974460435",
+      "bytes": 144783922.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793974857388",
+      "bytes": 144784411.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793975135581",
+      "bytes": 144732658.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\isolated-profile",
+      "bytes": 84473519.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\profile",
+      "bytes": 72756504.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\browser-bHEpK5",
+      "bytes": 146340080.0,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\browser-bmZSBm",
+      "bytes": 50095971.0,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\browser-d6vavg",
+      "bytes": 14048764.0,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\browser-HEP9lm",
+      "bytes": 179315602.0,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\browser-nTL7GS",
+      "bytes": 177794203.0,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\browser-OmySnd",
+      "bytes": 153495486.0,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\browser-Rmd6QM",
+      "bytes": 158823210.0,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\browser-uE2uof",
+      "bytes": 118232006.0,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\browser-vdZLfx",
+      "bytes": 157881400.0,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\browser-xlK7Nw",
+      "bytes": null,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\browser-yjr1h0",
+      "bytes": 179299406.0,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\moonveil\\checks\\native-bundle",
+      "bytes": 163215132.0,
+      "removed": true,
+      "reason": "Completed isolated Moonveil browser profiles or extracted bundle; reports and images retained"
+    },
+    {
+      "path": ".runtime\\desktop-test\\cache",
+      "bytes": 2363785655.0,
+      "removed": true,
+      "reason": "Regenerable EXE packaging test cache"
+    },
+    {
+      "path": ".runtime\\desktop-test\\Tsuventure.exe",
+      "bytes": 38870528,
+      "removed": true,
+      "reason": "Duplicate packaging test EXE; playable root EXE retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\BuildInfo.cs",
+      "bytes": 382,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\game.zip",
+      "bytes": 37544273,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\tsuventure.ico",
+      "bytes": 166641,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\Tsuventure.previous-1793758756433945800.exe",
+      "bytes": 34913280,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\Tsuventure.previous-1793799034672134500.exe",
+      "bytes": 35966464,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\Tsuventure.previous-1793875280017215600.exe",
+      "bytes": 38113792,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\Tsuventure.previous-1793961993553891100.exe",
+      "bytes": 38252032,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\Tsuventure.previous-1793962396242922100.exe",
+      "bytes": 38252544,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    }
+  ],
+  "retained": [
+    "Tsuventure.exe",
+    "All current game code and runtime assets",
+    "All editable Blender sources",
+    "SDK for offline rebuilds",
+    "Regression reports and screenshots",
+    "Rollback source archives",
+    "Real player saves outside the project",
+    "Git and existing work"
+  ]
+}

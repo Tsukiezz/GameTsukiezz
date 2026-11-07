@@ -1,6 +1,7 @@
 const NINJA_COMBAT={attack:112,critical:190,stamina:0,speed:1.18,attackDuration:.32,dashCost:0,dashCooldown:6,dashSpeed:19};
 /* Fast dual-dagger assassin using the world's existing hit and collision APIs. */
-function installNinjaAbilities(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installNinjaAbilities(){
     let cooldown=0,dashTime=0,pending=0,combo=0;
     const direction=new THREE.Vector3(),box=new THREE.Box3(),closest=new THREE.Vector3();
     const button=document.createElement('button');button.id='ninja-shadow-step';button.textContent='F · Ảnh Bộ';
@@ -26,7 +27,7 @@ function installNinjaAbilities(){
         for(const a of window.desertRealm?.infestation.actors||[])add(a.id,a.group,a.health,damage=>desertRealm.infestation.hit(a,damage));
         add('war_dragon',volcanicValley.dragon.group,volcanicValley.dragon.health,damage=>volcanicValley.hit(damage));
         for(const a of [...evilCavern.warriors,evilCavern.worm])add(a.id,a.group,a.health,damage=>evilCavern.hit(a,damage));
-        for(const a of monsterSkills.minions)add('forest_sapling',a.group,a.health,damage=>{a.health=Math.max(0,a.health-heroOutgoingDamage(damage));if(!a.health)fieldGuide.record('forest_sapling',true);return true;});
+        for(const a of monsterSkills.minions)add('forest_sapling',a.group,a.health,damage=>monsterSkills.hitMinion(a,damage));
         return items;
     }
     function strike(){

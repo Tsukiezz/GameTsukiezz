@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-07",
+  "removedTargets": 12,
+  "removedBytes": 984758633.0,
+  "targets": [
+    {
+      "path": ".runtime\\native-desktop\\checks\\bundle-cache",
+      "bytes": 309751910.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1794040427858",
+      "bytes": 151439624.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1794040800603",
+      "bytes": 151443450.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1794041252851",
+      "bytes": 151661819.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\desktop-test\\cache",
+      "bytes": 103255670.0,
+      "removed": true,
+      "reason": "Regenerable EXE packaging test cache"
+    },
+    {
+      "path": ".runtime\\desktop-test\\Tsuventure.exe",
+      "bytes": 39449600,
+      "removed": true,
+      "reason": "Duplicate packaging test EXE; playable root EXE retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\BuildInfo.cs",
+      "bytes": 382,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\game.zip",
+      "bytes": 38123190,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\tsuventure.ico",
+      "bytes": 166641,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\Tsuventure.previous-1794041251584461300.exe",
+      "bytes": 39449600,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\vip-mines\\apply-combat-core.py",
+      "bytes": 9355,
+      "removed": true,
+      "reason": "One-time edit script; changes are present in the runtime source"
+    },
+    {
+      "path": ".runtime\\vip-mines\\apply-monsters.py",
+      "bytes": 7392,
+      "removed": true,
+      "reason": "One-time edit script; changes are present in the runtime source"
+    }
+  ],
+  "retained": [
+    "Tsuventure.exe",
+    "All current game code and runtime assets",
+    "All editable Blender sources",
+    "SDK for offline rebuilds",
+    "Regression reports and screenshots",
+    "Rollback source archives",
+    "Real player saves outside the project",
+    "Git and existing work"
+  ]
+}

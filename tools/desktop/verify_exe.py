@@ -25,6 +25,12 @@ def stop():
     h=kernel.OpenEventW(2,False,'Local\\Tsuventure.Restart.'+str(port))
     if h:kernel.SetEvent(h);kernel.CloseHandle(h)
 try:
+    branding=area/'window-branding.json'
+    probe=subprocess.run([str(exe),'--headless','--verify-branding',str(branding)],cwd=area,creationflags=subprocess.CREATE_NO_WINDOW,timeout=30)
+    check('Native taskbar verification exits successfully',probe.returncode==0)
+    brand=json.loads(branding.read_text(encoding='utf8'))
+    for name in ['appId','iconResource','displayName','relaunchCommand','windowIcon']:
+        check('Taskbar/window identity: '+name,brand.get(name) is True)
     p=start();state=wait('embedded');check('Standalone EXE extracts and serves its embedded game without Python',p.poll() is None and state['mode']=='embedded',state)
     manifest=json.loads((ROOT/'docs/desktop-build.json').read_text(encoding='utf8'))['manifest']
     def probe(item):
@@ -36,7 +42,10 @@ try:
     code,headers,data=request(media,headers={'Range':'bytes=12-47'});check('Video byte-range seeking returns exact content',code==206 and data==original[12:48] and headers.get('Content-Range')==f'bytes 12-47/{len(original)}')
     code,_,data=request(media,headers={'Range':'bytes=-16'});check('Suffix byte ranges work',code==206 and data==original[-16:])
     check('Invalid ranges return 416',request(media,headers={'Range':'bytes=999999999999-'})[0]==416)
-    check('Cache validation permits later project updates',request('index.html')[1].get('Cache-Control')=='no-cache')
+    check('Cache validation permits later project updates','no-store' in request('index.html')[1].get('Cache-Control',''))
+    url1=json.loads(request('__tsuventure/launch')[2])['url'];url2=json.loads(request('__tsuventure/launch')[2])['url']
+    check('Every open gets a fresh document URL without changing save origin',url1!=url2 and url1.startswith(base+'?desktop=1&launch=') and url2.startswith(base+'?desktop=1&launch='))
+    check('Fresh launch renders current entry page',request(url1[len(base):])[2]==(ROOT/'demo/index.html').read_bytes())
     check('Three.js is included locally',request('vendor/three-r128.min.js')[0]==200)
     check('Non-game files are inaccessible',request('..%2fprivate.txt')[0]==403 and request('..%5cprivate.txt')[0]==403)
     check('Foreign hosts and write requests are rejected',request('',headers={'Host':'foreign.invalid'})[0]==403 and request('',method='POST')[0]==405)

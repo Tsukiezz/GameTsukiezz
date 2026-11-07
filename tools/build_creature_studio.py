@@ -149,11 +149,16 @@ def spectator():
     add('Cap',(0,1.48,0),(.32,.1,.29),'gold')
 
 exec((ROOT/'tools/creature_design_v2.py').read_text(encoding='utf8'))
+exec((ROOT/'tools/arena_concept_shapes.py').read_text(encoding='utf8'))
+exec((ROOT/'tools/forest_reference_shapes.py').read_text(encoding='utf8'))
 species=['frog','rabbit','pig','horse','bull','goat','doe','deer','dog','cat','butterfly','elephant','chicken','buffalo','penguin','polar_bear']+[f'fish_{i}' for i in range(6)]+['river_shrimp','river_glass_shrimp','river_crab','river_moon_crab','river_snail','river_ice_snail','wolf','dwarf','robot','moon_rabbit','arena_beast','spectator']+extra_species
 collections=[]
+species += [kind for kind in FOREST_REFERENCE_KINDS if kind not in species]
 for kind in species:
     current=kind;objects=[];joints={'body':[0,0,0]}
-    if kind in ['spinosaurus','trex']:dinosaur(kind)
+    if kind in FOREST_REFERENCE_KINDS:build_forest_reference(kind);ground_arena_concept()
+    elif kind in ARENA_CONCEPT_KINDS:build_arena_concept(kind);ground_arena_concept()
+    elif kind in ['spinosaurus','trex']:dinosaur(kind)
     elif kind=='zeus':zeus()
     elif kind in extra_species and kind!='dark_horse':legacy(kind)
     elif kind in ['frog']:frog()
@@ -165,7 +170,9 @@ for kind in species:
     elif kind=='spectator':spectator()
     else:mammal(kind)
     bpy.context.view_layer.update();collections.append(export_model(kind))
-out=ROOT/'demo/features/creatures/data/creature-studio.js';out.parent.mkdir(parents=True,exist_ok=True);out.write_text('window.CREATURE_STUDIO_DATA='+json.dumps({'source':'Blender','version':2,'models':models},separators=(',',':'))+';\n',encoding='utf8')
+    if kind in ARENA_CONCEPT_KINDS:tag_arena_concept(models[kind],kind)
+    if kind in FOREST_REFERENCE_KINDS:tag_forest_reference(models[kind],kind)
+out=ROOT/'demo/features/creatures/data/creature-studio.js';out.parent.mkdir(parents=True,exist_ok=True);out.write_text('window.CREATURE_STUDIO_DATA='+json.dumps({'source':'Blender','version':5,'forestSpiritKinds':FOREST_REFERENCE_KINDS[1:],'models':models},separators=(',',':'))+';\n',encoding='utf8')
 # A separate display scene arranges normalized specimens for visual review.
 for i,collection in enumerate(collections):
     vertices=[o.matrix_world@v.co for o in collection.objects for v in o.data.vertices];low=Vector(tuple(min(p[k] for p in vertices) for k in range(3)));high=Vector(tuple(max(p[k] for p in vertices) for k in range(3)));scale=2.5/max(high-low);offset=Vector(((i%8-3.5)*3.8,(i//8-3)*4.3,0))

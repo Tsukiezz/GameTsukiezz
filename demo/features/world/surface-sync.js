@@ -1,7 +1,8 @@
 /* One rendered terrain surface for ecology, ground movement and outdoor camera. */
-function installWorldSurfaceSync(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installWorldSurfaceSync(){
     const rail=window.moonRailway,height=(x,z)=>Math.max(rail.terrainHeight(x,z),rail.roadHeight?.(x,z)??-Infinity);
-    const modifiedAt=(x,z)=>Boolean(window.terrainContinuity?.affects(x,z))||Boolean(window.technologyBase?.contains(x,z))||Number.isFinite(rail.roadHeight?.(x,z))||rail.stationPlans.some(plan=>{if(!plan.grounded)return false;const q=new THREE.Vector3(x-plan.center.x,0,z-plan.center.z).applyAxisAngle(new THREE.Vector3(0,1,0),-plan.yaw);return Math.abs(q.x-14)<48&&Math.abs(q.z)<78;});
+    const modifiedAt=(x,z)=>Boolean(window.moonveilPalace?.affects(x,z))||Boolean(window.terrainContinuity?.affects(x,z))||Boolean(window.technologyBase?.contains(x,z))||Number.isFinite(rail.roadHeight?.(x,z))||rail.stationPlans.some(plan=>{if(!plan.grounded)return false;const q=new THREE.Vector3(x-plan.center.x,0,z-plan.center.z).applyAxisAngle(new THREE.Vector3(0,1,0),-plan.yaw);return Math.abs(q.x-14)<48&&Math.abs(q.z)<78;});
     const matrix=new THREE.Matrix4(),position=new THREE.Vector3(),scale=new THREE.Vector3(),rotation=new THREE.Quaternion();
     const anchored=[],changes=new Map();
     scene.updateMatrixWorld(true);
@@ -10,7 +11,7 @@ function installWorldSurfaceSync(){
         let maxShift=0;
         for(let i=0;i<mesh.count;i++){
             mesh.getMatrixAt(i,matrix);matrix.decompose(position,rotation,scale);
-            const oldY=position.y,legacy=mesh.name.startsWith('LegacyFlora_'),target=height(position.x,position.z)+(legacy?oldY:0),clear=rail.infrastructureAt(position.x,position.z)||Boolean(window.candyRealm?.contains(position.x,position.z))||Boolean(window.technologyBase?.contains(position.x,position.z))||Boolean(window.desertRealm?.contains(position.x,position.z)&&!desertRealm.protectedAt(position.x,position.z));
+            const oldY=position.y,legacy=mesh.name.startsWith('LegacyFlora_'),target=height(position.x,position.z)+(legacy?oldY:0),clear=Boolean(window.moonveilPalace?.affects(position.x,position.z))||rail.infrastructureAt(position.x,position.z)||Boolean(window.candyRealm?.contains(position.x,position.z))||Boolean(window.technologyBase?.contains(position.x,position.z))||Boolean(window.desertRealm?.contains(position.x,position.z)&&!desertRealm.protectedAt(position.x,position.z));
             position.y=target;if(clear)scale.setScalar(0);
             matrix.compose(position,rotation,scale);mesh.setMatrixAt(i,matrix);
             maxShift=Math.max(maxShift,Math.abs(target-oldY));
@@ -21,7 +22,7 @@ function installWorldSurfaceSync(){
         mesh.instanceMatrix.needsUpdate=true;
         if(mesh.geometry.boundingSphere)mesh.geometry.boundingSphere.radius+=maxShift;
     });
-    for(const c of colliders){
+    for(const c of colliders){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         if(!/^(grove-|bach-khuyet-rock|moonwell)/.test(c.name||'')||!Number.isFinite(c.x))continue;
         const shift=changes.get(c.x.toFixed(2)+','+c.z.toFixed(2));if(!shift)continue;
         c.minY+=shift.delta;c.maxY+=shift.delta;if(shift.clear)c.disabled=true;
@@ -30,9 +31,9 @@ function installWorldSurfaceSync(){
     function cameraNeedsReset(p){const reset=!lastPlayer||lastPlayer.distanceTo(p)>12;lastPlayer=p.clone();return reset;}
     function resetCamera(){lastPlayer=null;camera.near=.1;camera.updateProjectionMatrix();}
     const ray=new THREE.Raycaster();
-    function clipCamera(origin,desired){
+    function clipCamera(origin,desired){if(window.undergroundNetwork?.inside(origin))return undergroundNetwork.clipCamera(origin,desired);
         if(window.evilCavern?.inside(origin))return desired;
-        let result=desired.clone();
+        let result=window.grandTerminal?.clipCamera(origin,desired)??desired.clone();
         const delta=desired.clone().sub(origin),length=delta.length();if(length<.001)return result;
         // Static station walls and moving train bodies are real camera blockers.
         const blockers=window.desertRealm?.contains(origin.x,origin.z)?[...desertRealm.cameraObstacles]:[];
@@ -40,7 +41,8 @@ function installWorldSurfaceSync(){
         if(window.candyRealm?.contains(origin.x,origin.z))blockers.push(candyRealm.group);
         for(const village of window.westernHighlands?.villages||[])if(village.center.distanceTo(origin)<80)blockers.push(village.root);
         if(window.technologyBase?.center.distanceTo(origin)<160)blockers.push(technologyBase.group);
-        for(const station of rail.stations)if(station.model.position.distanceTo(origin)<180)blockers.push(station.model,station.access.root,station.foundation);
+        for(const station of rail.stations)if(!station.grandTerminal&&station.model.position.distanceTo(origin)<180)blockers.push(station.model,station.access.root,station.foundation);
+        if(window.moonveilPalace&&Math.hypot(origin.x-moonveilPalace.center.x,origin.z-moonveilPalace.center.z)<230)blockers.push(moonveilPalace.group);
         for(const vehicle of (rail.allVehicles||rail.vehicles))if(vehicle.position.distanceTo(origin)<65)blockers.push(vehicle);
         blockers.forEach(root=>root.updateWorldMatrix(true,true));
         ray.set(origin,delta.clone().normalize());ray.near=.12;ray.far=length;
@@ -63,7 +65,7 @@ function installWorldSurfaceSync(){
     const shore=mercuryLake.group.getObjectByName('MercuryObsidianShore');
     if(shore){
         shore.updateWorldMatrix(true,false);const inverse=shore.matrixWorld.clone().invert(),vertices=shore.geometry.attributes.position;
-        for(let i=0;i<vertices.count;i++){
+        for(let i=0;i<vertices.count;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
             const p=new THREE.Vector3().fromBufferAttribute(vertices,i).applyMatrix4(shore.matrixWorld);
             p.y=height(p.x,p.z)+.025;p.applyMatrix4(inverse);vertices.setXYZ(i,p.x,p.y,p.z);
         }

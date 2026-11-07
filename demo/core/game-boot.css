@@ -1,0 +1,19 @@
+#game-loading{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;overflow:hidden;background:#081421;color:#eef6f6;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;transition:opacity .35s ease}
+#game-loading[hidden]{display:none}#game-loading.boot-finished{opacity:0;pointer-events:none}
+.boot-scenery,.boot-shade{position:absolute;inset:0;pointer-events:none}
+.boot-scenery{background:#10283b url(../features/lobby/assets/background.jpg) center/cover no-repeat;transform:scale(1.025)}
+.boot-shade{background:linear-gradient(180deg,#030f2440 0%,#04132918 35%,#061529cc 76%,#04111cf5 100%)}
+.boot-content{position:relative;width:min(660px,84vw);text-align:center;margin-top:min(31vh,260px)}
+.boot-logo{display:block;width:min(550px,90%);height:auto;margin:0 auto 14px;filter:drop-shadow(0 5px 24px #000b)}
+.boot-eyebrow{font-size:11px;letter-spacing:.32em;color:#e2d2a1;margin:0 0 68px}
+.boot-progress-head{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:13px;text-align:left;font-size:14px;font-weight:500;color:#d2e8e8}
+#boot-percent{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;color:#f4dfa8;letter-spacing:.03em}
+.boot-progress{height:9px;border-radius:20px;background:#06121cc9;box-shadow:0 0 0 1px #9dcccb40,inset 0 1px 4px #0009;overflow:hidden}
+.boot-progress i{display:block;height:100%;width:0%;border-radius:inherit;background:linear-gradient(90deg,#288f9f,#65d8d2 70%,#e4ebbc);box-shadow:0 0 16px #55dcd7;transition:width .16s linear;position:relative}
+.boot-progress i:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,#fff8,transparent);animation:boot-glimmer 2.4s linear infinite}
+.boot-caption{font-size:12px;color:#a9c2cc;margin:19px 0 0;letter-spacing:.035em}
+#boot-retry{margin:22px auto 0;padding:10px 24px;border:1px solid #d8bd78;border-radius:8px;color:#f9e6ba;background:#122b3e;font:inherit;cursor:pointer}
+.game-loading #home-screen,.game-loading #game-hud{pointer-events:none}
+@keyframes boot-glimmer{from{transform:translateX(-110%)}to{transform:translateX(110%)}}
+@media(max-width:600px){.boot-content{width:84vw;margin-top:25vh}.boot-eyebrow{font-size:8px;letter-spacing:.2em;margin-bottom:48px}.boot-progress-head{font-size:12px}#boot-percent{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.boot-progress i:after{animation:none}.boot-progress i,#game-loading{transition:none}}

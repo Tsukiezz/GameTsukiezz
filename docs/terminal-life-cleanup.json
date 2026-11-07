@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-06",
+  "removedTargets": 9,
+  "removedBytes": 812951410.0,
+  "targets": [
+    {
+      "path": ".runtime\\native-desktop\\checks\\bundle-cache",
+      "bytes": 200065408.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793981078037",
+      "bytes": 148036322.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\native-desktop\\checks\\client-1793981473054",
+      "bytes": 148037134.0,
+      "removed": true,
+      "reason": "Isolated test EXE, profile, save or extracted bundle; recreated by verify_native.js"
+    },
+    {
+      "path": ".runtime\\desktop-test\\cache",
+      "bytes": 200065408.0,
+      "removed": true,
+      "reason": "Regenerable EXE packaging test cache"
+    },
+    {
+      "path": ".runtime\\desktop-test\\Tsuventure.exe",
+      "bytes": 39302144,
+      "removed": true,
+      "reason": "Duplicate packaging test EXE; playable root EXE retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\BuildInfo.cs",
+      "bytes": 382,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\game.zip",
+      "bytes": 37975827,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\tsuventure.ico",
+      "bytes": 166641,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    },
+    {
+      "path": ".runtime\\desktop-build\\Tsuventure.previous-1793981450625044500.exe",
+      "bytes": 39302144,
+      "removed": true,
+      "reason": "Old executable or build intermediate; source, SDK and root executable retained"
+    }
+  ],
+  "retained": [
+    "Tsuventure.exe",
+    "All current game code and runtime assets",
+    "All editable Blender sources",
+    "SDK for offline rebuilds",
+    "Regression reports and screenshots",
+    "Rollback source archives",
+    "Real player saves outside the project",
+    "Git and existing work"
+  ]
+}

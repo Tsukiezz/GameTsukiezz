@@ -26,7 +26,7 @@
  for(const a of audit.stations.filter(a=>a.lowApproach)){const station=rail.stations.find(s=>s.name===a.name);check(station.grounded&&station.platform.y-worldSurface.height(station.platform.x,station.platform.z)<1.2&&!station.access.replacedSteepRamp,'Clear ground station uses a low approach: '+a.name,{gap:station.platform.y-worldSurface.height(station.platform.x,station.platform.z),rise:station.access.rise});}
  check(minWater>=6.45,'Both track decks retain river clearance',minWater);check(maxGrade<=.351,'Approaches keep safe grades',maxGrade);check(minGap>=-.15,'Lowered rails stay above actual terrain',minGap);
  const key=(key,code)=>{renderer.domElement.dispatchEvent(new KeyboardEvent('keydown',{key,code,bubbles:true,cancelable:true}));renderer.domElement.dispatchEvent(new KeyboardEvent('keyup',{key,code,bubbles:true,cancelable:true}));};
- function board(train){rail.travel(0,train.trackId==='return');document.getElementById('railway-line').value=train.id;const stop=train.stops.find(s=>s.station===0);train.distance=stop.distance;train.nextStop=(train.stops.indexOf(stop)+1)%train.stops.length;train.state='stopped';train.stationIndex=0;train.remaining=60;train.speed=0;rail.update(0);gameState.health=100;gameState.armor=100;return rail.toggleRide();}
+ function board(train){rail.travel(0,train.trackId==='return');document.getElementById('railway-line').value=train.id;const stop=train.stops.find(s=>s.station===0);train.distance=stop.distance;train.nextStop=(train.stops.indexOf(stop)+1)%train.stops.length;train.state='stopped';train.stationIndex=0;train.remaining=60;train.speed=0;rail.update(0);gameState.health=gameState.maxHealth;return rail.toggleRide();}
  monsterCamps.add('goldCoin',30);
  const startFov=camera.fov;
  for(const train of rail.trains){
@@ -36,7 +36,8 @@
   check(playerLife.protectedOnTrain&&!playerLife.targetable,'Not targetable aboard '+train.id);const parkedNext=rail.nextStop();check(rail.requestNextStop()&&rail.aboard&&rail.exitStation===parkedNext.station,'Request next stop even before departure '+train.id);check(document.getElementById('railway-panel').hidden&&rail.exitStation===parkedNext.station,'Next-station exit is the default even while parked '+train.id);
   const before={health:gameState.health,armor:gameState.armor,deaths:playerLife.deaths};
   check(!playerLife.hurt(99999,false,'poison'),'Central damage rejected '+train.id);
-  gameState.health=0;gameState.armor=0;playerLife.die('Forced external death');
+  gameState.health=0;playerLife.die('Forced external death');
+  check(!playerLife.hitMonster(99999,'wolf',{special:true}),'Piercing attack rejected '+train.id);
   monsterSkills.landDamage(9999,true);desertRealm.hurt(9999,{seconds:20,dps:99});volcanicValley.hurt(9999,true);snowQueen.startFreeze();candyRealm.cast();
   for(let i=0;i<30;i++){playerLife.update(.1);monsterSkills.update(.1);desertRealm.update(.1);volcanicValley.update(.1);snowQueen.update(.1);candyRealm.update(.1);realmTransitUpdate.update(.1);}
   check(gameState.health===before.health&&gameState.armor===before.armor&&playerLife.deaths===before.deaths,'Legacy writes, bosses and DoT cannot damage passenger '+train.id);

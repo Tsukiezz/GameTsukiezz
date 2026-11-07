@@ -37,16 +37,17 @@ function communityModel(kind){
     }
     const positions=[],colors=[];for(const m of parts){m.updateMatrix();const g=m.geometry.toNonIndexed();g.applyMatrix4(m.matrix);positions.push(...g.attributes.position.array);const n=g.attributes.normal,c=m.material.color;for(let i=0;i<n.count;i++){const s=.67+.25*Math.max(0,n.getY(i))+.08*Math.max(0,n.getZ(i));colors.push(c.r*s,c.g*s,c.b*s);}g.dispose();m.geometry.dispose();m.material.dispose();root.remove(m);}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));g.computeVertexNormals();root.add(new THREE.Mesh(g,new THREE.MeshBasicMaterial({vertexColors:true})));root.name=kind;communityModelCache.set(kind,root);return root.clone(true);
 }
-function installWorldResidents(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installWorldResidents(){
     const root=new THREE.Group();root.name='PeacefulWorldResidents';scene.add(root);const actors=[],benthic=[],pools=[],species=COMMUNITY_GUIDE.filter(s=>s[1]==='wildlife').map(s=>s[0]);let time=0,clock=1;
     function add(kind,position,homeRadius=0){const group=communityModel(kind);group.position.copy(position);root.add(group);const a={kind,group,home:position.clone(),homeRadius,phase:actors.length*.8};actors.push(a);return a;}
     const c=candyRealm.center;
-    for(let i=0;i<22;i++){let found=null;for(let k=0;k<48;k++){const x=c.x-82+((i*37+k*19)%164),z=c.z-10+((i*23+k*31)%86),y=getGroundElevation(x,z,c.y+1);if(!checkCollision(x,z,y,.6)&&Math.abs(y-c.y)<1.1&&!riverBoat.waterAt(x,z)){found=new THREE.Vector3(x,y+.225,z);break;}}if(found)add(i%2?'candy_mallow':'candy_ginger',found,2);}
-    for(const t of voidDistrict.towers)for(const side of [-1,1]){const a=add('void_guard',voidDistrict.world(t.x-31,0,t.z+side*4.5));a.group.rotation.y=voidDistrict.plan.yaw-Math.PI/2;}
+    for(let i=0;i<22;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();let found=null;for(let k=0;k<48;k++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const x=c.x-82+((i*37+k*19)%164),z=c.z-10+((i*23+k*31)%86),y=getGroundElevation(x,z,c.y+1);if(!checkCollision(x,z,y,.6)&&Math.abs(y-c.y)<1.1&&!riverBoat.waterAt(x,z)){found=new THREE.Vector3(x,y+.225,z);break;}}if(found)add(i%2?'candy_mallow':'candy_ginger',found,2);}
+    for(const t of voidDistrict.towers){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(const side of [-1,1]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const a=add('void_guard',voidDistrict.world(t.x-31,0,t.z+side*4.5));a.group.rotation.y=voidDistrict.plan.yaw-Math.PI/2;}}
     // The gatekeepers and workers already exist: register rather than duplicate.
-    for(const g of antarcticRealm.winterStructure.guards)actors.push({kind:'santa_gatekeeper',group:g,home:g.position.clone(),homeRadius:0,phase:0,existing:true});
-    for(const w of antarcticRealm.winterStructure.workers)actors.push({kind:'santa_worker',group:w.model,home:w.model.position.clone(),homeRadius:0,phase:w.phase,existing:true});
-    for(const kind of species){const mesh=new THREE.InstancedMesh(creatureArt.merged(kind),new THREE.MeshBasicMaterial({vertexColors:true}),100);mesh.name='Riverbed_'+kind;mesh.count=0;mesh.frustumCulled=false;mesh.userData.ecologyDynamic=true;root.add(mesh);pools.push({kind,mesh});}
+    for(const g of antarcticRealm.winterStructure.guards){if(window.gameBoot.shouldYield())await window.gameBoot.yield();actors.push({kind:'santa_gatekeeper',group:g,home:g.position.clone(),homeRadius:0,phase:0,existing:true});}
+    for(const w of antarcticRealm.winterStructure.workers){if(window.gameBoot.shouldYield())await window.gameBoot.yield();actors.push({kind:'santa_worker',group:w.model,home:w.model.position.clone(),homeRadius:0,phase:w.phase,existing:true});}
+    for(const kind of species){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const mesh=new THREE.InstancedMesh(creatureArt.merged(kind),new THREE.MeshBasicMaterial({vertexColors:true}),100);mesh.name='Riverbed_'+kind;mesh.count=0;mesh.frustumCulled=false;mesh.userData.ecologyDynamic=true;root.add(mesh);pools.push({kind,mesh});}
     const dummy=new THREE.Object3D();
     function nearby(){if(!gameState.isPlaying||gameState.inDialogue||document.querySelector('.modal-overlay.active'))return null;return actors.filter(a=>a.group.visible&&playerGroup.position.distanceTo(a.group.position)<2.4).sort((a,b)=>a.group.position.distanceToSquared(playerGroup.position)-b.group.position.distanceToSquared(playerGroup.position))[0]||null;}
     function talk(){return false;}

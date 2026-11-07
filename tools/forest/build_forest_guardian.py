@@ -91,7 +91,7 @@ for i in range(8):
     x=(i-3.5)*.16;tube([[x,9,.9],[x*.8,7.8-abs(x)*.3,1.1]],[.1,.015],'moss',5)
 ellipsoid([0,13.9,-.6],[2.4,1.8,2],'leaf',14,8)
 
-rig=bpy.data.objects.new('ForestGuardian_Rig',None);collection.objects.link(rig);rig['maxHealth']=7000
+rig=bpy.data.objects.new('ForestGuardian_Rig',None);collection.objects.link(rig);rig['maxHealth']=10000
 bones={}
 for key,definition in joints.items():
     bone=bpy.data.objects.new('ForestGuardian_'+key,None);collection.objects.link(bone);bone.parent=rig
@@ -112,6 +112,6 @@ camera_data=bpy.data.cameras.new('GuardianReviewCamera');camera=bpy.data.objects
 camera.location=(22,-32,17);camera.rotation_euler=(Vector((0,0,8))-camera.location).to_track_quat('-Z','Y').to_euler();camera_data.lens=48;bpy.context.scene.camera=camera
 light_data=bpy.data.lights.new('GuardianReviewSun','SUN');light_data.energy=2.5;light=bpy.data.objects.new('GuardianReviewSun',light_data);collection.objects.link(light);light.rotation_euler=(.3,-.4,-.5)
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'Assets/Art/Blender/Forest/ForestGuardian.blend'))
-data=dict(source='Blender',id='forest_guardian',name='Thần Rừng',maxHealth=7000,spawn=[340,-150],joints=joints,materials=palette,pieces=pieces)
+data=dict(source='Blender',id='forest_guardian',name='Thần Rừng',maxHealth=10000,spawn=[340,-150],joints=joints,materials=palette,pieces=pieces)
 (ROOT/'demo/features/forest/data/forest-guardian.js').write_text('window.FOREST_GUARDIAN_DATA='+json.dumps(data,ensure_ascii=False)+';\n',encoding='utf-8')
-print('FOREST_GUARDIAN_EXPORTED',len(pieces),'pieces; 7000 HP')
+print('FOREST_GUARDIAN_EXPORTED',len(pieces),'pieces; 10000 HP')

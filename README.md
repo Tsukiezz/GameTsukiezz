@@ -1,10 +1,26 @@
-﻿# GameTsukiezz — bản đồ hiện tại
+# Tsuventure
 
-Game phiêu lưu 3D chạy trên trình duyệt bằng Three.js. Đọc [bàn giao](CONVERSATION_HANDOFF.md) để tiếp tục công việc.
+Tsuventure là game phiêu lưu 3D dùng Three.js, với bản đồ mặt trăng, đường sắt hai chiều và các khu vực được dựng bằng Blender. Khám phá làng núi, lâu đài, kim tự tháp và hang mỏ, thu thập vật phẩm rồi chế tạo trang bị để chiến đấu.
 
-**Chơi bằng một lần bấm trên Windows:** mở **[Tsuventure.exe](Tsuventure.exe)** ở thư mục gốc. EXE có logo và dữ liệu game đi kèm, không cần Python/Blender. Đặt cạnh `demo/` để luôn mở bản dự án mới nhất, hoặc chép riêng EXE để chơi bản đã đóng gói. Hướng dẫn cập nhật và dựng lại: [DESKTOP_EXE.md](docs/DESKTOP_EXE.md).
+## Chơi trên Windows
 
-**[Tải Tsuventure.exe cho Windows](https://github.com/Tsukiezz/GameTsukiezz/releases/download/desktop-2026.11.02/Tsuventure.exe)** · [Trang phát hành](https://github.com/Tsukiezz/GameTsukiezz/releases/tag/desktop-2026.11.02)
+1. Mở [Tsuventure.exe](Tsuventure.exe) trên GitHub rồi bấm **Download raw file**. Nếu đã tải mã nguồn, mở EXE ở thư mục gốc.
+2. Chạy EXE, chờ tải đến sảnh rồi bấm **CHƠI**. **F11** bật hoặc tắt toàn màn hình. Menu **Bản lưu** dùng để xuất và nhập tiến trình.
+
+EXE chứa dữ liệu game và mở cửa sổ Tsuventure riêng bằng Microsoft WebView2. Yêu cầu hệ thống và vị trí bản lưu nằm trong [hướng dẫn Windows](docs/DESKTOP_EXE.md). Mã gói hiện tại là `ae16df571c195a135df4eeca`. [Lịch sử phát hành trên GitHub](https://github.com/Tsukiezz/GameTsukiezz/releases/tag/desktop-2026.11.02).
+
+## Bản cập nhật 07/11/2026
+
+- **Bến Xe Lửa Tsukiezz** có 12 đoàn trong bảng điều độ **U**. Sáu đoàn chính vận hành trên hai chiều, sáu đoàn dự bị có thể nhập tuyến hoặc về nghỉ từ đường nhánh phía sau. Bấm **1**, **2** hoặc **3** trong cabin để tới sảnh, sân ga hoặc VIP. [Thiết kế nhà ga](docs/GRAND_LUNAR_TERMINAL.md).
+- **Tầng VIP** có hai máy Đẩy Xu, hai máy Kéo Thú và ghế massage. Bấm **E** để tương tác. Đẩy Xu tốn 1 xu mỗi lượt, có **3%** cơ hội nhận **50–100 xu**. Ghế massage tốn 2 xu, giữ thể lực đầy khi ngồi và thêm 5 phút sau khi đứng dậy.
+- **Hang Mỏ Liên Vùng** có 15 cửa Blender với vòm đá, đèn hổ phách và mái che đoạn dốc. Chọn **G → Hang Mỏ Liên Vùng**, rồi đi bộ xuống. Dùng Thuốc Tiên Minh Quang qua **I → Vật phẩm** để nhìn trong bóng tối 3 phút. [Hướng dẫn hang mỏ](docs/DEEP_CAVES.md).
+- **Chiến đấu và Balo** dùng 250 máu cho mỗi skin. Bãi quái đánh cận chiến. Đòn chí mạng (15%) và kỹ năng xuyên giáp phân bổ 30% sát thương vào máu, 70% vào giáp. Giáp có 3.500 độ bền. Sửa 10% tại Trụ Sở Công Nghệ cần 10 sắt và 1 xu. Balo có hai mục **Vật phẩm** và **Trang bị**. Mỗi món hiếm có khung riêng và giới hạn sở hữu một bản. [Công thức và vật phẩm](docs/SURVIVAL_TREASURY.md).
+
+Đọc [bàn giao](CONVERSATION_HANDOFF.md) để xem các mốc phát triển và kiểm thử.
+
+## Khám phá thế giới
+
+**Lâu Đài Nguyệt Ảnh:** lâu đài Gothic từ Blender trên đảo có hồ nối sông, một cầu vào, hai lính giáp và cổng mở/đóng bằng **E**. Có phòng ngủ, thư viện, phòng tắm, phòng ăn, ngai vàng, vườn và khu giam giữ; hai cầu thang nối tầng trên. **G → Lâu Đài Nguyệt Ảnh**. [Mô hình và hướng dẫn](docs/MOONVEIL_PALACE.md).
 
 **Đấu trường 5 cấp:** lần lượt gặp Cự Thú (2.400 HP), Ngựa Hắc Ám (5.000), Spinosaurus (8.000), T-rex (10.000) và Thần Zeus (20.000). Hạ đối thủ mới mở cấp tiếp theo và nhận Huân Chương 1–5 trong balo. Tiến độ tự lưu; năng lực huân chương chờ cập nhật. **G → Đấu Trường La Mã**, vào lối chiến binh, **E** mở cổng hầm thú. Xem vòng báo đòn để né húc, cắn, gầm và kiếm sét. Thư viện có model Blender cập nhật, bỏ rong/rêu khỏi danh sách; cây thủy sinh vẫn còn trong sông.
 
@@ -34,7 +50,7 @@ Hai phía ga giữ cùng tên cũ, có biển **Chiều xuôi / Chiều ngược
 Nhà máy Tuyết có pha lê trên giá nguyên liệu: **E** lấy 2 viên, mỗi cụm hồi sau 5 phút.
 Mở **Địa điểm → Nam Cực / Nhà máy Tuyết / Thác Băng / Nữ Chúa Tuyết** để khám phá vùng mới.
 Ông già Noel cưỡi tuần lộc bay trên trời và thả hòm có khói đỏ; nhấn E mở khi hòm đáp đất.
-Mỗi hòm Noel chứa **đúng 2 loại vật phẩm khác nhau, mỗi loại ngẫu nhiên 1–5 món**. Quà hiếm có **Động cơ vĩnh cửu (2% mỗi hòm)**, nằm trong hai loại đó. Hòm cũ chưa mở cũng áp dụng nội dung mới.
+Mỗi hòm Noel chứa **hai loại vật phẩm khác nhau**, mỗi loại thường có 1–5 món. **Động cơ vĩnh cửu** có xác suất 2% mỗi hòm, tối đa một chiếc trong Balo. Nếu đã sở hữu động cơ, ô quà đó cho một tài nguyên thường.
 Rơi cao gây mất máu; khi chết quay lại điểm xuất phát.
 
 **Địa điểm → Vương Quốc Bánh Kẹo**: lâu đài bánh gừng, tháp kem, cây kẹo bông, sân bánh quy và Chúa Sâu Răng hình kẹo mút **10.000 HP**. Né vòng tím trong 1,8 giây để tránh thôi miên 2,5 giây. Có **Ga Vương Quốc Bánh Kẹo** cho cả hai chiều tàu.
@@ -54,7 +70,7 @@ Có **69 lối đi bộ có mặt đi thật**: 23 lối nối làng với sân 
 
 Ấn **B** để mở thư viện quái vật, sinh vật, NPC, địa điểm và ga hiện tại. Tên, mô tả và kỹ năng luôn xem được; trạng thái đã gặp/đánh bại lưu riêng. Cư dân bánh kẹo, bảo vệ Hư Không, vệ binh/thợ Noel và sáu loài tôm/cua/ốc đã được thêm cùng ảnh xem trước 3D.
 
-## Chạy game
+## Chạy từ mã nguồn
 
 Từ thư mục dự án, mở PowerShell:
 
@@ -65,9 +81,9 @@ python tools/serve_game.py --port 8883
 Mở **http://127.0.0.1:8883/**. Giữ cửa sổ máy chủ đang chạy; Ctrl+C để dừng.
 Nếu game đã chạy trên cổng này, chỉ cần mở địa chỉ. Không cần Unity hoặc Blender để chơi.
 
-WASD di chuyển, Space nhảy, E tương tác, I mở balo. Các nút **Địa điểm**, **Nhân vật** và **?** có trong game.
+WASD di chuyển, Space nhảy, E tương tác, I mở balo. Các nút **Địa điểm**, **Skin** và **?** có trong game.
 Nhấn chuột phải một lần để khóa chuột và nhìn quanh; Esc hiện con trỏ. Mở bản đồ/menu sẽ hiện con trỏ để thao tác.
-Phím tắt khi đang ẩn chuột: **G** địa điểm, **P** nhân vật, **I** balo, **B** thư viện, **M** bản đồ, **O** cài đặt, **H** trợ giúp, **Home** về sảnh. Trong bảng dùng **Tab / Shift+Tab / Enter**, **Esc** đóng.
+Phím tắt khi đang ẩn chuột gồm **G** mở địa điểm, **P** chọn skin, **I** mở balo, **B** mở thư viện, **M** mở bản đồ, **U** điều độ tàu, **O** mở cài đặt, **H** mở trợ giúp và **Home** về sảnh. Trong bảng dùng **Tab / Shift+Tab / Enter**, **Esc** để đóng.
 Ở ga dùng **R** gọi tàu, **T** đổi tuyến, **E** lên tàu. Trên tàu, **E / R** hoặc nút **Xuống ở ga kế tiếp** yêu cầu dừng và tự đưa bạn xuống đúng sân ga kế tiếp theo chiều đang chạy; không có danh sách chọn ga xuống. Có thể yêu cầu ngay khi tàu còn đỗ.
 Hành khách trên tàu **bất tử**, không bị quái vật tấn công, hóa đá, đóng băng, thôi miên hay chảy máu; bảo vệ kết thúc khi xuống tàu. Vẫn dùng **WASD** đi trong ba toa, **C** ngồi/đứng, **1–8** chọn ghế, **N** đổi ghế.
 Ngắm cảnh trên tàu: **V** chuyển góc trong toa / cửa sổ trái / cửa sổ phải; **Z / X** hoặc lăn chuột thu/phóng. Bản đồ nhỏ tự phóng gần và bám hành khách; **M** mở bản đồ lớn quanh vị trí tàu, **+/−** thu/phóng, phím mũi tên di chuyển, **0** về vị trí bạn, **9** xem toàn map.

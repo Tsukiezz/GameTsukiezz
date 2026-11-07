@@ -1,21 +1,22 @@
 /* Special attacks have independent cooldowns. Ordinary attacks stay in their AI modules. */
-function installMonsterSkills(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installMonsterSkills(){
     const active=()=>gameState.isPlaying&&!gameState.inDialogue&&!document.querySelector('.modal-overlay.active')&&!window.moonRailway?.aboard;
-    const states={ness:{cooldown:5},space_croc:{cooldown:7},forest:{cooldown:6}},projectiles=[],minions=[];
+    const states={ness:{cooldown:5},space_croc:{cooldown:7},forest:{cooldown:10}},projectiles=[],minions=[];
     const group=new THREE.Group();group.name='MonsterSpecialSkills';scene.add(group);
     const status=document.createElement('div');status.id='monster-skill-warning';status.setAttribute('role','status');status.hidden=true;gameHud.append(status);
     const sphere=new THREE.SphereGeometry(1,16,10),wood=new THREE.MeshStandardMaterial({color:0x564a38,roughness:1}),leaf=new THREE.MeshStandardMaterial({color:0x447b58,roughness:.9}),glow=new THREE.MeshBasicMaterial({color:0x91fff1});
     let capture=null,immunity=0,pending=null,bleed=null;
-    function previewMinion(){if(typeof creatureArt!=='undefined'&&CREATURE_STUDIO_DATA.models.sapling)return creatureArt.create('sapling').root;const model=new THREE.Group();
+    function previewMinion(variant=0){const kinds=CREATURE_STUDIO_DATA.forestSpiritKinds||['sapling'],kind=kinds[Math.abs(Math.trunc(variant))%kinds.length];if(typeof creatureArt!=='undefined'&&CREATURE_STUDIO_DATA.models[kind])return creatureArt.create(kind).root;const model=new THREE.Group();
                 const trunk=new THREE.Mesh(sphere,wood);trunk.scale.set(.42,.85,.38);trunk.position.y=.7;model.add(trunk);
                 const crown=new THREE.Mesh(sphere,leaf);crown.scale.set(.85,.65,.7);crown.position.y=1.7;model.add(crown);
                 for(const side of [-1,1]){const arm=new THREE.Mesh(sphere,wood);arm.scale.set(.17,.65,.17);arm.position.set(side*.62,.9,0);arm.rotation.z=side*.7;model.add(arm);const eye=new THREE.Mesh(sphere,glow);eye.scale.set(.08,.09,.05);eye.position.set(side*.16,1.13,.35);model.add(eye);}
         return model;
     }
     function ring(color,radius){const mesh=new THREE.Mesh(new THREE.RingGeometry(radius-.12,radius,40),new THREE.MeshBasicMaterial({color,transparent:true,opacity:.7,side:THREE.DoubleSide,depthWrite:false}));mesh.rotation.x=-Math.PI/2;mesh.visible=false;group.add(mesh);return mesh;}
-    for(const s of Object.values(states)){s.phase='idle';s.timer=0;s.marker=ring(0xff714e,4);}
+    for(const s of Object.values(states)){if(window.gameBoot.shouldYield())await window.gameBoot.yield();s.phase='idle';s.timer=0;s.marker=ring(0xff714e,4);}
     const isBusy=id=>states[id]?.phase!=='idle'&&Boolean(states[id]);
-    function cleanupMinions(){for(const m of minions)group.remove(m.group,m.marker);minions.length=0;}
+    function cleanupMinions(){for(const m of minions){group.remove(m.group,m.marker);m.marker.geometry.dispose();m.marker.material.dispose();}minions.length=0;}
     function release(){
         if(!capture)return;const last=capture;capture=null;
         // Never drag a player back after fast travel or an oxygen respawn.
@@ -23,38 +24,46 @@ function installMonsterSkills(){
         resetGameplayInput();
     }
     function pause(){release();bleed=null;pending=null;status.hidden=true;for(const s of Object.values(states)){s.phase='idle';s.marker.visible=false;s.cooldown=Math.max(2,s.cooldown);}for(const p of projectiles)group.remove(p.mesh);projectiles.length=0;cleanupMinions();}
-    function landDamage(amount,ignoreArmor=false,cause='minion'){
-        if(!active()||immunity>0||!Number.isFinite(amount)||amount<=0)return false;
-        window.playerLife?.noteDamage(cause);amount=heroIncomingDamage(amount);const armor=ignoreArmor?0:Math.min(gameState.armor,amount);gameState.armor-=armor;gameState.health=Math.max(0,gameState.health-amount+armor);immunity=.45;
-        gameHud.classList.add('monster-hit');setTimeout(()=>gameHud.classList.remove('monster-hit'),250);
-        if(gameState.health===0){if(window.playerLife){playerLife.die();return true;}const mountain=window.bachKhuyet?.contains(playerGroup.position.x,playerGroup.position.z);pause();Object.assign(gameState,{health:gameState.maxHealth,armor:gameState.maxArmor,stamina:100,oxygen:100});resetGameplayInput();if(mountain)bachKhuyet.travel();else ancientGrove.travel();immunity=3;showNotification('Bạn đã gục ngã. Hồi phục tại lối vào an toàn.');}
-        updatePlayerVitals();return true;
+    function landDamage(amount,special=false,cause='minion'){
+        if(!active()||immunity>0)return false;
+        if(!playerLife.hitMonster(amount,cause,{special}))return false;
+        immunity=.45;
+        return true;
     }
     function applyBleed(){if(active())bleed={remaining:8,tick:1};}
     function start(id){
         const s=states[id];if(!s||s.phase!=='idle'||s.cooldown>0||!active())return false;
         const m=lakeMonsters.actors.find(a=>a.spec.id===id);
-        if(id==='forest'){if(forestGuardian.health<=0||forestGuardian.state!=='awake'||playerGroup.position.distanceTo(forestGuardian.position)>24)return false;}
+        if(id==='forest'){if(minions.filter(m=>m.health>0).length>=4||!forestGuardian.beginSummon())return false;}
         else if(!m||!lakeMonsters.canTarget(m,playerGroup.position)||!['patrol','pursue','recover'].includes(m.state)||(id==='space_croc'&&m.position.distanceTo(playerGroup.position)>42))return false;
         s.phase='windup';s.timer=0;s.target=playerGroup.position.clone();s.marker.position.copy(s.target).y+=.08;s.marker.visible=true;
         if(m){m.state='pursue';m.timer=0;m.marker.visible=false;}
-        if(id==='forest'){
-            cleanupMinions();
-            for(let i=0;i<4;i++){
-                const a=i*Math.PI/2,x=s.target.x+Math.cos(a)*3.7,z=s.target.z+Math.sin(a)*3.7,y=ancientGrove.ground(x,z);
-                if(y===null||checkCollision(x,z,y,.65))continue;
-                const model=previewMinion();model.position.set(x,y,z);group.add(model);
-                const mark=ring(0x91d97a,1.2);mark.position.set(x,y+.07,z);mark.visible=true;model.scale.y=.01;
-                minions.push({group:model,marker:mark,health:190,age:0,cooldown:0,state:'emerging'});
-            }
-        }
         return true;
     }
+    function summon(s){
+            const slots=Math.max(0,4-minions.filter(m=>m.health>0).length);
+            for(let i=0;i<slots;i++){
+                const a=i*Math.PI/2,x=s.target.x+Math.cos(a)*3.7,z=s.target.z+Math.sin(a)*3.7,y=ancientGrove.ground(x,z);
+                if(y===null||checkCollision(x,z,y,.65))continue;
+                const model=previewMinion(i);model.position.set(x,y,z);group.add(model);
+                const mark=ring(0x91d97a,1.2);mark.position.set(x,y+.07,z);mark.visible=true;model.scale.y=.01;
+                window.forestAudio?.play('spirit','emerge',model.position,model);minions.push({group:model,kind:model.userData.blenderCreature||'sapling',marker:mark,health:1000,maxHealth:1000,age:0,cooldown:0,state:'emerging',timer:0,speed:0,voicePitch:.88+i*.09,deathTime:0,rewarded:false});
+            }
+        }
+    function minionSight(m,p){const from=m.group.position.clone().add(new THREE.Vector3(0,.65,0)),delta=p.clone().add(new THREE.Vector3(0,.6,0)).sub(from),steps=Math.ceil(delta.length()/.35);for(let i=1;i<steps;i++){const q=from.clone().addScaledVector(delta,i/steps);if(checkCollision(q.x,q.z,q.y,.03))return false;}return true;}
+    function hitMinion(m,amount){
+        if(!active()||!minions.includes(m)||m.health<=0||!Number.isFinite(amount)||amount<=0)return false;
+        m.health=Math.max(0,m.health-heroOutgoingDamage(amount,m.health));
+        if(!m.health){m.state='dead';m.deathTime=0;m.animationAttack=null;m.marker.visible=false;window.forestAudio?.play('spirit','death',m.group.position,m);window.fieldGuide?.record('forest_sapling',true);if(m.kind!=='sapling')window.fieldGuide?.record('forest_'+m.kind,true);
+            if(!m.rewarded){m.rewarded=true;m.coinDropped=Math.random()<.3;if(m.coinDropped){window.monsterCamps?.add('goldCoin',1);window.itemReceipts?.scan();sfx.pickup();showNotification('Sinh Linh Cây Cối rơi 1 xu vàng!');}}
+        }return true;
+    }
+
     function segmentDistance(p,a,b){const d=b.clone().sub(a),t=Math.max(0,Math.min(1,p.clone().sub(a).dot(d)/(d.lengthSq()||1)));return p.distanceTo(a.clone().addScaledVector(d,t));}
     function update(dt){
-        dt=Math.max(0,Math.min(.1,dt));if(!active()){pause();return;}immunity=Math.max(0,immunity-dt);
+        dt=Math.max(0,Math.min(.1,dt));if(!active()){if(!gameState.isPlaying||window.moonRailway?.aboard)pause();return;}immunity=Math.max(0,immunity-dt);
         if(bleed){bleed.remaining-=dt;bleed.tick-=dt;if(bleed.tick<=0){bleed.tick+=1;landDamage(4,true,'bleed');}if(bleed&&bleed.remaining<=0)bleed=null;}
-        if(pending){pending.time-=dt;if(pending.time<=0){const range=pending.hero==='rabbit'?22:2.8;const m=minions.filter(m=>m.health>0&&m.group.position.distanceTo(playerGroup.position)<range).sort((a,b)=>a.group.position.distanceTo(playerGroup.position)-b.group.position.distanceTo(playerGroup.position))[0];if(m){m.health-=heroOutgoingDamage(145);if(m.health<=0)window.fieldGuide?.record('forest_sapling',true);}pending=null;}}
+        if(pending){pending.time-=dt;if(pending.time<=0){const range=pending.hero==='rabbit'?22:2.8;const m=minions.filter(m=>m.health>0&&m.group.position.distanceTo(playerGroup.position)<range&&minionSight(m,playerGroup.position)).sort((a,b)=>a.group.position.distanceTo(playerGroup.position)-b.group.position.distanceTo(playerGroup.position))[0];if(m)hitMinion(m,145);pending=null;}}
         for(const [id,s] of Object.entries(states)){
             s.cooldown=Math.max(0,s.cooldown-dt);const m=lakeMonsters.actors.find(a=>a.spec.id===id);
             const eligible=id==='forest'?forestGuardian.health>0&&ancientGrove.contains(playerGroup.position.x,playerGroup.position.z)&&playerGroup.position.distanceTo(forestGuardian.position)<30:lakeMonsters.canTarget(m,playerGroup.position);
@@ -62,13 +71,13 @@ function installMonsterSkills(){
             if(s.phase==='idle'){if(s.cooldown===0)start(id);continue;}
             s.timer+=dt;s.marker.material.opacity=.45+Math.sin(s.timer*16)*.23;
             if(s.phase==='windup'&&s.timer>=1.4){
-                s.marker.visible=false;s.phase='recover';s.timer=0;s.cooldown=id==='forest'?16:12;
+                s.marker.visible=false;s.phase='recover';s.timer=0;s.cooldown=id==='forest'?28:12;if(id==='forest')summon(s);
                 if(id==='ness'){
                     const origin=m.group.localToWorld(new THREE.Vector3(0,34,23)),mesh=new THREE.Mesh(sphere,new THREE.MeshBasicMaterial({color:0x73ecff}));mesh.scale.setScalar(1.05);mesh.position.copy(origin);group.add(mesh);
                     const halo=new THREE.Mesh(sphere,new THREE.MeshBasicMaterial({color:0x4267ff,transparent:true,opacity:.22,depthWrite:false}));halo.scale.setScalar(1.5);mesh.add(halo);
                     projectiles.push({mesh,velocity:s.target.clone().add(new THREE.Vector3(0,.35,0)).sub(origin).normalize().multiplyScalar(34),life:7});
                 }else if(id==='space_croc'&&playerGroup.position.distanceTo(s.target)<4&&m.position.distanceTo(playerGroup.position)<47){
-                    const releasePosition=playerGroup.position.clone();if(lakeMonsters.damagePlayer(68)&&lakeMonsters.canTarget(m,playerGroup.position)){capture={actor:m,remaining:1.3,release:releasePosition,anchor:playerGroup.position.clone()};resetGameplayInput();}
+                    const releasePosition=playerGroup.position.clone();if(lakeMonsters.damagePlayer(68,true)&&lakeMonsters.canTarget(m,playerGroup.position)){capture={actor:m,remaining:1.3,release:releasePosition,anchor:playerGroup.position.clone()};resetGameplayInput();}
                 }
             }
             if(s.phase==='recover'&&s.timer>1.6)s.phase='idle';
@@ -78,22 +87,28 @@ function installMonsterSkills(){
             else {capture.remaining-=dt;if(capture.remaining<=0)release();else {const m=capture.actor;m.joints.jaw.rotation.x=.3;capture.anchor.copy(m.group.localToWorld(new THREE.Vector3(0,1.2,28)));playerGroup.position.copy(capture.anchor);jumpVelocityY=0;}}
         }
         for(let i=projectiles.length-1;i>=0;i--){const p=projectiles[i];if(!p)continue;const previous=p.mesh.position.clone();p.mesh.position.addScaledVector(p.velocity,dt);p.life-=dt;p.mesh.rotation.y+=dt*3;
-            if(segmentDistance(playerGroup.position.clone().add(new THREE.Vector3(0,.3,0)),previous,p.mesh.position)<1.45){if(lakeMonsters.damagePlayer(78))p.life=0;}
+            if(segmentDistance(playerGroup.position.clone().add(new THREE.Vector3(0,.3,0)),previous,p.mesh.position)<1.45){if(lakeMonsters.damagePlayer(78,true))p.life=0;}
             const direction=p.mesh.position.clone().sub(previous),length=direction.length();
             const ray=new THREE.Raycaster(previous,direction.normalize(),0,length+.3);
             if(ray.intersectObjects(mercuryLake.group.children.filter(o=>o.name.startsWith('MercuryArchitecture_')),false).length||p.mesh.position.y<realmTerrainHeight(p.mesh.position.x,p.mesh.position.z))p.life=0;
             if(p.life<=0){group.remove(p.mesh);p.mesh.material.dispose();projectiles.splice(i,1);}
         }
-        for(let i=minions.length-1;i>=0;i--){const m=minions[i];if(!m)continue;m.age+=dt;m.cooldown=Math.max(0,m.cooldown-dt);
-            if(forestGuardian.health<=0||m.age>17||m.health<=0){group.remove(m.group,m.marker);minions.splice(i,1);continue;}
-            if(m.age<1.4){m.group.scale.y=Math.max(.01,m.age/1.4);continue;}m.state='chasing';m.marker.visible=false;m.group.scale.y=1;
+        for(let i=minions.length-1;i>=0;i--){const m=minions[i];if(!m)continue;m.age+=dt;m.timer+=dt;m.cooldown=Math.max(0,m.cooldown-dt);
+            if(m.health<=0){m.deathTime+=dt;const t=THREE.MathUtils.smoothstep(m.deathTime,0,1.1);m.group.rotation.z=t*.95;m.group.scale.setScalar(1-.45*t);if(m.deathTime>1.3){group.remove(m.group,m.marker);m.marker.geometry.dispose();m.marker.material.dispose();minions.splice(i,1);}continue;}
+            if(forestGuardian.health<=0||m.age>120){group.remove(m.group,m.marker);m.marker.geometry.dispose();m.marker.material.dispose();minions.splice(i,1);continue;}
+            if(m.age<1.4){m.group.scale.y=Math.max(.01,THREE.MathUtils.smoothstep(m.age,0,1.4));continue;}
+            if(m.state==='emerging'){window.forestAudio?.play('spirit','roar',m.group.position,m);m.state='chasing';m.timer=0;}m.marker.visible=false;m.group.scale.y=1;
             const p=playerGroup.position,dir=p.clone().sub(m.group.position);dir.y=0;const distance=dir.length();
-            if(distance>1){dir.normalize();const x=m.group.position.x+dir.x*2.4*dt,z=m.group.position.z+dir.z*2.4*dt,y=ancientGrove.ground(x,z);if(y!==null&&!checkCollision(x,z,y,.45))m.group.position.set(x,y,z);m.group.rotation.y=Math.atan2(dir.x,dir.z);}
-            if(distance<1.35&&Math.abs(p.y-m.group.position.y)<2&&m.cooldown===0){landDamage(12);m.cooldown=1.3;}m.group.rotation.z=Math.sin(m.age*7)*.06;
+            if(distance<18){window.fieldGuide?.record('forest_sapling');if(m.kind!=='sapling')window.fieldGuide?.record('forest_'+m.kind);}
+            if(m.animationAttack){const swing=m.animationAttack;swing.time+=dt;m.state=swing.time<.28?'windup':'strike';if(!swing.landed&&swing.time>=.28){swing.landed=true;window.forestAudio?.play('spirit','attack',m.group.position,m);if(distance<1.8&&Math.abs(p.y-m.group.position.y)<2&&minionSight(m,p))landDamage(48,false,'forest_spirit');}if(swing.time>=.75){m.animationAttack=null;m.state='chasing';m.timer=0;}}
+            else if(distance<1.5&&Math.abs(p.y-m.group.position.y)<2&&m.cooldown===0&&minionSight(m,p)){m.cooldown=1.8;m.animationAttack={time:0,landed:false,duration:.75};m.state='windup';m.timer=0;}
+            else{m.state='chasing';const desired=distance>1.3?2.4:0;m.speed+=(desired-m.speed)*(1-Math.exp(-dt*8));if(distance>.02&&m.speed>.01){dir.normalize();const x=m.group.position.x+dir.x*m.speed*dt,z=m.group.position.z+dir.z*m.speed*dt,y=ancientGrove.ground(x,z);if(y!==null&&Math.abs(y-m.group.position.y)<.5&&!checkCollision(x,z,y,.45))m.group.position.set(x,y,z);const yaw=Math.atan2(dir.x,dir.z);m.group.rotation.y+=Math.atan2(Math.sin(yaw-m.group.rotation.y),Math.cos(yaw-m.group.rotation.y))*(1-Math.exp(-dt*9));}}
+            window.forestAudio?.movement('spirit',m,m.group.position,dt);m.group.updateMatrix();
         }
+
         const casting=Object.entries(states).find(([,s])=>s.phase==='windup');
         const text=capture?'Cá sấu đang ngoạm bạn — sắp nhả ra!':casting?({ness:'Loch Ness tụ cầu năng lượng — né sang bên!',space_croc:'Cá sấu chuẩn bị ngoạm — rời vòng đỏ!',forest:'Thần Rừng triệu hồi sinh linh — tránh các vòng xanh!'}[casting[0]]):bleed?'Chảy máu · '+Math.ceil(bleed.remaining)+' giây':'';
         status.hidden=!text;status.textContent=text;
     }
-    window.monsterSkills={previewMinion,states,projectiles,minions,start,update,pause,release,landDamage,applyBleed,busy:isBusy,beginPlayerAttack(hero){pending={hero,time:.18};},get captured(){return Boolean(capture);},get bleed(){return bleed;}};
+    window.monsterSkills={previewMinion,states,projectiles,minions,hitMinion,coinChance:.3,start,update,pause,release,landDamage,applyBleed,busy:isBusy,beginPlayerAttack(hero){pending={hero,time:.18};},get captured(){return Boolean(capture);},get bleed(){return bleed;}};
 }

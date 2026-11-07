@@ -1,5 +1,6 @@
 /* Temple relic: persistent equipment, aimed light and real wall shadows. */
-function installSolarFlashlight(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installSolarFlashlight(){
     const key='tsuventure_solar_flashlight_v1',tr=(vi,en)=>window.tsuventureSettings?.language==='en'?en:vi;
     let owned=false,equipped=false,enabled=false;
     try{const s=JSON.parse(localStorage.getItem(key)||'{}');owned=s.owned===true;equipped=owned&&s.equipped===true;enabled=equipped&&s.enabled===true;}catch{}
@@ -12,7 +13,7 @@ function installSolarFlashlight(){
     const held=model();held.name='EquippedSolarFlashlight';scene.add(held);
     const item={id:'solar_flashlight',type:'solar_flashlight',pos:relic.position.clone(),radius:2.2,prompt:'Nhặt Đèn Pin Mặt Trời'};
     const light=new THREE.SpotLight(0xfff2d6,18,40,Math.PI/5,.65,1);light.name='SolarFlashlightBeam';light.layers.enable(2);light.castShadow=true;light.shadow.mapSize.set(1024,1024);light.shadow.camera.near=.05;light.shadow.camera.far=40;light.shadow.bias=-.0001;light.shadow.normalBias=.025;scene.add(light,light.target);
-    const row=document.createElement('div');row.className='backpack-item';row.innerHTML='<div style="font-size:48px" aria-hidden="true">🔦</div><div><h3></h3><p></p><strong></strong></div><button type="button"></button>';document.querySelector('#modal-backpack .backpack-hint').before(row);
+    const row=document.createElement('div');row.id='solar-flashlight-item';row.className='backpack-item';row.innerHTML='<div style="font-size:48px" aria-hidden="true">🔦</div><div><h3></h3><p></p><strong></strong></div><button type="button"></button>';document.querySelector('#modal-backpack .backpack-hint').before(row);
     const equipButton=row.querySelector('button'),button=document.createElement('button'),touchButton=document.createElement('button');button.type=touchButton.type='button';button.className='hud-sit-button';touchButton.className='hud-touch-button';document.querySelector('.hud-quickbar').append(button);document.querySelector('.hud-touch-actions').append(touchButton);
     function render(){relic.visible=!owned;row.querySelector('h3').textContent=tr('Đèn Pin Mặt Trời','Solar Flashlight');row.querySelector('p').textContent=tr('Lõi năng lượng mặt trời · Không cần thay pin. Trang bị rồi nhấn L để bật/tắt; xoay camera để chiếu sáng.','Solar core · No battery replacements. Equip, then L to toggle; aim with the camera.');row.querySelector('strong').textContent=!owned?tr('Tại bệ đá ở Đền Trung Tâm','On the pedestal at the Central Temple'):equipped?tr('Đang trang bị','Equipped'):tr('Đã sở hữu','Owned');equipButton.textContent=equipped?tr('Tháo đèn','Unequip'):tr('Trang bị','Equip');equipButton.disabled=!owned||!gameState.isPlaying;equipButton.setAttribute('aria-pressed',String(equipped));button.hidden=touchButton.hidden=!equipped;button.textContent=enabled?tr('L · Tắt đèn','L · Light off'):tr('L · Bật đèn','L · Light on');touchButton.textContent='🔦';for(const b of [button,touchButton]){b.setAttribute('aria-pressed',String(enabled));b.setAttribute('aria-label',button.textContent);}touchButton.parentElement.classList.toggle('has-flashlight',equipped);}
     function equip(value=!equipped){if(!owned||!gameState.isPlaying)return false;equipped=Boolean(value);enabled=equipped;save();render();update();return true;}
@@ -22,7 +23,7 @@ function installSolarFlashlight(){
     let initialized=false;const previousHand=new THREE.Vector3(),forward=new THREE.Vector3(0,0,-1);
     held.scale.setScalar(.48);
     function update(dt){window.heroMotion?.environment();const on=gameState.isPlaying&&equipped&&enabled;light.visible=on;held.visible=gameState.isPlaying&&equipped&&(!window.evilCavern?.inside()||on);
-        renderer.shadowMap.enabled=Boolean(graphicsProfiles[currentProfileKey].shadows||((on||(gameState.isPlaying&&window.templeSupplies?.visionActive))&&window.evilCavern?.inside()));if(!held.visible){initialized=false;return;}
+        renderer.shadowMap.enabled=Boolean(graphicsProfiles[currentProfileKey].shadows||((on||(gameState.isPlaying&&window.templeSupplies?.visionActive))&&(window.evilCavern?.inside()||window.undergroundNetwork?.inside())));if(!held.visible){initialized=false;return;}
         const direction=camera.getWorldDirection(new THREE.Vector3()),hand=window.heroMotion?.hand('left',new THREE.Vector3(-.12,0,.6)),origin=hand?.position||playerGroup.position.clone().add(new THREE.Vector3(-.2,.4,0));
         const target=new THREE.Quaternion().setFromUnitVectors(forward,direction),snap=!initialized||dt===undefined||previousHand.distanceTo(origin)>3;
         if(snap)held.quaternion.copy(target);else held.quaternion.slerp(target,1-Math.exp(-18*Math.min(.1,dt)));

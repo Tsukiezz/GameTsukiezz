@@ -1,12 +1,12 @@
 /* Abundant persistent food on walkable ground and inside furnished buildings. */
-function installFoodPickups(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installFoodPickups(){
     const key='tsuventure_food_pickups_v1',delay=10*60*1000;let collected={};try{collected=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch{}
     const group=new THREE.Group();group.name='MoonlandFoodPickups';scene.add(group);const spots=[],drops=new Map();
     function add(id,x,z,y){if(window.candyRealm?.contains(x,z))return;y??=worldSurface.height(x,z);if(!Number.isFinite(y)||checkCollision(x,z,y,.24)||riverBoat.waterAt(x,z)&&!inCastleEnvelope(x,z)||moonRailway.infrastructureAt(x,z)&&!inCastleEnvelope(x,z))return;spots.push({id,pos:new THREE.Vector3(x,y,z)});}
-    for(const [i,r] of CASTLE_EXTENSION.rooms.entries()){if(r.corridor)continue;for(const side of [-1,1]){const x=(r.minX+r.maxX)/2+side*1.1-110,z=(r.minZ+r.maxZ)/2+120;if(!onCastleTransition(x,z,r.floor))add('castle-food-'+i+'-'+side,x,z,r.floor);}}
     const anchors=[...landmarksData.map(l=>({x:l.x,z:l.z})),...moonRailway.stations.map(s=>({x:s.platform.x,z:s.platform.z})),{x:technologyBase.center.x,z:technologyBase.center.z}];
     anchors.forEach((a,i)=>{for(let j=0;j<12;j++){const t=j*Math.PI/6,x=a.x+Math.cos(t)*(8+j%3*4),z=a.z+Math.sin(t)*(8+j%3*4);if(!desertRealm.core(x,z))add('landmark-food-'+i+'-'+j,x,z);}});
-    for(let x=-950;x<1000;x+=100)for(let z=-950;z<1000;z+=100){if(monsterCamps.safe(x,z))add('field-food-'+x+':'+z,x+1,z+1);}
+    for(let x=-950;x<1000;x+=100){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(let z=-950;z<1000;z+=100){if(window.gameBoot.shouldYield())await window.gameBoot.yield();if(monsterCamps.safe(x,z))add('field-food-'+x+':'+z,x+1,z+1);}}
     function model(){const root=new THREE.Group(),meat=new THREE.Mesh(new THREE.SphereGeometry(.22,9,6),new THREE.MeshStandardMaterial({color:0xad6744,roughness:.9}));meat.scale.set(1.5,1,.8);meat.position.set(0,.28,0);root.add(meat);const bone=new THREE.Mesh(new THREE.CylinderGeometry(.065,.075,.32,7),new THREE.MeshStandardMaterial({color:0xe6dcc6}));bone.rotation.z=Math.PI/2;bone.position.set(.32,.28,0);root.add(bone);for(const y of [.23,.33]){const tip=new THREE.Mesh(new THREE.SphereGeometry(.085,7,5),bone.material);tip.position.set(.51,y,0);root.add(tip);}return root;}
     const prototype=model();function remove(id){const d=drops.get(id);if(d){group.remove(d.mesh);drops.delete(id);}}
     function nearby(p){return [...drops.values()].map(d=>d.item).filter(i=>Math.abs(i.pos.y-p.y)<1&&Math.hypot(i.pos.x-p.x,i.pos.z-p.z)<i.radius).sort((a,b)=>a.pos.distanceToSquared(p)-b.pos.distanceToSquared(p))[0]||null;}

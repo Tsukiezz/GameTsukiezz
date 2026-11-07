@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Net.Cache;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -20,9 +21,10 @@ namespace TsuventureDesktop
 {
     internal static class Launcher
     {
-        static EventWaitHandle restart;
+        static EventWaitHandle restart,openWindow;
         static LocalServer server;
         static NotifyIcon tray;
+        static string originalLauncher, projectRoot,windowUserData,windowDebugPort;
         static int port = 8883;
         static string Url { get { return "http://127.0.0.1:" + port + "/"; } }
 
@@ -32,6 +34,11 @@ namespace TsuventureDesktop
             bool headless = Has(args, "--headless");
             try
             {
+                string brandingReport=Value(args,"--verify-branding");
+                if(brandingReport!=null) { WindowBranding.Verify(brandingReport);return 0; }
+                string storageReport=Value(args,"--verify-native-storage");
+                if(storageReport!=null){LegacyGameSave.SourceOverride=Value(args,"--legacy-source-dir");var migrated=LegacyGameSave.Find();GameSaves.Write(migrated,storageReport);return 0;}
+                originalLauncher=Value(args,"--launcher")??Assembly.GetExecutingAssembly().Location;
                 string portArg = Value(args, "--port");
                 if (portArg != null && (!int.TryParse(portArg, out port) || port < 1024 || port > 65535))
                     throw new ArgumentException("Invalid local port.");
@@ -39,13 +46,39 @@ namespace TsuventureDesktop
                 if (root == null && File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "demo", "index.html")))
                     root = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "demo");
                 bool project = root != null;
+                projectRoot=project?Path.GetFullPath(root):null;
+                GameSaves.FileName=Value(args,"--save-file")??Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"Tsuventure","Saves","progress.json");
+                windowUserData=Value(args,"--user-data-dir")??Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"Tsuventure","PlayerData");
+                windowDebugPort=Value(args,"--test-debug-port");
                 string cache = Value(args, "--cache-dir") ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Tsuventure", "Bundles");
+                // Keep the Desktop EXE replaceable even while the server runs.
+                // Its private, content-addressed copy owns the background tray.
+                if (!headless && !Has(args, "--host"))
+                {
+                    string self = Assembly.GetExecutingAssembly().Location, fingerprint;
+                    using (SHA256 digest = SHA256.Create())
+                    using (FileStream input = File.OpenRead(self)) fingerprint = BitConverter.ToString(digest.ComputeHash(input)).Replace("-", "").ToLowerInvariant();
+                    string hostFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Tsuventure", "Launcher", fingerprint);
+                    Directory.CreateDirectory(hostFolder);
+                    string hostExe = Path.Combine(hostFolder, "TsuventureHost.exe");
+                    if (!File.Exists(hostExe))
+                    {
+                        string temporary = Path.Combine(hostFolder, Guid.NewGuid().ToString("N") + ".tmp");
+                        File.Copy(self, temporary);
+                        try { File.Move(temporary, hostExe); } catch (IOException) { if (!File.Exists(hostExe)) throw; File.Delete(temporary); }
+                    }
+                    string arguments = "--host --port " + port + " --cache-dir " + Quote(cache) + " --launcher " + Quote(self);
+                    if (project) arguments += " --root " + Quote(Path.GetFullPath(root));
+                    foreach(string option in new[]{"--save-file","--user-data-dir","--test-debug-port"})if(Value(args,option)!=null)arguments+=" "+option+" "+Quote(Value(args,option));
+                    Process.Start(new ProcessStartInfo(hostExe, arguments) { UseShellExecute = false, CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden });
+                    return 0;
+                }
                 string rootId = Hash(project ? Path.GetFullPath(root).ToLowerInvariant() : "bundle:" + BuildInfo.BundleId);
                 string existing = ReadLocal("__tsuventure/status");
                 if (existing != null && existing.Contains("\"game\":\"Tsuventure\""))
                 {
-                    if (existing.Contains("\"root\":\"" + rootId + "\"") && existing.Contains("\"bundle\":\"" + BuildInfo.BundleId + "\""))
-                    { if (!headless) OpenGame(); return 0; }
+                    if (existing.Contains("\"root\":\"" + rootId + "\"") && existing.Contains("\"bundle\":\"" + BuildInfo.BundleId + "\"") && existing.Contains("\"launcher\":\"" + BuildInfo.LauncherId + "\""))
+                    { if (!headless)using(EventWaitHandle signal=EventWaitHandle.OpenExisting("Local\\Tsuventure.Open."+port))signal.Set(); return 0; }
                     using (EventWaitHandle signal = EventWaitHandle.OpenExisting("Local\\Tsuventure.Restart." + port)) signal.Set();
                     for (int i = 0; i < 40 && ReadLocal("__tsuventure/status") != null; i++) Thread.Sleep(150);
                 }
@@ -55,8 +88,13 @@ namespace TsuventureDesktop
                     if (page != null)
                     {
                         if (!page.Contains("<title>Tsuventure")) throw new IOException("Cổng " + port + " đang được ứng dụng khác sử dụng.");
-                        if (!headless) OpenGame();
-                        return 0;
+                        string expectedPage;
+                        if (project) expectedPage = File.ReadAllText(Path.Combine(root, "index.html"));
+                        else using (Stream input = Assembly.GetExecutingAssembly().GetManifestResourceStream("Tsuventure.Game.zip"))
+                            using (ZipArchive archive = new ZipArchive(input, ZipArchiveMode.Read))
+                            using (StreamReader reader = new StreamReader(archive.GetEntry("index.html").Open())) expectedPage = reader.ReadToEnd();
+                        if (Hash(page) != Hash(expectedPage)) throw new IOException("Một phiên game khác đang chạy ở cổng " + port + ". Hãy thoát phiên cũ trước khi mở bản mới.");
+                        throw new IOException("Hãy thoát máy chủ web cũ ở cổng "+port+" trước khi mở cửa sổ Tsuventure mới.");
                     }
                 }
                 using (Mutex mutex = new Mutex(false, "Local\\Tsuventure.Server." + port))
@@ -80,6 +118,8 @@ namespace TsuventureDesktop
                         else
                         {
                             Application.EnableVisualStyles();
+                            DesktopDependencies.Prepare();
+                            openWindow=new EventWaitHandle(false,EventResetMode.AutoReset,"Local\\Tsuventure.Open."+port);
                             tray = new NotifyIcon();
                             tray.Icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
                             tray.Text = "Tsuventure — Bấm hai lần để chơi";
@@ -91,7 +131,7 @@ namespace TsuventureDesktop
                             tray.Visible = true;
                             System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
                             timer.Interval = 300;
-                            timer.Tick += delegate { if (restart.WaitOne(0)) Application.Exit(); };
+                            timer.Tick += delegate { if (restart.WaitOne(0)) Application.Exit();else if(openWindow.WaitOne(0))OpenGame(); };
                             timer.Start();
                             OpenGame();
                             Application.Run();
@@ -103,6 +143,7 @@ namespace TsuventureDesktop
                         if (tray != null) { tray.Visible = false; tray.Dispose(); }
                         if (server != null) server.Stop();
                         if (restart != null) restart.Dispose();
+                        if (openWindow != null) openWindow.Dispose();
                         mutex.ReleaseMutex();
                     }
                 }
@@ -162,34 +203,19 @@ namespace TsuventureDesktop
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url + path);
                 request.Proxy = null; request.Timeout = 1000; request.ReadWriteTimeout = 1000;
+                request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
                 using (WebResponse response = request.GetResponse())
                 using (StreamReader reader = new StreamReader(response.GetResponseStream())) return reader.ReadToEnd();
             }
             catch { return null; }
         }
+        static string Quote(string value) { return "\"" + value.TrimEnd('\\').Replace("\"", "") + "\""; }
+        internal static string FreshUrl() { return Url + "?desktop=1&launch=" + Guid.NewGuid().ToString("N"); }
+        internal static string RelaunchCommand { get { return Quote(originalLauncher)+" --port "+port+(projectRoot==null?"":" --root "+Quote(projectRoot)); } }
         static void OpenGame()
         {
-            string browser = null;
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice"))
-            {
-                string id = key == null ? "" : Convert.ToString(key.GetValue("ProgId"));
-                string[] names = id.StartsWith("Chrome", StringComparison.OrdinalIgnoreCase) ? new[] { "chrome.exe", "msedge.exe" } : new[] { "msedge.exe", "chrome.exe" };
-                foreach (string name in names)
-                {
-                    foreach (string hive in new[] { @"HKEY_CURRENT_USER", @"HKEY_LOCAL_MACHINE" })
-                    {
-                        string candidate = Registry.GetValue(hive + @"\Software\Microsoft\Windows\CurrentVersion\App Paths\" + name, "", null) as string;
-                        if (candidate != null && File.Exists(candidate)) { browser = candidate; break; }
-                    }
-                    if (browser != null) break;
-                    string[] candidates = name == "chrome.exe" ? new[] { @"Google\Chrome\Application\chrome.exe" } : new[] { @"Microsoft\Edge\Application\msedge.exe" };
-                    foreach (string baseDir in new[] { Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) })
-                        foreach (string suffix in candidates) if (File.Exists(Path.Combine(baseDir, suffix))) { browser = Path.Combine(baseDir, suffix); break; }
-                    if (browser != null) break;
-                }
-            }
-            if (browser != null) Process.Start(new ProcessStartInfo(browser, "--app=" + Url) { UseShellExecute = true });
-            else Process.Start(new ProcessStartInfo(Url) { UseShellExecute = true });
+            GameWindow.UserDataFolder=windowUserData;GameWindow.DebugPort=windowDebugPort;
+            GameWindow.Open(FreshUrl());
         }
     }
 
@@ -204,7 +230,7 @@ namespace TsuventureDesktop
             root = Path.GetFullPath(folder); prefix = root.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar; port = localPort;
             using (SafeFileHandle handle = CreateFile(root, 0, 7, IntPtr.Zero, 3, 0x02000000, IntPtr.Zero))
             { if (handle.IsInvalid) throw new IOException("Cannot open game directory."); physicalPrefix = FinalPath(handle).TrimEnd('\\') + "\\"; }
-            identity = "{\"game\":\"Tsuventure\",\"bundle\":\"" + BuildInfo.BundleId + "\",\"root\":\"" + rootId + "\",\"mode\":\"" + (project ? "project" : "embedded") + "\",\"port\":" + port + "}";
+            identity = "{\"game\":\"Tsuventure\",\"bundle\":\"" + BuildInfo.BundleId + "\",\"launcher\":\"" + BuildInfo.LauncherId + "\",\"root\":\"" + rootId + "\",\"mode\":\"" + (project ? "project" : "embedded") + "\",\"port\":" + port + "}";
             listener = new TcpListener(IPAddress.Loopback, port);
         }
         public void Start()
@@ -242,6 +268,7 @@ namespace TsuventureDesktop
                         if (!headers.TryGetValue("Host", out host) || !(host == "127.0.0.1:" + port || host == "localhost:" + port)) { Reply(stream, 403, "Local requests only", "text/plain", head); return; }
                         string url = first[1].Split('?')[0];
                         if (url == "/__tsuventure/status") { Reply(stream, 200, identity, "application/json; charset=utf-8", head); return; }
+                        if (url == "/__tsuventure/launch") { Reply(stream, 200, "{\"url\":\"" + Launcher.FreshUrl() + "\"}", "application/json; charset=utf-8", head); return; }
                         if (!url.StartsWith("/")) { Reply(stream, 400, "Bad request", "text/plain", head); return; }
                         url = Uri.UnescapeDataString(url);
                         if (url.Contains("\\") || url.Contains(":")) { Reply(stream, 403, "Forbidden", "text/plain", head); return; }
@@ -257,7 +284,7 @@ namespace TsuventureDesktop
                             long start = 0, end = file.Length - 1; string range; bool partial = headers.TryGetValue("Range", out range);
                             if (partial && !ParseRange(range, file.Length, out start, out end)) { Header(stream, 416, 0, "text/plain", "Content-Range: bytes */" + file.Length + "\r\n"); return; }
                             long count = file.Length == 0 ? 0 : end - start + 1;
-                            Header(stream, partial ? 206 : 200, count, Mime(path), partial ? "Content-Range: bytes " + start + "-" + end + "/" + file.Length + "\r\n" : "");
+                            Header(stream, partial ? 206 : 200, count, Mime(path), partial ? "Content-Range: bytes " + start + "-" + end + "/" + file.Length + "\r\n" : "", Path.GetExtension(path).Equals(".html", StringComparison.OrdinalIgnoreCase));
                             if (head) return;
                             file.Seek(start, SeekOrigin.Begin); byte[] buffer = new byte[65536];
                             while (count > 0) { int read = file.Read(buffer, 0, (int)Math.Min(buffer.Length, count)); if (read == 0) break; stream.Write(buffer, 0, read); count -= read; }
@@ -289,10 +316,10 @@ namespace TsuventureDesktop
         }
         static void Reply(Stream stream, int status, string message, string mime, bool head)
         { byte[] data = Encoding.UTF8.GetBytes(message); Header(stream, status, data.Length, mime, ""); if (!head) stream.Write(data, 0, data.Length); }
-        static void Header(Stream stream, int status, long length, string mime, string extra)
+        static void Header(Stream stream, int status, long length, string mime, string extra, bool document = false)
         {
             string reason = status == 200 ? "OK" : status == 206 ? "Partial Content" : status == 404 ? "Not Found" : status == 416 ? "Range Not Satisfiable" : "Request Error";
-            byte[] bytes = Encoding.ASCII.GetBytes("HTTP/1.1 " + status + " " + reason + "\r\nContent-Type: " + mime + "\r\nContent-Length: " + length.ToString(CultureInfo.InvariantCulture) + "\r\nCache-Control: no-cache\r\nAccept-Ranges: bytes\r\nX-Content-Type-Options: nosniff\r\nConnection: close\r\n" + extra + "\r\n");stream.Write(bytes, 0, bytes.Length);
+            byte[] bytes = Encoding.ASCII.GetBytes("HTTP/1.1 " + status + " " + reason + "\r\nContent-Type: " + mime + "\r\nContent-Length: " + length.ToString(CultureInfo.InvariantCulture) + "\r\nCache-Control: " + (document ? "no-store, max-age=0" : "no-cache") + "\r\nAccept-Ranges: bytes\r\nX-Content-Type-Options: nosniff\r\nConnection: close\r\n" + extra + "\r\n");stream.Write(bytes, 0, bytes.Length);
         }
         static string Mime(string path)
         {

@@ -1,5 +1,6 @@
 /* Blender-authored woodland, shared terrain and discovery. No per-tree draw calls. */
-function installAncientGrove(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installAncientGrove(){
     const data=window.ANCIENT_GROVE_DATA;if(!data)return;
     const group=new THREE.Group();group.name='AncientMoonGrove';scene.add(group);
     const t=data.terrain,positions=[],indices=[],colors=[],uvs=[];
@@ -13,27 +14,27 @@ function installAncientGrove(){
         const {i,j,fx,fz}=c,a=at(i,j),b=at(i+1,j),d=at(i,j+1),e=at(i+1,j+1);
         return fx+fz<=1?a+(b-a)*fx+(d-a)*fz:e+(d-e)*(1-fx)+(b-e)*(1-fz);
     }
-    for(let j=0;j<=t.nz;j++)for(let i=0;i<=t.nx;i++){
+    for(let j=0;j<=t.nz;j++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(let i=0;i<=t.nx;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const x=t.x0+i*t.step,z=t.z0+j*t.step;positions.push(x,at(i,j),z);
         const f=(Math.sin(x*.18)*Math.cos(z*.14)+1)*.5;
         colors.push(.9+f*.1,.9+f*.1,.92+f*.08);uvs.push((x+EXPANDED_REALM_DATA.size/2)/EXPANDED_REALM_DATA.size,(EXPANDED_REALM_DATA.size/2-z)/EXPANDED_REALM_DATA.size);
-    }
-    for(let j=0;j<t.nz;j++)for(let i=0;i<t.nx;i++)if(t.cells[j*t.nx+i]){
+    }}
+    for(let j=0;j<t.nz;j++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(let i=0;i<t.nx;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();if(t.cells[j*t.nx+i]){
         const a=j*(t.nx+1)+i,b=a+1,c=a+t.nx+1,d=c+1;indices.push(a,c,b,b,c,d);
-    }
+    }}}
     const floorGeo=new THREE.BufferGeometry();floorGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
     floorGeo.setAttribute('uv',new THREE.Float32BufferAttribute(uvs,2));floorGeo.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));floorGeo.setIndex(indices);floorGeo.computeVertexNormals();
     const floor=new THREE.Mesh(floorGeo,new THREE.MeshStandardMaterial({vertexColors:true,map:moonTexture,color:0xa4a6ac,roughness:1}));floor.name='GroveForestFloor';floor.receiveShadow=true;group.add(floor);
     // Remove only original terrain triangles entirely covered by our physical terrain.
     const original=groundGeo.index,verts=groundGeo.attributes.position,kept=[];
-    for(let i=0;i<original.count;i+=3){
+    for(let i=0;i<original.count;i+=3){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const ids=[original.getX(i),original.getX(i+1),original.getX(i+2)];
         if(ids.every(v=>cell(verts.getX(v),-verts.getY(v))))continue;
         kept.push(...ids);
     }
     groundGeo.setIndex(kept);
     const materials={};
-    for(const [key,rgb] of Object.entries(data.materials)){
+    for(const [key,rgb] of Object.entries(data.materials)){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const color=new THREE.Color(...rgb);
         materials[key]=new THREE.MeshStandardMaterial({color,roughness:.9,
             ...(key==='glow'?{emissive:color,emissiveIntensity:.6}:{})});
@@ -47,7 +48,7 @@ function installAncientGrove(){
     function batchGeometry(source){const geo=new THREE.BufferGeometry();for(const [name,attribute] of Object.entries(source.attributes))geo.setAttribute(name,attribute);geo.setIndex(source.index);return geo;}
     // Spatial batches let frustum culling discard distant forest quadrants.
     const buckets=new Map();
-    for(const item of data.instances){
+    for(const item of data.instances){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const key=item.kind+':'+Math.floor(item.x/96)+':'+Math.floor(item.z/96);
         if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(item);
         if(item.radius){
@@ -55,31 +56,31 @@ function installAncientGrove(){
             Object.assign(colliders.at(-1),{name:'grove-'+item.kind});
         }
     }
-    for(const items of buckets.values())for(const part of data.prototypes[items[0].kind]){
+    for(const items of buckets.values()){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(const part of data.prototypes[items[0].kind]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const high=batchGeometry(sharedGeometry(items[0].kind,part,false)),low=batchGeometry(sharedGeometry(items[0].kind,part,true));
         const mesh=new THREE.InstancedMesh(high,materials[part.material],items.length);mesh.groveHigh=high;mesh.groveLow=low;
         mesh.name='Grove_'+items[0].kind;mesh.userData.grove=true;
         mesh.userData.optionalFlora=items[0].kind==='mushroom';
-        for(let i=0;i<items.length;i++){
+        for(let i=0;i<items.length;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
             const p=items[i];dummy.position.set(p.x,p.y,p.z);dummy.rotation.set(0,p.yaw,0);dummy.scale.setScalar(p.scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);
         }
         // Three r128 culls instances by the prototype sphere, not their world bounds.
         // Keep a world-space bounding sphere covering each small spatial batch.
-        const bounds=new THREE.Box3();for(const p of items){const r=p.kind==='elder'?43:9*p.scale;bounds.expandByPoint(new THREE.Vector3(p.x-r,p.y,p.z-r));bounds.expandByPoint(new THREE.Vector3(p.x+r,p.y+(p.kind==='elder'?115:25*p.scale),p.z+r));}
+        const bounds=new THREE.Box3();for(const p of items){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const r=p.kind==='elder'?43:9*p.scale;bounds.expandByPoint(new THREE.Vector3(p.x-r,p.y,p.z-r));bounds.expandByPoint(new THREE.Vector3(p.x+r,p.y+(p.kind==='elder'?115:25*p.scale),p.z+r));}
         high.boundingSphere=bounds.getBoundingSphere(new THREE.Sphere());low.boundingSphere=high.boundingSphere;
         group.add(mesh);batches.push(mesh);
-    }
+    }}
     // Root collisions follow the twelve raised buttresses, leaving gaps between them.
-    for(let i=0;i<12;i++){
+    for(let i=0;i<12;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const a=i*Math.PI*2/12;addCylinderCollider(202+Math.cos(a)*7,-206+Math.sin(a)*7,1.1,.04,2.14,true);
         Object.assign(colliders.at(-1),{name:'grove-root',stepHeight:.2});
     }
     // Blender-authored titanium panels: one entrance, no trail geometry.
-    for(const part of data.prototypes.titanium_fence||[]){
+    for(const part of data.prototypes.titanium_fence||[]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(part.vertices.flat(),3));geo.setIndex(part.indices);geo.computeVertexNormals();
         const mesh=new THREE.Mesh(geo,materials[part.material]);mesh.name='PrimordialTitaniumFence';group.add(mesh);
     }
-    for(const c of data.fence||[]){addBoxCollider(c.x,c.z,c.w,c.d,c.minY,c.maxY,false);colliders.at(-1).name='primordial-titanium-fence';}
+    for(const c of data.fence||[]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();addBoxCollider(c.x,c.z,c.w,c.d,c.minY,c.maxY,false);colliders.at(-1).name='primordial-titanium-fence';}
     // Gate lintel clears the opening well above a jumping player.
     addBoxCollider(290,40,10.2,1.2,9.6,10.8,false);colliders.at(-1).name='primordial-gate-lintel';
     let discovered=false;const key='tsuventure_ancient_grove_discovered_v1';try{discovered=localStorage.getItem(key)==='true';}catch{}

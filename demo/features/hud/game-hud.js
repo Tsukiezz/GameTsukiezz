@@ -1,20 +1,22 @@
 function updatePlayerVitals(){
     if(window.playerLife&&gameState.health<=0){playerLife.die();return;}
     for(const [key,maxKey] of [['health','maxHealth'],['armor','maxArmor'],['stamina','maxStamina'],['oxygen','maxOxygen']]){
-        const max=Math.max(1,Number(gameState[maxKey])||100),value=Math.max(0,Math.min(max,Number(gameState[key])||0));
+        const max=Math.max(0,Number(gameState[maxKey])||0),value=Math.max(0,Math.min(max,Number(gameState[key])||0));
         gameState[key]=value;
         const bar=document.getElementById('hud-'+key+'-bar'),text=document.getElementById('hud-'+key+'-value');
         if(!bar)continue;
         if(key==='oxygen')bar.closest('.hud-vital-row').hidden=!window.playerSurvival?.swimming;
+        if(key==='armor')bar.closest('.hud-vital-row').hidden=max===0;
         const display=key==='stamina'&&window.backpack?.infiniteStamina?'∞':Math.ceil(value)+' / '+max;
         if(text.textContent!==display)text.textContent=display;
-        if(bar.getAttribute('aria-valuenow')!==String(value)){
+        if(bar.getAttribute('aria-valuenow')!==String(value)||bar.getAttribute('aria-valuemax')!==String(max)){
             bar.setAttribute('aria-valuenow',value);bar.setAttribute('aria-valuemax',max);
-            bar.firstElementChild.style.width=(100*value/max)+'%';
+            bar.firstElementChild.style.width=(max?100*value/max:0)+'%';
         }
     }
 }
-function installGameHUD(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installGameHUD(){
     const hud=document.getElementById('game-hud'),header=hud.querySelector('.hud-top-bar');
     const status=hud.querySelector('.player-status-card'),map=hud.querySelector('.hud-minimap-card');
     const location=document.getElementById('hud-landmark-badge'),helper=hud.querySelector('.hud-controls-helper');
@@ -22,14 +24,14 @@ function installGameHUD(){
     const sit=document.getElementById('btn-toggle-sit'),tour=hud.querySelector('.hud-tour-bar');
     status.children[1].classList.add('hud-status-content');status.children[1].children[0].classList.add('hud-status-heading');
     const bars=status.querySelector('.hud-bars');bars.setAttribute('aria-label','Máu và giáp');
-    for(const [key,label,selector] of [['health','Máu','.hud-bar-hp'],['armor','Giáp','.hud-bar-sp']]){
+    for(const [key,label,selector] of [['health','Máu','.hud-bar-hp'],['armor','Giáp','.hud-bar-sp']]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const fill=bars.querySelector(selector),track=fill.parentElement,row=document.createElement('div');row.className='hud-vital-row';
         const heading=document.createElement('div');heading.className='hud-vital-heading';
         const name=document.createElement('span'),value=document.createElement('span');name.textContent=label;value.id='hud-'+key+'-value';
         heading.append(name,value);track.before(row);row.append(heading,track);
         track.id='hud-'+key+'-bar';track.setAttribute('role','progressbar');track.setAttribute('aria-label',label);track.setAttribute('aria-valuemin','0');
     }
-    for(const [key,label] of [['stamina','Thể lực'],['oxygen','Oxy']]){
+    for(const [key,label] of [['stamina','Thể lực'],['oxygen','Oxy']]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const row=document.createElement('div');row.className='hud-vital-row';
         const heading=document.createElement('div');heading.className='hud-vital-heading';const name=document.createElement('span');name.textContent=label;
         const value=document.createElement('span');value.id='hud-'+key+'-value';heading.append(name,value);
@@ -64,16 +66,14 @@ function installGameHUD(){
     }
     const travel=panel('hud-travel','Chọn điểm đến','Di chuyển nhanh đến khu vực bạn muốn khám phá.','⌖ Địa điểm');
     const buttons=[...tour.querySelectorAll('.tour-btn')].filter(b=>b!==sit);
-    const renames={1:'🏰 Đại điện',3:'🧱 Phòng tiếp khách',4:'👑 Ngai vàng',5:'✨ Gác mái',7:'🚪 Cửa hầm bí mật',9:'⚔️ Đấu trường'};
-    for(const [index,text] of Object.entries(renames))if(buttons[index])buttons[index].textContent=text;
-    for(const [title,indices] of [['Thế giới',buttons.map((_,i)=>i).filter(i=>i===0||i>=9)],['Lâu đài',[1,2,3,4,5,6,7,8]]]){
+    for(const [title,indices] of [['Thế giới',buttons.map((_,i)=>i)]]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const group=document.createElement('section');group.className='hud-travel-group';
         const h=document.createElement('h3');h.textContent=title;
         const grid=document.createElement('div');grid.className='hud-destinations';
-        for(const i of indices){const b=buttons[i];b.addEventListener('click',()=>{closePanels();b.blur();renderer.domElement.focus({preventScroll:true});});grid.append(b);}
+        for(const i of indices){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const b=buttons[i];b.addEventListener('click',()=>{closePanels();b.blur();renderer.domElement.focus({preventScroll:true});});grid.append(b);}
         group.append(h,grid);travel.content.append(group);
     }
-    const help=panel('hud-help','Điều khiển','Nhấn chuột phải một lần để nhìn quanh. Esc hiện con trỏ; lăn chuột đổi khoảng cách.','?');
+    const help=panel('hud-help','Điều khiển','Nhấn chuột phải một lần để nhìn quanh. Esc hiện con trỏ; phím 1 đổi góc nhìn thứ nhất / thứ ba; lăn chuột đổi khoảng cách.','?');
     helper.children[2].lastChild.textContent=' Nhảy';helper.children[3].lastChild.textContent=' Ngồi / đứng';
     helper.children[4].querySelector('.hud-key').textContent='Chuột phải';
     help.content.append(helper);

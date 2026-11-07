@@ -1,21 +1,57 @@
 {
-  "bundle": "c82d15773b9b0a0150901c38",
-  "files": 162,
-  "runtimeBytes": 58021134,
-  "exeBytes": 29024256,
-  "sha256": "105c904e6f134fe4d46a1b93191f9740ecdc5e5efdb16299b69ac2f80879e3d7",
+  "bundle": "ae16df571c195a135df4eeca",
+  "files": 252,
+  "runtimeBytes": 104011418,
+  "exeBytes": 39490048,
+  "sha256": "1c6b9b8a61e81262cf1d38c030a15a71ad6e9f8da6e9871861b5f6daad5e552a",
   "manifest": {
+    "core/audio.js": {
+      "bytes": 5761,
+      "sha256": "b182db605f2bb4d49cfa4ee3911f7c2c9d3a2d948a021e92abf42cc8b8454386"
+    },
+    "core/boot-manifest.json": {
+      "bytes": 8344,
+      "sha256": "0f887cfcf27ec6b7f9c960bdf4aec37f5a20930a204adb75661fd9005e91b49b"
+    },
+    "core/castle-builder.js": {
+      "bytes": 69794,
+      "sha256": "7c7b16955846e4eb2b8e25a66d17dde299e552e8c2b4f7ebabd15cc0e54f44aa"
+    },
+    "core/game-boot.css": {
+      "bytes": 2441,
+      "sha256": "20dc50fbf5bfdd65be09c3e6edf07266cb9d7652b2dd8c7b11e11589ecbddf5c"
+    },
+    "core/game-boot.js": {
+      "bytes": 8546,
+      "sha256": "dfb4f271231b4c3717a326fc1fbfef20719427628f6a3f5e360c90c578802176"
+    },
+    "core/game-loop.js": {
+      "bytes": 21374,
+      "sha256": "01d9e7e5f31d3eb9af607f5e2c2d790c28d223225c508156b1ae2607b06f4a29"
+    },
+    "core/hero-models.js": {
+      "bytes": 19329,
+      "sha256": "3cd738e02c498055aa819fa32d643373396cf408c3e1039a074f2bb0b9b04dd3"
+    },
+    "core/runtime-state.js": {
+      "bytes": 50266,
+      "sha256": "4e51b164f275bf6182fa0c8fc965f158bbb561ff1aa7493af58666a05de7c3dd"
+    },
+    "core/runtime.js": {
+      "bytes": 63108,
+      "sha256": "3f6069efe76976caa590a941353e0a0f69bd9d74088b3429d7edb32d1593d0fe"
+    },
     "features/arena/arena-relocation.js": {
-      "bytes": 7923,
-      "sha256": "762fa6ae6866fc42f8fff57032995b91a5f8e936cccfe846371220339a92d539"
+      "bytes": 8511,
+      "sha256": "377990dcbfe109c82dfcf7432d87e09fc3cc1c89ab89f9a70aa5923639c85dff"
     },
     "features/arena/arena-tournament.css": {
       "bytes": 572,
       "sha256": "83af43d8697406b791a05d7460b46636a6772039b1fc6cc574dc2e1c1c095d7b"
     },
     "features/arena/arena-tournament.js": {
-      "bytes": 13771,
-      "sha256": "2ed06aec1670c33f76ac1f21c861552becb25cf9c62faf14fee38889d8c50c9e"
+      "bytes": 16356,
+      "sha256": "3746b8c05c0360a22868dad7ccddbcdf03733ec74c147080f3c6b124861f9cbc"
     },
     "features/arena/arena-warrior-tunnels.js": {
       "bytes": 3108,
@@ -34,12 +70,24 @@
       "sha256": "e27b00cbc521c5435f9357d711578dc659a46048cc86eabd32be11e91383d4a7"
     },
     "features/castle/castle-upgrade.js": {
-      "bytes": 31521,
-      "sha256": "796a566fba649f36ac5b1246c699dbc7f3a8c7c1aca7c6aeac435b676f08f0da"
+      "bytes": 31854,
+      "sha256": "998094bbddd048181c2f5f42bde5debcc03363a6609572d0146ae2db9ffd02f9"
     },
     "features/castle/data/castle-extension.js": {
       "bytes": 4407405,
       "sha256": "ced182c6fd9d76b70ae451ce683fc8692e79d57a0bec86562e119f62d5f85e66"
+    },
+    "features/castle/data/moonveil-palace.js": {
+      "bytes": 9158141,
+      "sha256": "ea1d23635ee22f8b1ea1b190c13949b323b1c51cdcd9bb1c4ccfd2045f45ba4c"
+    },
+    "features/castle/moonveil-palace.js": {
+      "bytes": 15867,
+      "sha256": "6d7fadb10e50b739a392b3ef8f6de895b035373728d578e7241ab6090e3e0fc6"
+    },
+    "features/cavern/cave-walkin.js": {
+      "bytes": 10567,
+      "sha256": "c0e6046dac37893fd7a8ee9b418a6694fdcab0eb5388c82e91a71db174c35fad"
     },
     "features/cavern/cavern-surfaces.js": {
       "bytes": 1491,
@@ -54,8 +102,12 @@
       "sha256": "e71edfb4927fdeadefca7565ebe58b519f7634212ea57757627efacea1f49f54"
     },
     "features/cavern/evil-cavern.js": {
-      "bytes": 20566,
-      "sha256": "46c4c00aec452e6238be5543dddae22892ab99a5721617b56ab095b608c9595b"
+      "bytes": 21159,
+      "sha256": "377a99ff4436c3e66a2bbdfea8bfd582a455b8356f73abb963d8e1128efbf29a"
+    },
+    "features/cavern/underground-network.js": {
+      "bytes": 25220,
+      "sha256": "689c88d7cb49241a208ae888bf4e5127feb4857765c06b8cb11f7d631b8b3ce9"
     },
     "features/characters/assets/hamster_warrior.jpg": {
       "bytes": 750925,
@@ -66,8 +118,8 @@
       "sha256": "9e4d0259478033e21e64417137ffda84dbbaba48e32207e38de2349299ce851f"
     },
     "features/characters/combat-balance.js": {
-      "bytes": 360,
-      "sha256": "9c6fbc0a51ce145aea36373fc8616ad1305e3e191c8391d4c641a8e612bb25a8"
+      "bytes": 617,
+      "sha256": "3b195eed5aef41a0629e8eef45d4eae7d8f44e37cec36a6d695272d6bb9440a2"
     },
     "features/characters/dragon-knight/model.js": {
       "bytes": 436589,
@@ -86,16 +138,16 @@
       "sha256": "5335e7614815f0d9bd73585bb13b7fe5b8e2e67dbc3d97a1fb380bbaea9b79da"
     },
     "features/characters/hero-animation.js": {
-      "bytes": 7013,
-      "sha256": "0228592d5d3b43fbfd97f84900a0acb11e9949135fd58104ee6e49280bcc8a44"
+      "bytes": 8114,
+      "sha256": "7f966849496a99b44bb8782e0a5d86483e30b487467c0491ff8bf8a632facabb"
     },
     "features/characters/hero-motion.js": {
-      "bytes": 3568,
-      "sha256": "740bb0a6ab69db80529ddec619f748bb36d406105443eb45f0fb0f3425a251bf"
+      "bytes": 4996,
+      "sha256": "7bd67239893c2b70dc299c81ca73589a25b0e6578cb0d42d4c1c37e4614605fa"
     },
     "features/characters/hero-stat-sync.js": {
-      "bytes": 2537,
-      "sha256": "4b028192b7ca1240c03c4598ab618410154f58ce4118464addae5ae5f076c29d"
+      "bytes": 2674,
+      "sha256": "6080e3c8814285ed0e2b1657a165acf7a5883b38401feb0789259743e9a95de5"
     },
     "features/characters/kingkong/ART.md": {
       "bytes": 1686,
@@ -114,8 +166,8 @@
       "sha256": "4c9633d3b2af970b0c274f4cf38de0e5c60856dc5e80e2fb552b7678cdc19460"
     },
     "features/characters/ninja-yinyang/abilities.js": {
-      "bytes": 5302,
-      "sha256": "0ef5da650072b2d9d1d0503009b4e5d5b2c0f473192b5826798f3a54c509934c"
+      "bytes": 5284,
+      "sha256": "0dc8d1d733d73d899a2d69fb6187cefd77105eef26940ee403a91e932d793215"
     },
     "features/characters/ninja-yinyang/model.js": {
       "bytes": 241072,
@@ -134,36 +186,44 @@
       "sha256": "c137ff000e9aadb2f55cd9218c2beb95303c1ac8fd387316be470aa1f3ac85a7"
     },
     "features/characters/player-experience.js": {
-      "bytes": 14325,
-      "sha256": "f752d5c0fc4e1bfa2820464b0c195c113fd008b645059124523f873fcfe713ed"
+      "bytes": 16297,
+      "sha256": "42617a2c9fa867e96feef8daec603c9cbb1090354fc1b9690120cdc5aabfd180"
+    },
+    "features/creatures/actor-animation.js": {
+      "bytes": 19648,
+      "sha256": "a9e8a68dd5ec6f3b84243abcb5152dd690d250de41614241853aa7c01ca03936"
     },
     "features/creatures/creature-art.js": {
-      "bytes": 2723,
-      "sha256": "191ec66a1a5083206a3eb1654ec69696ab173620ab11e574c7176ae99f797429"
+      "bytes": 4989,
+      "sha256": "974ed22bede309ae3574a06aa31b71119dc090e8d3a24e41080b4b12be32262f"
+    },
+    "features/creatures/creature-motion-rigs.js": {
+      "bytes": 3978,
+      "sha256": "64d324c98abf0f98c7e99fe07047c2b911911d44d10d28620f9ce6268eda67fd"
     },
     "features/creatures/creature-refresh.js": {
-      "bytes": 2059,
-      "sha256": "9265c474069156e1b768850b23686896f7a1606b8452a37405baf42b46efb99c"
+      "bytes": 2339,
+      "sha256": "44a0db1c967e9a3442c4a84e80d532a38c371e7fca0c1669f6ae1cce928ad581"
     },
     "features/creatures/data/creature-studio.js": {
-      "bytes": 9531457,
-      "sha256": "0fbbe0ba648ca9b4c034b6dc7018a0fc74704e38fd161816636986b5e44e8ecd"
+      "bytes": 20569169,
+      "sha256": "9f4ffc853bc46fc6294405f529623b26d6164c9f55b06c9d0d8ab3e58911eb56"
     },
     "features/desert/data/desert-assets.js": {
       "bytes": 151144,
       "sha256": "800bcef529111eb09e0f5592085c110e0278829dc72dc29e6bc32b7299400647"
     },
     "features/desert/desert-enemies.js": {
-      "bytes": 5796,
-      "sha256": "5e0bc2b7aa39687c970abdd1a7b9835d96142d89c333c0e1c75aa96454b5d1e7"
+      "bytes": 5805,
+      "sha256": "9dc79ba4ca039a8144a153db12b24d04a7b394f36b50b2880d9cb8ddd9e75ff1"
     },
     "features/desert/desert-layout.js": {
       "bytes": 4959,
       "sha256": "018c33b83436146fdc7f02416df5af9b0b8473fc25e3a7f2e15a11686a9b9b47"
     },
     "features/desert/desert-realm.js": {
-      "bytes": 22092,
-      "sha256": "f3f1560a783ff9df265301b17959528b25004511fd3bfda54082dd65735a61d0"
+      "bytes": 23058,
+      "sha256": "1a56e4b33f9721c76c40e2e9359b79cc977ecf61b6748023295a090ace68cfd0"
     },
     "features/desert/pyramid-floors.js": {
       "bytes": 5239,
@@ -174,40 +234,164 @@
       "sha256": "c773c511a19361fd865e96eab97b31809f57fc595656798f568be6a30e1ad1af"
     },
     "features/forest/ancient-grove.js": {
-      "bytes": 7669,
-      "sha256": "aa82f23f60ef6708f13d6be100a24ab2fe031f4ea7a20ddbc145a1275f36683d"
+      "bytes": 8633,
+      "sha256": "500c912a599a7640e905ee4b81c2a1c3fea6a04fa025c51872cc972ea708d6e2"
+    },
+    "features/forest/assets/ancient-bark.png": {
+      "bytes": 530174,
+      "sha256": "29f4c74571c7ab5c762bb89e4004438b8aa381abb295f417b357bdeb857d08fa"
+    },
+    "features/forest/assets/audio/guardian-attack.wav": {
+      "bytes": 30912,
+      "sha256": "566f4a3c7e0cde59dd2d19c537bbbd707240630f71981845e3caaf1631b0b6f4"
+    },
+    "features/forest/assets/audio/guardian-death.wav": {
+      "bytes": 110294,
+      "sha256": "f6933faea3e7f849d486f06156c2ccf587ddb6aee9dd015bb51b56d8c3a29501"
+    },
+    "features/forest/assets/audio/guardian-emerge.wav": {
+      "bytes": 88244,
+      "sha256": "3282dcee6652ccc9f748a5ca33e22e231998ef0131dced7d253f086bd05a3202"
+    },
+    "features/forest/assets/audio/guardian-move.wav": {
+      "bytes": 16802,
+      "sha256": "90eb3f0c39e5610031f2f54ea09b345dd63885ddfbf64d5f252d09dc71d67e3d"
+    },
+    "features/forest/assets/audio/guardian-roar.wav": {
+      "bytes": 105884,
+      "sha256": "ce3be3af33b6fe6303bd1cf22bfb92f6ba721a9c85a54a9b231405ee78f5be09"
+    },
+    "features/forest/assets/audio/guardian-skill.wav": {
+      "bytes": 72808,
+      "sha256": "eec6236d46d2d10f1908de2b35482ee8fc03d3f700f3af836ee221056e60afe4"
+    },
+    "features/forest/assets/audio/guardian-ultimate.wav": {
+      "bytes": 123522,
+      "sha256": "ad077fe8d21d6ec0a3c26b363fff7ac4737a16364843327caee83719dbea40d7"
+    },
+    "features/forest/assets/audio/manifest.json": {
+      "bytes": 1223,
+      "sha256": "b0a9b6c26ed300ba7c6511ad477fd0122deddefe7d7c552c679a531bdb25fd34"
+    },
+    "features/forest/assets/audio/spirit-attack.wav": {
+      "bytes": 20108,
+      "sha256": "cabe4688f3655034d2acf27633e60688d23c6ab813220991e320c00df45166c5"
+    },
+    "features/forest/assets/audio/spirit-death.wav": {
+      "bytes": 71706,
+      "sha256": "1b26527b376fd444378fec02c9f0662dc2f182976e6c00fa86c42310902746f2"
+    },
+    "features/forest/assets/audio/spirit-emerge.wav": {
+      "bytes": 57374,
+      "sha256": "ad1c78ed2bf818a59998a447b5647442caf4e9e73bcb353ec17b50ed8f692102"
+    },
+    "features/forest/assets/audio/spirit-move.wav": {
+      "bytes": 10936,
+      "sha256": "37d9e99c2b683d637d2f2c972b2571bcc3c23305743e624e340a01da811adc63"
+    },
+    "features/forest/assets/audio/spirit-roar.wav": {
+      "bytes": 68840,
+      "sha256": "2bccbf19f4915be3cada66fd60ffbf81c67f05c3cd6115f1e97e4367a6c82726"
     },
     "features/forest/data/ancient-grove.js": {
       "bytes": 3183365,
       "sha256": "66deb2ba080e78e76c22465fd6c67071e158bcc3e1e126f0e6319a36ec379ac9"
     },
     "features/forest/data/forest-guardian.js": {
-      "bytes": 196343,
-      "sha256": "d2a1b3a471f5fb9c8e707caaca2450c2596eac33fdf096356db5e6a2b34ec6c4"
+      "bytes": 196344,
+      "sha256": "8e1fcc747cc09f40231aa295627ab20d73b5f686541666d64ccd076c77d64c0d"
+    },
+    "features/forest/forest-audio.js": {
+      "bytes": 4296,
+      "sha256": "8a79957bccc943cacd7252d4b7382eaa2fccca87ac77ba689bd34bdfeceff6b1"
     },
     "features/forest/forest-guardian.js": {
-      "bytes": 8074,
-      "sha256": "eb635d59e833106aeb5b1d5b17c6ff2ea9e646b1ef0d79a4532d8d70de3f3282"
+      "bytes": 13119,
+      "sha256": "0712e81b4bb4511c813c4ae4c2c4e08056b2dfa89c47efb58a7047072cb496b9"
     },
     "features/forest/wildlife.js": {
-      "bytes": 6226,
-      "sha256": "292f55ae49b7bb919055d2c6fc6d0c46414865e1727e3a8af4d53343a371e9c3"
+      "bytes": 6491,
+      "sha256": "f47b47bd52d430f319f99a794582a8e93f0e42cd05a01c8f47e6fd1924ca4d7d"
     },
     "features/hud/game-hud.css": {
       "bytes": 18122,
       "sha256": "23ef049ccb0d841adb52313caf76d53d360dca540f066018c415036fd2e88d49"
     },
     "features/hud/game-hud.js": {
-      "bytes": 12206,
-      "sha256": "a6b1d8a35d0babe6cf2c426382a1879dd10e9b1a7c967b6e069ff0f7cdacd938"
+      "bytes": 12373,
+      "sha256": "9d753171eeda14cd6fbab052813c04f4a6d933e56ba50b5058bc0ab7dad2d8f8"
     },
     "features/hud/game-shortcuts.js": {
-      "bytes": 4543,
-      "sha256": "4016502bb842fb9470eb1fb48ddf72e105761a6d55cdf46d0a7123f5a9221b41"
+      "bytes": 4808,
+      "sha256": "95d22fa31e8ca3a929f1123e07756241cd344964a1819ee1988f00e457d2481f"
     },
     "features/inventory/assets/bandage.svg": {
       "bytes": 383,
       "sha256": "4c41f901c7fc99dbd13431b24dbf541cc3d34daf6c3b2f3501d95b2cb6934bed"
+    },
+    "features/inventory/assets/blender/ancient_fragment.png": {
+      "bytes": 41944,
+      "sha256": "0caf1a12be83dea41c8d785ca94dbf0b9e054c0d0c5a181d30eb750c2d3aae55"
+    },
+    "features/inventory/assets/blender/boat.png": {
+      "bytes": 40973,
+      "sha256": "0f96f09120fa85dfecd9416b51636dcfed9bd33a21055c046d6559b9bdb3312d"
+    },
+    "features/inventory/assets/blender/cookie.png": {
+      "bytes": 37294,
+      "sha256": "3daea3edd2a405557e706ae549b32248c3bb6f7ed82e8852f4bbbaeec2ffe45e"
+    },
+    "features/inventory/assets/blender/exit_map.png": {
+      "bytes": 35493,
+      "sha256": "97571bb2c90cb1bbefe85b428fba237df755f031b6dc57ab6a164dbf4f32b61b"
+    },
+    "features/inventory/assets/blender/flashlight.png": {
+      "bytes": 34898,
+      "sha256": "35cbe99c86d796dad0a132ec3882ace314fc10b4b573fa801ebd565f9b1e3550"
+    },
+    "features/inventory/assets/blender/gold_coin.png": {
+      "bytes": 42597,
+      "sha256": "78abc1b615256433697c48c3e9ed8fe9ee13297d07edc19585c2e439bd38afe5"
+    },
+    "features/inventory/assets/blender/iron.png": {
+      "bytes": 38974,
+      "sha256": "32d47f10de7bc559574cecc0921c087177428903bc08023fe20066f0dd11221a"
+    },
+    "features/inventory/assets/blender/magic_bean.png": {
+      "bytes": 41392,
+      "sha256": "33ebf96bf3ee23d4f5cecc2f6b68952afa065b12bf8f0e43807072958d1183ca"
+    },
+    "features/inventory/assets/blender/manifest.json": {
+      "bytes": 475,
+      "sha256": "fc8c6a9e647e1c119ea0a245251f464953a29b73921db44c2af3709fed5253d4"
+    },
+    "features/inventory/assets/blender/meat.png": {
+      "bytes": 41681,
+      "sha256": "a136a02c1a5c5a7d42a33dbd9270b146ec8127de22c0ee65d1beacac6511f423"
+    },
+    "features/inventory/assets/blender/minerals.png": {
+      "bytes": 49950,
+      "sha256": "ac85fad0e3ec7ed8512fc6b1da0ab582a32e236164b1b2e2d9ce045a8b886538"
+    },
+    "features/inventory/assets/blender/rubber.png": {
+      "bytes": 47647,
+      "sha256": "59a965428db0452a29ad8a133e9f787a34e77ac4a7cb47473ce88dd4a22e5eb2"
+    },
+    "features/inventory/assets/blender/scrap.png": {
+      "bytes": 40916,
+      "sha256": "0b81c58317d196c19b7063967821a5c65c854297087c3be61b90c19533e30a0f"
+    },
+    "features/inventory/assets/blender/silicon.png": {
+      "bytes": 38236,
+      "sha256": "3619b6dcb61b80d29e1f4ba124b64786b0d71ef7c7d3182722f0fef9f05c7fe3"
+    },
+    "features/inventory/assets/blender/uranium.png": {
+      "bytes": 46526,
+      "sha256": "c4c296c8a7d75796f12f075297107dd561da3c678ca4bd9785dda7113090f4c2"
+    },
+    "features/inventory/assets/blender/wood.png": {
+      "bytes": 62399,
+      "sha256": "1c65aba37aad9d134e2369b8ca76fb1b4348bd66dee2db78ad1fe9526b36c838"
     },
     "features/inventory/assets/chocolate.svg": {
       "bytes": 1265,
@@ -229,6 +413,14 @@
       "bytes": 50675,
       "sha256": "32913ee4e654e0795acff05b66ef99cb8fdb63f98a27583a4c4b6e45ce7b3708"
     },
+    "features/inventory/assets/forest-heart.svg": {
+      "bytes": 1162,
+      "sha256": "d9b8448af5e12f7c04ffaadd492364c25c10dcce111666821732fba47842728d"
+    },
+    "features/inventory/assets/forest-sword.svg": {
+      "bytes": 1397,
+      "sha256": "7c071f8978e1b8bdaddf5b1aa71fa7f973671c980f530c9084d3ada84be9e8df"
+    },
     "features/inventory/assets/iron_armor.png": {
       "bytes": 39136,
       "sha256": "8efb003e7c5a1f5ca82071858bb187b715f3c4d5df808af8c4a79552dcc05bde"
@@ -240,6 +432,82 @@
     "features/inventory/assets/nakat.png": {
       "bytes": 24401,
       "sha256": "96e836007fbfd8283ab585b1e4e5fc84aa0634564b1b1546a0a3481060c884f5"
+    },
+    "features/inventory/assets/progression/cave_bat.png": {
+      "bytes": 48135,
+      "sha256": "5296dada3aade5f8aa7657d9bbd774bf2bb529e141abacc62b34a19c21b7d85f"
+    },
+    "features/inventory/assets/progression/chest_basic.png": {
+      "bytes": 74430,
+      "sha256": "c9e202a6bf0ffa2167b6dffe48aca72c34820403116767c57caee025201995c1"
+    },
+    "features/inventory/assets/progression/chest_candy.png": {
+      "bytes": 83093,
+      "sha256": "a718e95a57b788403c7b1b1c1c331a7074986f3d288d2682c9384db60ed9f573"
+    },
+    "features/inventory/assets/progression/chest_castle.png": {
+      "bytes": 79522,
+      "sha256": "31ede480d945772a4a6a55b5a3c517deeea7b05d50970257136b745cabd5acc6"
+    },
+    "features/inventory/assets/progression/chest_cavern.png": {
+      "bytes": 73872,
+      "sha256": "504e9a29b60cbd4548ca01f9887328f8ee60d00628a9fda52c5cb5f32e6cb52a"
+    },
+    "features/inventory/assets/progression/chest_desert.png": {
+      "bytes": 82775,
+      "sha256": "2bdf5825ef46d4514cb7dc587d0b3d4a0dc237a13f8b8901bd4f66a9987d2212"
+    },
+    "features/inventory/assets/progression/chest_forest.png": {
+      "bytes": 81521,
+      "sha256": "584e7173d9cb26fcabfc11e7cdc601b87c5c80b40aa4db803bc51c68b44de711"
+    },
+    "features/inventory/assets/progression/chest_ice.png": {
+      "bytes": 77933,
+      "sha256": "2a20297a593a4ca585ffee3708b8397e9259777e379ddc5c5c37982ac4b95331"
+    },
+    "features/inventory/assets/progression/chest_void.png": {
+      "bytes": 78413,
+      "sha256": "cb4e30f4732adcdd7a30c19b5866873608acb85c56ed18505405bb4905d19d8e"
+    },
+    "features/inventory/assets/progression/chest_volcanic.png": {
+      "bytes": 79410,
+      "sha256": "ae5c84605ad575491895784a96b3dd4ced2aae902c5922f2ff09dd430238c1f9"
+    },
+    "features/inventory/assets/progression/cordyceps.png": {
+      "bytes": 53542,
+      "sha256": "ae8365a6311079427817739e292ba891068cad544c3777be5a81aa2dd4fc6d65"
+    },
+    "features/inventory/assets/progression/engineering_workstation.png": {
+      "bytes": 67842,
+      "sha256": "f3691daf759541437ab7b73d692bc05b31d180aed9ec4550f12032ca2567b8c3"
+    },
+    "features/inventory/assets/progression/eternal_ember.png": {
+      "bytes": 57907,
+      "sha256": "47f059aae3f55fc8c1eddab3e491fed3df7237266073e46a821c8cb6a378cf33"
+    },
+    "features/inventory/assets/progression/forest_heart.png": {
+      "bytes": 58791,
+      "sha256": "7120796530044ed3f4ffb927c0c1149b03390033dffc9f365d6221899115ef91"
+    },
+    "features/inventory/assets/progression/forest_sword.png": {
+      "bytes": 48479,
+      "sha256": "be6eccc8ce941aa89beb8e337dd574a97f240bb2eacbc1a0ce678d5d64dd6866"
+    },
+    "features/inventory/assets/progression/galactic_lava.png": {
+      "bytes": 68547,
+      "sha256": "13b57eaa5b62f9fad46ba58ae71e43d5157bb866ee0ca11120d59b35be819054"
+    },
+    "features/inventory/assets/progression/iron_sword.png": {
+      "bytes": 40188,
+      "sha256": "94723728b84a0bda4eaba8a6e5426832caf48b545f4d7f12cc28e8a38037f6d6"
+    },
+    "features/inventory/assets/progression/manifest.json": {
+      "bytes": 1526,
+      "sha256": "2f0d5ea70454b4b2ab5bde4a6c7b8d80b41cf019397b24e81f3c67fa46c71142"
+    },
+    "features/inventory/assets/progression/samurai_armor.png": {
+      "bytes": 87723,
+      "sha256": "cb847650b2a82405b4f122c3bf37a05ead3db1f1e0d33ecfbb946cbfa19afac0"
     },
     "features/inventory/assets/rage_armor.png": {
       "bytes": 40314,
@@ -258,64 +526,76 @@
       "sha256": "e2432cefd2bd3424f46d16a9b6eeee03ee4136d363adf6b9cdabf85eeef5738c"
     },
     "features/inventory/backpack.js": {
-      "bytes": 11765,
-      "sha256": "687d33968031f9bd686f4bfb76089d8ddf6236cf3d81393dc3597288c1f6cd0c"
+      "bytes": 12195,
+      "sha256": "f0dff117fb0f0112eb35d29c24a61718277d7c04a3a1e9877e07709d0b6b6e17"
     },
     "features/inventory/crystal-wings.js": {
-      "bytes": 12229,
-      "sha256": "c897805701d37e00a6f29fd85e67c03a52bb5c740a0ac0e400fef88e3df606c5"
+      "bytes": 12775,
+      "sha256": "91b13555844bc7ae53fa71a8f372c044d908faf9a0b2c575a2c8b57f84fc4741"
     },
     "features/inventory/data/solar-flashlight.js": {
       "bytes": 122167,
       "sha256": "d1e3af285f0d30df530ee427a74fd0ad99b458d4bb6f767e9820974c5ed1c43d"
     },
+    "features/inventory/data/survival-items.js": {
+      "bytes": 8713507,
+      "sha256": "68f6b4e7678547e4c71ff7a11c517a52548eee4c0c3a60d2a55654e46d0aa85b"
+    },
     "features/inventory/food-pickups.js": {
-      "bytes": 3531,
-      "sha256": "7e16561c596c91ef47580f1bb0c7293e91b4fec1c7553c7640360517a2cf82dd"
+      "bytes": 3481,
+      "sha256": "8e6579fefe14d8ccdff2ad4fdf789523f9816654229361a3cc56325b9cb65ee9"
     },
     "features/inventory/gift-code.js": {
-      "bytes": 3437,
-      "sha256": "394621057804daa7cedabaae0c3354bcc081b588b8a0108107137a3c0f8a8a5a"
+      "bytes": 5139,
+      "sha256": "8862ccc465c0466412ca6e28afdcee768df01477ce6549fdedb532145cbf2115"
+    },
+    "features/inventory/inventory-art.css": {
+      "bytes": 2152,
+      "sha256": "07efb3160fe5bb53d335012d741e0166510c9d7cc93edc6fb5a49c661e3ffb79"
     },
     "features/inventory/inventory-layout.js": {
-      "bytes": 2295,
-      "sha256": "2d0ad79f9f100708d2c2b8eadabf5aaaff3d700dac711378d4953633af6d7eaa"
+      "bytes": 2495,
+      "sha256": "e79f076dcfeb3c64dbebc7a8d518fb95a4b0b9023ca5234ef8df70b7b543292d"
     },
     "features/inventory/inventory-workspace.js": {
-      "bytes": 4951,
-      "sha256": "84d2a6042eeb8edd1ef2b3b20b6128f8cfaab88a12efbac05b2f6d58c9e19bf7"
+      "bytes": 7311,
+      "sha256": "b13c4e09e1f14283cc6ad0a7d77bc03adc1eec694c97f3299100ccf4e83a138e"
+    },
+    "features/inventory/progression-assets.js": {
+      "bytes": 1490,
+      "sha256": "1e6684d460f14c323702b1c86e0edde188116c3df2b71a0f83838b08ddf5ad35"
     },
     "features/inventory/snow-crystals.js": {
-      "bytes": 2487,
-      "sha256": "80d0ef5f25e3a84c58d794229006816e0fb598179c5b921e28320992684e7bc8"
+      "bytes": 2752,
+      "sha256": "b627e690333a7591b643a0cf87bd264f7a0d4655d9ed3fca40cd670a54e434da"
     },
     "features/inventory/solar-flashlight.js": {
-      "bytes": 7234,
-      "sha256": "0a127b99fbe395c06581075dfae7ef7cb9eabd0dc21fd07ac9244128192c3386"
+      "bytes": 7379,
+      "sha256": "4ac5bdc320133dd6aa4cfcd5a4aad9b7cb5cc2c2e89b731f75dcaf8462592004"
     },
     "features/inventory/temple-supplies.js": {
-      "bytes": 8814,
-      "sha256": "e30adf4f479fd8966ad4b917d73413f67de5a43f40f96b875f33edc9a947c92f"
+      "bytes": 9468,
+      "sha256": "4f56f98576b9fc705749ca0da149723e84fca261a6842a67e8b3e7b786117abf"
     },
     "features/inventory/tree-wood.js": {
-      "bytes": 3172,
-      "sha256": "8276bdaef3ca6de304d4a67335d3c42cc012f80b7e31422b30c1a6a3d2a6db38"
+      "bytes": 3895,
+      "sha256": "8f6a53ccf3c38f80e7652da2c78fbd51421e0a165e963085089aff5b2599bfaf"
     },
     "features/lake/data/lake-monsters.js": {
       "bytes": 639021,
       "sha256": "75df5ebaec9601bf6c5c6f2e38e6b6f8e0d34086e799c06c35ca2fb3ed166722"
     },
     "features/lake/lake-monsters.js": {
-      "bytes": 15514,
-      "sha256": "b24924330f521ebbbe40c08cd7a0757d567cb11943dd38ee4aae7ee1e65d59d1"
+      "bytes": 15283,
+      "sha256": "98bfb5b0014c7b64e671ef629a8a5a6c886f83d868f75dc629b3d9bbffd58cba"
     },
     "features/library/field-guide.js": {
-      "bytes": 34756,
-      "sha256": "a3f1c4b637a3326323e20d7e52c575c0f9fb804e2e220e9da0ea72430fd86fb6"
+      "bytes": 36553,
+      "sha256": "579d195fd775c80bc756d6f128788f11eb3b4e12fe940de558dc0c8e5f0df151"
     },
     "features/library/library-previews.js": {
-      "bytes": 8630,
-      "sha256": "3329fc0acab351c41ea8ee771cbe5c976b7b3670bc7b687e15164780c247a69a"
+      "bytes": 9001,
+      "sha256": "2b1649a9fb0942e76800ed8fa46f4bb8be4fa81be5fa0a6eeb72c3632536d430"
     },
     "features/lobby/assets/app/favicon.ico": {
       "bytes": 145052,
@@ -361,17 +641,45 @@
       "bytes": 1197995,
       "sha256": "cceb9b5339104a54c877e50515cbc7f480f0788935eec8f527d552c2434e7d54"
     },
+    "features/lobby/assets/ui/flag-en.svg": {
+      "bytes": 358,
+      "sha256": "cbc0fca5f44d719a65a6ac4ab102dca158589cfac4a69c5f708dbb12b84cc482"
+    },
+    "features/lobby/assets/ui/flag-es.svg": {
+      "bytes": 264,
+      "sha256": "d52a0cfb99c4171def4d883cace161a24198147e5ced2f90c257e7f62b46937e"
+    },
+    "features/lobby/assets/ui/flag-fr.svg": {
+      "bytes": 185,
+      "sha256": "e692ec824ef3ad418a24e4519bef61484e5dd0ffab079a81607677542c7cdda6"
+    },
+    "features/lobby/assets/ui/flag-vi.svg": {
+      "bytes": 204,
+      "sha256": "ab066be099560dcd58aa778be669819bc27322cf8ac6ef207505d70bac9649bf"
+    },
+    "features/lobby/assets/ui/player-cursor.css": {
+      "bytes": 933,
+      "sha256": "20d6b83ddcf462cc0ee1ba53f7f557af7ba29eacceecfe40c85015810ae9fa84"
+    },
+    "features/lobby/assets/ui/tsu-ocean-cursor.png": {
+      "bytes": 1772,
+      "sha256": "dd99f85d0f1794a459a9505f6c28b2aa8b9531f60002309a04e35cfcefa26bf8"
+    },
+    "features/lobby/interface-locales.js": {
+      "bytes": 30561,
+      "sha256": "c5d9664ee1fc20a2cbf929ec5c61aa758fe28e3146e5a151e94e0b315600cdd7"
+    },
     "features/lobby/lobby-music.js": {
       "bytes": 2006,
       "sha256": "467006a201c4c8c596a0cf6114c4b472911e613b1d4ef9d0ccf17ffa92437686"
     },
     "features/lobby/lobby-settings.js": {
-      "bytes": 14492,
-      "sha256": "fdf8f7b7ce9f50ba803d01b7eea34230a12747764ad6bbb81aa3c49d440c246f"
+      "bytes": 16891,
+      "sha256": "0012836847ac41771d6fd12ac6c453ea90d3a8d887e8cf9673c5573b986325ad"
     },
     "features/lobby/lobby.css": {
-      "bytes": 7231,
-      "sha256": "38b3db6a68fb880076eea6775b80ad1e5ae78d93300b9adbebf3918095d08b5f"
+      "bytes": 9522,
+      "sha256": "aef40684dbce7a80bb769a8c9d52e733ee20824ed262cdbf5ee59f42a258e2cc"
     },
     "features/mangrove/data/mangrove-assets.js": {
       "bytes": 825617,
@@ -382,48 +690,72 @@
       "sha256": "8cc1222602ff2f2ae5854db02bc6dd29eff4daac7226e76413c7c46b8a7382ef"
     },
     "features/mangrove/mangrove-realm.js": {
-      "bytes": 21719,
-      "sha256": "c3f5a6429bc2e6e173ed216dc70005ea4beedd7ebaba91bc103b716e855ea41c"
+      "bytes": 22148,
+      "sha256": "5b9ec9422e4b26dadb471300c367cb83ee44bb78278f270af640570eacd6719a"
     },
     "features/mountain/bach-khuyet.css": {
       "bytes": 906,
       "sha256": "ae4ee76114a8fbd96387a609e1490a60ae28a8156600c7434a88233e25946f01"
     },
     "features/mountain/bach-khuyet.js": {
-      "bytes": 15459,
-      "sha256": "d37f9937522195448ff2a386a23b97ec0ac9dc5985b4f4c11b0ea7cc0286c6f2"
+      "bytes": 16844,
+      "sha256": "6185b8878fca08f60bcae54810b23b0b179bb054ab2842c3700ef823eef2242d"
     },
     "features/mountain/data/bach-khuyet.js": {
       "bytes": 1367903,
       "sha256": "ed2e81097b2738a605e06f24bea56f442dd4fcbad419c266b5e94e4f6842018f"
     },
+    "features/railway/data/grand-terminal.js": {
+      "bytes": 5583914,
+      "sha256": "f0dc4d5876b44f8872aa2e8d414204b811a40b0e2fc2d7a1ed42e0cee21500dc"
+    },
     "features/railway/data/railway-assets.js": {
       "bytes": 140119,
       "sha256": "008c81d3675800a49c87ab5ed5b172468f7de311e81923fc701229e79df90704"
     },
+    "features/railway/data/terminal-life.js": {
+      "bytes": 2691898,
+      "sha256": "27f89fd675076aa62a8527c85694b92b78f43d25a4fd61846e406075f13c1e88"
+    },
+    "features/railway/grand-terminal.js": {
+      "bytes": 16392,
+      "sha256": "32cbc328cd66f75b7ac7f29764c46506c9184aacf58ca331b3bfa2277b578797"
+    },
     "features/railway/highland-railway.js": {
-      "bytes": 6279,
-      "sha256": "377507df347f45a772e5d92e0ed14d4177fc60ee04435405fa1cf7e2ab72353f"
+      "bytes": 6994,
+      "sha256": "7dffe285368d0f791a2df6cac30faca1683ce17ebe98b38984533b9063366771"
     },
     "features/railway/moon-railway.js": {
-      "bytes": 64905,
-      "sha256": "3a0edb652bfe4d7b45d13c7be98bfd6870d6f596e95a66edbb8cc5ebc9337f5a"
+      "bytes": 82638,
+      "sha256": "131653b17c3d12a4d2837e0ccdf182431c7c47ba2c2f94ef228e15521081219c"
     },
     "features/railway/railway-clearance.js": {
-      "bytes": 30873,
-      "sha256": "5347298d1590dcb9afdb50ce27b11fa93ef426993fd47400d4ab6eb5882c2358"
+      "bytes": 35786,
+      "sha256": "506591d0ab81e496e4660757b43504eb2217b171fa7f24ae8417cabf8f8c5779"
     },
     "features/railway/railway.css": {
-      "bytes": 2028,
-      "sha256": "a3310bd56fcf08fc9f1e91cddfa2a958a7a09da919767656796d3bf37b593b0c"
+      "bytes": 4739,
+      "sha256": "1190f1a80edb1ca6ded34b7311b1fb6bbde5976641c724d1ea23bb11542e23df"
+    },
+    "features/railway/reserve-dispatch.js": {
+      "bytes": 24194,
+      "sha256": "4edd129417154d8de1d320c3e92feac113f5fc0382bd1bdb94d41c1efabd0216"
     },
     "features/railway/station-grounding.js": {
-      "bytes": 14382,
-      "sha256": "2f07741d5926f555695a4e0527a4e5377dfa3b572293669a475ab33aa603a43b"
+      "bytes": 17962,
+      "sha256": "e2ed0535c706c0fafa7ef47fe45da2182155e373a71b3ac3a791afef8c9f206b"
     },
     "features/railway/station-mobility.js": {
-      "bytes": 22516,
-      "sha256": "3d38bcf2206f15072e311bac805ee15154437d3ec1877639fdac8e0a08a82a2b"
+      "bytes": 24733,
+      "sha256": "b09d40cd4f146ad088d59e2380aeefd21cf428cce3ec27a6c7c370d43da6feef"
+    },
+    "features/railway/terminal-life.js": {
+      "bytes": 13781,
+      "sha256": "a46613fc2e986233ae13cd51378a0531da6e6e640f3c80d165996c0ec1234388"
+    },
+    "features/railway/terminal-vip.js": {
+      "bytes": 14361,
+      "sha256": "f0cce61dfeb8c2772f10e98d83d5857b3b0a73b14b46d28143db8fe95067d4f7"
     },
     "features/river/data/thermal-river.js": {
       "bytes": 5906858,
@@ -438,48 +770,64 @@
       "sha256": "002afe28b8d62d0722c0164266f7e16d474e5c8c11e1cc8f9760ecb7984803b4"
     },
     "features/river/thermal-river.js": {
-      "bytes": 29601,
-      "sha256": "57abe11b6610917d5c00a6c5ef79632a84097477ddd7eed93045fdc813b8f971"
+      "bytes": 31546,
+      "sha256": "339d7cc6f19504cb5d328ce6859b4268464019300d37387ed5ea15a99b41ed89"
     },
     "features/survival/player-life.js": {
-      "bytes": 5586,
-      "sha256": "1533e526710675e8067c92c5c53e238c55633b0528faa346f60670918d8bd10c"
+      "bytes": 6286,
+      "sha256": "02a1936f4ae0ceb5181df27913d860c237ac25b84fe710e56e46bd4971cdd91e"
     },
     "features/survival/player-survival.js": {
-      "bytes": 6153,
-      "sha256": "76b4b021aa81499a7beaccbaaa6fe523299bcc0f484c7d6fae83ec6b4502c0a5"
+      "bytes": 6535,
+      "sha256": "26996819c7b69dda4f1647bd8194be953c43233c5602a1009da0e1308d863aac"
+    },
+    "features/technology/data/ruined-rocket.js": {
+      "bytes": 1655194,
+      "sha256": "c602281c5779542856171c5d7b59e0535313bb1bee2104b2b2b74d306bd51717"
+    },
+    "features/technology/gear-service.js": {
+      "bytes": 12938,
+      "sha256": "761c5e1c1956782328f1c918f69125fba45c3a81b8a4faf17ac879ed3dc95fe3"
     },
     "features/technology/river-boat.js": {
-      "bytes": 11925,
-      "sha256": "23876d565609efee6ffe341b8b993f1557f53ea18bc23c85ea7f7434012bc0e5"
+      "bytes": 12613,
+      "sha256": "b7d3b216a469cf73d9513fe57e2d3f6e1a1fa5ea7834c038f3c2d47d12b60a39"
     },
     "features/technology/technology-base.js": {
-      "bytes": 8704,
-      "sha256": "40f6d4c0021387389e4ad1efb1c9ed9ae013598f892f6cc2bdd1e4fd1e91417c"
+      "bytes": 13114,
+      "sha256": "c4bc3308b10a2a8d38be476db155d60f659f82969743f5a12b2bcccd535dc5d6"
+    },
+    "features/technology/workshop-update.js": {
+      "bytes": 11595,
+      "sha256": "ccbaa88f626ed45ef70b18a5ce5f55167f44ad978e78db6892459b4cbd8ad539"
+    },
+    "features/technology/workshop.css": {
+      "bytes": 3303,
+      "sha256": "636955e5097f86e004b10b5f200ff21864bba949f158e0153516e06d0e5c6d8d"
     },
     "features/void/apartment-doors.js": {
       "bytes": 4646,
       "sha256": "b392a522ec57641829fef80f1559476672cedb889905d9f66a372c2f09b2f620"
     },
     "features/void/cave-treasury.js": {
-      "bytes": 4539,
-      "sha256": "13e343f174fdbe410f0704665bffca886ef9c1a85f06384c46150d754ee0c171"
+      "bytes": 4676,
+      "sha256": "a1a51479aaee7a2e124d6a325c61a74427e40a0344a3e34049e9af3870959150"
     },
     "features/void/data/void-assets.js": {
       "bytes": 677407,
       "sha256": "503338f59b241eb7b4af6321f403c5272b2d85fa3c08430a719e116ff9f240c1"
     },
     "features/void/rage-armor.js": {
-      "bytes": 846,
-      "sha256": "8859651e4a74c23b633e58292d07d264fa8f4640888d787f7ad9b2653aa48c7c"
+      "bytes": 761,
+      "sha256": "8ae2a745f32298891e692de617f6bbb0b98e1498ec23ea9acb96eb27516e8769"
     },
     "features/void/void-art.js": {
-      "bytes": 6990,
-      "sha256": "2c3e3aa57c6fc9b37bbf3112ea1e948d63f91efaa1b6b0f0ac6ea40c8dcba9e3"
+      "bytes": 7378,
+      "sha256": "06b1f9cdc40f24d265a45b48246ddd7871b06fb30315c962b3b4dabe207b8d36"
     },
     "features/void/void-district.js": {
-      "bytes": 20356,
-      "sha256": "8d97e3733eaa59c2c50f2398a7624e48b4463192d65d035ca446ab47d09e4d50"
+      "bytes": 22049,
+      "sha256": "97c1b38f91e074a8df52d8715a69c2c2a1427eeb21add80cfdf5012fd2d01e95"
     },
     "features/void/void-update.css": {
       "bytes": 3519,
@@ -490,156 +838,168 @@
       "sha256": "0be31a441517629e4fb0de7137e3c2fd27c9728ecc5734472ae176accf70cf20"
     },
     "features/void/world-weather.js": {
-      "bytes": 5565,
-      "sha256": "c50af36d09d1163fcf75f92599a148112143fc96ea7d0a07f7ed023f4f4baafc"
+      "bytes": 7159,
+      "sha256": "3c2b78606b075622b5f148b0615400dc41a883a532efe75c34e6410fe56656c6"
     },
     "features/volcano/data/volcanic-assets.js": {
       "bytes": 237836,
       "sha256": "f5e0e945c38e6c099f20904fd65943830b7e986f8745c93fb0074282140aa177"
     },
     "features/volcano/dragon-flight.js": {
-      "bytes": 4558,
-      "sha256": "411f0e8fcb98dbf6e472a9bbef178a037e9ce01e664fe194541b2e6b9d324ec7"
+      "bytes": 4632,
+      "sha256": "5630c52b4f139df0a1927781bb06b5f120c7404bfdeb248bdc79550036d8d8e2"
     },
     "features/volcano/volcanic-valley.js": {
-      "bytes": 24662,
-      "sha256": "6275b003b5fc94103f0912521036c399b2a9ca0f672cd9753ca486f03aac023c"
+      "bytes": 26045,
+      "sha256": "862c2b4e6eaf4772139453fe0a571ad7fbb0bc04cda10b63a3b7fb48bc50412a"
     },
     "features/world/antarctic-realm.js": {
-      "bytes": 9262,
-      "sha256": "d2dd91337d8a83d3429352a52462c4f2236cd4e63e9322bd01e3156883a75b26"
+      "bytes": 9911,
+      "sha256": "d4cbc4960432b3c1dd3b3254e754f643bea281941b0d21172b33f7bd7422b202"
     },
     "features/world/aquatic-ecology.js": {
-      "bytes": 6179,
-      "sha256": "a0ecf54821b5daf459dbe3bcbc48d238d5ce7a207a46eb1434405596e10215ed"
+      "bytes": 7005,
+      "sha256": "a03e24a8fd2b0808b1d63dc159c3f06e94ab98f0116ff6ed73d2748a3c3b8614"
     },
     "features/world/candy-fortress.js": {
       "bytes": 3975,
       "sha256": "e4e23ea11cd82e0056fd3ba7b82e4c546e6e6b99f2a4a751a6690f8725751d08"
     },
     "features/world/candy-kingdom.js": {
-      "bytes": 15255,
-      "sha256": "f5934da2e2568620c2cdfca8762fc48e18dc1a32c391d8820539292129dfc144"
+      "bytes": 17403,
+      "sha256": "8ccac2a6bc167ab4e81d7828e98f959ff217ee0bac494606d34cb14368454e01"
     },
     "features/world/candy-provisions.js": {
-      "bytes": 4201,
-      "sha256": "42df90fbfdcaddf9620b904931156f62d12b8028d545218bc14e86c54c33cfc6"
+      "bytes": 4531,
+      "sha256": "da93efbbad030b84587ebb776fd2d70d7dc79ee4be49e5539049d93d667ff532"
     },
     "features/world/construction-zones.js": {
-      "bytes": 3155,
-      "sha256": "2e197b2d8616d11d94974a85554424ff0b5e31f887ba91537a34ad2e16fdf9e7"
+      "bytes": 3297,
+      "sha256": "a2cca7207575759f5e4800c55b1f4f9bb8a7a84e46fe009630d473c6299e1058"
     },
     "features/world/data/expanded-realm.js": {
       "bytes": 987959,
       "sha256": "271138ccdf94a1c645bbd6e83da59001f94ab31c6c825b1062a87fb085076ba4"
     },
     "features/world/data/highland-walking-routes.js": {
-      "bytes": 3063149,
-      "sha256": "3740d9998a27ea7d10eb33df901c5c5163a8cce3f3bc9ce51e3513610ec48c43"
+      "bytes": 2699251,
+      "sha256": "c2b799922ba64774207835c56625bb7181b2065793af4acb2842ad10d46009da"
     },
     "features/world/data/lunar-village-assets.js": {
       "bytes": 480769,
       "sha256": "104e5fe0241b53abd06ec9bb511480471bcb911095fcc086e9054fcf99cc46e4"
     },
+    "features/world/data/vip-mines.js": {
+      "bytes": 3947278,
+      "sha256": "4a52a74e9978fa2ae3958c78c72d134bc6486eb2f19ec1ab128299e02662c407"
+    },
     "features/world/expanded-realm.js": {
-      "bytes": 9145,
-      "sha256": "f6bbbe0995b2ef7521b8552b2afc54f895efc52f65cbfcea222f7f8953be3448"
+      "bytes": 9725,
+      "sha256": "95af7b387aa7f77ec454a17cdf40c0e9c049599d354c83c7ffc619a8174bcc19"
     },
     "features/world/exploration-update.css": {
       "bytes": 595,
       "sha256": "dc848ee71bfeb9b8d23b8999f81e245d77fed02ed65e8e005da147874da3b636"
     },
     "features/world/exploration-update.js": {
-      "bytes": 21821,
-      "sha256": "253c92a65b24bf11f4f440d0e570910518040bb7b084c9c9b0c33d522263f042"
+      "bytes": 25036,
+      "sha256": "897dce7a16123dbe64998675045410391a37c8e8e46192f338c944918b70fc7f"
     },
     "features/world/graphics-quality.js": {
-      "bytes": 9602,
-      "sha256": "bca0881fc690cea05f17238453214a15d33a5bef67b5f2b86dfbdf4c14d0af17"
+      "bytes": 11226,
+      "sha256": "fd33d98976f71ad30d821fbd4ba7627ce7b8ed6883f3ceea881ddd5fb5fbda62"
     },
     "features/world/highland-trails.js": {
-      "bytes": 22286,
-      "sha256": "b034f8d6dbef5c8710d2d0314b2cf0da03a3229974ce303e389572a626970a15"
+      "bytes": 26210,
+      "sha256": "2d23af099b932b45c177c0f734e3892a12e4488229870d469d7dbdfafe472b69"
     },
     "features/world/living-world.js": {
-      "bytes": 15874,
-      "sha256": "331e1c4434590fa34af8589a81ab39ceb398bfd7b2dbf9345cfb3a41f4b135af"
+      "bytes": 16903,
+      "sha256": "08d49545a786fcde17d8d53936e161c9d910684e7b27f1ef4d6c39e60f51a9e6"
     },
     "features/world/lunar-biome.js": {
-      "bytes": 5084,
-      "sha256": "d6ee3f48dbfcb5425842e728fa7febbc73188a25ddde80fb0ed74b02efb0d540"
+      "bytes": 5661,
+      "sha256": "94d6aebce9e271e6cefee2a7f8b46038f6c54c9b8ddce3eea4b4782bb1dba5cb"
     },
     "features/world/lunar-surface-finish.js": {
-      "bytes": 13519,
-      "sha256": "8beb573d05f55658a44a8160d2c617a05029f3544d3f6691668ce14683e89be9"
+      "bytes": 14160,
+      "sha256": "1f55d2cdde21ba2f043a3b8bd9d5c33f9a0558ed623f838ac6771adde5be7eea"
     },
     "features/world/lunar-village-art.js": {
       "bytes": 6207,
       "sha256": "034fceba87f787a5ea9f30f50e9c3451a36df3614a0ecf5b91a68a402ba5e30c"
     },
     "features/world/map-visual-repair.js": {
-      "bytes": 4744,
-      "sha256": "59f95b980ef241cfa0aeadf18ada07bca11db951270acff90f91707349ed458d"
+      "bytes": 4917,
+      "sha256": "7156661a15586a1f5abd56c5e97f4d258bbf0d2b19d3e79d0e549bf1f39b4ac7"
     },
     "features/world/monster-camps.js": {
-      "bytes": 20516,
-      "sha256": "d6ee8f83452181369970ad07ad62420c39d87048e9990a6306a6f605fec4dbf9"
+      "bytes": 23232,
+      "sha256": "192326d15b1d6d942ef70aa882199b7e897503cc8ad3b4fecb26e0f2db63d469"
     },
     "features/world/monster-skills.js": {
-      "bytes": 11231,
-      "sha256": "be3bd05b3a6a390f3e2a32b200f5cf5b3fc856da62ff27f0909d42f6b1dabb1d"
+      "bytes": 13608,
+      "sha256": "667c2c10c519dc969b7c8604d69c8d8a3a4fa53149bae1e5e7e76aeb90a44570"
     },
     "features/world/moon-underlayer.js": {
-      "bytes": 1200,
-      "sha256": "e3e8c7e9ceba40114b43c29db149e1726b90484413702b038cb86f437e7215c5"
+      "bytes": 1340,
+      "sha256": "699d04a88248cbb8829fb0fa9a0895b01b8c21556d6103d9fb0640fcb7821843"
     },
     "features/world/polar-ecology.js": {
-      "bytes": 4108,
-      "sha256": "6664bb5d8a859e3db40a5f9a7274c781b32f8336a34117bbcfcd1d9631b2ac17"
+      "bytes": 4308,
+      "sha256": "9f07ea725c857c0c65b4b52b325a5e584a3984f95613364d9ac1b79862aeeafc"
     },
     "features/world/realm-scenery.js": {
-      "bytes": 7324,
-      "sha256": "23968bf69b3bc322ef43cb5c2c409a91698da2b5fc3fa591db294ea7b23adcf8"
+      "bytes": 7843,
+      "sha256": "82a206fcdc6492d05e1d7480784bf8d88ff3e21a54604e433970d37db70c0e73"
     },
     "features/world/realm-transit-update.js": {
-      "bytes": 25203,
-      "sha256": "1f821c666a0c8ae6a207d4b12e2ac5e288291674973fd15869d4c379f64ef79b"
+      "bytes": 27410,
+      "sha256": "b30bc4e4af828e8bbe856fed0d81527e94b3b4c364134cb83b33219ea69d9da0"
+    },
+    "features/world/removed-castle.js": {
+      "bytes": 393,
+      "sha256": "eb6a95436d821a2c33a20902ef610940ee3f006987a42649742ef39e9a2ff4bb"
     },
     "features/world/santa-gifts.js": {
-      "bytes": 9463,
-      "sha256": "33817b5b0b7b2cb95c625aafdb8993c1e134ee9cd8d742498619ff83a807949e"
+      "bytes": 10188,
+      "sha256": "1615e5217dcff83c6ac03722a74b8c1735739d9b2378df95885ed116d777b703"
     },
     "features/world/snow-queen.js": {
-      "bytes": 6972,
-      "sha256": "772ef4d32fcdd2ea7b47cb889beea4110ce2fa463c559393dc407da2f2ecc340"
+      "bytes": 7265,
+      "sha256": "ab571f1849e93f7ba0dd484166b445a2362071d1c3c41c7ebb3f30ea6374dd3d"
     },
     "features/world/southern-expansion.js": {
-      "bytes": 10793,
-      "sha256": "8968ba419733a531e43bc707127f5036f57d76abe85c5e2c9a58d57787488cd7"
+      "bytes": 11633,
+      "sha256": "85d0f35a9bf76b821e51327829e3a2c00c169aba398cfe03ceba7f1de0a32d0b"
     },
     "features/world/surface-sync.js": {
-      "bytes": 5876,
-      "sha256": "d57bdd766ce5cc6586067a37e7c599c43330c16fdd0a5a7122fcb7f75a3578bc"
+      "bytes": 6513,
+      "sha256": "792e6a00b044bc3052f56e32a859e9e09c289b3abaa48b932cf6d849c1f107d6"
     },
     "features/world/terrain-continuity.js": {
-      "bytes": 6599,
-      "sha256": "7d0a862451d2796731b9a33de55afbc9dbdb26e1779f4a9256fd5d917257fa33"
+      "bytes": 7675,
+      "sha256": "922c6b76879f10ec01492cb1617ac93ca3e9ae9009eac7fd3e58bc94a3078efa"
     },
     "features/world/terrain-traversal.js": {
-      "bytes": 3349,
-      "sha256": "329d9c3cc689fd57afad5f42422f5bf105647f95f8acfe774c1eeba5882257d4"
+      "bytes": 3541,
+      "sha256": "fc8d4eb274e595c44a5ae139dabfd5beb3469085ff23934e60856e2d1120ce39"
+    },
+    "features/world/treasure-supplies.js": {
+      "bytes": 10720,
+      "sha256": "986c21b0bca66d37a8b966360d7a6d86ff29b2d7fd77ff68475506d031306abb"
     },
     "features/world/western-highlands.js": {
-      "bytes": 16570,
-      "sha256": "ede2d6b17c88235f5fb1834528ccbe9d66d000f0319f0de00d09dcb3e69c7370"
+      "bytes": 17545,
+      "sha256": "2a1e220d9794b753fd3b3e896e74a2ab3f36269d2cb0a460eaf540132749c045"
     },
     "features/world/world-residents.js": {
-      "bytes": 11709,
-      "sha256": "5aa78f56a3645c1e7c8df71cf257ab2f96c231634d1328495f9846cdcb567046"
+      "bytes": 12230,
+      "sha256": "bf1d1a34c924ee7b325f52846927cf6c0d479530f3792e203690ed974b3bc06c"
     },
     "index.html": {
-      "bytes": 273634,
-      "sha256": "746e94cb45676a2e406c04ff0a8b4d3952f39e2ffed5eb6f453ba88e6465e6e6"
+      "bytes": 60533,
+      "sha256": "c90fa0213380a26b7332907b1c45b9e20b2b2766a18a5dc0a29b3319ccdc7a79"
     },
     "manifest.webmanifest": {
       "bytes": 571,

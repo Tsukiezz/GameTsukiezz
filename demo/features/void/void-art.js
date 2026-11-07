@@ -24,17 +24,17 @@ function planVoidPromenade(start,end,floor,blocked){
 
 /* Choose a completely dry unoccupied district beside an existing straight route.
    Adds a stop, never replaces any of the old stops or changes protected curves. */
-function planVoidDistrict(services,height,survey,waterAt,specs){
-    const all=services.flatMap(s=>s.points),cell=100,grid=new Map();for(const p of all){const k=Math.floor(p.x/cell)+','+Math.floor(p.z/cell);if(!grid.has(k))grid.set(k,[]);grid.get(k).push(p);}
+async function planVoidDistrict(services,height,survey,waterAt,specs){
+    const all=services.flatMap(s=>s.points),cell=100,grid=new Map();for(const p of all){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const k=Math.floor(p.x/cell)+','+Math.floor(p.z/cell);if(!grid.has(k))grid.set(k,[]);grid.get(k).push(p);}
     const nearRail=(x,z,r)=>{for(let a=Math.floor((x-r)/cell);a<=Math.floor((x+r)/cell);a++)for(let b=Math.floor((z-r)/cell);b<=Math.floor((z+r)/cell);b++)if((grid.get(a+','+b)||[]).some(p=>Math.hypot(p.x-x,p.z-z)<r))return true;return false;};
     let best=null;
-    for(const service of services)for(let i=100;i<service.points.length-100;i+=45){const p=service.points[i];if(p.z> -1200||Math.abs(p.x)>2150||specs.some(s=>Math.hypot(s.position[0]-p.x,s.position[2]-p.z)<380))continue;const a=service.points[i-35],b=service.points[i+35],d=b.clone().sub(a);d.y=0;d.normalize();if(service.points.slice(i-35,i+36).some(q=>Math.abs((q.x-p.x)*d.z-(q.z-p.z)*d.x)>.2))continue;
+    for(const service of services){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(let i=100;i<service.points.length-100;i+=45){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const p=service.points[i];if(p.z> -1200||Math.abs(p.x)>2150||specs.some(s=>Math.hypot(s.position[0]-p.x,s.position[2]-p.z)<380))continue;const a=service.points[i-35],b=service.points[i+35],d=b.clone().sub(a);d.y=0;d.normalize();if(service.points.slice(i-35,i+36).some(q=>Math.abs((q.x-p.x)*d.z-(q.z-p.z)*d.x)>.2))continue;
         const yaw=Math.atan2(d.x,d.z);
-        for(const sign of [-1,1]){const center=p.clone().add(new THREE.Vector3(d.z*sign*290,0,-d.x*sign*290)),local=(x,z)=>new THREE.Vector3(x,0,z).applyAxisAngle(new THREE.Vector3(0,1,0),yaw).add(center);let valid=true,lo=Infinity,hi=-Infinity;
-            for(let x=-155;x<=155&&valid;x+=25)for(let z=-85;z<=85;z+=25){const q=local(x,z),h=height(q.x,q.z);if(Math.abs(q.x)>3150||Math.abs(q.z)>3150||waterAt(q.x,q.z)||nearRail(q.x,q.z,65)||survey.top(q.x,q.z,8,h+150,h+.4)>h+.4){valid=false;break;}lo=Math.min(lo,h);hi=Math.max(hi,h);}
+        for(const sign of [-1,1]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const center=p.clone().add(new THREE.Vector3(d.z*sign*290,0,-d.x*sign*290)),local=(x,z)=>new THREE.Vector3(x,0,z).applyAxisAngle(new THREE.Vector3(0,1,0),yaw).add(center);let valid=true,lo=Infinity,hi=-Infinity;
+            for(let x=-155;x<=155&&valid;x+=25){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(let z=-85;z<=85;z+=25){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const q=local(x,z),h=height(q.x,q.z);if(Math.abs(q.x)>3150||Math.abs(q.z)>3150||waterAt(q.x,q.z)||nearRail(q.x,q.z,65)||survey.top(q.x,q.z,8,h+150,h+.4)>h+.4){valid=false;break;}lo=Math.min(lo,h);hi=Math.max(hi,h);}}
             if(!valid||hi-lo>5)continue;const score=(hi-lo)*100+Math.abs(p.x)*.01;if(!best||score<best.score)best={score,center,yaw,lineId:service.id,railPoint:p.clone(),level:hi+.12};
         }
-    }
+    }}
     if(!best)throw Error('Void district: no safe dry site beside railway');
     window.voidDistrictPlan=best;specs.push({name:'Ga Chung Cư Hư Không',lineId:best.lineId,position:best.railPoint.toArray(),maxDistance:220});return best;
 }

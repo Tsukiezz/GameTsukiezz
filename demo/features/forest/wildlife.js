@@ -1,5 +1,6 @@
 /* Small, harmless woodland animals. Only nearby habitats own live models. */
-function installForestWildlife(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installForestWildlife(){
     const species=['frog','rabbit','pig','horse'],templates={},materials=new Map(),sphere=new THREE.SphereGeometry(1,10,7),box=new THREE.BoxGeometry(1,1,1);
     function material(color){if(!materials.has(color))materials.set(color,new THREE.MeshStandardMaterial({color,roughness:.88}));return materials.get(color);}
     function make(kind){
@@ -32,9 +33,9 @@ function installForestWildlife(){
     let seed=82971;const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
     const habitats=[],actors=new Map(),pool=[],group=new THREE.Group();group.name='PrimordialWildlife';scene.add(group);
     function valid(x,z,r=.35){const y=ancientGrove.ground(x,z);return y!==null&&x>151&&x<439&&z> -241&&z<37&&Math.hypot(x-340,z+150)>18&&!checkCollision(x,z,y,r);}
-    for(let iz=0;iz<9;iz++)for(let ix=0;ix<9;ix++){
-        for(let attempt=0;attempt<24;attempt++){const x=162+ix*31+random()*12,z=-232+iz*29+random()*12;if(valid(x,z,.5)){habitats.push({id:ix+','+iz,kind:species[(ix+iz*3)%4],x,z});break;}}
-    }
+    for(let iz=0;iz<9;iz++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(let ix=0;ix<9;ix++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
+        for(let attempt=0;attempt<24;attempt++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const x=162+ix*31+random()*12,z=-232+iz*29+random()*12;if(valid(x,z,.5)){habitats.push({id:ix+','+iz,kind:species[(ix+iz*3)%4],x,z});break;}}
+    }}
     let scan=0,time=0;
     function spawn(home){
         const slot=pool.findIndex(a=>a.kind===home.kind),actor=slot>=0?pool.splice(slot,1)[0]:{kind:home.kind,model:templates[home.kind].clone(true)};

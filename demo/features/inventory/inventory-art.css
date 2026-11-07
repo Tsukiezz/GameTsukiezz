@@ -1,0 +1,15 @@
+.inventory-slot .blender-item-icon{object-fit:contain;filter:drop-shadow(0 5px 6px #0005)}
+.modal-overlay.active .inventory-detail .blender-item-icon{animation:inventory-item-float 3s ease-in-out infinite;object-fit:contain}
+@keyframes inventory-item-float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2deg)}}
+@media(prefers-reduced-motion:reduce){.modal-overlay.active .inventory-detail .blender-item-icon{animation:none}}
+
+/* Gold corners and a violet inset distinguish rarity even without an image. */
+.inventory-tabs button[data-category=rare]{border-color:#9a79bc;color:#e7c9ff}
+.inventory-tabs button[data-category=rare][aria-pressed=true]{background:#443050;color:#fff0c1;border-color:#e2bc68}
+.inventory-slot[data-rarity=rare],.inventory-detail .backpack-item[data-rarity=rare],.workshop-recipes button[data-rarity=rare],.workshop-detail[data-rarity=rare],.repair-card[data-rarity=rare]{border:1px solid #ba9659;background:linear-gradient(145deg,#30253f,#111e30 65%);box-shadow:inset 0 0 0 3px #a97d3624,0 0 14px #9660ca15}
+.inventory-slot[data-rarity=rare]{position:relative;background-image:linear-gradient(#e5c477,#e5c477),linear-gradient(#e5c477,#e5c477),linear-gradient(#e5c477,#e5c477),linear-gradient(#e5c477,#e5c477),linear-gradient(145deg,#30253f,#111e30 65%);background-size:18px 2px,2px 18px,18px 2px,2px 18px,100% 100%;background-position:5px 5px,5px 5px,calc(100% - 5px) calc(100% - 5px),calc(100% - 5px) calc(100% - 5px),0 0;background-repeat:no-repeat}
+.inventory-slot[data-rarity=rare][aria-selected=true]{outline:2px solid #eed48d;outline-offset:2px;box-shadow:0 0 18px #a177ca44}
+.inventory-slot .slot-rarity{position:absolute;top:7px;right:8px;color:#f2cf83;font-size:16px;line-height:1}
+.inventory-rarity{display:inline-block;padding:3px 8px;margin:0 0 5px;border:1px solid #a98a55;border-radius:5px;background:#46344f;color:#f1d590;font-size:10px;letter-spacing:.04em}
+.workshop-recipes button[data-rarity=rare][aria-pressed=true]{border-color:#f0cd83;box-shadow:inset 3px 0 #e8c372}
+.workshop-recipes button[data-rarity=rare] span::after{content:'✦';color:#e8c372;margin-left:8px}

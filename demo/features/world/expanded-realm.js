@@ -7,23 +7,24 @@ function realmTerrainHeight(x,z){
     const a=d.heights[j*n+i],b=d.heights[j*n+i+1],c=d.heights[(j+1)*n+i],e=d.heights[(j+1)*n+i+1];
     return fx+fz<=1?a+(b-a)*fx+(c-a)*fz:e+(c-e)*(1-fx)+(b-e)*(1-fz);
 }
-function installMercuryLake(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installMercuryLake(){
     const data=EXPANDED_REALM_DATA.lake,group=new THREE.Group();group.name='MonumentalMercuryLake';group.position.set(data.x,0,data.z);scene.add(group);
-    const material={};for(const [key,rgb] of Object.entries(data.materials)){
+    const material={};for(const [key,rgb] of Object.entries(data.materials)){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const color=new THREE.Color(...rgb);
         material[key]=['rune','ember'].includes(key)?new THREE.MeshBasicMaterial({color}):new THREE.MeshStandardMaterial({color,roughness:.88,metalness:key==='silver'?.65:.15});
     }
     const bins=new Map();
-    for(const part of data.parts){
+    for(const part of data.parts){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         if(/lake-basalt-cliff|lake-outer-spire/.test(part.name))continue;
         if(!bins.has(part.material))bins.set(part.material,{vertices:[],indices:[]});
         const b=bins.get(part.material),offset=b.vertices.length/3;b.vertices.push(...part.vertices.flat());b.indices.push(...part.indices.map(i=>i+offset));
     }
-    for(const [key,b] of bins){
+    for(const [key,b] of bins){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(b.vertices,3));geometry.setIndex(b.indices);geometry.computeVertexNormals();
         const mesh=new THREE.Mesh(geometry,material[key]);mesh.name='MercuryArchitecture_'+key;mesh.receiveShadow=true;group.add(mesh);
     }
-    for(const c of data.colliders){
+    for(const c of data.colliders){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         if(/lake-basalt-cliff|lake-outer-spire/.test(c.name))continue;
         if(c.type==='box')addBoxCollider(data.x+c.x,data.z+c.z,c.width,c.depth,c.minY,c.maxY,Boolean(c.standable));
         else addCylinderCollider(data.x+c.x,data.z+c.z,c.radius,c.minY,c.maxY,false);
@@ -32,12 +33,12 @@ function installMercuryLake(){
     // Obsidian banks reuse the exact terrain triangles, so the dark shore
     // cannot create a different walking surface or a floating decorative floor.
     const shoreVertices=[],groundPositions=groundGeo.attributes.position,groundIndex=groundGeo.index;
-    for(let i=0;i<groundIndex.count;i+=3){
+    for(let i=0;i<groundIndex.count;i+=3){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const ids=[groundIndex.getX(i),groundIndex.getX(i+1),groundIndex.getX(i+2)];
         const x=ids.reduce((sum,id)=>sum+groundPositions.getX(id),0)/3-data.x;
         const z=ids.reduce((sum,id)=>sum-groundPositions.getY(id),0)/3-data.z;
         const radius=Math.hypot(x/data.rx,z/data.rz);if(radius<.9||radius>1.43)continue;
-        for(const id of ids)shoreVertices.push(groundPositions.getX(id)-data.x,groundPositions.getZ(id)+.025,-groundPositions.getY(id)-data.z);
+        for(const id of ids){if(window.gameBoot.shouldYield())await window.gameBoot.yield();shoreVertices.push(groundPositions.getX(id)-data.x,groundPositions.getZ(id)+.025,-groundPositions.getY(id)-data.z);}
     }
     const shoreGeometry=new THREE.BufferGeometry();shoreGeometry.setAttribute('position',new THREE.Float32BufferAttribute(shoreVertices,3));shoreGeometry.computeVertexNormals();
     const shoreMat=material.obsidian.clone();shoreMat.polygonOffset=true;shoreMat.polygonOffsetFactor=-1;shoreMat.polygonOffsetUnits=-2;
@@ -66,10 +67,10 @@ function installMercuryLake(){
     const mistMaterial=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,uniforms:{time:waterUniforms.time},
         vertexShader:`varying vec2 p;void main(){p=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
         fragmentShader:`uniform float time;varying vec2 p;void main(){float r=length((p-.5)*2.);float v=sin(p.x*28.+time*.07+sin(p.y*19.))*sin(p.y*22.-time*.05);float a=(1.-smoothstep(.3,1.,r))*(.04+max(0.,v)*.1);gl_FragColor=vec4(.38,.48,.55,a);}`});
-    for(let i=0;i<3;i++){
+    for(let i=0;i<3;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const mist=new THREE.Mesh(new THREE.PlaneGeometry(235,185),mistMaterial);mist.rotation.x=-Math.PI/2;mist.position.set(i*8-8,3+i*2,-8+i*12);mist.userData.optionalFlora=true;group.add(mist);
     }
-    for(const side of [-1,1]){
+    for(const side of [-1,1]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const light=new THREE.PointLight(0x6699bb,1.5,30);light.position.set(side*10,9,0);group.add(light);registerDynamicLight(light,85);
     }
     const r=data.ramp;

@@ -1,5 +1,6 @@
 /* Articulated Blender meshes, authoritative boss health and lake-only combat. */
-function installLakeMonsters(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installLakeMonsters(){
     const data=LAKE_MONSTER_DATA,lake=mercuryLake.data,actors=[],dynamicColliders=[];
     const panel=document.createElement('section');panel.id='lake-boss-hud';panel.hidden=true;panel.setAttribute('aria-label','Quái vật Hồ Thủy Ngân');
     const safety=document.createElement('div');safety.className='lake-boss-safety';panel.append(safety);document.getElementById('game-hud').append(panel);
@@ -18,17 +19,17 @@ function installLakeMonsters(){
     }
     function inZone(p){return Math.hypot((p.x-lake.x)/lake.rx,(p.z-lake.z)/lake.rz)<1.36&&p.y<20;}
     function canTarget(m,p){return !window.moonRailway?.aboard&&m.health>0&&inZone(p)&&Boolean(window.playerSurvival?.inWater(p))&&!onBridge(p)&&m.position.distanceTo(new THREE.Vector3(p.x,m.position.y,p.z))<=m.spec.detect;}
-    for(const spec of data.models){
+    for(const spec of data.models){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const group=new THREE.Group();group.name='LakeBoss_'+spec.id;scene.add(group);
         const joints={},materials={};
-        for(const [key,rgb] of Object.entries(data.materials)){
+        for(const [key,rgb] of Object.entries(data.materials)){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
             const color=new THREE.Color(...rgb);materials[key]=['eye','cosmic','rune'].includes(key)?new THREE.MeshBasicMaterial({color}):new THREE.MeshStandardMaterial({color,roughness:.7,metalness:key==='plate'?.4:.12});
         }
-        for(const [key,bone] of Object.entries(spec.joints)){
+        for(const [key,bone] of Object.entries(spec.joints)){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
             const joint=new THREE.Group();joint.name=spec.id+'_'+key;const parent=bone.parent?spec.joints[bone.parent].pivot:[0,0,0];joint.position.fromArray(bone.pivot).sub(new THREE.Vector3(...parent));
             (bone.parent?joints[bone.parent]:group).add(joint);joints[key]=joint;
         }
-        for(const part of spec.pieces){
+        for(const part of spec.pieces){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
             const pivot=spec.joints[part.joint].pivot;
             const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(part.vertices.flatMap(v=>v.map((n,i)=>n-pivot[i])),3));geometry.setIndex(part.indices);geometry.computeVertexNormals();
             const mesh=new THREE.Mesh(geometry,materials[part.material]);mesh.name=spec.id+'_'+part.joint+'_'+part.material;mesh.userData.lakeMonster=spec.id;joints[part.joint].add(mesh);
@@ -41,7 +42,7 @@ function installLakeMonsters(){
         const marker=new THREE.Mesh(new THREE.RingGeometry(spec.id==='ness'?7:6,spec.id==='ness'?7.4:6.4,48),new THREE.MeshBasicMaterial({color:0xff334c,transparent:true,opacity:.75,side:THREE.DoubleSide,depthWrite:false}));marker.rotation.x=-Math.PI/2;marker.visible=false;scene.add(marker);
         const m={spec,group,joints,materials,health:spec.maxHealth,maxHealth:spec.maxHealth,position:new THREE.Vector3(lake.x+spec.spawn[0],-2,lake.z+spec.spawn[1]),state:'patrol',timer:0,cooldown:0,phase:0,flash:0,yaw:0,marker,colliders:[],hp,bar,fill,stateLabel:state};
         const shapes=spec.id==='ness'?[[0,0,7.5],[0,-14,4],[0,-27,2],[0,10,3.5]]:[[0,-3,8],[0,-22,4.5],[0,-37,2],[0,21,6],[0,32,4.5]];
-        for(const [x,z,radius] of shapes){
+        for(const [x,z,radius] of shapes){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
             const high=z<-20?2.5:z<-10?4:spec.id==='ness'&&z===10?43:spec.id==='space_croc'&&z>15?13:8;
             const c={type:'cylinder',x:m.position.x+x,z:m.position.z+z,radius,minY:-12,maxY:6,localMinY:-8,localMaxY:high,isStandable:false,name:'lake-boss-'+spec.id,dynamicLakeMonster:true,localX:x,localZ:z};
             colliders.push(c);dynamicColliders.push(c);m.colliders.push(c);
@@ -60,21 +61,15 @@ function installLakeMonsters(){
     }
     function setState(m,state){m.state=state;m.timer=0;if(state!=='windup')m.marker.visible=false;}
     function distanceToBody(m,p){return Math.min(...m.colliders.map(c=>Math.hypot(Math.max(0,Math.hypot(p.x-c.x,p.z-c.z)-c.radius),Math.max(0,c.minY-p.y,p.y-c.maxY))));}
-    function damagePlayer(amount){
-        if(window.moonRailway?.aboard||!Number.isFinite(amount)||amount<=0)return false;
+    function damagePlayer(amount,special=false){
         if(!gameState.isPlaying||gameState.inDialogue||!window.playerSurvival?.inWater(playerGroup.position)||onBridge(playerGroup.position)||immunity>0)return false;
-        window.playerLife?.noteDamage('lake_monster');amount=heroIncomingDamage(amount);const absorbed=Math.min(gameState.armor,amount);gameState.armor-=absorbed;gameState.health=Math.max(0,gameState.health-(amount-absorbed));immunity=.65;
-        gameHud.classList.add('monster-hit');setTimeout(()=>gameHud.classList.remove('monster-hit'),250);
-        if(gameState.health===0){if(window.playerLife){playerLife.die();return true;}
-            gameState.health=gameState.maxHealth;gameState.armor=gameState.maxArmor;gameState.stamina=100;gameState.oxygen=100;immunity=3;pendingAttack=null;
-            for(const actor of actors)if(actor.health>0)setState(actor,'patrol');
-            resetGameplayInput();mercuryLake.travel();showNotification('Bạn đã gục ngã. Hồi phục tại cầu đá an toàn.');
-        }
-        updatePlayerVitals();return true;
+        if(!playerLife.hitMonster(amount,'lake_monster',{special}))return false;
+        immunity=.65;
+        return true;
     }
     function hitMonster(m,amount){
         if(m.health<=0||!Number.isFinite(amount)||amount<=0)return false;
-        m.health=Math.max(0,m.health-heroOutgoingDamage(amount));m.flash=.22;
+        m.health=Math.max(0,m.health-heroOutgoingDamage(amount,m.health));m.flash=.22;
         if(m.health===0){setState(m,'dead');syncColliders(m);window.fieldGuide?.record(m.spec.id,true);showNotification('Đã hạ '+m.spec.name+'!');}
         return true;
     }
@@ -174,12 +169,12 @@ function installLakeMonsters(){
     }
     function pause(){pendingAttack=null;for(const m of actors)if(m.health>0){setState(m,'patrol');m.cooldown=Math.max(1,m.cooldown);}}
     window.lakeMonsters={actors,colliders:dynamicColliders,onBridge,canTarget,update,beginPlayerAttack,resolvePlayerAttack,damagePlayer,hitMonster,pause};
-    for(const m of actors){
+    for(const m of actors){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         // Exported lake ruins are collidable. Find a clear home for the entire
         // surfaced body before its first patrol, rather than spawning in stone.
         const start=m.position.clone();let found=false;
-        for(const radius of [0,12,24,36,48]){
-            for(let i=0;i<16;i++){
+        for(const radius of [0,12,24,36,48]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
+            for(let i=0;i<16;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
                 const x=start.x+Math.cos(i*Math.PI/8)*radius,z=start.z+Math.sin(i*Math.PI/8)*radius;
                 if(m.spec.side*(x-lake.x)<38||Math.hypot((x-lake.x)/(lake.rx*.8),(z-lake.z)/(lake.rz*.8))>1||blockedAt(m,x,z,0))continue;
                 m.position.set(x,-2,z);found=true;break;

@@ -1,26 +1,44 @@
-# Tsuventure trên Windows
+# Tsuventure trên Windows — cửa sổ ứng dụng riêng
 
-Bấm **`Tsuventure.exe`** ở thư mục gốc để chơi. File có logo game và chứa sẵn bản đồ, âm thanh, model, hình ảnh cùng Three.js r128. Không cần cài Python hoặc Blender để chơi. Máy cần Windows có .NET Framework 4.5+ và Chrome/Edge; nếu không tìm thấy hai trình duyệt này, chương trình mở trình duyệt mặc định.
+Mở **`Tsuventure.exe`** ở gốc dự án hoặc biểu tượng Tsuventure trên Desktop. Bản từ **03/11/2026** hiển thị game trong cửa sổ Windows của Tsuventure, không mở Chrome, Edge hay trình duyệt mặc định, không cần tài khoản Google. **F11** bật/tắt toàn màn hình; đóng cửa sổ game sẽ thoát cả máy chủ của phiên đó.
 
-- Đặt EXE cạnh `demo/`: mở trực tiếp bản đồ hiện tại. Sửa dự án rồi đóng/mở game để thấy cập nhật.
-- Chép riêng EXE sang nơi khác: chương trình tự giải nén bản game đi kèm vào `%LOCALAPPDATA%\Tsuventure\Bundles\<mã bản dựng>`. Để cập nhật bản này, tải EXE mới rồi mở lại. Không tự tải mã từ Internet.
-- Game mở tại `http://127.0.0.1:8883/` trong cửa sổ riêng, giữ cùng địa chỉ và hồ sơ trình duyệt để tiếp tục dùng save đang có. Nếu đổi Chrome sang Edge thì dữ liệu lưu thuộc hồ sơ trình duyệt tương ứng.
-- Khi máy chủ đã chạy từ dự án, EXE dùng lại phiên đó. Nếu bản EXE cũ đang chạy nền, mở bản mới sẽ bàn giao máy chủ sang dữ liệu mới.
-- Để tắt máy chủ do EXE khởi động: nhấp phải logo Tsuventure ở khay hệ thống → **Thoát Tsuventure**. Đóng cửa sổ game vẫn giữ máy chủ nhẹ ở nền để mở lại nhanh.
+Game tiếp tục dùng Three.js/WebGL trong **Microsoft WebView2 Runtime** nhúng. Đây là bộ hiển thị ứng dụng, không phải tab trình duyệt và không phải việc chuyển dự án sang Unity/Unreal. Máy này đã có WebView2 Runtime. Máy khác cần Windows, .NET Framework **4.6.2+** và Microsoft WebView2 Runtime; nếu thiếu, ứng dụng báo rõ, không tự mở Chrome hoặc âm thầm cài phần mềm.
 
-File chưa ký số. Nguồn build được cung cấp trong repository để có thể tự dựng lại. Font giao diện dùng bản dự phòng nếu Google Fonts không truy cập được; bộ máy 3D và dữ liệu chơi đã có sẵn trong EXE.
+## Offline và tài nguyên
 
-## Dựng lại
+- EXE chứa bản đồ, Three.js, model, ảnh, âm thanh, thư viện WebView2 .NET và loader x86/x64. Không cần Python/Blender để chơi.
+- Đã bỏ Google Fonts và preconnect tới Google; dùng font dự phòng của Windows. Trong cửa sổ ứng dụng, request nội dung chỉ được đi tới máy chủ game loopback, chặn trang ngoài và cửa sổ bật lên.
+- Đặt EXE cạnh `demo/`: chạy dữ liệu dự án hiện tại. Chép riêng EXE: tự giải nén bundle đi kèm vào `%LOCALAPPDATA%\Tsuventure\Bundles\<bundle>`.
+- Máy chủ nội bộ `127.0.0.1:8883` chỉ phục vụ game trên máy, không cần Internet và không hiển thị thanh địa chỉ. WebView2 Runtime có cơ chế cập nhật riêng của Microsoft; không dùng Google để chơi.
+- Dữ liệu dựng cảnh vẫn cần thời gian tải. Cửa sổ giữ màn hình chờ 0–100% và chỉ cho điều khiển sau khung hình sẵn sàng.
+- Tải xong vào sảnh chính; bấm **CHƠI** để vào thế giới. Sảnh thu gọn thành menu hai cột khi cửa sổ thấp, tự cuộn khi thiếu chỗ và giữ logo/nút bấm trong chiều ngang màn hình.
 
-Tại gốc repository:
+## Bản lưu riêng
+
+Hồ sơ hiển thị: `%LOCALAPPDATA%\Tsuventure\PlayerData`.
+
+Bản lưu JSON: `%LOCALAPPDATA%\Tsuventure\Saves\progress.json`; bản trước nằm cạnh đó với đuôi `.previous`. Game vẫn giữ localStorage riêng trong hồ sơ ứng dụng; các thay đổi được đồng bộ vào JSON có giảm tần suất ghi, và lấy snapshot lần cuối khi đóng cửa sổ.
+
+Lần đầu dùng bản mới, nếu chưa có bản lưu native, launcher đọc **chỉ các khóa `tsuventure_*` / `tsukiezz_*` của origin `http://127.0.0.1:8883`** trong dữ liệu localStorage cũ của Chrome/Edge. Không mở trình duyệt, không đổi profile cũ, không lấy cookie/mật khẩu/dữ liệu website khác. Bộ đọc hỗ trợ WAL phân mảnh, SST và Snappy, theo sequence và bản ghi xóa. Đã kiểm tra đọc được 26 khóa game trên máy hiện tại. Không trộn tiến trình giữa các profile khác nhau.
+
+Thanh menu **Bản lưu → Xuất bản lưu / Nhập bản lưu** cho phép chuyển sang máy khác hoặc phục hồi. Nhập cần xác nhận, sao lưu tiến trình hiện tại, rồi tải lại game; không tự áp lại bản nhập ở mỗi lần reload. Không dùng chung profile WebView2 với profile trình duyệt.
+
+## Cập nhật
+
+EXE chạy bản sao host theo SHA-256 trong `%LOCALAPPDATA%\Tsuventure\Launcher\<SHA>`, giúp file ở Desktop thay thế được khi game đang chạy. Mở lại cùng phiên sẽ đưa cửa sổ hiện tại lên trước; đổi bản dựng sẽ bàn giao server cũ sang bản mới. Nhận diện taskbar và lệnh mở lại trỏ tới launcher gốc.
+
+EXE chép riêng cần thay bằng EXE mới để cập nhật. Không có cơ chế tự tải bản mới từ GitHub. Các release cũ trên GitHub vẫn có thể là launcher dùng trình duyệt; bản native hiện tại là file EXE ở dự án này cho tới khi được phát hành riêng.
+
+## Dựng lại và kiểm thử
 
 ```powershell
 python tools/refresh_web_assets.py
 python tools/desktop/build_exe.py
+python tools/desktop/verify_exe.py
+python tools/desktop/verify_native_storage.py
+node tools/desktop/verify_native.js
 ```
 
-Máy dựng cần Python với Pillow và compiler .NET Framework tại `C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe`. Dữ liệu đóng gói chỉ lấy `demo/`, loại `demo/verification/`; không đưa `.git`, source Blender, báo cáo hay save cá nhân vào EXE. Build ID, SHA-256 và danh sách tài nguyên nằm ở `docs/desktop-build.json`.
+Build cần Python/Pillow, compiler .NET Framework và SDK WebView2 chính thức. `ensure_webview2.py` tải SDK tại build nếu thiếu, kiểm tra phiên bản/SHA-256 đã ghim trong `webview2-dependency.json`. Người chơi không cần tải SDK. Giấy phép tại `docs/third-party/`, đồng thời nhúng trong EXE. Các DLL của host được kiểm tra hash và giải nén vào `%LOCALAPPDATA%\Tsuventure\Native\<launcherId>`.
 
-Kiểm tra bằng `python tools/desktop/verify_exe.py --keep-server`. Lệnh dùng EXE chép riêng, cổng 8897 và cache kiểm thử trong `.runtime/desktop-test`, không thay save ở cổng chơi 8883. Sau đó có thể chạy các suite trình duyệt với `GAME_URL=http://127.0.0.1:8897/?arena=1`.
-
-Launcher C# dùng máy chủ TCP trên loopback, hỗ trợ GET/HEAD, MIME, seek video/audio qua byte range và kiểm tra đường dẫn sau khi giải quyết liên kết thật của Windows/OneDrive. Các request ghi hoặc đường dẫn ra ngoài thư mục game bị chặn. Không cần quyền quản trị để mở cổng loopback 8883.
+Kiểm thử native dùng EXE chép riêng, cổng 8896, hồ sơ và bản lưu trong `.runtime/native-desktop/checks/`. Cổng debug chỉ bật khi truyền riêng `--test-debug-port`; bản mở bình thường không bật DevTools/debug port. Kiểm thử server/đóng gói dùng cổng 8897. Không thay save người chơi tại 8883. Log lỗi native ở `%LOCALAPPDATA%\Tsuventure\native.log`.

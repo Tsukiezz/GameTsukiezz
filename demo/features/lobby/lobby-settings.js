@@ -3,7 +3,7 @@
     const key='tsuventure_settings';
     let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch{}
     const volume=(value,fallback)=>Number.isFinite(Number(value))?Math.min(100,Math.max(0,Number(value))):fallback;
-    const settings={language:saved.language==='en'?'en':'vi',bgm:volume(saved.bgm,80),sfx:volume(saved.sfx,90),muted:saved.muted===true,bgmEnabled:saved.bgmEnabled!==false};
+    const settings={language:['vi','en','fr','es'].includes(saved.language)?saved.language:'vi',bgm:volume(saved.bgm,80),sfx:volume(saved.sfx,90),muted:saved.muted===true,bgmEnabled:saved.bgmEnabled!==false};
     const pairs={
         'M\u01b0\u1ee3t':'Smooth','Trung B\u00ecnh':'Medium','Cao':'High',
         'King Kong Đấm Bốc':'King Kong Boxer','Hộ Vệ • Quyền Anh':'Guardian • Boxing','Đấm bốc':'Boxing',
@@ -70,24 +70,31 @@
         'VỊ TRÍ HIỆN TẠI':'CURRENT LOCATION','BẢN ĐỒ':'MAP',
         'Menu sảnh chính':'Lobby menu','Bật/Tắt Âm Thanh':'Toggle audio',
     };
-    const reverse=Object.fromEntries(Object.entries(pairs).map(([vi,en])=>[en,vi]));
-    function translate(value){
+    Object.assign(pairs,TSU_INTERFACE_LOCALES.extra);
+    const reverse=Object.fromEntries(Object.entries(pairs).map(([vi,en])=>[en,vi])),canonical=new Map();
+    for(const [vi,en] of Object.entries(pairs)){canonical.set(vi,en);canonical.set(en,en);}
+    for(const lang of ['fr','es'])for(const [en,text] of Object.entries(TSU_INTERFACE_LOCALES[lang])){canonical.set(en,en);canonical.set(text,en);}
+    const escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    const phrases=[...canonical.keys()].sort((a,b)=>b.length-a.length),fragmentPattern=new RegExp('(^|[\\s·:()—/])('+phrases.map(escape).join('|')+')(?=$|[\\s·:()—/!?.,])','gu');
+    function fromEnglish(en){return settings.language==='vi'?(reverse[en]||en):settings.language==='en'?en:(TSU_INTERFACE_LOCALES[settings.language][en]||en);}
+    function translateText(value){
         const trim=value.trim(),leading=value.slice(0,value.indexOf(trim));
-        const table=settings.language==='en'?pairs:reverse;
-        if(table[trim])return leading+table[trim]+value.slice(leading.length+trim.length);
+        if(canonical.has(trim))return leading+fromEnglish(canonical.get(trim))+value.slice(leading.length+trim.length);
         // Preserve the icon in compact HUD labels.
-        for(const [from,to] of Object.entries(table))if(trim.endsWith(from)&&trim.length-from.length<=5)return value.replace(from,to);
-        return value;
+        for(const from of phrases)if(trim.endsWith(from)&&trim.length-from.length<=7)return value.slice(0,value.lastIndexOf(from))+fromEnglish(canonical.get(from));
+        return value.replace(fragmentPattern,(_,prefix,phrase)=>prefix+fromEnglish(canonical.get(phrase)));
     }
+    const translationCache=new Map();
+    function translate(value){const key=settings.language+"\0"+value;if(translationCache.has(key))return translationCache.get(key);const result=translateText(value);if(translationCache.size>2500)translationCache.clear();translationCache.set(key,result);return result;}
     let observer;
     function localize(root=document.body){
         observer?.disconnect();
         const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
         let node;while((node=walker.nextNode())){
-            if(node.parentElement?.closest('script,style,option'))continue;
+            if(node.parentElement?.closest('script,style,option,.language-picker'))continue;
             const result=translate(node.nodeValue);if(result!==node.nodeValue)node.nodeValue=result;
         }
-        for(const el of root.querySelectorAll('[title],[aria-label]'))for(const attr of ['title','aria-label'])if(el.hasAttribute(attr)){
+        for(const el of root.querySelectorAll('[title],[aria-label],[placeholder]'))for(const attr of ['title','aria-label','placeholder'])if(el.hasAttribute(attr)){
             const old=el.getAttribute(attr),next=translate(old);if(old!==next)el.setAttribute(attr,next);
         }
         document.documentElement.lang=settings.language;
@@ -107,8 +114,11 @@
         document.querySelectorAll('.btn-preset').forEach(b=>b.classList.toggle('active',b.id==='btn-preset-'+key));
         document.getElementById('current-profile-label').textContent=translate(graphicsProfiles[key].name);dirty();
     }
-    const select=document.getElementById('setting-language');select.value=settings.language;
-    select.addEventListener('change',()=>{draft.language=select.value==='en'?'en':'vi';dirty();});
+    const select=document.getElementById('setting-language');select.innerHTML='<option value="vi">Tiếng Việt</option><option value="en">English</option><option value="fr">Français</option><option value="es">Español</option>';select.value=settings.language;select.hidden=true;
+    const languagePicker=document.createElement('div');languagePicker.className='language-picker';languagePicker.setAttribute('role','group');languagePicker.setAttribute('aria-label','Ngôn ngữ');select.after(languagePicker);
+    function syncLanguageButtons(){for(const button of languagePicker.children)button.setAttribute('aria-pressed',String(button.dataset.language===draft.language));}
+    for(const [id,name] of [['vi','Tiếng Việt'],['en','English'],['fr','Français'],['es','Español']]){const button=document.createElement('button');button.type='button';button.dataset.language=id;const flag=document.createElement('img');flag.src='features/lobby/assets/ui/flag-'+id+'.svg';flag.alt='';const label=document.createElement('span');label.textContent=name;button.append(flag,label);button.onclick=()=>{select.value=id;select.dispatchEvent(new Event('change'));};languagePicker.append(button);}
+    select.addEventListener('change',()=>{draft.language=['vi','en','fr','es'].includes(select.value)?select.value:'vi';syncLanguageButtons();dirty();});syncLanguageButtons();
     function applyAudio(){
         sfx.muted=settings.muted;
         if(sfx.bgmGain)sfx.bgmGain.gain.value=(settings.bgmEnabled?settings.bgm/100:0)*.1;
@@ -126,7 +136,7 @@
         save();applyAudio();localize();dirty();window.dispatchEvent(new Event('tsuventure-settings-saved'));
     });
     window.resetSettingsDraft=()=>{
-        Object.assign(draft,settings,{graphics:currentProfileKey});select.value=settings.language;document.getElementById('setting-bgm-enabled').checked=settings.bgmEnabled;
+        Object.assign(draft,settings,{graphics:currentProfileKey});select.value=settings.language;syncLanguageButtons();document.getElementById('setting-bgm-enabled').checked=settings.bgmEnabled;
         for(const type of ['bgm','sfx'])document.getElementById('slider-'+type).value=settings[type];
         chooseGraphics(currentProfileKey);
     };
@@ -135,7 +145,7 @@
     let queued=false;
     // Runtime labels are authored in Vietnamese. Only translate mutations for English;
     // traversing the entire HUD each animation frame wastes weak-PC frame time.
-    observer=new MutationObserver(()=>{if(settings.language==='en'&&!queued){queued=true;setTimeout(()=>{queued=false;localize();},200);}});
+    observer=new MutationObserver(()=>{if(settings.language!=='vi'&&!queued){queued=true;setTimeout(()=>{queued=false;localize();},200);}});
     localize();
     const video=document.getElementById('lobby-video'),home=document.getElementById('home-screen');
     const reduced=matchMedia('(prefers-reduced-motion: reduce)');

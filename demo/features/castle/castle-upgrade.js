@@ -40,14 +40,16 @@ function nearbyColliders(x,z,radius=PLAYER_RADIUS) {
     if(window.riverRealm?.wolf.collider)result.add(riverRealm.wolf.collider);
     for(const c of window.evilCavern?.dynamicColliders||[])result.add(c);
     for(const c of window.volcanicValley?.dynamicColliders||[])result.add(c);
+    if(window.forestGuardian?.collider)result.add(forestGuardian.collider);
     return result;
 }
 
 function inCastleEnvelope(x,z) {
-    return x>=-136 && x<=-84 && z>=88 && z<=148;
+    return window.castlePhysics?.active !== false && x>=-136 && x<=-84 && z>=88 && z<=148;
 }
 
 function onCastleTransition(x,z,y) {
+    if(window.castlePhysics?.active===false)return false;
     if(x>=-114.5 && x<=-105.5 && z>=41.5 && z<=95.5 && y<6.4) return true;
     // A return stair's landing joins two separate flights. Treat that deck as
     // part of the stair so normal descent does not trigger floor-fall recovery.
@@ -71,17 +73,17 @@ function castleLookDirection(yaw,pitch) {
 }
 
 function currentCastleRoom() {
-    if(!playerGroup || !window.CASTLE_EXTENSION?.rooms) return null;
+    if(window.castlePhysics?.active===false || !playerGroup || !window.CASTLE_EXTENSION?.rooms) return null;
     const p=playerGroup.position,x=p.x+110,z=p.z-120;
     return CASTLE_EXTENSION.rooms.find(r=>Math.abs(p.y-r.floor)<.5 &&
         x>=r.minX && x<=r.maxX && z>=r.minZ && z<=r.maxZ);
 }
 
 function inSecretCellar(x, z) {
-    return x > -125 && x < -113 && z > 114 && z < 138;
+    return window.castlePhysics?.active !== false && x > -125 && x < -113 && z > 114 && z < 138;
 }
 function inSecretOpening(x, z) {
-    return x > -123.8 && x < -120.2 && z >= 120 && z <= 134;
+    return window.castlePhysics?.active !== false && x > -123.8 && x < -120.2 && z >= 120 && z <= 134;
 }
 
 function installCastleUpgrade() {
@@ -477,7 +479,7 @@ function updatePlayerVertical(dt) {
     if(window.explorationUpdate?.vertical(dt))return;
     if(window.voidDistrict?.vertical())return;
     if(window.stationMobility?.vertical())return;
-    if(window.snowQueen?.frozen)keys.jump=false;
+    if(window.snowQueen?.frozen||window.forestGuardian?.rooted)keys.jump=false;
     if(window.riverBoat?.vertical())return;
     if(window.moonRailway?.passengerVertical())return;
     if(window.monsterSkills?.captured)return;

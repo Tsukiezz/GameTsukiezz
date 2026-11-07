@@ -1,5 +1,5 @@
 /* Survey existing geometry before building rails. All dimensions are world metres. */
-function surveyRailwayObstacles(scene, excluded,height=null){
+async function surveyRailwayObstacles(scene, excluded,height=null){
     const boxes=[],grid=new Map(),cell=32,largeMeshes=[];let currentSource='';
     scene.updateMatrixWorld(true);
     const add=box=>{
@@ -13,25 +13,25 @@ function surveyRailwayObstacles(scene, excluded,height=null){
             const key=x+','+z;if(!grid.has(key))grid.set(key,[]);grid.get(key).push(id);
         }
     };
-    scene.traverse(mesh=>{
-        if(!mesh.isMesh||excluded.includes(mesh)||mesh.material?.transparent||mesh.material?.depthWrite===false||/SealedEdges|Shore|Bedrock|Water|MoltenRiver|AntarcticIceRidges|VillageSwitchbackTrail/i.test(mesh.name))return;
-        for(let p=mesh;p;p=p.parent)if(p.userData.railwayIgnore||p===playerGroup||!p.visible||/Player|Sky|Cloud|MoonRailway/.test(p.name))return;
+    const bootSurveyMeshes=[];scene.traverse(mesh=>bootSurveyMeshes.push(mesh));surveyMesh: for(const mesh of bootSurveyMeshes){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
+        if(!mesh.isMesh||excluded.includes(mesh)||mesh.material?.transparent||mesh.material?.depthWrite===false||/SealedEdges|Shore|Bedrock|Water|MoltenRiver|AntarcticIceRidges|VillageSwitchbackTrail/i.test(mesh.name))continue surveyMesh;
+        for(let p=mesh;p;p=p.parent){if(window.gameBoot.shouldYield())await window.gameBoot.yield();if(p.userData.railwayIgnore||p===playerGroup||!p.visible||/Player|Sky|Cloud|MoonRailway/.test(p.name))continue surveyMesh;}
         currentSource=mesh.name||mesh.parent?.name||'unnamed';
         mesh.geometry.computeBoundingBox();const base=mesh.geometry.boundingBox;
-        if(mesh.isInstancedMesh){const m=new THREE.Matrix4();for(let i=0;i<mesh.count;i++){mesh.getMatrixAt(i,m);if(height&&/^(Grove_|MoonwellFlora_|BachKhuyet_|LegacyFlora_)/.test(mesh.name)){const e=m.elements;e[13]=height(e[12],e[14])+(mesh.name.startsWith('LegacyFlora_')?e[13]:0);}add(base.clone().applyMatrix4(m.premultiply(mesh.matrixWorld)));}}
+        if(mesh.isInstancedMesh){const m=new THREE.Matrix4();for(let i=0;i<mesh.count;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();mesh.getMatrixAt(i,m);if(height&&/^(Grove_|MoonwellFlora_|BachKhuyet_|LegacyFlora_)/.test(mesh.name)){const e=m.elements;e[13]=height(e[12],e[14])+(mesh.name.startsWith('LegacyFlora_')?e[13]:0);}add(base.clone().applyMatrix4(m.premultiply(mesh.matrixWorld)));}}
         else {
             const size=base.getSize(new THREE.Vector3()),g=mesh.geometry,index=g.index,position=g.attributes.position;
             if((size.x>240||size.z>240||size.y>180)&&index){
                 // Exported architecture is merged by material over the whole map.
                 // Split connected index components; never discard those big meshes.
                 const parent=Array.from({length:position.count},(_,i)=>i),find=i=>{while(parent[i]!==i){parent[i]=parent[parent[i]];i=parent[i];}return i;};
-                for(let i=0;i<index.count;i+=3){const a=find(index.getX(i));parent[find(index.getX(i+1))]=a;parent[find(index.getX(i+2))]=a;}
-                const components=new Map();for(let i=0;i<position.count;i++){const id=find(i);if(!components.has(id))components.set(id,new THREE.Box3());components.get(id).expandByPoint(new THREE.Vector3().fromBufferAttribute(position,i));}
+                for(let i=0;i<index.count;i+=3){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const a=find(index.getX(i));parent[find(index.getX(i+1))]=a;parent[find(index.getX(i+2))]=a;}
+                const components=new Map();for(let i=0;i<position.count;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const id=find(i);if(!components.has(id))components.set(id,new THREE.Box3());components.get(id).expandByPoint(new THREE.Vector3().fromBufferAttribute(position,i));}
                 largeMeshes.push({name:mesh.name,components:components.size});
-                for(const box of components.values())add(box.applyMatrix4(mesh.matrixWorld));
+                for(const box of components.values()){if(window.gameBoot.shouldYield())await window.gameBoot.yield();add(box.applyMatrix4(mesh.matrixWorld));}
             }else add(base.clone().applyMatrix4(mesh.matrixWorld));
         }
-    });
+    }
     function top(x,z,padding=0,ceiling=Infinity,bottom=-Infinity){let y=-Infinity;const ids=new Set();
         for(let a=Math.floor((x-padding)/cell);a<=Math.floor((x+padding)/cell);a++)for(let b=Math.floor((z-padding)/cell);b<=Math.floor((z+padding)/cell);b++)for(const id of grid.get(a+','+b)||[])ids.add(id);
         for(const id of ids){const box=boxes[id];if(box.min.y<=ceiling&&box.max.y>=bottom&&x+padding>=box.min.x&&x-padding<=box.max.x&&z+padding>=box.min.z&&z-padding<=box.max.z)y=Math.max(y,box.max.y);}
@@ -66,7 +66,7 @@ function createRailwayRoutePlanner(height,survey){
         // existing elevated structures. This avoids rising into them on approach.
         const ground=height(p.x,p.z),water=playerSurvival.surfaceAt(p.x,p.z),rail=water!==null&&ground<water+.2?water+3.2:ground;
         const obstacle=Math.max(0,survey.top(p.x,p.z,32,Infinity,rail+.5)-rail);
-        const c=1+Math.pow(Math.max(0,floor-ground)/4,2)+obstacle*4;costs.set(id,c);return c;
+        const c=(window.moonveilPalace?.railReserved(p.x,p.z)?1000000:0)+1+Math.pow(Math.max(0,floor-ground)/4,2)+obstacle*4;costs.set(id,c);return c;
     }
     function route(a,b,clearance=9){
         const direction=b.clone().sub(a).normalize(),leadLength=Math.min(55,a.distanceTo(b)*.22);
@@ -77,14 +77,14 @@ function createRailwayRoutePlanner(height,survey){
         const push=item=>{open.push(item);let i=open.length-1;while(i){const p=(i-1)>>1;if(open[p].f<=item.f)break;open[i]=open[p];i=p;}open[i]=item;};
         const pop=()=>{const first=open[0],last=open.pop();if(open.length){let i=0;while(i*2+1<open.length){let c=i*2+1;if(c+1<open.length&&open[c+1].f<open[c].f)c++;if(open[c].f>=last.f)break;open[i]=open[c];i=c;}open[i]=last;}return first;};
         while(open.length){const {id}=pop();if(closed.has(id))continue;if(id===goal)break;closed.add(id);const p=decode(id);
-            for(const dx of [-1,0,1])for(const dz of [-1,0,1]){if(!dx&&!dz)continue;const x=id%n+dx,z=Math.floor(id/n)+dz;if(x<0||x>=n||z<0||z>=n)continue;const next=z*n+x,q=decode(next);if(id===start&&q.clone().sub(decode(start)).dot(direction)<-.5||next===goal&&decode(goal).sub(p).dot(direction)<-.5)continue;if(q.x<-2470&&window.westernHighlands?.villages.some(v=>Math.hypot(q.x-v.center.x,q.z-v.center.z)<80))continue;if(bounds&&(q.x<bounds.x0||q.x>bounds.x1||q.z<bounds.z0||q.z>bounds.z1))continue;if(junctions.some(p=>q.distanceTo(p)<100&&p.distanceTo(a)>65&&p.distanceTo(b)>65))continue;if(!nearHub(q.x,q.z)&&reserved(q.x,q.z)&&next!==goal)continue;const floor=height(q.x,q.z);if(next!==goal&&survey.top(q.x,q.z,clearance,floor+7.2,floor+.5)>floor+.5){const water=playerSurvival.surfaceAt(q.x,q.z),wet=water!==null&&floor<water+.2,rough=floor>65||(height.maxOverRect?.(q.x,q.z,8)??floor)-floor>6;if(wet||!rough||q.x<-2470)continue;}let bend=0;if(previous.has(id)){const before=p.clone().sub(decode(previous.get(id))).normalize(),after=q.clone().sub(p).normalize(),dot=before.dot(after);if(dot<-.01)continue;bend=(1-dot)*35;}const score=g.get(id)+Math.hypot(dx,dz)*step*(cost(id)+cost(next))/2+bend;
+            for(const dx of [-1,0,1])for(const dz of [-1,0,1]){if(!dx&&!dz)continue;const x=id%n+dx,z=Math.floor(id/n)+dz;if(x<0||x>=n||z<0||z>=n)continue;const next=z*n+x,q=decode(next);if(window.moonveilPalace?.railReserved(q.x,q.z)&&next!==goal&&id!==start)continue;if(id===start&&q.clone().sub(decode(start)).dot(direction)<-.5||next===goal&&decode(goal).sub(p).dot(direction)<-.5)continue;if(q.x<-2470&&window.westernHighlands?.villages.some(v=>Math.hypot(q.x-v.center.x,q.z-v.center.z)<80))continue;if(bounds&&(q.x<bounds.x0||q.x>bounds.x1||q.z<bounds.z0||q.z>bounds.z1))continue;if(junctions.some(p=>q.distanceTo(p)<100&&p.distanceTo(a)>65&&p.distanceTo(b)>65))continue;if(!nearHub(q.x,q.z)&&reserved(q.x,q.z)&&next!==goal)continue;const floor=height(q.x,q.z);if(next!==goal&&survey.top(q.x,q.z,clearance,floor+7.2,floor+.5)>floor+.5){const water=playerSurvival.surfaceAt(q.x,q.z),wet=water!==null&&floor<water+.2,rough=floor>65||(height.maxOverRect?.(q.x,q.z,8)??floor)-floor>6;if(wet||!rough||q.x<-2470)continue;}let bend=0;if(previous.has(id)){const before=p.clone().sub(decode(previous.get(id))).normalize(),after=q.clone().sub(p).normalize(),dot=before.dot(after);if(dot<-.01)continue;bend=(1-dot)*35;}const score=g.get(id)+Math.hypot(dx,dz)*step*(cost(id)+cost(next))/2+bend;
                 if(score<(g.get(next)??Infinity)){g.set(next,score);previous.set(next,id);const q=decode(next);push({id:next,f:score+q.distanceTo(end)});}
             }
         }
         if(!g.has(goal)){if(bounds?.region&&!bounds.relaxed){const previous=bounds;bounds={...bounds.region,relaxed:true};try{return route(a,b,clearance);}finally{bounds=previous;}}throw Error('No safe railway corridor '+JSON.stringify({a:a.toArray(),b:b.toArray(),lead:lead.toArray(),tail:tail.toArray(),obstacle:survey.top(tail.x,tail.z,10,height(tail.x,tail.z)+7.2,height(tail.x,tail.z)+.5),reserved:reserved(tail.x,tail.z),visited:g.size,sources:survey.boxes.filter(box=>box.min.x<lead.x+25&&box.max.x>lead.x-25&&box.min.z<lead.z+25&&box.max.z>lead.z-25&&box.min.y<height(lead.x,lead.z)+7.2&&box.max.y>height(lead.x,lead.z)+.5).map(box=>({source:box.source,min:box.min.toArray(),max:box.max.toArray()})),bounds}));}
         const ids=[goal];while(ids.at(-1)!==start)ids.push(previous.get(ids.at(-1)));ids.reverse();
         const core=[lead,...ids.slice(1,-1).map(decode),tail],simplified=[lead];
-        function clearLine(u,v){const heading=v.clone().sub(u).normalize();if(u===lead&&heading.dot(direction)<.8||v===tail&&heading.dot(direction)<.8)return false;const count=Math.ceil(u.distanceTo(v)/4),terrainLimit=Math.max(height(u.x,u.z),height(v.x,v.z))+12;for(let i=1;i<count;i++){const p=u.clone().lerp(v,i/count);if(bounds&&(p.x<bounds.x0||p.x>bounds.x1||p.z<bounds.z0||p.z>bounds.z1))return false;if(!nearHub(p.x,p.z)&&reserved(p.x,p.z))return false;const floor=height(p.x,p.z),water=playerSurvival.surfaceAt(p.x,p.z),rail=water!==null&&floor<water+.2?water+3.2:floor;if(survey.top(p.x,p.z,Math.max(10,clearance),rail+7.2,rail+.5)>rail+.5&&floor<=65||floor>terrainLimit)return false;}return true;}
+        function clearLine(u,v){const heading=v.clone().sub(u).normalize();if(u===lead&&heading.dot(direction)<.8||v===tail&&heading.dot(direction)<.8)return false;const count=Math.ceil(u.distanceTo(v)/4),terrainLimit=Math.max(height(u.x,u.z),height(v.x,v.z))+12;for(let i=1;i<count;i++){const p=u.clone().lerp(v,i/count);if(window.moonveilPalace?.railReserved(p.x,p.z))return false;if(bounds&&(p.x<bounds.x0||p.x>bounds.x1||p.z<bounds.z0||p.z>bounds.z1))return false;if(!nearHub(p.x,p.z)&&reserved(p.x,p.z))return false;const floor=height(p.x,p.z),water=playerSurvival.surfaceAt(p.x,p.z),rail=water!==null&&floor<water+.2?water+3.2:floor;if(survey.top(p.x,p.z,Math.max(10,clearance),rail+7.2,rail+.5)>rail+.5&&floor<=65||floor>terrainLimit)return false;}return true;}
         for(let i=0;i<core.length-1;){let next=i+1;for(let j=core.length-1;j>i+1;j--)if(clearLine(core[i],core[j])){next=j;break;}simplified.push(core[next]);i=next;}
         const raw=[a.clone(),...simplified,b.clone()],nodes=[raw[0]];
         // Keep direction changes, then round their corners for coach-sized turns.
@@ -107,6 +107,9 @@ function createRailwayServices(source){
     // three liveries. Parallel corridors stay separated instead of crossing
     // into a stack of conflicting tracks.
     const anchors=[[-920,-920],[920,-920],[920,920],[-920,920],[-920,660],[700,660],[700,400],[-440,400],[-440,140],[700,140],[700,-120],[-440,-120],[-440,-380],[700,-380],[700,-640],[-920,-640],[-1300,-640],[-1300,1100],[-1700,1100],[-1700,-1100],[-2100,-1100],[-2100,1100],[-2500,1100],[-2500,-1100],[-2900,-1100],[-2900,1100],[-3200,1100],[-3200,3200],[3200,3200],[3200,2900],[-2900,2900],[-2900,2500],[2900,2500],[2900,2100],[-2900,2100],[-2900,1700],[2900,1700],[2900,1300],[1300,1300],[1300,-1100],[1700,-1100],[1700,1100],[2100,1100],[2100,-1100],[2500,-1100],[2500,1100],[2900,1100],[2900,-1100],[3200,-1100],[3200,-3200],[-3200,-3200],[-3200,-2900],[2900,-2900],[2900,-2500],[-2900,-2500],[-2900,-2100],[2900,-2100],[2900,-1700],[-1300,-1700],[-1300,-1300],[-920,-1300]];
+    // Move nearby route hubs far enough away that 64m rounded corners and their
+    // approach leads also stay outside the new lake, not merely the hub point.
+    if(window.moonveilPalace)for(const p of anchors)if(Math.hypot(p[0]-moonveilPalace.center.x,p[1]-moonveilPalace.center.z)<350)p[0]=moonveilPalace.center.x+(p[0]<moonveilPalace.center.x?-430:430);
     const western=window.westernHighlands?expandHighlandRailNetwork(anchors):null;
     service.patrol=anchors.map((p,i)=>'red_P'+String(i).padStart(2,'0'));
     anchors.forEach(([x,z],i)=>nodes[service.patrol[i]]=[x,0,z]);
@@ -115,7 +118,7 @@ function createRailwayServices(source){
     const stations=source.stations.map(s=>({...s,lineId:'red'}));
     if(window.worldExpansion)stations.push({name:'Ga Nam C\u1ef1c',position:[-2300,0,1700],lineId:'red',maxDistance:600},{name:'Ga Nh\u00e0 M\u00e1y Tuy\u1ebft',position:[-1000,0,2100],lineId:'red',maxDistance:700},{name:'Ga H\u1ed3 B\u0103ng',position:[1800,0,2900],lineId:'red',maxDistance:700},{name:'Ga Vi\u1ec5n B\u1eafc',position:[500,0,-3000],lineId:'red',maxDistance:700});
     if(window.desertRealm)stations.unshift({name:'Ga Kim Tự Tháp',position:[desertRealm.center.x+140,0,desertRealm.center.z-220],lineId:'red',maxDistance:420});
-    const architectural=[['Lâu Đài',-110,120],['Công Nghệ',-225,20],['Rừng Cổ',202,-206],['Hang Tà Thần',125,-110],['\u0110\u1ea5u Tr\u01b0\u1eddng',(window.romanArena?.center?.x??115)+240,(window.romanArena?.center?.z??110)-70],['Hồ Thủy Ngân',-370,-430],['Nữ Chúa Tuyết',-2200,2250],['Thác Băng',1100,2830]];
+    const architectural=[['Công Nghệ',-225,20],['Rừng Cổ',202,-206],['Hang Tà Thần',125,-110],['\u0110\u1ea5u Tr\u01b0\u1eddng',(window.romanArena?.center?.x??115)+240,(window.romanArena?.center?.z??110)-70],['Hồ Thủy Ngân',-370,-430],['Nữ Chúa Tuyết',-2200,2250],['Thác Băng',1100,2830]];
     for(const [name,x,z] of architectural)stations.push({name:'Ga '+name,position:[x,0,z],lineId:'red',maxDistance:name==='\u0110\u1ea5u Tr\u01b0\u1eddng'?350:name==='Hang T\u00e0 Th\u1ea7n'?900:600,optional:!['Hang T\u00e0 Th\u1ea7n','\u0110\u1ea5u Tr\u01b0\u1eddng'].includes(name)});
     if(window.candyRealm)stations.unshift({name:'Ga Vương Quốc Bánh Kẹo',position:candyRealm.center.toArray(),lineId:'red',maxDistance:750});
     const regional=[[-1700,-700],[-2100,600],[-2500,-600],[-2900,700],[-2600,2500],[-1600,2500],[-400,2500],[800,2500],[2100,2500],[-2600,1700],[400,1700],[2100,1700],[1300,-600],[1700,600],[2100,-600],[2500,600],[2900,-600],[-2200,-2900],[-1200,-2500],[1000,-2500],[2200,-2100],[-500,-1700]];
@@ -125,11 +128,11 @@ function createRailwayServices(source){
     return {fleet,services,nodes,fixedNodes,sourceNodes:structuredClone(nodes),edges:list,junctions,stations,patrol:services[0].patrol};
 }
 
-function resolveRailwayClearance(points,paths,height,waterAt,survey,plans,junctions=[],routes=[{points}]){
+async function resolveRailwayClearance(points,paths,height,waterAt,survey,plans,junctions=[],routes=[{points}]){
     const required=new Map(),key=p=>p.x.toFixed(2)+','+p.z.toFixed(2),terrainModes=[];
-    for(let i=0;i<points.length;i++){
+    for(let i=0;i<points.length;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const p=points[i],direction=p.railDirection??new THREE.Vector3(0,0,1),floor=height(p.x,p.z),water=waterAt(p.x,p.z);
-        const deckWater=[];for(const dx of [-7,0,7])for(const dz of [-7,0,7]){const w=waterAt(p.x+dx,p.z+dz);if(Number.isFinite(w))deckWater.push(w);}const waterTop=deckWater.length?Math.max(...deckWater):null;const crossing=waterTop!==null;
+        const deckWater=[];for(const dx of [-7,0,7]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(const dz of [-7,0,7]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const w=waterAt(p.x+dx,p.z+dz);if(Number.isFinite(w))deckWater.push(w);}}const waterTop=deckWater.length?Math.max(...deckWater):null;const crossing=waterTop!==null;
         const cross=Math.max(floor,height(p.x-direction.z*2.8,p.z+direction.x*2.8),height(p.x+direction.z*2.8,p.z-direction.x*2.8));
         const footprint=height.maxOverRect?.(p.x,p.z,8)??cross;
         const highMountain=floor>65&&(Math.min(height(p.x-24,p.z),height(p.x+24,p.z),height(p.x,p.z-24),height(p.x,p.z+24))<floor-6||survey.top(p.x,p.z,9,floor+7.2,floor+.5)>floor+.5);
@@ -137,57 +140,71 @@ function resolveRailwayClearance(points,paths,height,waterAt,survey,plans,juncti
         let y=cross+.12,mode='ground';
         if(crossing){y=Math.max(y,waterTop+6.5);mode='river';}
         else if(rough&&p.x>=-2470){y=Math.max(y,footprint+1.5);mode='mountain';}
-        if(mode!=='ground'){for(let pass=0;pass<4;pass++){const obstacle=survey.top(p.x,p.z,9,y+7,y-1.1);if(!Number.isFinite(obstacle))break;y=Math.max(y,obstacle+1.5);}}
+        if(mode!=='ground'){for(let pass=0;pass<4;pass++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const obstacle=survey.top(p.x,p.z,9,y+7,y-1.1);if(!Number.isFinite(obstacle))break;y=Math.max(y,obstacle+1.5);}}
         p.terrainMode=mode;required.set(key(p),Math.max(required.get(key(p))??-Infinity,y));terrainModes.push(mode);
     }
     points.forEach(p=>p.y=required.get(key(p)));
     const groups=plans.map(plan=>{const indices=[];points.forEach((p,i)=>{const q=p.clone().sub(plan.center).applyAxisAngle(new THREE.Vector3(0,1,0),-plan.yaw);if(p.lineId===plan.lineId&&Math.abs(q.x)<10&&q.z>-58&&q.z<52)indices.push(i);});return {indices,minimum:plan.grade+.12};});
-    for(const hub of junctions){const centers=[hub.center];for(const path of paths)if(path.lineId===hub.lineId)for(const p of [path.a,path.b])if(Math.abs(Math.hypot(p.x-hub.center.x,p.z-hub.center.z)-64)<1)centers.push(p);for(const center of centers){const indices=[];points.forEach((p,i)=>{if(p.lineId===hub.lineId&&Math.hypot(p.x-center.x,p.z-center.z)<14)indices.push(i);});groups.push({indices,minimum:-Infinity});}}
+    for(const hub of junctions){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const centers=[hub.center];for(const path of paths){if(window.gameBoot.shouldYield())await window.gameBoot.yield();if(path.lineId===hub.lineId)for(const p of [path.a,path.b]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();if(Math.abs(Math.hypot(p.x-hub.center.x,p.z-hub.center.z)-64)<1)centers.push(p);}}for(const center of centers){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const indices=[];points.forEach((p,i)=>{if(p.lineId===hub.lineId&&Math.hypot(p.x-center.x,p.z-center.z)<14)indices.push(i);});groups.push({indices,minimum:-Infinity});}}
     let passes=0;
-    for(;passes<100;passes++){
+    for(;passes<100;passes++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         let changed=false;
-        for(const group of groups){const y=Math.max(group.minimum,...group.indices.map(i=>points[i].y));for(const i of group.indices)if(y>points[i].y+1e-6){points[i].y=y;changed=true;}}
-        const tops=new Map();for(const p of points)tops.set(key(p),Math.max(tops.get(key(p))??-Infinity,p.y));
-        for(const p of points)if(tops.get(key(p))>p.y+1e-6){p.y=tops.get(key(p));changed=true;}
-        for(const route of routes)for(const direction of [1,-1])for(let n=0;n<route.points.length;n++){const count=route.points.length,i=(n*direction+count)%count,a=route.points[i],b=route.points[(i+direction+count)%count],y=a.y-Math.hypot(a.x-b.x,a.z-b.z)*.35;if(y>b.y+1e-6){b.y=y;if(a.terrainMode!=='ground')b.terrainMode=a.terrainMode;changed=true;}}
+        for(const group of groups){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const y=Math.max(group.minimum,...group.indices.map(i=>points[i].y));for(const i of group.indices){if(window.gameBoot.shouldYield())await window.gameBoot.yield();if(y>points[i].y+1e-6){points[i].y=y;changed=true;}}}
+        const tops=new Map();for(const p of points){if(window.gameBoot.shouldYield())await window.gameBoot.yield();tops.set(key(p),Math.max(tops.get(key(p))??-Infinity,p.y));}
+        for(const p of points){if(window.gameBoot.shouldYield())await window.gameBoot.yield();if(tops.get(key(p))>p.y+1e-6){p.y=tops.get(key(p));changed=true;}}
+        for(const route of routes){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(const direction of [1,-1]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(let n=0;n<route.points.length;n++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const count=route.points.length,i=(n*direction+count)%count,a=route.points[i],b=route.points[(i+direction+count)%count],y=a.y-Math.hypot(a.x-b.x,a.z-b.z)*.35;if(y>b.y+1e-6){b.y=y;if(a.terrainMode!=='ground')b.terrainMode=a.terrainMode;changed=true;}}}}
         if(!changed)break;
     }
-    const tops=new Map(points.map(p=>[key(p),p.y])),modes=new Map(points.map(p=>[key(p),p.terrainMode]));for(const path of paths)for(const p of path.points){p.y=tops.get(key(p))??p.y;p.terrainMode=modes.get(key(p))??'ground';}
+    const tops=new Map(points.map(p=>[key(p),p.y])),modes=new Map(points.map(p=>[key(p),p.terrainMode]));for(const path of paths){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(const p of path.points){if(window.gameBoot.shouldYield())await window.gameBoot.yield();p.y=tops.get(key(p))??p.y;p.terrainMode=modes.get(key(p))??'ground';}}
     return {required,passes,maxGrade:.35,terrainModes};
 }
 
 /* Level the complete stopped consist on BOTH tracks. Only raise rail heights,
    preserving all surveyed obstacle/water clearance and the gradual approaches. */
-function levelRailwayStationApproaches(services,plans,height){
+async function levelRailwayStationApproaches(services,plans,height){
     const groups=[];
-    for(const service of services)for(const plan of plans){const ps=service.points,n=ps.length;let nearest=0,best=Infinity;ps.forEach((p,i)=>{const d=Math.hypot(p.x-plan.center.x,p.z-plan.center.z);if(d<best){best=d;nearest=i;}});if(best>90)continue;const indices=new Set([nearest]);for(const direction of [-1,1]){let distance=0,i=nearest;for(let k=0;k<n;k++){const j=(i+direction+n)%n;distance+=ps[j].distanceTo(ps[i]);if(distance>105)break;indices.add(j);i=j;}}groups.push({service,indices:[...indices]});}
-    for(let pass=0;pass<120;pass++){let changed=false;if(services.length===2){const forward=services[0].points,back=services[1].points;for(let i=0;i<forward.length;i++){const a=forward[i],b=back[back.length-1-i];if(a.x<-2470){const y=Math.max(a.y,b.y);if(y>a.y+1e-6||y>b.y+1e-6)changed=true;a.y=b.y=y;}}}for(const {service,indices} of groups){const top=Math.max(...indices.map(i=>service.points[i].y));for(const i of indices)if(top-service.points[i].y>1e-6){service.points[i].y=top;changed=true;}}for(const {points:ps} of services)for(const dir of [-1,1])for(let k=0;k<ps.length;k++){const i=(k*dir+ps.length)%ps.length,a=ps[i],b=ps[(i+dir+ps.length)%ps.length],minimum=a.y-Math.hypot(a.x-b.x,a.z-b.z)*.2;if(b.y<minimum-1e-6){b.y=minimum;changed=true;}}if(!changed)break;}
-    for(const service of services)for(const p of service.points)if(p.x>=-2470&&p.terrainMode==='ground'&&p.y-height(p.x,p.z)>1.05)p.terrainMode='station-bridge';
+    for(const service of services){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(const plan of plans){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const ps=service.points,n=ps.length;let nearest=0,best=Infinity;ps.forEach((p,i)=>{const d=Math.hypot(p.x-plan.center.x,p.z-plan.center.z);if(d<best){best=d;nearest=i;}});if(best>90)continue;const indices=new Set([nearest]);for(const direction of [-1,1]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();let distance=0,i=nearest;for(let k=0;k<n;k++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const j=(i+direction+n)%n;distance+=ps[j].distanceTo(ps[i]);if(distance>105)break;indices.add(j);i=j;}}groups.push({service,indices:[...indices]});}}
+    for(let pass=0;pass<120;pass++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();let changed=false;if(services.length===2){const forward=services[0].points,back=services[1].points;for(let i=0;i<forward.length;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const a=forward[i],b=back[back.length-1-i];if(a.x<-2470){const y=Math.max(a.y,b.y);if(y>a.y+1e-6||y>b.y+1e-6)changed=true;a.y=b.y=y;}}}for(const {service,indices} of groups){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const top=Math.max(...indices.map(i=>service.points[i].y));for(const i of indices){if(window.gameBoot.shouldYield())await window.gameBoot.yield();if(top-service.points[i].y>1e-6){service.points[i].y=top;changed=true;}}}for(const {points:ps} of services){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(const dir of [-1,1]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(let k=0;k<ps.length;k++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const i=(k*dir+ps.length)%ps.length,a=ps[i],b=ps[(i+dir+ps.length)%ps.length],minimum=a.y-Math.hypot(a.x-b.x,a.z-b.z)*.2;if(b.y<minimum-1e-6){b.y=minimum;changed=true;}}}}if(!changed)break;}
+    for(const service of services){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(const p of service.points){if(window.gameBoot.shouldYield())await window.gameBoot.yield();if(p.x>=-2470&&p.terrainMode==='ground'&&p.y-height(p.x,p.z)>1.05)p.terrainMode='station-bridge';}}
     return groups;
+}
+
+/* A nearly level platform is reached directly from real ground, without a
+   detached staircase, railing enclosure or a long strip of paving. */
+function directStationAccess(station,height,parent){
+    const top=station.platform.y,choices=[];station.model.updateWorldMatrix(true,false);
+    const platformLocal=station.model.worldToLocal(station.platform.clone()),samples=[...([7,14,24,32].flatMap(x=>[46,34,-46,-34].map(z=>[x,z]))),[platformLocal.x,platformLocal.z]];
+    for(const [x,z] of samples){const p=station.model.localToWorld(new THREE.Vector3(x,0,z)),floor=height(p.x,p.z),water=window.playerSurvival?.surfaceAt(p.x,p.z);if(water!==null&&water!==undefined&&floor<water+.3)continue;const gap=top-floor;if(gap>=-.2&&gap<=MAX_STEP_HEIGHT-.03)choices.push({p,floor,gap,score:Math.hypot(x-8,z-70)+Math.abs(gap)});}
+    if(!choices.length)return null;choices.sort((a,b)=>a.score-b.score);const entrance=choices[0].p.clone();entrance.y=choices[0].floor;
+    const root=new THREE.Group();root.name='DirectGroundStationEntry';root.position.copy(station.model.position);root.rotation.y=station.yaw;parent.add(root);root.updateWorldMatrix(true,true);
+    return {kind:'ground',direct:true,root,surfaces:[],solids:[],waypoints:[entrance.clone()],rise:top-entrance.y,entrance,height:()=>-Infinity};
 }
 
 /* Two alternating stair flights, landings and rails; physics uses the same boxes. */
 function buildRailwayAccess(station,height,survey,materials,parent){
     station.model.updateWorldMatrix(true,false);
+    const direct=station.grounded&&station.model.position.x<-2470?null:directStationAccess(station,height,parent);if(direct)return direct;
     const surfaces=[],solids=[],buffers=new Map(),root=new THREE.Group();root.name='RailwayAccess';root.position.copy(station.model.position);root.rotation.y=station.yaw;parent.add(root);
     const top=station.platform.y-station.model.position.y;
-    if(station.grounded){
-        const vertices=[],indices=[],rows=[],triangles=[];
-        for(let z=70;z>=36;z-=2){const row=[];for(const x of [6,10]){const world=station.model.localToWorld(new THREE.Vector3(x,0,z)),blend=1-THREE.MathUtils.smoothstep(z,38,62);world.y=THREE.MathUtils.lerp(height(world.x,world.z)+.02,station.platform.y,blend);const local=station.model.worldToLocal(world.clone());vertices.push(local.x,local.y,local.z);row.push(world);}rows.push(row);}
-        for(let i=0;i<rows.length-1;i++){const k=i*2;indices.push(k,k+1,k+2,k+1,k+3,k+2);for(const [a,b,c] of [[rows[i][0],rows[i][1],rows[i+1][0]],[rows[i][1],rows[i+1][1],rows[i+1][0]]])triangles.push({a,b,c,den:(b.z-c.z)*(a.x-c.x)+(c.x-b.x)*(a.z-c.z)});}
-        const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));g.setIndex(indices);g.computeVertexNormals();root.add(new THREE.Mesh(g,materials.stone));root.updateWorldMatrix(true,true);
-        const rampHeight=(x,z,y=Infinity)=>{let top=-Infinity;for(const {a,b,c,den} of triangles){if(Math.abs(den)<1e-8)continue;const u=((b.z-c.z)*(x-c.x)+(c.x-b.x)*(z-c.z))/den,v=((c.z-a.z)*(x-c.x)+(a.x-c.x)*(z-c.z))/den,w=1-u-v;if(u>=-1e-6&&v>=-1e-6&&w>=-1e-6){const h=u*a.y+v*b.y+w*c.y;if(y>=h-MAX_STEP_HEIGHT-.001)top=Math.max(top,h);}}return top;};
-        const waypoints=rows.map(row=>row[0].clone().add(row[1]).multiplyScalar(.5));
-        const maxGrade=Math.max(...waypoints.slice(1).map((p,i)=>Math.abs(p.y-waypoints[i].y)/Math.hypot(p.x-waypoints[i].x,p.z-waypoints[i].z)));
-        if(maxGrade>.65){
-            // A grounded hall can still sit beside a deep hillside. A ramp
-            // must not become a near-vertical shortcut down that cliff.
-            parent.remove(root);g.dispose();
-            const stairs=buildRailwayAccess({...station,grounded:false},height,survey,materials,parent);
-            stairs.replacedSteepRamp=true;stairs.oldMaxGrade=maxGrade;return stairs;
-        }
-        return {kind:'ground',root,surfaces:[],solids:[],waypoints,rise:station.platform.y-waypoints[0].y,entrance:waypoints[0].clone(),height:rampHeight,rampVertices:vertices,rampIndices:indices};
-    }
+    if(station.grounded&&station.model.position.x<-2470){
+        const vertices=[],indices=[],rows=[],triangles=[];
+        for(let z=70;z>=36;z-=2){const row=[];for(const x of [6,10]){const world=station.model.localToWorld(new THREE.Vector3(x,0,z)),blend=1-THREE.MathUtils.smoothstep(z,38,62);world.y=THREE.MathUtils.lerp(height(world.x,world.z)+.02,station.platform.y,blend);const local=station.model.worldToLocal(world.clone());vertices.push(local.x,local.y,local.z);row.push(world);}rows.push(row);}
+        for(let i=0;i<rows.length-1;i++){const k=i*2;indices.push(k,k+1,k+2,k+1,k+3,k+2);for(const [a,b,c] of [[rows[i][0],rows[i][1],rows[i+1][0]],[rows[i][1],rows[i+1][1],rows[i+1][0]]])triangles.push({a,b,c,den:(b.z-c.z)*(a.x-c.x)+(c.x-b.x)*(a.z-c.z)});}
+        const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));g.setIndex(indices);g.computeVertexNormals();root.add(new THREE.Mesh(g,materials.stone));root.updateWorldMatrix(true,true);
+        const rampHeight=(x,z,y=Infinity)=>{let top=-Infinity;for(const {a,b,c,den} of triangles){if(Math.abs(den)<1e-8)continue;const u=((b.z-c.z)*(x-c.x)+(c.x-b.x)*(z-c.z))/den,v=((c.z-a.z)*(x-c.x)+(a.x-c.x)*(z-c.z))/den,w=1-u-v;if(u>=-1e-6&&v>=-1e-6&&w>=-1e-6){const h=u*a.y+v*b.y+w*c.y;if(y>=h-MAX_STEP_HEIGHT-.001)top=Math.max(top,h);}}return top;};
+        const waypoints=rows.map(row=>row[0].clone().add(row[1]).multiplyScalar(.5));
+        const maxGrade=Math.max(...waypoints.slice(1).map((p,i)=>Math.abs(p.y-waypoints[i].y)/Math.hypot(p.x-waypoints[i].x,p.z-waypoints[i].z)));
+        if(maxGrade>.65){
+            // A grounded hall can still sit beside a deep hillside. A ramp
+            // must not become a near-vertical shortcut down that cliff.
+            parent.remove(root);g.dispose();
+            const stairs=buildRailwayAccess({...station,grounded:false},height,survey,materials,parent);
+            stairs.replacedSteepRamp=true;stairs.oldMaxGrade=maxGrade;return stairs;
+        }
+        const requiredTerrainGap=Math.max(...rows.flat().map(p=>p.y-height(p.x,p.z)));
+        if(requiredTerrainGap<=MAX_STEP_HEIGHT){root.clear();g.dispose();return {kind:'ground',direct:true,root,surfaces:[],solids:[],waypoints,rise:station.platform.y-waypoints[0].y,entrance:waypoints[0].clone(),height:()=>-Infinity,requiredTerrainGap};}
+        return {kind:'ground',root,surfaces:[],solids:[],waypoints,rise:station.platform.y-waypoints[0].y,entrance:waypoints[0].clone(),height:rampHeight,rampVertices:vertices,rampIndices:indices,requiredTerrainGap};
+    }
     let choice=null;
     for(const z of [32,-32,55,-55,72,-72])for(const x of [36,44,52,60,68]){
         const p=station.model.localToWorld(new THREE.Vector3(x+2,0,z+7.5)),bottom=height(p.x,p.z),obstacle=survey.top(p.x,p.z,9),floors=[];let outside=false,wet=false;

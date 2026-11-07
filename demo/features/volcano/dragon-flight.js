@@ -1,5 +1,6 @@
 /* The War Dragon takes off, patrols, attacks and lands inside its own caldera. */
-function installVolcanicDragonFlight(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installVolcanicDragonFlight(){
     const c=volcanicValley,d=c.dragon,home=new THREE.Vector3(830,c.ground(830,-590),-590);
     const bounds={x:790,z:-555,rx:95,rz:140,ceiling:c.profile.floor+170};
     const flight={state:'grounded',timer:0,cooldown:8,destination:null,start:home.clone(),landing:home.clone(),bounds};d.flight=flight;

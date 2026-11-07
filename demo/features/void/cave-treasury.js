@@ -1,9 +1,10 @@
-function installCaveTreasury(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installCaveTreasury(){
     const cave=evilCavern,D=cave.data,center=new THREE.Vector3(...D.chest),root=new THREE.Group();root.name='IlluminatedNakatTreasury';root.layers.enable(2);scene.add(root);let claimed=localStorage.getItem('tsuventure_nakat_claimed_v1')==='true';
     monsterCamps.rows.nakat.querySelector('p').textContent='Thiên thạch hiếm duy nhất trong phòng kho báu Hang Tà Thần. Dùng cùng 50 sắt và 20 uranium để chế tạo Giáp cuồng nộ.';
     const meteor=voidModel('nakat');meteor.position.copy(center).y+=1.4;root.add(meteor);meteor.visible=!claimed;
     const mapStand=voidBox(root,'CaveNavigationTerminal',center.x+3,D.floor+1,center.z,1.3,2,1.3,'#344257');const sign=voidLabel('BẢN ĐỒ TRỰC TIẾP · LỐI RA',5);sign.position.set(center.x+3,D.floor+3,center.z);root.add(sign);
-    for(const dx of [-5,5]){const light=new THREE.PointLight(0xa4dce6,1.7,32,1.4);light.position.set(center.x+dx,D.floor+6,center.z);light.layers.set(2);root.add(light);const lamp=new THREE.Mesh(new THREE.SphereGeometry(.3,10,6),new THREE.MeshBasicMaterial({color:0xc6e7e2}));lamp.position.copy(light.position);root.add(lamp);}
+    for(const dx of [-5,5]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const light=new THREE.PointLight(0xa4dce6,1.7,32,1.4);light.position.set(center.x+dx,D.floor+6,center.z);light.layers.set(2);root.add(light);const lamp=new THREE.Mesh(new THREE.SphereGeometry(.3,10,6),new THREE.MeshBasicMaterial({color:0xc6e7e2}));lamp.position.copy(light.position);root.add(lamp);}
     root.traverse(o=>o.layers.enable(2));
     const terminal={id:'cavern_navigation',type:'cavern_navigation',pos:new THREE.Vector3(center.x+3,D.floor,center.z),radius:2,prompt:'Bản đồ trực tiếp và đường ra · E'};interactables.push(terminal);
     const modal=document.createElement('div');modal.id='modal-cave-route';modal.className='modal-overlay';modal.innerHTML='<section class="void-panel"><header><h2>HANG TÀ THẦN · ĐƯỜNG RA</h2><button>×</button></header><canvas class="cave-map-canvas" width="700" height="700"></canvas><p>Chấm xanh: bạn · Đường vàng: lối ra cầu thang · Cập nhật theo vị trí thật. Nhấn K để mở lại khi ở trong hang.</p></section>';document.body.append(modal);modal.querySelector('button').onclick=()=>closeModal(modal.id);const canvas=modal.querySelector('canvas'),ctx=canvas.getContext('2d');

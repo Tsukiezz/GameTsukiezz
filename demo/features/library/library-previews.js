@@ -1,5 +1,6 @@
 /* Real renders of the game's meshes and environments, never symbolic art. */
-function installLibraryPreviews(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installLibraryPreviews(){
     const cache=new Map(),width=384,height=240,target=new THREE.WebGLRenderTarget(width,height,{depthBuffer:true});
     const pixels=new Uint8Array(width*height*4),previewCamera=new THREE.PerspectiveCamera(40,width/height,.05,4000);
     function capture(world,balanced=false){
@@ -34,13 +35,14 @@ function installLibraryPreviews(){
         const lm=landmarksData[index];if(!lm)return null;
         const views={0:[[28,24,40],[0,8,0]],1:[[-50,44,35],[-110,19,120]],2:[[195,90,16],[115,15,110]],3:[[-205,105,-212],[-370,23,-455]],4:[[282,85,-100],[202,53,-206]],5:[[166,32,-65],[125,10,-110]]};
         const extra={bach_khuyet:[[870,275,900],[610,110,610]],thermal_waterfall:[[-510,180,880],[-745,137,650]],thermal_spring:[[-700,285,725],[-765,235,660]],volcanic_valley:[[975,340,-260],[770,100,-550]]};
-        const [eye,look]=extra[lm.id]||views[index]||[[lm.x+35,30,lm.z+50],[lm.x,8,lm.z]];previewCamera.position.fromArray(eye);previewCamera.lookAt(new THREE.Vector3(...look));
+        const [eye,look]=lm.id==='moonveil_palace'?[[lm.x+170,155,lm.z+260],[lm.x,30,lm.z]]:extra[lm.id]||views[index]||[[lm.x+35,30,lm.z+50],[lm.x,8,lm.z]];previewCamera.position.fromArray(eye);previewCamera.lookAt(new THREE.Vector3(...look));
         const fog=scene.fog,uniform=window.riverRealm?.waterMeshes[0]?.material.uniforms.fogDensity,oldDensity=uniform?.value,visibility=(window.graphicsQuality?.entries||[]).map(e=>[e.mesh,e.mesh.visible]);try{for(const [mesh] of visibility)mesh.visible=true;scene.fog=new THREE.FogExp2(0x101827,.0012);if(uniform)uniform.value=.0012;return capture(scene);}finally{for(const [mesh,visible] of visibility)mesh.visible=visible;scene.fog=fog;if(uniform)uniform.value=oldDensity;}
     }
     function get(id){
         if(cache.has(id))return cache.get(id);let image;
         const monster=lakeMonsters.actors.find(m=>m.spec.id===id);
         if(monster)image=portrait(monster.group);
+        else if(id==='cave_bat')image=portrait(window.undergroundNetwork?.previewBat());
         else if(id==='swamp_crocodile')image=portrait(window.mangroveRealm?.crocodile.group,new THREE.Vector3(.9,.6,1).normalize());
         else if(id.startsWith('swamp_'))image=portrait(window.mangroveRealm?.life.preview(id.slice(6)));
         else if(id==='wise_sphinx')image=portrait(window.desertRealm?.boss.group);
@@ -64,6 +66,7 @@ function installLibraryPreviews(){
         else if(id==='space_sabertooth')image=portrait(bachKhuyet.tiger.group);
         else if(id==='speed_wolf')image=portrait(riverRealm.wolf.group);
         else if(id==='forest_sapling')image=portrait(monsterSkills.previewMinion());
+        else if(id.startsWith('forest_sapling_'))image=portrait(creatureArt.create('sapling_'+id.slice('forest_sapling_'.length))?.root);
         else if(id==='red_rumped_monkey')image=portrait(riverRealm.monkeys[0]?.group);
         else if(id.startsWith('river_fish_'))image=portrait(riverRealm.previewAquatic(Number(id.slice(11))));
         else if(id==='river_kelp'||id==='thermal_coral')image=portrait(riverRealm.previewAquatic(id==='river_kelp'?'kelp':'coral'));

@@ -1,26 +1,27 @@
 /* Shared stamina, buoyancy, diving and oxygen for every playable hero. */
-function installPlayerSurvival(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installPlayerSurvival(){
     const lake=mercuryLake.data,normalFog=scene.fog.color.clone(),waterFog=new THREE.Color(0x122b39);
     Object.assign(gameState,{stamina:100,maxStamina:100,oxygen:100,maxOxygen:100});
     let swimming=false,underwater=false,exhausted=false,sprinting=false,oxygenDamage=0;
     function inOriginalLake(x,z){return Math.hypot((x-lake.x)/lake.rx,(z-lake.z)/lake.rz)<.99;}
-    function inLakeColumn(x,z){return Boolean(window.worldExpansion?.waterAt(x,z))||inOriginalLake(x,z)||Boolean(window.mangroveRealm?.waterAt(x,z)||window.riverRealm?.waterAt(x,z));}
-    function surfaceAt(x,z){return window.worldExpansion?.waterAt(x,z)?.y??window.mangroveRealm?.waterAt(x,z)?.y??window.riverRealm?.waterAt(x,z)?.y??(inOriginalLake(x,z)?lake.waterY:null);}
-    function bottomAt(x,z){return window.worldExpansion?.height(x,z)??window.mangroveRealm?.ground(x,z)??window.riverRealm?.ground(x,z)??realmTerrainHeight(x,z);}
-    function inWater(p){const surface=surfaceAt(p.x,p.z),deck=window.mangroveRealm?.support(p.x,p.z,p.y);if(Number.isFinite(deck)&&deck>=surface-.6&&p.y>=deck-.15)return false;return surface!==null&&bottomAt(p.x,p.z)<surface-.3&&p.y<surface-.05&&!lakeMonsters.onBridge(p);}
+    function inLakeColumn(x,z){return Boolean(window.moonveilPalace?.waterAt(x,z))||Boolean(window.worldExpansion?.waterAt(x,z))||inOriginalLake(x,z)||Boolean(window.mangroveRealm?.waterAt(x,z)||window.riverRealm?.waterAt(x,z));}
+    function surfaceAt(x,z){return window.moonveilPalace?.waterAt(x,z)?.y??window.worldExpansion?.waterAt(x,z)?.y??window.mangroveRealm?.waterAt(x,z)?.y??window.riverRealm?.waterAt(x,z)?.y??(inOriginalLake(x,z)?lake.waterY:null);}
+    function bottomAt(x,z){if(window.moonveilPalace?.affects(x,z))return window.worldSurface?.height(x,z)??moonveilPalace.designed(x,z);return window.worldExpansion?.height(x,z)??window.mangroveRealm?.ground(x,z)??window.riverRealm?.ground(x,z)??realmTerrainHeight(x,z);}
+    function inWater(p){if(window.undergroundNetwork?.inside(p))return false;const surface=surfaceAt(p.x,p.z),deck=window.mangroveRealm?.support(p.x,p.z,p.y);if(Number.isFinite(deck)&&deck>=surface-.6&&p.y>=deck-.15)return false;return surface!==null&&bottomAt(p.x,p.z)<surface-.3&&p.y<surface-.05&&!lakeMonsters.onBridge(p);}
     function active(){return gameState.isPlaying&&!gameState.inDialogue&&!document.querySelector('.modal-overlay.active');}
     function spend(){return active();}
     function refresh(){swimming=inWater(playerGroup.position);underwater=swimming&&playerGroup.position.y+PLAYER_HEIGHT<surfaceAt(playerGroup.position.x,playerGroup.position.z)-.1;return swimming;}
     function respawn(){if(window.playerLife){playerLife.die();return;}
         if(window.mangroveRealm?.contains(playerGroup.position.x,playerGroup.position.z)){oxygenDamage=0;exhausted=false;resetGameplayInput();mangroveRealm.rescue();refresh();return;}
-        gameState.health=gameState.maxHealth;gameState.armor=gameState.maxArmor;gameState.oxygen=100;gameState.stamina=100;
+        gameState.health=gameState.maxHealth;gameState.oxygen=100;gameState.stamina=100;
         const river=Boolean(window.riverRealm?.waterAt(playerGroup.position.x,playerGroup.position.z))&&!inOriginalLake(playerGroup.position.x,playerGroup.position.z);
         oxygenDamage=0;exhausted=false;resetGameplayInput();lakeMonsters.pause();if(river)riverRealm.rescue();else mercuryLake.travel();refresh();
         showNotification('Hết oxy! Bạn đã được đưa về bờ an toàn.');
     }
     function update(dt,moving){
         dt=Math.min(.1,Math.max(0,dt));refresh();if(!active())return;
-        const infinite=Boolean(window.backpack?.infiniteStamina);if(infinite)gameState.stamina=100;
+        const infinite=Boolean(window.backpack?.infiniteStamina||window.grandTerminal?.vip.staminaLocked);if(infinite)gameState.stamina=100;
         if(gameState.stamina<=.05)exhausted=true;if(gameState.stamina>=20)exhausted=false;
         sprinting=keys.shift&&moving&&isGrounded&&!swimming&&!window.crystalWings?.flying&&!window.moonRailway?.aboard&&!window.riverBoat?.aboard&&!exhausted&&gameState.stamina>0;
         if(infinite)gameState.stamina=100;
@@ -55,7 +56,7 @@ function installPlayerSurvival(){
         p.y=next;currentGroundY=p.y;keys.jump=false;refresh();return true;
     }
     function environment(){
-        const cameraWater=surfaceAt(camera.position.x,camera.position.z),submerged=cameraWater!==null&&camera.position.y<cameraWater;
+        const cameraWater=surfaceAt(camera.position.x,camera.position.z),submerged=!window.undergroundNetwork?.inside(camera.position)&&cameraWater!==null&&camera.position.y<cameraWater;
         const brackish=submerged&&Boolean(window.mangroveRealm?.waterAt(camera.position.x,camera.position.z));
         scene.fog.color.copy(brackish?new THREE.Color(0x343d19):submerged?waterFog:normalFog);
         scene.fog.density=brackish?.09:submerged?.025:graphicsProfiles[currentProfileKey].fogDensity;

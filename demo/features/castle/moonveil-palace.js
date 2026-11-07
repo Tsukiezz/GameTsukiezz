@@ -1,0 +1,78 @@
+/* Blender-authored island palace. Terrain, collision and water share one design. */
+async function installMoonveilPalace(){
+ const D=MOONVEIL_PALACE_DATA,[cx,base,cz]=D.center,group=new THREE.Group();group.name='MoonveilPalace';group.position.set(cx,base,cz);scene.add(group);
+ const mats={},sectors=new Map(),cameraObstacles=[];
+ function stoneTexture(){const c=document.createElement('canvas');c.width=c.height=256;const p=c.getContext('2d');p.fillStyle='#354754';p.fillRect(0,0,256,256);let seed=41;for(let row=0;row<8;row++)for(let col=-1;col<5;col++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const q=85+seed%24;p.fillStyle=`rgb(${q},${q+13},${q+23})`;p.fillRect(col*64+(row%2)*32+1,row*32+1,62,30);p.strokeStyle='#bbc5ca28';p.strokeRect(col*64+(row%2)*32+2,row*32+2,60,28);}const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());return t;}
+ const brick=stoneTexture();
+ for(const [key,color] of Object.entries(D.palette)){mats[key]=new THREE.MeshStandardMaterial({color:'#'+color,roughness:.78,metalness:['gold','silver','iron'].includes(key)?.55:0,side:THREE.DoubleSide});if(['glass','blueglass','flame'].includes(key)){mats[key].emissive.set('#'+color);mats[key].emissiveIntensity=.7;}if(key==='stone'){mats[key].map=brick;mats[key].color.set(0xc4ced7);}}
+ for(const part of D.parts){if(gameBoot.shouldYield())await gameBoot.yield();let root=sectors.get(part.sector);if(!root){root=new THREE.Group();root.name='Moonveil_'+part.sector;group.add(root);sectors.set(part.sector,root);}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(part.positions,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(part.normals,3));g.setIndex(part.indices);if(part.material==='stone'){const uv=[];for(let i=0;i<part.positions.length;i+=3){const p=part.positions,n=part.normals;uv.push((Math.abs(n[i])>.7?p[i+2]:p[i])/5,(Math.abs(n[i+1])>.7?p[i+2]:p[i+1])/5);}g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));}g.computeBoundingSphere();const mesh=new THREE.Mesh(g,mats[part.material]);mesh.name='Moonveil_'+part.sector+'_'+part.material;mesh.castShadow=mesh.receiveShadow=true;root.add(mesh);cameraObstacles.push(mesh);}
+ const distSegment=(x,z,a,b)=>{const dx=b[0]-a[0],dz=b[1]-a[1],t=THREE.MathUtils.clamp(((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz||1),0,1);return Math.hypot(x-a[0]-dx*t,z-a[1]-dz*t);};
+ const channelDistance=(x,z)=>Math.min(...D.channel.slice(1).map((b,i)=>distSegment(x,z,D.channel[i],b)));
+ const affects=(x,z)=>Math.hypot(x-cx,z-cz)<215||channelDistance(x,z)<26||Math.abs(x-cx)<12&&z>cz+210&&z<cz+265;
+ const originalHeight=(x,z)=>terrainContinuity.height(x,z);
+ function designed(x,z,old=originalHeight(x,z)){
+  const u=x-cx,v=z-cz,r=Math.hypot(u,v);let h=old;
+  if(r<215){if(r<90)h=base;else if(r<115)h=THREE.MathUtils.lerp(base,-22,THREE.MathUtils.smoothstep(r,90,115));else if(r<174)h=-22+Math.sin(u*.055)*Math.cos(v*.047)*1.4;else h=THREE.MathUtils.lerp(-22,old,THREE.MathUtils.smoothstep(r,174,215));}
+  const cd=channelDistance(x,z);if(cd<26){const join=THREE.MathUtils.smoothstep(Math.hypot(x-264,z-378),0,95),bed=THREE.MathUtils.lerp(-7,-22,join);h=Math.min(h,THREE.MathUtils.lerp(bed,old,THREE.MathUtils.smoothstep(cd,12,26)));}
+  // Leave room for the authored floor slabs instead of rendering lunar ground
+  // at exactly the same height (the world terrain has polygon priority).
+  if(Math.abs(u)<70.5&&Math.abs(v)<62.5)h=base-.3;
+  // One dry approach joins the south end of the stone bridge to natural ground.
+  if(Math.abs(u)<12&&v>=210&&v<265){const road=THREE.MathUtils.lerp(base,old,THREE.MathUtils.smoothstep(v,221,265));h=THREE.MathUtils.lerp(road,h,THREE.MathUtils.smoothstep(Math.abs(u),6,12));}
+  return h;
+ }
+ const terrainSources=[ground,terrainContinuity.terrain,worldExpansion.terrain,riverRealm.terrain,bachKhuyet.terrain,ancientGrove.group.getObjectByName('GroveForestFloor')].filter(Boolean),v=new THREE.Vector3();
+ for(const mesh of terrainSources){if(gameBoot.shouldYield())await gameBoot.yield();mesh.updateWorldMatrix(true,false);const inv=mesh.matrixWorld.clone().invert(),p=mesh.geometry.attributes.position;let changed=false;for(let i=0;i<p.count;i++){if(gameBoot.shouldYield())await gameBoot.yield();v.fromBufferAttribute(p,i).applyMatrix4(mesh.matrixWorld);if(!affects(v.x,v.z))continue;v.y=designed(v.x,v.z);v.applyMatrix4(inv);p.setXYZ(i,v.x,v.y,v.z);changed=true;}if(changed){p.needsUpdate=true;mesh.geometry.computeVertexNormals();mesh.geometry.computeBoundingSphere();}}
+ const verts=[],idx=[],step=4,x0=Math.floor(Math.min(cx-216,...D.channel.map(p=>p[0]-28))/step)*step,z0=cz-216,nx=Math.ceil((Math.max(cx+216,...D.channel.map(p=>p[0]+28))-x0)/step),nz=121;
+ for(let j=0;j<=nz;j++){if(gameBoot.shouldYield())await gameBoot.yield();for(let i=0;i<=nx;i++){const x=x0+i*step,z=z0+j*step;verts.push(x,designed(x,z),z);}}
+ for(let j=0;j<nz;j++)for(let i=0;i<nx;i++){const x=x0+(i+.5)*step,z=z0+(j+.5)*step;if(!affects(x,z))continue;const k=j*(nx+1)+i;idx.push(k,k+nx+1,k+1,k+1,k+nx+1,k+nx+2);}
+ const tg=new THREE.BufferGeometry();tg.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));tg.setIndex(idx);tg.computeVertexNormals();const terrain=new THREE.Mesh(tg,new THREE.MeshStandardMaterial({color:0x697b76,roughness:1,polygonOffset:true,polygonOffsetFactor:-4}));terrain.name='MoonveilCarvedLakeBed';terrain.receiveShadow=true;scene.add(terrain);
+ function waterAt(x,z){return (Math.hypot(x-cx,z-cz)<215||channelDistance(x,z)<26)&&designed(x,z)<D.waterY-.015?{y:D.waterY,kind:'moonveil-moat',bottom:window.worldSurface?.height(x,z)??designed(x,z)}:null;}
+ // The rendered water follows exactly the same mask as swimming, no raised banks.
+ const wp=[],wi=[],uv=[];
+ for(let j=0;j<nz;j++)for(let i=0;i<nx;i++){const x=x0+i*step,z=z0+j*step;if(!affects(x+2,z+2))continue;const vs=[[x,z],[x+step,z],[x,z+step],[x+step,z+step]].map(([x,z])=>({x,z,y:designed(x,z)}));
+  for(const ids of [[0,2,1],[1,2,3]]){let poly=ids.map(k=>vs[k]),clipped=[];for(let k=0;k<poly.length;k++){const a=poly[k],b=poly[(k+1)%poly.length],da=a.y-D.waterY+.015,db=b.y-D.waterY+.015;if(da<=0)clipped.push(a);if((da<=0)!==(db<=0)){const t=da/(da-db);clipped.push({x:a.x+(b.x-a.x)*t,z:a.z+(b.z-a.z)*t});}}if(clipped.length<3)continue;const k=wp.length/3;for(const p of clipped){wp.push(p.x,D.waterY,p.z);uv.push(p.x*.035,p.z*.035);}for(let n=1;n<clipped.length-1;n++)wi.push(k,k+n,k+n+1);}}
+ const wg=new THREE.BufferGeometry();wg.setAttribute('position',new THREE.Float32BufferAttribute(wp,3));wg.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));wg.setIndex(wi);wg.computeVertexNormals();
+ // Share the actual river shader, world-space ripples and clock. Only this
+ // replacement surface draws inside the carved basin, avoiding double alpha.
+ const riverMaterial=riverRealm.waterMeshes.find(m=>m.material.uniforms.kind.value===0).material;
+ const waterMaterial=riverMaterial.clone();waterMaterial.uniforms.time=riverMaterial.uniforms.time;waterMaterial.uniforms.fogDensity=riverMaterial.uniforms.fogDensity;waterMaterial.uniforms.palaceLayer.value=1;
+ const water=new THREE.Mesh(wg,waterMaterial);water.name='MoonveilConnectedMoatWater';water.renderOrder=2;scene.add(water);
+ // Remove pre-existing decoration/colliders from the new lake and palace only.
+ const removed=[];for(const c of colliders){const x=c.x??(c.minX+c.maxX)/2,z=c.z??(c.minZ+c.maxZ)/2;if(affects(x,z)&&Math.hypot(x-cx,z-cz)<205){c.disabled=true;removed.push(c);}}
+ const m=new THREE.Matrix4(),p=new THREE.Vector3(),q=new THREE.Quaternion(),s=new THREE.Vector3();scene.traverse(o=>{if(!o.isInstancedMesh||o.parent===group||/Moonveil/.test(o.name))return;let changed=false;for(let i=0;i<o.count;i++){o.getMatrixAt(i,m);if(Math.abs(m.determinant())<1e-15){p.setFromMatrixPosition(m);q.identity();s.setScalar(1);}else m.decompose(p,q,s);const world=o.localToWorld(p.clone());if(affects(world.x,world.z)){s.setScalar(1e-6);m.compose(p,q,s);o.setMatrixAt(i,m);changed=true;}}if(changed)o.instanceMatrix.needsUpdate=true;});
+ const solids=D.solids.map(b=>({...b,x:b.x+cx,z:b.z+cz,y0:b.y0+base,y1:b.y1+base}));
+ const cell=12,grid=new Map();for(const b of solids)for(let x=Math.floor((b.x-b.w/2)/cell);x<=Math.floor((b.x+b.w/2)/cell);x++)for(let z=Math.floor((b.z-b.d/2)/cell);z<=Math.floor((b.z+b.d/2)/cell);z++){const k=x+','+z;if(!grid.has(k))grid.set(k,[]);grid.get(k).push(b);}
+ // Index the authored masonry, glazing and roofs themselves. A capsule is
+ // tested against triangles clipped to its height, so open doors stay open
+ // while pointed roofs, window panes and narrow wall pieces remain solid.
+ const structureGrid=new Map(),structure=[];
+ for(const part of D.parts){if(!['stone','trim','roof','slate','glass','blueglass','iron'].includes(part.material)||/guard|door/i.test(part.sector))continue;if(gameBoot.shouldYield())await gameBoot.yield();
+  for(let i=0;i<part.indices.length;i+=3){const points=part.indices.slice(i,i+3).map(k=>({x:part.positions[k*3]+cx,y:part.positions[k*3+1]+base,z:part.positions[k*3+2]+cz})),[a,b,c]=points,den=(b.z-c.z)*(a.x-c.x)+(c.x-b.x)*(a.z-c.z),t={points,den,minY:Math.min(a.y,b.y,c.y),maxY:Math.max(a.y,b.y,c.y)};structure.push(t);for(let x=Math.floor(Math.min(a.x,b.x,c.x)/cell);x<=Math.floor(Math.max(a.x,b.x,c.x)/cell);x++)for(let z=Math.floor(Math.min(a.z,b.z,c.z)/cell);z<=Math.floor(Math.max(a.z,b.z,c.z)/cell);z++){const key=x+','+z;if(!structureGrid.has(key))structureGrid.set(key,[]);structureGrid.get(key).push(t);}}
+ }
+ function nearbyStructure(x,z,r=0){const found=new Set();for(let i=Math.floor((x-r)/cell);i<=Math.floor((x+r)/cell);i++)for(let j=Math.floor((z-r)/cell);j<=Math.floor((z+r)/cell);j++)for(const t of structureGrid.get(i+','+j)||[])found.add(t);return found;}
+ function triangleHeight(t,x,z){if(Math.abs(t.den)<1e-9)return null;const [a,b,c]=t.points,u=((b.z-c.z)*(x-c.x)+(c.x-b.x)*(z-c.z))/t.den,v=((c.z-a.z)*(x-c.x)+(a.x-c.x)*(z-c.z))/t.den,w=1-u-v;return u>=-1e-6&&v>=-1e-6&&w>=-1e-6?u*a.y+v*b.y+w*c.y:null;}
+ function meshBlocked(x,z,y,r){for(const t of nearbyStructure(x,z,r)){if(t.maxY<=y+MAX_STEP_HEIGHT+.01||t.minY>=y+PLAYER_HEIGHT-.025)continue;let poly=t.points;
+  for(const [h,sign] of [[y+.035,1],[y+PLAYER_HEIGHT-.025,-1]]){const clipped=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],d=(a.y-h)*sign,e=(b.y-h)*sign;if(d>=0)clipped.push(a);if((d>=0)!==(e>=0)){const q=d/(d-e);clipped.push({x:a.x+(b.x-a.x)*q,y:h,z:a.z+(b.z-a.z)*q});}}poly=clipped;if(!poly.length)break;}if(!poly.length)continue;
+  let inside=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const a=poly[j],b=poly[i];if(distSegment(x,z,[a.x,a.z],[b.x,b.z])<r)return true;if((a.z>z)!==(b.z>z)&&x<(b.x-a.x)*(z-a.z)/(b.z-a.z)+a.x)inside=!inside;}if(inside)return true;
+ }return false;}
+ const local=(x,z)=>({x:x-cx,z:z-cz}),inside=(x,z)=>Math.abs(x-cx)<71&&Math.abs(z-cz)<64;
+ const gate=sectors.get('door');let gateOpen=false,gateRise=0;
+ function blocked(x,z,y,r=.2){if(y<base+3.8&&y+PLAYER_HEIGHT>base&&[-1,1].some(s=>Math.hypot(x-cx-s*3.4,z-cz-71)<.65+r))return true;if(!(Math.abs(x-cx)<78&&Math.abs(z-cz)<72)&&!(Math.abs(x-cx)<7&&z>cz+60&&z<cz+222))return false;if(!gateOpen&&Math.abs(x-cx)<6.5+r&&Math.abs(z-cz-61)<.5+r&&y<base+8&&y+PLAYER_HEIGHT>base)return true;for(const b of grid.get(Math.floor(x/cell)+','+Math.floor(z/cell))||[])if(x+r>b.x-b.w/2&&x-r<b.x+b.w/2&&z+r>b.z-b.d/2&&z-r<b.z+b.d/2&&y+PLAYER_HEIGHT>b.y0+.01&&y<b.y1-.01)return true;return meshBlocked(x,z,y,r);}
+ function support(x,z,y){if(!inside(x,z)&&!(Math.abs(x-cx)<6&&z>=cz+61&&z<=cz+222))return null;const l=local(x,z);let top=-Infinity;for(const st of D.stairs)if(Math.abs(l.x-st.x)<st.w/2&&l.z>=st.z0&&l.z<=st.z1){const h=base+st.y0+(st.y1-st.y0)*(l.z-st.z0)/(st.z1-st.z0);if(h<=y+MAX_STEP_HEIGHT+.05)top=Math.max(top,h);}
+  for(const f of D.floors)if(Math.abs(l.x-f.x)<=f.w/2&&Math.abs(l.z-f.z)<=f.d/2&&base+f.y<=y+MAX_STEP_HEIGHT+.02)top=Math.max(top,base+f.y);for(const t of nearbyStructure(x,z)){const h=triangleHeight(t,x,z);if(h!==null&&h<=y+.03)top=Math.max(top,h);}return Number.isFinite(top)?top:null;}
+ function ceiling(x,z,previous,next){if(Math.abs(x-cx)>78||Math.abs(z-cz)>225)return next;for(const [dx,dz] of [[0,0],[-PLAYER_RADIUS,0],[PLAYER_RADIUS,0],[0,-PLAYER_RADIUS],[0,PLAYER_RADIUS]])for(const t of nearbyStructure(x+dx,z+dz)){const h=triangleHeight(t,x+dx,z+dz);if(h===null)continue;if(next>previous&&previous+PLAYER_HEIGHT<=h+.01&&next+PLAYER_HEIGHT>h)next=Math.min(next,h-PLAYER_HEIGHT-.02);else if(next<previous&&previous>=h-.01&&next<h)next=Math.max(next,h+.02);}return next;}
+ const gateItem={id:'moonveil_gate',type:'moonveil_gate',pos:new THREE.Vector3(cx,base,cz+63),radius:7,prompt:'Mở cổng thành Nguyệt Ảnh'};interactables.push(gateItem);
+ function interact(item){if(item!==gateItem)return false;if(Math.abs(playerGroup.position.x-cx)<6.9&&Math.abs(playerGroup.position.z-cz-61)<1.5&&gateOpen){showNotification('Lùi khỏi cánh cổng trước khi đóng.');return true;}gateOpen=!gateOpen;gateItem.prompt=gateOpen?'Đóng cổng thành Nguyệt Ảnh':'Mở cổng thành Nguyệt Ảnh';hudPromptText.textContent=gateItem.prompt;return true;}
+ const guards=[sectors.get('guard-1'),sectors.get('guard1')];for(let i=0;i<guards.length;i++){guards[i].position.x=(i===0?1:-1)*5.1;guards[i].position.z=6;}let elapsed=0;
+ function update(dt){elapsed+=Math.min(dt,.05);gateRise=THREE.MathUtils.damp(gateRise,gateOpen?9:0,4,Math.min(dt,.05));gate.position.y=gateRise;for(let i=0;i<guards.length;i++)guards[i].position.y=Math.sin(elapsed*1.4+i)*.015;}
+ function environment(){if(!gameState.isPlaying||Math.hypot(playerGroup.position.x-cx,playerGroup.position.z-cz)>245)return;const surface=window.playerSurvival?.surfaceAt(camera.position.x,camera.position.z);if(surface!==null&&surface!==undefined&&camera.position.y<surface)return;if(scene.fog?.isFogExp2)scene.fog.density=Math.min(scene.fog.density,.002);}
+ function travel(){window.riverBoat?.packForTravel();fastTravelTo(cx,cz+228,'Lâu Đài Nguyệt Ảnh',window.worldSurface?.height(cx,cz+228)??base);}
+ // Append after the existing locations, so saved place_N journal IDs keep
+ // identifying the same destinations when the new palace is introduced.
+ function registerLandmark(){if(landmarksData.some(l=>l.id==='moonveil_palace'))return;const index=landmarksData.length,landmark={id:'moonveil_palace',name:'Lâu Đài Nguyệt Ảnh',x:cx,z:cz,color:'#d1b077',icon:'🏰'};landmarksData.push(landmark);if(window.fieldGuide){fieldGuide.catalog.push({id:'place_'+index,type:'places',name:landmark.name,icon:landmark.icon,landmark,description:'Cung điện Gothic trên đảo, hồ bảo vệ nối sông và cổng nâng có lính gác.'});fieldGuide.render();}}
+ const button=document.createElement('button');button.className='tour-btn';button.textContent='🏰 Lâu Đài Nguyệt Ảnh';button.onclick=()=>{gameHUD.closePanels();travel();};document.querySelector('#hud-travel .hud-destinations').append(button);
+ // Local illumination is deliberately bounded; no lights or shadows across the map.
+ for(const [x,z,y,color] of [[0,-22,7,0xffce8a],[-30,9,6,0xffc587],[30,9,6,0xffc587],[-30,-26,6,0x94d5ef],[30,-26,6,0x94d5ef]]){const light=new THREE.PointLight(color,.8,24,2);light.position.set(x,y,z);group.add(light);dynamicLights.push({light,maxDist:160});}
+ window.moonveilPalace={group,terrain,water,terrainSources,waterAt,affects,railReserved:(x,z)=>Math.hypot(x-cx,z-cz)<202,designed,inside,blocked,support,ceiling,interact,travel,registerLandmark,update,environment,gate,gateItem,guards,solids,structure,structureGrid,cameraObstacles,rooms:D.rooms,removed,get gateOpen(){return gateOpen;},center:new THREE.Vector3(cx,base,cz),base};rebuildCollisionGrid();
+}

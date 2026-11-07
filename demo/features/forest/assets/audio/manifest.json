@@ -1,0 +1,66 @@
+{
+  "original": true,
+  "sampleRate": 22050,
+  "sounds": [
+    {
+      "file": "guardian-emerge.wav",
+      "seconds": 2.0,
+      "peak": 0.506
+    },
+    {
+      "file": "guardian-roar.wav",
+      "seconds": 2.4,
+      "peak": 0.66
+    },
+    {
+      "file": "guardian-skill.wav",
+      "seconds": 1.65,
+      "peak": 0.543
+    },
+    {
+      "file": "guardian-ultimate.wav",
+      "seconds": 2.8,
+      "peak": 0.664
+    },
+    {
+      "file": "guardian-attack.wav",
+      "seconds": 0.7,
+      "peak": 0.344
+    },
+    {
+      "file": "guardian-move.wav",
+      "seconds": 0.38,
+      "peak": 0.297
+    },
+    {
+      "file": "guardian-death.wav",
+      "seconds": 2.5,
+      "peak": 0.616
+    },
+    {
+      "file": "spirit-emerge.wav",
+      "seconds": 1.3,
+      "peak": 0.485
+    },
+    {
+      "file": "spirit-roar.wav",
+      "seconds": 1.56,
+      "peak": 0.669
+    },
+    {
+      "file": "spirit-attack.wav",
+      "seconds": 0.455,
+      "peak": 0.409
+    },
+    {
+      "file": "spirit-move.wav",
+      "seconds": 0.247,
+      "peak": 0.277
+    },
+    {
+      "file": "spirit-death.wav",
+      "seconds": 1.625,
+      "peak": 0.617
+    }
+  ]
+}

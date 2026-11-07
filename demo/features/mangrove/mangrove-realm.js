@@ -1,5 +1,6 @@
 /* Blender-authored tidal forest. Shared triangles drive visible terrain and physics. */
-function installMangroveRealm(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installMangroveRealm(){
     const data=MANGROVE_ASSETS,b=data.bounds,waterY=data.waterY,group=new THREE.Group();group.name='GiantMangroveRealm';scene.add(group);
     const tr=(vi,en)=>window.tsuventureSettings?.language==='en'?en:vi;
     const active=()=>gameState.isPlaying&&!gameState.inDialogue&&!document.querySelector('.modal-overlay.active')&&!window.moonRailway?.aboard;
@@ -13,7 +14,7 @@ function installMangroveRealm(){
         return fx+fz<=1?A+(B-A)*fx+(C-A)*fz:D+(C-D)*(1-fx)+(B-D)*(1-fz);
     }
     const waterAt=(x,z)=>basin(x,z)<.995&&ground(x,z)<waterY-.15?{y:waterY,kind:'mangrove',bottom:ground(x,z)}:null;
-    const mats={};for(const [key,rgb] of Object.entries(data.materials))mats[key]=new THREE.MeshStandardMaterial({color:new THREE.Color(...rgb),roughness:.9,side:THREE.DoubleSide,...(['eye','relic'].includes(key)?{emissive:new THREE.Color(...rgb),emissiveIntensity:.9}:{})});
+    const mats={};for(const [key,rgb] of Object.entries(data.materials)){if(window.gameBoot.shouldYield())await window.gameBoot.yield();mats[key]=new THREE.MeshStandardMaterial({color:new THREE.Color(...rgb),roughness:.9,side:THREE.DoubleSide,...(['eye','relic'].includes(key)?{emissive:new THREE.Color(...rgb),emissiveIntensity:.9}:{})});}
     function geometry(p,pivot=[0,0,0]){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(p.vertices.flatMap(v=>v.map((n,i)=>n-pivot[i])),3));g.setIndex(p.indices);g.computeVertexNormals();return g;}
     function model(kind,pivots={}){
         const root=new THREE.Group(),joints={};
@@ -24,7 +25,7 @@ function installMangroveRealm(){
     const terrain=model('terrain').group.children[0].children[0];terrain.name='MangroveSharedTerrain';group.add(terrain);
     // Match the surrounding lunar skin at the border instead of a rectangular mud patch.
     const terrainUV=[],terrainColors=[],lunarColor=new THREE.Color(0xa4a6ac),mudColor=new THREE.Color(0x57503a),tp=terrain.geometry.attributes.position;
-    for(let i=0;i<tp.count;i++){const x=tp.getX(i),z=tp.getZ(i),q=basin(x,z),blend=THREE.MathUtils.smoothstep(q,.98,1.12),color=mudColor.clone().lerp(lunarColor,blend);terrainUV.push((x+EXPANDED_REALM_DATA.size/2)/EXPANDED_REALM_DATA.size,(EXPANDED_REALM_DATA.size/2-z)/EXPANDED_REALM_DATA.size);terrainColors.push(color.r,color.g,color.b);}
+    for(let i=0;i<tp.count;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const x=tp.getX(i),z=tp.getZ(i),q=basin(x,z),blend=THREE.MathUtils.smoothstep(q,.98,1.12),color=mudColor.clone().lerp(lunarColor,blend);terrainUV.push((x+EXPANDED_REALM_DATA.size/2)/EXPANDED_REALM_DATA.size,(EXPANDED_REALM_DATA.size/2-z)/EXPANDED_REALM_DATA.size);terrainColors.push(color.r,color.g,color.b);}
     terrain.geometry.setAttribute('uv',new THREE.Float32BufferAttribute(terrainUV,2));terrain.geometry.setAttribute('color',new THREE.Float32BufferAttribute(terrainColors,3));terrain.material=new THREE.MeshStandardMaterial({map:moonTexture,vertexColors:true,roughness:1,side:THREE.DoubleSide});
     const architecture=model('architecture').group;architecture.name='DrownedMangroveSanctuary';group.add(architecture);
     // Cut both prior surfaces at the same rectangle. No buried lunar triangles across water.
@@ -41,14 +42,14 @@ function installMangroveRealm(){
     excavate(groundGeo,true);excavate(window.riverRealm?.terrain.geometry);
     // Reuse the Blender crown in instanced batches, instead of thousands of draw calls.
     const dummy=new THREE.Object3D();
-    for(const p of data.models.tree){const mesh=new THREE.InstancedMesh(geometry(p),mats[p.material],data.trees.length);mesh.name='GiantMangrove_'+p.material;mesh.frustumCulled=false;mesh.castShadow=true;mesh.receiveShadow=true;
+    for(const p of data.models.tree){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const mesh=new THREE.InstancedMesh(geometry(p),mats[p.material],data.trees.length);mesh.name='GiantMangrove_'+p.material;mesh.frustumCulled=false;mesh.castShadow=true;mesh.receiveShadow=true;
         data.trees.forEach((t,i)=>{dummy.position.set(t.x,t.y,t.z);dummy.rotation.y=t.yaw;dummy.scale.setScalar(t.scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});group.add(mesh);}
     const obstacles=[],obstacleGrid=new Map();
     function obstacle(a,c,r,minY,maxY){const o={a,c,r,minY,maxY};obstacles.push(o);for(let x=Math.floor((Math.min(a[0],c[0])-r-1)/32);x<=Math.floor((Math.max(a[0],c[0])+r+1)/32);x++)for(let z=Math.floor((Math.min(a[1],c[1])-r-1)/32);z<=Math.floor((Math.max(a[1],c[1])+r+1)/32);z++){const key=x+','+z;if(!obstacleGrid.has(key))obstacleGrid.set(key,[]);obstacleGrid.get(key).push(o);}}
-    for(const t of data.trees){obstacle([t.x,t.z],[t.x,t.z],3.5*t.scale,t.y,t.y+60*t.scale);
+    for(const t of data.trees){if(window.gameBoot.shouldYield())await window.gameBoot.yield();obstacle([t.x,t.z],[t.x,t.z],3.5*t.scale,t.y,t.y+60*t.scale);
         const transform=p=>[t.x+(p[0]*Math.cos(t.yaw)+p[2]*Math.sin(t.yaw))*t.scale,t.y+p[1]*t.scale,t.z+(-p[0]*Math.sin(t.yaw)+p[2]*Math.cos(t.yaw))*t.scale];
-        for(const path of data.rootPaths)for(let i=0;i<path.length-1;i++){const a=transform(path[i]),c=transform(path[i+1]);obstacle([a[0],a[2]],[c[0],c[2]],(.9-i*.23)*t.scale,Math.min(a[1],c[1])-.6,Math.max(a[1],c[1])+.8);}}
-    for(const p of data.pillars)obstacle([p.x,p.z],[p.x,p.z],p.r,p.minY,p.maxY);
+        for(const path of data.rootPaths){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(let i=0;i<path.length-1;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const a=transform(path[i]),c=transform(path[i+1]);obstacle([a[0],a[2]],[c[0],c[2]],(.9-i*.23)*t.scale,Math.min(a[1],c[1])-.6,Math.max(a[1],c[1])+.8);}}}
+    for(const p of data.pillars){if(window.gameBoot.shouldYield())await window.gameBoot.yield();obstacle([p.x,p.z],[p.x,p.z],p.r,p.minY,p.maxY);}
     function blocked(x,z,y,r=PLAYER_RADIUS){if(!contains(x,z))return false;for(const o of obstacleGrid.get(Math.floor(x/32)+','+Math.floor(z/32))||[]){if(y>=o.maxY||y+PLAYER_HEIGHT<=o.minY)continue;const dx=o.c[0]-o.a[0],dz=o.c[1]-o.a[1],q=THREE.MathUtils.clamp(((x-o.a[0])*dx+(z-o.a[1])*dz)/(dx*dx+dz*dz||1),0,1);if(Math.hypot(x-o.a[0]-dx*q,z-o.a[1]-dz*q)<o.r+r)return true;}return false;}
     // Ramp joins dry riverbank to the continuous 5.8 m wide deck.
     const rampStart=data.entry[1],rampEnd=2.8,rampZ=-665,rampLength=51;
@@ -67,7 +68,7 @@ function installMangroveRealm(){
     const water=new THREE.Mesh(waterGeo,waterMat);water.name='OpaqueBrackishSaltwater';group.add(water);
     const life=installMangroveLife({data,group,geometry,mats,ground,waterY});
     // Tide marks, floating leaves and emerging pneumatophores provide scale at water level.
-    const shoots=[];for(let i=0;i<320;i++){const a=i*2.39996,r=Math.sqrt((i+.5)/320)*.92,x=70+Math.cos(a)*225*r,z=-825+Math.sin(a)*120*r;if(Math.abs(x-70)<7||!waterAt(x,z))continue;shoots.push({x,z,h:.3+(i%5)*.18});}
+    const shoots=[];for(let i=0;i<320;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const a=i*2.39996,r=Math.sqrt((i+.5)/320)*.92,x=70+Math.cos(a)*225*r,z=-825+Math.sin(a)*120*r;if(Math.abs(x-70)<7||!waterAt(x,z))continue;shoots.push({x,z,h:.3+(i%5)*.18});}
     const shootsMesh=new THREE.InstancedMesh(new THREE.ConeGeometry(.17,1,5),mats.root,shoots.length);shootsMesh.frustumCulled=false;shoots.forEach((p,i)=>{dummy.position.set(p.x,waterY+p.h/2,p.z);dummy.scale.set(1,p.h,1);dummy.rotation.set(0,i,.08);dummy.updateMatrix();shootsMesh.setMatrixAt(i,dummy.matrix);});group.add(shootsMesh);
     let owned=false,defeated=false;const storageKey='tsuventure_mangrove_v1';try{const s=JSON.parse(localStorage.getItem(storageKey)||'{}');owned=s.ancientFragment===true;defeated=s.crocodileDefeated===true;}catch{}
     const save=()=>{try{localStorage.setItem(storageKey,JSON.stringify({ancientFragment:owned,crocodileDefeated:defeated}));}catch{}};
@@ -86,9 +87,13 @@ function installMangroveRealm(){
     let time=0,pending=null,immunity=0;
     function pause(){pending=null;marker.visible=false;hud.hidden=true;if(crocodile.health>0){crocodile.state='patrol';crocodile.timer=0;crocodile.cooldown=Math.max(2,crocodile.cooldown);}}
     function travel(){window.crystalWings?.stopFlight();fastTravelTo(data.entry[0],data.entry[2],tr('Rừng Ngập Mặn — Phế Tích Triều Mặn','Mangrove — Drowned Sanctuary'),data.entry[1]);camYaw=0;camPitch=.25;camDistance=8;}
-    function rescue(){pause();Object.assign(gameState,{health:gameState.maxHealth,armor:gameState.maxArmor,oxygen:100,stamina:100});travel();immunity=3;updatePlayerVitals();showNotification(tr('Đã trở về bờ rừng ngập mặn an toàn.','Returned to the safe mangrove bank.'));}
-    function hit(amount){if(!active()||crocodile.health<=0||!Number.isFinite(amount)||amount<=0)return false;crocodile.health=Math.max(0,crocodile.health-heroOutgoingDamage(amount));window.fieldGuide?.record('swamp_crocodile',crocodile.health===0);if(!crocodile.health){crocodile.state='dead';defeated=true;marker.visible=false;save();showNotification(tr('Đã hạ Cá Sấu Đầm Lầy!','Swamp Crocodile defeated!'));}return true;}
-    function hurt(amount){if(!active()||immunity>0)return false;window.playerLife?.noteDamage('crocodile');const damage=heroIncomingDamage(amount),armor=Math.min(gameState.armor,damage);gameState.armor-=armor;gameState.health=Math.max(0,gameState.health-damage+armor);immunity=.8;updatePlayerVitals();if(gameState.health<=0)rescue();return true;}
+    function rescue(){pause();Object.assign(gameState,{health:gameState.maxHealth,oxygen:100,stamina:100});travel();immunity=3;updatePlayerVitals();showNotification(tr('Đã trở về bờ rừng ngập mặn an toàn.','Returned to the safe mangrove bank.'));}
+    function hit(amount){if(!active()||crocodile.health<=0||!Number.isFinite(amount)||amount<=0)return false;crocodile.health=Math.max(0,crocodile.health-heroOutgoingDamage(amount,crocodile.health));window.fieldGuide?.record('swamp_crocodile',crocodile.health===0);if(!crocodile.health){crocodile.state='dead';defeated=true;marker.visible=false;save();showNotification(tr('Đã hạ Cá Sấu Đầm Lầy!','Swamp Crocodile defeated!'));}return true;}
+    function hurt(amount,special=false){
+        if(!active()||immunity>0||!playerLife.hitMonster(amount,'crocodile',{special}))return false;
+        immunity=.8;
+        return true;
+    }
     function bodyDistance(p){const local=crocodile.group.worldToLocal(p.clone()),z=THREE.MathUtils.clamp(local.z,-7,10);return Math.hypot(local.x,local.y-2,local.z-z);}
     function beginPlayerAttack(hero){if(active()&&waterAt(playerGroup.position.x,playerGroup.position.z))pending={hero,time:.18};}
     function startBite(){if(!active()||crocodile.health<=0||!['patrol','pursue'].includes(crocodile.state)||crocodile.cooldown>0)return false;crocodile.state='warning';crocodile.timer=0;crocodile.target.copy(playerGroup.position);marker.position.set(crocodile.target.x,waterY+.08,crocodile.target.z);marker.visible=true;return true;}
@@ -109,7 +114,7 @@ function installMangroveRealm(){
             if(vulnerable&&distance<85){crocodile.state='pursue';if(distance<18&&crocodile.cooldown===0)startBite();else move(p,7.5,dt);}
             else{crocodile.state='patrol';if(!crocodile.destination||crocodile.group.position.distanceTo(crocodile.destination)<5){const a=time*.37;crocodile.destination=new THREE.Vector3(70+Math.cos(a)*115,waterY-1.8,-825+Math.sin(a)*65);}move(crocodile.destination,3.4,dt);}
         }else if(crocodile.state==='warning'&&crocodile.timer>=1.15){marker.visible=false;crocodile.state='lunge';crocodile.timer=0;}
-        else if(crocodile.state==='lunge'){move(crocodile.target,20,dt);if(vulnerable&&p.distanceTo(crocodile.target)<4.7&&p.distanceTo(crocodile.group.position)<21)hurt(48);if(crocodile.timer>.65){crocodile.state='recover';crocodile.timer=0;crocodile.cooldown=3.5;}}
+        else if(crocodile.state==='lunge'){move(crocodile.target,20,dt);if(vulnerable&&p.distanceTo(crocodile.target)<4.7&&p.distanceTo(crocodile.group.position)<21)hurt(48,true);if(crocodile.timer>.65){crocodile.state='recover';crocodile.timer=0;crocodile.cooldown=3.5;}}
         else if(crocodile.state==='recover'&&crocodile.timer>1.2){crocodile.state='patrol';crocodile.timer=0;}
         crocodile.joints.jaw.rotation.x=['warning','lunge'].includes(crocodile.state)?.48:.04;crocodile.joints.tail.rotation.y=Math.sin(time*2.5)*.22;crocodile.joints.head.rotation.y=Math.sin(time)*.035;for(const side of [-1,1])for(const leg of ['front','rear'])crocodile.joints[leg+side].rotation.z=Math.sin(time*4+(side<0?Math.PI:0)+(leg==='rear'?Math.PI:0))*.15;
     }

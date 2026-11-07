@@ -64,16 +64,16 @@ function createStationLift({root,materials,cx,cz,levels,labels,name,role='ground
         worldPoint(index,inside=false){return root.localToWorld(new THREE.Vector3(cx,levels[index],cz+(inside?0:4.2)));},
         local(p){root.updateWorldMatrix(true,false);return root.worldToLocal(p.clone());},
         contains(p,tolerance=.5){const q=this.local(p);return Math.abs(q.x-cx)<2.1&&Math.abs(q.z-cz)<2.15&&Math.abs(q.y-cabin.position.y)<tolerance;},
-        request(index){if(this.busy||index===floor||index<0||index>1)return false;target=index;phase='closing';elapsed=0;from=cabin.position.y;return true;},
+        request(index){if(this.busy||index===floor||!Number.isInteger(index)||index<0||index>=levels.length)return false;target=index;phase='closing';elapsed=0;from=cabin.position.y;return true;},
         tick(dt){const before=cabin.position.y;elapsed+=dt;if(phase==='closing'){open=Math.max(0,1-elapsed/.7);if(elapsed>=.7){phase='moving';elapsed=0;open=0;}}
             else if(phase==='moving'){const duration=Math.max(2.5,Math.abs(levels[target]-from)/9),t=THREE.MathUtils.clamp(elapsed/duration,0,1),smooth=t*t*(3-2*t);cabin.position.y=THREE.MathUtils.lerp(from,levels[target],smooth);if(t>=1){floor=target;phase='opening';elapsed=0;}}
             else if(phase==='opening'){open=Math.min(1,elapsed/.7);if(open>=1){phase='idle';elapsed=0;}}
-            for(let f=0;f<2;f++)for(let side=0;side<2;side++)gates[f][side].position.x=cx+(side?1:-1)*(1.15+(floor===f&&phase!=='moving'?open:0)*2.3);
+            for(let f=0;f<levels.length;f++)for(let side=0;side<2;side++)gates[f][side].position.x=cx+(side?1:-1)*(1.15+(floor===f&&phase!=='moving'?open:0)*2.3);
             return cabin.position.y-before;
         },
         support(x,z,y){const q=this.local(new THREE.Vector3(x,y,z)),h=cabin.position.y;if(Math.abs(q.x-cx)<=2.3&&Math.abs(q.z-cz)<=2.3&&q.y>=h-MAX_STEP_HEIGHT-.03&&q.y<h+2)return root.position.y+h;let top=-Infinity;for(const b of surfaces)if(q.x>=b.minX&&q.x<=b.maxX&&q.z>=b.minZ&&q.z<=b.maxZ&&q.y>=b.maxY-MAX_STEP_HEIGHT-.01)top=Math.max(top,root.position.y+b.maxY);return top;},
         blocked(x,z,y,radius=.35){const q=this.local(new THREE.Vector3(x,y,z));for(const b of solids)if(q.y+PLAYER_HEIGHT>b.minY&&q.y<b.maxY&&q.x+radius>b.minX&&q.x-radius<b.maxX&&q.z+radius>b.minZ&&q.z-radius<b.maxZ)return true;
-            if(Math.abs(q.x-cx)<2.5+radius&&Math.abs(q.z-(cz+2.45))<.13+radius)for(let f=0;f<2;f++)if(q.y+PLAYER_HEIGHT>levels[f]&&q.y<levels[f]+2.7&&(floor!==f||open<.92||phase==='moving'))return true;
+            if(Math.abs(q.x-cx)<2.5+radius&&Math.abs(q.z-(cz+2.45))<.13+radius)for(let f=0;f<levels.length;f++)if(q.y+PLAYER_HEIGHT>levels[f]&&q.y<levels[f]+2.7&&(floor!==f||open<.92||phase==='moving'))return true;
             if(q.y+PLAYER_HEIGHT>cabin.position.y&&q.y<cabin.position.y+3&&Math.abs(q.z-cz)<2.4+radius&&Math.abs(q.x-cx)>2.2-radius&&Math.abs(q.x-cx)<2.5+radius)return true;
             if(q.y+PLAYER_HEIGHT>cabin.position.y&&q.y<cabin.position.y+3&&Math.abs(q.x-cx)<2.4+radius&&Math.abs(q.z-(cz-2.32))<.13+radius)return true;return false;
         }};
@@ -120,30 +120,31 @@ function finishLowStationStairs(access,station,height,materials){
     art.finish();stationAccessSign(root,'LỐI LÊN SÂN GA','Thang bộ · tay vịn hai bên',end.clone().add(new THREE.Vector3(3,2.1,4)),Math.PI/2);return access;
 }
 
-function installStationMobility(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installStationMobility(){
     const rail=moonRailway,materials=rail.materials,root=new THREE.Group();root.name='StationInterchanges';scene.add(root);const transfers=[];
-    for(const [index,s] of rail.stations.entries()){
-        const back=rail.reversePlatforms[index],gap=Math.max(s.platform.y-rail.terrainHeight(s.platform.x,s.platform.z),s.returnPlatform.y-rail.terrainHeight(s.returnPlatform.x,s.returnPlatform.z));
+    for(const [index,s] of rail.stations.entries()){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
+        if(s.grandTerminal)continue;const back=rail.reversePlatforms[index],gap=Math.max(s.platform.y-rail.terrainHeight(s.platform.x,s.platform.z),s.returnPlatform.y-rail.terrainHeight(s.returnPlatform.x,s.returnPlatform.z));
         if(gap<5&&s.access.kind!=='lift'&&back.access?.kind!=='lift'&&Math.abs(s.platform.y-s.returnPlatform.y)<2.5)continue;
         const f=new THREE.Vector3(Math.sin(s.yaw),0,Math.cos(s.yaw)),origin=s.model.position;
         // Put the interchange at the end which avoids the existing hillside
         // paths and ground ramps. A cabin must not occupy their centre line.
         let placement=null;
-        for(const along of [-64,64,-82,82]){
+        for(const along of [-64,64,-82,82]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
             const anchors=[s.platform,s.returnPlatform].map(p=>p.clone().addScaledVector(f,along-p.clone().sub(origin).dot(f))),towards=along<0?1:-1;
             let score=Math.abs(along)-64+(along>0?1:0);
-            for(const [side,a] of anchors.entries()){
-                for(let d=0;d<=30;d+=3){const p=a.clone().addScaledVector(f,towards*d),ground=rail.terrainHeight(p.x,p.z);if(ground>p.y+.2)score+=100000;
+            for(const [side,a] of anchors.entries()){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
+                for(let d=0;d<=30;d+=3){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const p=a.clone().addScaledVector(f,towards*d),ground=rail.terrainHeight(p.x,p.z);if(ground>p.y+.2)score+=100000;
                     const floor=window.highlandTrails?.support(p.x,p.z,p.y);if(Number.isFinite(floor)&&Math.abs(floor-p.y)<2.5&&highlandTrails.corridorAt(p.x,p.z,4))score+=1000;
-                    const points=side?back.access?.waypoints:s.access.waypoints;for(const q of points||[])if(Math.hypot(q.x-p.x,q.z-p.z)<6&&Math.abs(q.y-p.y)<2.5)score+=1000;
+                    const points=side?back.access?.waypoints:s.access.waypoints;for(const q of points||[]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();if(Math.hypot(q.x-p.x,q.z-p.z)<6&&Math.abs(q.y-p.y)<2.5)score+=1000;}
                 }
             }
             if(!placement||score<placement.score)placement={along,anchors,score};
         }
         const {along,anchors}=placement;
-        let bridgeY=Math.max(...anchors.map(p=>p.y))+8.5;for(let t=0;t<=1;t+=.05){const p=anchors[0].clone().lerp(anchors[1],t);bridgeY=Math.max(bridgeY,rail.terrainHeight(p.x,p.z)+2);}
+        let bridgeY=Math.max(...anchors.map(p=>p.y))+8.5;for(let t=0;t<=1;t+=.05){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const p=anchors[0].clone().lerp(anchors[1],t);bridgeY=Math.max(bridgeY,rail.terrainHeight(p.x,p.z)+2);}
         const group=new THREE.Group();group.name='StationTransfer_'+index;root.add(group);const links=[];
-        for(let side=0;side<2;side++){
+        for(let side=0;side<2;side++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
             const tower=new THREE.Group();tower.name='StationTransferLift';tower.position.copy(anchors[side]);tower.rotation.y=s.yaw+(along>0?Math.PI:0);group.add(tower);
             const lift=createStationLift({root:tower,materials,cx:0,cz:0,levels:[0,bridgeY-anchors[side].y],labels:[side?'0 · Ga chiều ngược':'0 · Ga chiều xuôi','1 · Cầu đổi chiều'],name:s.name,role:'transfer'});
             const art=stationAccessGeometry(tower,materials,lift.surfaces,lift.solids),join=Math.abs(along)-(side?30:34);art.gallery(new THREE.Vector3(0,0,4.2),new THREE.Vector3(0,0,20));art.gallery(new THREE.Vector3(0,0,20),new THREE.Vector3(0,0,join));art.finish();links.push(lift);
@@ -155,9 +156,30 @@ function installStationMobility(){
     }
     root.updateWorldMatrix(true,true);
     const hud=document.createElement('div');hud.className='station-mobility-hud';hud.hidden=true;hud.innerHTML='<strong></strong><span></span><button type="button" aria-keyshortcuts="E"></button>';document.body.append(hud);const button=hud.querySelector('button');
+    const floorButtons = document.createElement('div');
+    floorButtons.className = 'terminal-lift-floors';
+    const choices = ['1 · Sảnh', '2 · Sân ga', '3 · VIP'].map((label, index) => {
+        const choice = document.createElement('button');
+        choice.type = 'button';
+        choice.textContent = label;
+        choice.onclick = () => selectFloor(index);
+        floorButtons.append(choice);
+        return choice;
+    });
+    hud.append(floorButtons);
     let riding=null,near=null;const vector=new THREE.Vector3();
-    function nearest(){if(rail.aboard)return null;let best=null,score=Infinity;for(const lift of stationLiftRegistry){if(lift.contains(playerGroup.position)){return {lift,floor:lift.floor,inside:true};}for(let floor=0;floor<2;floor++){const p=lift.worldPoint(floor),d=Math.hypot(p.x-playerGroup.position.x,p.z-playerGroup.position.z);if(d<4.5&&Math.abs(p.y-playerGroup.position.y)<1.5&&d<score){score=d;best={lift,floor,inside:false};}}}return best;}
-    function interact(){const target=nearest();if(!target||rail.aboard||gameState.inDialogue)return false;const {lift,floor,inside}=target;if(lift.busy)return true;if(inside){if(lift.request(1-lift.floor)){riding=lift;resetGameplayInput();jumpVelocityY=0;isGrounded=true;playerLife.resetFall();}}else if(lift.floor!==floor)lift.request(floor);else showNotification('Thang đã đến. Bước vào cabin, nhấn E để đi.');return true;}
+    function nearest(){if(rail.aboard)return null;let best=null,score=Infinity;for(const lift of stationLiftRegistry){if(lift.contains(playerGroup.position)){return {lift,floor:lift.floor,inside:true};}for(let floor=0;floor<lift.levels.length;floor++){const p=lift.worldPoint(floor),d=Math.hypot(p.x-playerGroup.position.x,p.z-playerGroup.position.z);if(d<4.5&&Math.abs(p.y-playerGroup.position.y)<1.5&&d<score){score=d;best={lift,floor,inside:false};}}}return best;}
+    function selectFloor(index) {
+        const target = nearest();
+        if (!target?.inside || !target.lift.request(index)) return false;
+        riding = target.lift;
+        resetGameplayInput();
+        jumpVelocityY = 0;
+        isGrounded = true;
+        playerLife.resetFall();
+        return true;
+    }
+    function interact(){const target=nearest();if(!target||rail.aboard||gameState.inDialogue)return false;const {lift,floor,inside}=target;if(lift.busy)return true;if(inside){selectFloor(lift.floor===0?1:0);}else if(lift.floor!==floor)lift.request(floor);else showNotification('Thang đã đến. Bước vào cabin, nhấn E để đi.');return true;}
     button.onclick=interact;
     function localBoxBlocked(object,solids,x,z,y,radius){const q=object.worldToLocal(new THREE.Vector3(x,y,z));return solids.some(b=>q.y+PLAYER_HEIGHT>b.minY&&q.y<b.maxY&&q.x+radius>b.minX&&q.x-radius<b.maxX&&q.z+radius>b.minZ&&q.z-radius<b.maxZ);}
     function support(x,z,y){let top=-Infinity;for(const lift of stationLiftRegistry)if(Math.hypot(x-lift.root.position.x,z-lift.root.position.z)<480)top=Math.max(top,lift.support(x,z,y));for(const t of transfers){if(Math.hypot(x-t.bridge.position.x,z-t.bridge.position.z)>t.span+8)continue;const q=t.bridge.worldToLocal(new THREE.Vector3(x,y,z));for(const b of t.surfaces)if(q.x>=b.minX&&q.x<=b.maxX&&q.z>=b.minZ&&q.z<=b.maxZ&&q.y>=b.maxY-MAX_STEP_HEIGHT-.01)top=Math.max(top,t.bridge.position.y+b.maxY);}return top;}
@@ -165,9 +187,19 @@ function installStationMobility(){
     function update(dt){const active=gameState.isPlaying&&!gameState.inDialogue&&!document.querySelector('.modal-overlay.active');root.visible=gameState.isPlaying;if(!active){hud.hidden=true;return;}
         if(riding&&(gameState.health<=0||Math.hypot(playerGroup.position.x-riding.worldPoint(riding.floor,true).x,playerGroup.position.z-riding.worldPoint(riding.floor,true).z)>6))riding=null;
         for(const lift of stationLiftRegistry){const dy=lift.tick(Math.min(.1,dt));if(lift===riding){playerGroup.position.y+=dy;currentGroundY=playerGroup.position.y;jumpVelocityY=0;isGrounded=true;playerLife.resetFall();if(lift.phase==='idle')riding=null;}}
-        near=nearest();hud.hidden=!near;if(!near)return;const {lift,floor,inside}=near;hud.querySelector('strong').textContent=lift.name;hud.querySelector('span').textContent=lift.busy?'Thang máy đang di chuyển…':lift.labels[floor];button.disabled=lift.busy;button.textContent=lift.busy?'Vui lòng chờ':inside?'E · '+lift.labels[1-lift.floor].replace(/^\d · /,'Đi đến '):lift.floor!==floor?'E · Gọi thang máy':'E · Thang đã đến — bước vào cabin';
+        near=nearest();hud.hidden=!near;if(!near)return;const {lift,floor,inside}=near;hud.querySelector('strong').textContent=lift.name;hud.querySelector('span').textContent=lift.busy?'Thang máy đang di chuyển…':lift.labels[floor];floorButtons.hidden = !inside || lift.levels.length < 3;
+        choices.forEach((choice,index) => { choice.disabled = lift.busy || index === lift.floor; });
+        button.disabled=lift.busy;button.textContent=lift.busy?'Vui lòng chờ':inside?'E · '+lift.labels[lift.floor===0?1:0].replace(/^\d · /,'Đi đến '):lift.floor!==floor?'E · Gọi thang máy':'E · Thang đã đến — bước vào cabin';
     }
     function vertical(){if(!riding)return false;keys.jump=false;jumpVelocityY=0;currentGroundY=playerGroup.position.y;isGrounded=true;return true;}
     window.addEventListener('keydown',e=>{if(e.key.toLowerCase()!=='e'||e.repeat||e.ctrlKey||e.altKey||e.metaKey||!gameState.isPlaying||document.querySelector('.modal-overlay.active')||e.target?.closest?.('input,textarea,select,[contenteditable=true]'))return;if(interact()){e.preventDefault();e.stopImmediatePropagation();}},true);
-    window.stationMobility={root,lifts:stationLiftRegistry,transfers,hud,interact,update,support,blocked,vertical,nearest,get riding(){return riding;}};
+    window.addEventListener('keydown', event => {
+        if (!['1','2','3'].includes(event.key) || event.repeat || event.ctrlKey || event.altKey || event.metaKey || !gameState.isPlaying || gameState.inDialogue || document.querySelector('.modal-overlay.active')) return;
+        const target = nearest();
+        if (!target?.inside || target.lift.levels.length < 3) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        selectFloor(Number(event.key)-1);
+    }, true);
+    window.stationMobility={selectFloor,root,lifts:stationLiftRegistry,transfers,hud,interact,update,support,blocked,vertical,nearest,get riding(){return riding;}};
 }

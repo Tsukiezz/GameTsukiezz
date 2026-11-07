@@ -1,25 +1,26 @@
 /* A walkable festive factory, glacier waterfall and separate Snow Queen arena. */
-function installAntarcticRealm(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installAntarcticRealm(){
     const world=worldExpansion,group=new THREE.Group();group.name='AntarcticRealm';scene.add(group);const bins=makeDesertMeshBins(group),solids=[],surfaces=[],cameraObstacles=[];
     const factory={x:-700,z:2200,y:world.waterY+15},arena={x:-2200,z:2250};
     function box(name,x,y,z,w,h,d,color,solid=false,surface=false){bins.add(new THREE.BoxGeometry(w,h,d),new THREE.Matrix4().makeTranslation(x,y,z),color,name);if(solid){const b={minX:x-w/2,maxX:x+w/2,minZ:z-d/2,maxZ:z+d/2,minY:y-h/2,maxY:y+h/2,name};solids.push(b);addBoxCollider(x,z,w,d,b.minY,b.maxY,surface);Object.assign(colliders.at(-1),{name:'antarctic-'+name,stepHeight:surface?MAX_STEP_HEIGHT:.05});}if(surface)surfaces.push({minX:x-w/2,maxX:x+w/2,minZ:z-d/2,maxZ:z+d/2,y:y+h/2});}
     let court=null;
-    for(let radius=0;radius<=750&&!court;radius+=25)for(let k=0;k<(radius?24:1);k++){
+    for(let radius=0;radius<=750&&!court;radius+=25){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(let k=0;k<(radius?24:1);k++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
         const x=-2200+Math.cos(k*Math.PI/12)*radius,z=2250+Math.sin(k*Math.PI/12)*radius;
         if(!world.antarctic(x,z)||Math.abs(x)>world.half-180||z>world.half-180)continue;
         const samples=[[-72,-72],[-72,0],[-72,72],[0,-72],[0,0],[0,72],[72,-72],[72,0],[72,72]];
         if(samples.some(([dx,dz])=>world.waterAt(x+dx,z+dz)||checkCollision(x+dx,z+dz,world.height(x+dx,z+dz),2)))continue;
         const heights=samples.map(([dx,dz])=>world.height(x+dx,z+dz));if(Math.max(...heights)-Math.min(...heights)>9)continue;
         court={x,z,y:Math.max(...heights)+.15};break;
-    }
+    }}
     if(!court)throw Error('No dry Snow Queen court');Object.assign(arena,court);
     // Lower only the dry ground under the authored floors, before railway and
     // world-surface indices are built. This eliminates coplanar snow/floor seams.
     const floorPositions=world.terrain.geometry.attributes.position;
     const arenaGrounding=[];
-    for(let i=0;i<floorPositions.count;i++){const x=floorPositions.getX(i),z=floorPositions.getZ(i);if(world.waterAt(x,z))continue;const old=floorPositions.getY(i),distance=Math.max(Math.abs(x-court.x),Math.abs(z-court.z)),blend=1-THREE.MathUtils.smoothstep(distance,90,150),inFactory=Math.abs(x-factory.x)<79&&Math.abs(z-factory.z)<64;if(blend>0){const y=THREE.MathUtils.lerp(old,court.y-.35,blend);floorPositions.setY(i,y);arenaGrounding.push({x,z,old,y,blend});}else if(inFactory)floorPositions.setY(i,Math.min(old,factory.y-.7));}floorPositions.needsUpdate=true;world.terrain.geometry.computeVertexNormals();world.terrain.geometry.computeBoundingSphere();
+    for(let i=0;i<floorPositions.count;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const x=floorPositions.getX(i),z=floorPositions.getZ(i);if(world.waterAt(x,z))continue;const old=floorPositions.getY(i),distance=Math.max(Math.abs(x-court.x),Math.abs(z-court.z)),blend=1-THREE.MathUtils.smoothstep(distance,90,150),inFactory=Math.abs(x-factory.x)<79&&Math.abs(z-factory.z)<64;if(blend>0){const y=THREE.MathUtils.lerp(old,court.y-.35,blend);floorPositions.setY(i,y);arenaGrounding.push({x,z,old,y,blend});}else if(inFactory)floorPositions.setY(i,Math.min(old,factory.y-.7));}floorPositions.needsUpdate=true;world.terrain.geometry.computeVertexNormals();world.terrain.geometry.computeBoundingSphere();
     const winterStructure=buildWinterArchitecture(group,box,factory,court);
-    const queenRamp=new THREE.BufferGeometry(),qr=[],qi=[],queenSteps=4;for(let i=0;i<=queenSteps;i++){const z=court.z+68+i*2;for(const x of [court.x-10,court.x+10])qr.push(x,Math.max(world.height(x,z)+.025,THREE.MathUtils.lerp(court.y,world.height(x,court.z+76)+.025,THREE.MathUtils.smoothstep(z-court.z,71,76))),z);if(i<queenSteps){const a=i*2;qi.push(a,a+2,a+1,a+1,a+2,a+3);}}
+    const queenRamp=new THREE.BufferGeometry(),qr=[],qi=[],queenSteps=4;for(let i=0;i<=queenSteps;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const z=court.z+68+i*2;for(const x of [court.x-10,court.x+10]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();qr.push(x,Math.max(world.height(x,z)+.025,THREE.MathUtils.lerp(court.y,world.height(x,court.z+76)+.025,THREE.MathUtils.smoothstep(z-court.z,71,76))),z);}if(i<queenSteps){const a=i*2;qi.push(a,a+2,a+1,a+1,a+2,a+3);}}
     function queenRampHeight(x,z){const v=THREE.MathUtils.clamp((z-court.z-68)/2,0,queenSteps-1e-7),i=Math.floor(v),fz=v-i,fx=THREE.MathUtils.clamp((x-court.x+10)/20,0,1),a=i*6,A=qr[a+1],B=qr[a+4],C=qr[a+7],D=qr[a+10];return fx+fz<=1?A+(B-A)*fx+(C-A)*fz:D+(C-D)*(1-fx)+(B-D)*(1-fz);}
     queenRamp.setAttribute('position',new THREE.Float32BufferAttribute(qr,3));queenRamp.setIndex(qi);queenRamp.computeVertexNormals();const queenRampMesh=new THREE.Mesh(queenRamp,new THREE.MeshStandardMaterial({color:0xa6c3d2,side:THREE.DoubleSide}));queenRampMesh.name='QueenCourtRamp';group.add(queenRampMesh);
     const fy=factory.y;
@@ -28,10 +29,10 @@ function installAntarcticRealm(){
 
     // Distant Antarctic relief is sparse, grounded and kept outside travel corridors.
     // Frozen walls frame a descending sheet that ends directly in the connected lake.
-    for(let i=-5;i<=5;i++){const x=1100+i*17,z=2855+Math.abs(i)*8,h=95+Math.cos(i)*10;box('GlacierColumns',x,world.waterY+h/2,z,18,h,24,i%2?'#9bd2e1':'#649bb3',true);box('GlacierCaps',x,world.waterY+h+2,z,21,4,27,'#d2e4e7');}
+    for(let i=-5;i<=5;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const x=1100+i*17,z=2855+Math.abs(i)*8,h=95+Math.cos(i)*10;box('GlacierColumns',x,world.waterY+h/2,z,18,h,24,i%2?'#9bd2e1':'#649bb3',true);box('GlacierCaps',x,world.waterY+h+2,z,21,4,27,'#d2e4e7');}
     const fall=new THREE.Mesh(new THREE.PlaneGeometry(90,92,9,12),new THREE.MeshBasicMaterial({color:0x9edcec,transparent:true,opacity:.72,side:THREE.DoubleSide}));fall.position.set(1100,world.waterY+46,2839);fall.name='IceWaterfall';group.add(fall);
-    for(let i=0;i<12;i++){const spray=new THREE.Mesh(new THREE.SphereGeometry(1,7,5),new THREE.MeshBasicMaterial({color:0xdaf2ee,transparent:true,opacity:.22,depthWrite:false}));spray.position.set(1060+i*7,world.waterY+1,2830);spray.scale.set(8,3,6);group.add(spray);}
-    for(let x=-60;x<=60;x+=12)for(const side of [-1,1])box('FactoryFestiveLights',factory.x+x,fy+14.5,factory.z+side*53,1,.8,.8,x%24?'#dfa64b':'#c35856');
+    for(let i=0;i<12;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const spray=new THREE.Mesh(new THREE.SphereGeometry(1,7,5),new THREE.MeshBasicMaterial({color:0xdaf2ee,transparent:true,opacity:.22,depthWrite:false}));spray.position.set(1060+i*7,world.waterY+1,2830);spray.scale.set(8,3,6);group.add(spray);}
+    for(let x=-60;x<=60;x+=12){if(window.gameBoot.shouldYield())await window.gameBoot.yield();for(const side of [-1,1]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();box('FactoryFestiveLights',factory.x+x,fy+14.5,factory.z+side*53,1,.8,.8,x%24?'#dfa64b':'#c35856');}}
     const meshes=bins.finish();const arenaFloor=meshes.find(m=>m.name==='QueenIceArenaFoundation');if(arenaFloor){arenaFloor.material.polygonOffset=false;}cameraObstacles.push(rampMesh,...meshes.filter(m=>!m.name.includes('Ridges')));
     const label=document.createElement('canvas');label.width=1024;label.height=256;const ctx=label.getContext('2d');ctx.fillStyle='#233f4e';ctx.fillRect(0,0,1024,256);ctx.strokeStyle='#d9b66c';ctx.lineWidth=12;ctx.strokeRect(8,8,1008,240);ctx.fillStyle='#f0dfb5';ctx.font='bold 66px Georgia';ctx.textAlign='center';ctx.fillText('NHÀ MÁY TUYẾT',512,105);ctx.font='32px Arial';ctx.fillText('XƯỞNG ÔNG GIÀ NOEL · NAM CỰC',512,178);const sign=new THREE.Mesh(new THREE.PlaneGeometry(25,6.25),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(label),side:THREE.DoubleSide}));sign.position.set(factory.x,fy+12,factory.z-55.6);sign.rotation.y=Math.PI;sign.name='SnowFactorySign';group.add(sign);
     function support(x,z,y){let top=winterStructure.support(x,z,y);if(Math.abs(x-arena.x)<=10&&z>=arena.z+68&&z<=arena.z+76){const h=queenRampHeight(x,z);if(h<=y+MAX_STEP_HEIGHT+.05)top=h;}for(const s of surfaces)if(x>=s.minX&&x<=s.maxX&&z>=s.minZ&&z<=s.maxZ&&s.y<=y+MAX_STEP_HEIGHT+.05)top=Math.max(top,s.y);if(Math.abs(x-factory.x)<13&&z>=rz-35&&z<=rz+4){const t=(z-rz+35)/39,h=THREE.MathUtils.lerp(world.height(factory.x,rz-35),fy,t);if(h<=y+MAX_STEP_HEIGHT+.05)top=Math.max(top,h);}return top;}

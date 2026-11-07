@@ -1,5 +1,6 @@
 /* Seal exposed terrain tile boundaries and stop the orbit camera going underground. */
-function installMapVisualRepair(){
+/* Cooperative initializer: keep gameplay callbacks synchronous. */
+async function installMapVisualRepair(){
     const repairs=[];
     // Cut the old coarse lunar skin at the new valley boundary. Lowering only
     // its vertices leaves large triangles visibly protruding through a ravine.
@@ -20,7 +21,7 @@ function installMapVisualRepair(){
     }
     seal(window.bachKhuyet?.terrain);seal(window.riverRealm?.terrain);seal(window.volcanicValley?.terrain);seal(window.mangroveRealm?.terrain);
     const surface=(x,z)=>window.mangroveRealm?.ground(x,z)??window.volcanicValley?.ground(x,z)??window.riverRealm?.ground(x,z)??window.bachKhuyet?.ground(x,z)??window.ancientGrove?.ground(x,z)??realmTerrainHeight(x,z);
-    function clipCamera(origin,desired){if(window.evilCavern?.inside(origin))return desired;const delta=desired.clone().sub(origin),n=Math.max(2,Math.ceil(delta.length()/.25));let previous=origin.clone();for(let i=1;i<=n;i++){const q=origin.clone().addScaledVector(delta,i/n);if(q.y<surface(q.x,q.z)+.15)return previous;previous=q;}return desired;}
+    function clipCamera(origin,desired){if(window.undergroundNetwork?.inside(origin))return undergroundNetwork.clipCamera(origin,desired);if(window.evilCavern?.inside(origin))return desired;const delta=desired.clone().sub(origin),n=Math.max(2,Math.ceil(delta.length()/.25));let previous=origin.clone();for(let i=1;i<=n;i++){const q=origin.clone().addScaledVector(delta,i/n);if(q.y<surface(q.x,q.z)+.15)return previous;previous=q;}return desired;}
     // Distant hidden ecology must never leak into cave camera layer 2.
     function refreshSeams(){
         for(const terrain of [window.bachKhuyet?.terrain,window.riverRealm?.terrain,window.volcanicValley?.terrain,window.mangroveRealm?.terrain,window.ancientGrove?.group.getObjectByName('GroveForestFloor')]){

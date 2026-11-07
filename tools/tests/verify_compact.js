@@ -5,7 +5,7 @@ const os = require('node:os');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const url = process.env.GAME_URL || 'http://127.0.0.1:8765/';
-const output = path.resolve(__dirname, '../../demo/verification');
+const output = process.env.GAME_VERIFY_OUTPUT ? path.resolve(process.env.GAME_VERIFY_OUTPUT) : path.resolve(__dirname, '../../demo/verification');
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'tsukiezz-castle-'));
 const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', [
     '--headless=new', '--remote-debugging-port=9384', `--user-data-dir=${profile}`,
@@ -41,7 +41,7 @@ async function main() {
     await new Promise((r, j) => { ws.onopen = r; ws.onerror = j; });
     ws.onmessage = event => {
         const message = JSON.parse(event.data);
-        if (message.method === 'Runtime.exceptionThrown') errors.push(message.params.exceptionDetails.text);
+        if (message.method === 'Runtime.exceptionThrown') errors.push(message.params.exceptionDetails.exception?.description || message.params.exceptionDetails.text);
         if (pending.has(message.id)) {
             const task = pending.get(message.id); pending.delete(message.id);
             message.error ? task.reject(new Error(JSON.stringify(message.error))) : task.resolve(message.result);

@@ -1,0 +1,78 @@
+{
+  "source": "Assets/Art/Blender/Inventory/SurvivalTreasuryStudio.blend",
+  "blender": "5.2.1 LTS",
+  "models": {
+    "forest_heart": {
+      "objects": 12,
+      "triangles": 388
+    },
+    "cave_bat": {
+      "objects": 18,
+      "triangles": 860
+    },
+    "cordyceps": {
+      "objects": 29,
+      "triangles": 3272
+    },
+    "galactic_lava": {
+      "objects": 16,
+      "triangles": 968
+    },
+    "eternal_ember": {
+      "objects": 9,
+      "triangles": 1004
+    },
+    "iron_sword": {
+      "objects": 10,
+      "triangles": 1770
+    },
+    "forest_sword": {
+      "objects": 18,
+      "triangles": 1938
+    },
+    "samurai_armor": {
+      "objects": 55,
+      "triangles": 5856
+    },
+    "chest_basic": {
+      "objects": 21,
+      "triangles": 2772
+    },
+    "chest_castle": {
+      "objects": 21,
+      "triangles": 2622
+    },
+    "chest_cavern": {
+      "objects": 22,
+      "triangles": 2564
+    },
+    "chest_volcanic": {
+      "objects": 25,
+      "triangles": 2402
+    },
+    "chest_ice": {
+      "objects": 23,
+      "triangles": 2332
+    },
+    "chest_forest": {
+      "objects": 25,
+      "triangles": 2872
+    },
+    "chest_candy": {
+      "objects": 29,
+      "triangles": 3456
+    },
+    "chest_desert": {
+      "objects": 21,
+      "triangles": 2684
+    },
+    "chest_void": {
+      "objects": 22,
+      "triangles": 2924
+    },
+    "engineering_workstation": {
+      "objects": 382,
+      "triangles": 16174
+    }
+  }
+}
