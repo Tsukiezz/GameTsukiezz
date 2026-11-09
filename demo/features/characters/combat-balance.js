@@ -6,3 +6,8 @@ function heroOutgoingDamage(amount,targetHealth){
     if(Number.isFinite(targetHealth)&&targetHealth>0)window.weaponSystem?.onHit(Math.min(targetHealth,damage));
     return damage;
 }
+
+function heroIncomingDamage(amount) {
+    window.combatEffects?.receive();
+    return amount;
+}

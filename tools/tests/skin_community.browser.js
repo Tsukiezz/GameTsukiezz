@@ -6,7 +6,7 @@
  try{handlers.forEach(h=>h.beginPlayerAttack=type=>calls.push(type));for(const type of Object.keys(skins.catalog)){isAttacking=false;selectHero(type);snapshots.push({type,...Object.fromEntries(Object.keys(saved).map(k=>[k,gameState[k]])),incoming:heroIncomingDamage(100)});triggerAttack();isAttacking=false;}}
  finally{handlers.forEach((h,i)=>h.beginPlayerAttack=original[i]);}
  check('switching skins preserves vitals and defense',snapshots.every(s=>Object.keys(saved).every(k=>s[k]===saved[k])&&s.incoming===100),snapshots);
- check('all skins dispatch identical combat',calls.length===60&&calls.every(t=>t==='hamster'),{count:calls.length,types:[...new Set(calls)]});check('ninja gameplay bonus removed',!ninjaAbilities.dash()&&document.getElementById('ninja-shadow-step').hidden);
+ check('all skins dispatch identical combat',calls.length===60&&calls.every(t=>t==='hamster'),{count:calls.length,types:[...new Set(calls)]});check('legacy ninja gameplay bonus is absent',!window.ninjaAbilities&&!document.getElementById('ninja-shadow-step'));
  selectHero('hamster');gameState.health=100;gameState.armor=100;gameState.stamina=100;
  const a=antarcticRealm.arena,grounded=[];for(let radius=0;radius<=68;radius+=2)for(let angle=0;angle<360;angle+=5){const x=Math.cos(angle*Math.PI/180)*radius,z=Math.sin(angle*Math.PI/180)*radius,h=worldSurface.height(a.x+x,a.z+z);if(h<a.y-.51||h>a.y-.03)grounded.push({x,z,h,floor:a.y});}check('entire arena slab is embedded in real terrain',!grounded.length,grounded.slice(0,5));
  const t=v.towers[0];v.doors.set(0,0,7,false,true);v.doors.set(0,-1,-1,false,true);place(v.world(t.x,0,t.z+2));v.update(0);const doorway=v.world(t.x,0,t.z+3.65);check('apartment door closed blocks passage',checkCollision(doorway.x,doorway.z,doorway.y,.2));

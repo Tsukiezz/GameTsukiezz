@@ -46,6 +46,9 @@
 #modal-heroes .modal-card { max-width:1260px; }
 #modal-heroes .hero-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
 #modal-heroes .hero-card { min-width:0; }
+#modal-heroes button.hero-card { font:inherit; color:inherit; text-align:center; }
+#modal-heroes .hero-img-wrap img { object-fit:cover; }
+.current-skin-portrait { width:100%; height:100%; object-fit:cover; border-radius:50%; display:block; }
 #modal-heroes .hero-img-wrap img { object-fit:contain; }
 #modal-heroes .hero-card:focus-visible { outline:2px solid #e7cea0;outline-offset:3px; }
 @media(max-width:1100px) { #modal-heroes .hero-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }

@@ -19,15 +19,14 @@ async function installHeroMotion(){
         const turn=deltaAngle(playerGroup.rotation.y,targetAngle)*(1-Math.exp(-13*dt));playerGroup.rotation.y+=turn;state.turn=dt>0?turn/dt:0;state.phase+=state.speed*dt*2.3;lastPosition.copy(playerGroup.position);
         const length=Math.max(.01,velocity.length()),yaw=playerGroup.rotation.y;return {moving:state.speed>.04,speed:state.weight,turn:state.turn,forward:(velocity.x*Math.sin(yaw)+velocity.z*Math.cos(yaw))/length,strafe:(velocity.x*Math.cos(yaw)-velocity.z*Math.sin(yaw))/length};
     }
-    function hand(side,offset=new THREE.Vector3()){const arm=activeLimbs?.[side==='left'?'leftArm':'rightArm'];if(!arm)return null;playerGroup.updateMatrixWorld(true);return {position:arm.localToWorld(offset.clone()),quaternion:arm.getWorldQuaternion(new THREE.Quaternion())};}
-    const rightGrips={hamster:[.15,0,.32],rabbit:[.15,.12,.445],dragon_knight:[.085,-.36,.21],ninja_yinyang:[.14,-.36,.29],kingkong:[.115,-.03,.65]};
+    function hand(side,offset=new THREE.Vector3()){const joint=activeLimbs?.[side==='left'?'leftHand':'rightHand'];if(!joint)return null;playerGroup.updateMatrixWorld(true);return {position:joint.localToWorld(offset.clone()),quaternion:joint.getWorldQuaternion(new THREE.Quaternion())};}
     const hiltOffset=new THREE.Vector3();
     function alignWeapon(model,handleY){
-        const arm=activeLimbs?.rightArm;
-        if(!arm)return;
-        arm.localToWorld(model.position.fromArray(rightGrips[activeHeroType]||rightGrips.hamster));
+        const grip=heroAnimationBindings.get(activeLimbs)?.model.userData.rightGrip;
+        if(!grip)return;
+        grip.getWorldPosition(model.position);
         model.quaternion.identity();
-        for(let node=arm;node;node=node.parent)model.quaternion.premultiply(node.quaternion);
+        for(let node=grip;node;node=node.parent)model.quaternion.premultiply(node.quaternion);
         model.position.sub(hiltOffset.set(0,handleY*model.scale.y,0).applyQuaternion(model.quaternion));
     }
     function syncWeapons(){

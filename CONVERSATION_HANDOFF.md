@@ -1,3 +1,12 @@
+## Nhân vật Blender và thời tiết (09/11/2026)
+
+- Mở `Tsuventure.exe` ở gốc dự án, chờ tải rồi chọn **CHƠI**. Mở **Skin** hoặc nhấn **P** để đổi giữa Ninja Mặt Trăng Không Gian, Robot Sao Hỏa, Chiến Binh Rồng Ngàn Năm, Tề Thiên Đại Thánh và Nữ Hoàng Đại Dương.
+- Nguồn Blender ở `Assets/Art/Blender/Characters/TsuventureHeroCollection.blend`. Chạy `blender -b --python tools/characters/build_tsuv_hero_collection.py -- --render --icons` để dựng và xuất lại hình. `demo/core/hero-models.js` lắp các chi tiết theo khớp. Hoạt ảnh ở `demo/features/characters/hero-animation.js`, điểm cầm kiếm ở `hero-motion.js`.
+- Cánh, Kiếm Rừng Sâu, ba bộ giáp và đồ lặn dùng hình mới. Khi mặc giáp và đồ lặn cùng lúc, game hiện đồ lặn khi bơi và giáp khi lên cạn. Mỗi món giữ nguyên ID để bản lưu cũ nhận ra trang bị.
+- Bộ điều khiển thời tiết ở `demo/features/void/world-weather.js`. Bão cát kéo dài 105 giây, trời nắng 240 giây. Minh Quang tăng 70% tầm nhìn ngoài trời trong bão. Tỉ lệ kiểm tra vẫn là 15% mỗi 120 giây, với trời nắng là hiện tượng hay gặp nhất.
+- Kiểm thử tính năng bằng `tools/tests/hero_collection_weather.browser.js` qua `tools/desktop/verify_native.js`. Render dàn nhân vật ở `.runtime/hero-collection/cast.png`. Khi đổi tài nguyên chạy `python tools/refresh_web_assets.py` rồi `python tools/desktop/build_exe.py`.
+- Gói Windows `a332b6b1ad8ab0a997886764`. Đã qua 100 phép thử EXE về sảnh, mô hình, hoạt ảnh, trang bị và thời tiết, cùng 23 phép thử đóng gói. Báo cáo tính năng ở `.runtime/hero-collection/final/report.json`.
+
 ## Cửa Hang Mỏ Liên Vùng và tỉ lệ đẩy xu (07/11/2026)
 
 - Mở `Tsuventure.exe`, bấm **CHƠI** rồi chọn **Địa điểm → Hang Mỏ Liên Vùng** để đến cửa đầu tiên. Cả 15 cửa dùng vòm đá phiến Blender có mái che đoạn dốc, đèn hổ phách và bảng số mỏ. Mép đá bám địa hình và mái đỡ được người chơi từ trên cao. Lối xuống đi bộ liên tục, khoáng vật và tiến trình khai thác giữ ID cũ.

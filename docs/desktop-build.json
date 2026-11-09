@@ -1,17 +1,17 @@
 {
-  "bundle": "ae16df571c195a135df4eeca",
-  "files": 252,
-  "runtimeBytes": 104011418,
-  "exeBytes": 39490048,
-  "sha256": "1c6b9b8a61e81262cf1d38c030a15a71ad6e9f8da6e9871861b5f6daad5e552a",
+  "bundle": "a332b6b1ad8ab0a997886764",
+  "files": 259,
+  "runtimeBytes": 107464658,
+  "exeBytes": 40449536,
+  "sha256": "6282e418a6f2abf6fc201a08a3ad5ae89f047b7ac5ab6e4756b6f4d1f38a07a7",
   "manifest": {
     "core/audio.js": {
       "bytes": 5761,
       "sha256": "b182db605f2bb4d49cfa4ee3911f7c2c9d3a2d948a021e92abf42cc8b8454386"
     },
     "core/boot-manifest.json": {
-      "bytes": 8344,
-      "sha256": "0f887cfcf27ec6b7f9c960bdf4aec37f5a20930a204adb75661fd9005e91b49b"
+      "bytes": 7958,
+      "sha256": "aa2ec289b50351f0153e1039058a76063cdf8afc1c2a9f81edc457913a725479"
     },
     "core/castle-builder.js": {
       "bytes": 69794,
@@ -26,20 +26,20 @@
       "sha256": "dfb4f271231b4c3717a326fc1fbfef20719427628f6a3f5e360c90c578802176"
     },
     "core/game-loop.js": {
-      "bytes": 21374,
-      "sha256": "01d9e7e5f31d3eb9af607f5e2c2d790c28d223225c508156b1ae2607b06f4a29"
+      "bytes": 21444,
+      "sha256": "86fd159372dafa02ddfb759f65251d66ad85a857300a3e5f0a24c92fb144a1e9"
     },
     "core/hero-models.js": {
-      "bytes": 19329,
-      "sha256": "3cd738e02c498055aa819fa32d643373396cf408c3e1039a074f2bb0b9b04dd3"
+      "bytes": 5619,
+      "sha256": "a3330941d3bb92fe2b353d8f7654216aa8c3471d3a7cb9001c80b69edc25dc0b"
     },
     "core/runtime-state.js": {
-      "bytes": 50266,
-      "sha256": "4e51b164f275bf6182fa0c8fc965f158bbb561ff1aa7493af58666a05de7c3dd"
+      "bytes": 49903,
+      "sha256": "728466715991bd6e0a672fe37b5f2eb215a5f6af497ccef2f005419364ec8abe"
     },
     "core/runtime.js": {
-      "bytes": 63108,
-      "sha256": "3f6069efe76976caa590a941353e0a0f69bd9d74088b3429d7edb32d1593d0fe"
+      "bytes": 61422,
+      "sha256": "3f8af5076f1b685168bbcfaef9f6573a692916027466185070ceb2a041087d43"
     },
     "features/arena/arena-relocation.js": {
       "bytes": 8511,
@@ -109,6 +109,26 @@
       "bytes": 25220,
       "sha256": "689c88d7cb49241a208ae888bf4e5127feb4857765c06b8cb11f7d631b8b3ce9"
     },
+    "features/characters/assets/cast/mars_robot.webp": {
+      "bytes": 42400,
+      "sha256": "4bf8c2b071a4c581a7e8eef07c51f3996e01e22c7391ff1d3797d8d72c60e03d"
+    },
+    "features/characters/assets/cast/millennium_dragon.webp": {
+      "bytes": 64588,
+      "sha256": "641ff6a433429a2566079eb337967ac4134183bcb0e2585dda79e5287af25b36"
+    },
+    "features/characters/assets/cast/monkey_king.webp": {
+      "bytes": 54212,
+      "sha256": "dd7a4ae631961e3b80aa840816eb0c031122bd8192cbf38be25963cec0580145"
+    },
+    "features/characters/assets/cast/ocean_queen.webp": {
+      "bytes": 53524,
+      "sha256": "21646ce89079f658cd10b6fdba7a77a445db26825e228952a5f410c39ce01296"
+    },
+    "features/characters/assets/cast/space_moon_ninja.webp": {
+      "bytes": 43574,
+      "sha256": "acc7330f06a1b77526ede255f3a1c449a48947868fd98d62f8bcbbfe8614ca05"
+    },
     "features/characters/assets/hamster_warrior.jpg": {
       "bytes": 750925,
       "sha256": "843fe7c7f84f84bf8add52083ad8d9f5b1c6f1c167db895b6eed7d5e7592c8f8"
@@ -118,8 +138,8 @@
       "sha256": "9e4d0259478033e21e64417137ffda84dbbaba48e32207e38de2349299ce851f"
     },
     "features/characters/combat-balance.js": {
-      "bytes": 617,
-      "sha256": "3b195eed5aef41a0629e8eef45d4eae7d8f44e37cec36a6d695272d6bb9440a2"
+      "bytes": 719,
+      "sha256": "0526fa4a2b2ecfc798394562aae49554f4a75d13d78951f5145c7f96f0eeed07"
     },
     "features/characters/dragon-knight/model.js": {
       "bytes": 436589,
@@ -138,16 +158,20 @@
       "sha256": "5335e7614815f0d9bd73585bb13b7fe5b8e2e67dbc3d97a1fb380bbaea9b79da"
     },
     "features/characters/hero-animation.js": {
-      "bytes": 8114,
-      "sha256": "7f966849496a99b44bb8782e0a5d86483e30b487467c0491ff8bf8a632facabb"
+      "bytes": 7354,
+      "sha256": "c956ee500df8302314811a7e3c520c663d61e24154a75a647b7ce5db52db90a4"
+    },
+    "features/characters/hero-collection-data.js": {
+      "bytes": 3076552,
+      "sha256": "03380b8e483e8183dc2084fabb1d8f2a8051d9deb4feaba80453bfbafe1b0039"
     },
     "features/characters/hero-motion.js": {
-      "bytes": 4996,
-      "sha256": "7bd67239893c2b70dc299c81ca73589a25b0e6578cb0d42d4c1c37e4614605fa"
+      "bytes": 4848,
+      "sha256": "d66e1d8c80664d760b172cdee6a653daf39460dc9849fe8fa8938c27c3476909"
     },
     "features/characters/hero-stat-sync.js": {
-      "bytes": 2674,
-      "sha256": "6080e3c8814285ed0e2b1657a165acf7a5883b38401feb0789259743e9a95de5"
+      "bytes": 1768,
+      "sha256": "7719065ad7cdda9e56dcdd22fad5ec1efc8a863224bcab4221ae9f63c851996a"
     },
     "features/characters/kingkong/ART.md": {
       "bytes": 1686,
@@ -186,8 +210,8 @@
       "sha256": "c137ff000e9aadb2f55cd9218c2beb95303c1ac8fd387316be470aa1f3ac85a7"
     },
     "features/characters/player-experience.js": {
-      "bytes": 16297,
-      "sha256": "42617a2c9fa867e96feef8daec603c9cbb1090354fc1b9690120cdc5aabfd180"
+      "bytes": 8891,
+      "sha256": "8a7578411ef302b1656989cb388ff3bc96c5d9c981340b46fa64f4f09538e3dc"
     },
     "features/creatures/actor-animation.js": {
       "bytes": 19648,
@@ -222,8 +246,8 @@
       "sha256": "018c33b83436146fdc7f02416df5af9b0b8473fc25e3a7f2e15a11686a9b9b47"
     },
     "features/desert/desert-realm.js": {
-      "bytes": 23058,
-      "sha256": "1a56e4b33f9721c76c40e2e9359b79cc977ecf61b6748023295a090ace68cfd0"
+      "bytes": 23027,
+      "sha256": "de1471a18bb41eb4c7f5d50ee82eadc46bd64f2973220ca8acfd70e14ccc168e"
     },
     "features/desert/pyramid-floors.js": {
       "bytes": 5239,
@@ -401,9 +425,13 @@
       "bytes": 696,
       "sha256": "5b2898a16341f4896efc8295f79dd431e1791b459914f7782d17ae5485c474cd"
     },
+    "features/inventory/assets/crystal_wings.png": {
+      "bytes": 55813,
+      "sha256": "751a200b007995040981f24451406042dabd70367972aea6af085b52c334de12"
+    },
     "features/inventory/assets/diving_suit.png": {
-      "bytes": 40120,
-      "sha256": "c5233c2ebb40c340ac772ea7e950da5143ab651370317340c38c325091d0983a"
+      "bytes": 63998,
+      "sha256": "dddcb8c0b96acfe7022839534e294927669374717e7d50ff6b4d1ad6bf45b46b"
     },
     "features/inventory/assets/elixir.svg": {
       "bytes": 600,
@@ -422,8 +450,8 @@
       "sha256": "7c071f8978e1b8bdaddf5b1aa71fa7f973671c980f530c9084d3ada84be9e8df"
     },
     "features/inventory/assets/iron_armor.png": {
-      "bytes": 39136,
-      "sha256": "8efb003e7c5a1f5ca82071858bb187b715f3c4d5df808af8c4a79552dcc05bde"
+      "bytes": 71630,
+      "sha256": "3d688d90b8172a2ef7c3ff9395b1f070a893b1d689ff27040e0e96d67c0f17b3"
     },
     "features/inventory/assets/lava_sword.png": {
       "bytes": 35371,
@@ -490,8 +518,8 @@
       "sha256": "7120796530044ed3f4ffb927c0c1149b03390033dffc9f365d6221899115ef91"
     },
     "features/inventory/assets/progression/forest_sword.png": {
-      "bytes": 48479,
-      "sha256": "be6eccc8ce941aa89beb8e337dd574a97f240bb2eacbc1a0ce678d5d64dd6866"
+      "bytes": 58919,
+      "sha256": "497956d6515c561271f79f6454947d05a9d637ed2c962afa5da362347affe60c"
     },
     "features/inventory/assets/progression/galactic_lava.png": {
       "bytes": 68547,
@@ -506,12 +534,12 @@
       "sha256": "2f0d5ea70454b4b2ab5bde4a6c7b8d80b41cf019397b24e81f3c67fa46c71142"
     },
     "features/inventory/assets/progression/samurai_armor.png": {
-      "bytes": 87723,
-      "sha256": "cb847650b2a82405b4f122c3bf37a05ead3db1f1e0d33ecfbb946cbfa19afac0"
+      "bytes": 77311,
+      "sha256": "7d52817a47e96aa2ecc81a58702f64e8939af7b5a2216e1ea4abd0bff970020a"
     },
     "features/inventory/assets/rage_armor.png": {
-      "bytes": 40314,
-      "sha256": "5e407a193d128c4908b22a27eba6ed68eb98dd767b019073c31be25ac7b44918"
+      "bytes": 77665,
+      "sha256": "132579c08437da804175099b21b37d12290a6fd9528cc26ce1c01bad9db02576"
     },
     "features/inventory/assets/snow_crystal.png": {
       "bytes": 34820,
@@ -530,8 +558,8 @@
       "sha256": "f0dff117fb0f0112eb35d29c24a61718277d7c04a3a1e9877e07709d0b6b6e17"
     },
     "features/inventory/crystal-wings.js": {
-      "bytes": 12775,
-      "sha256": "91b13555844bc7ae53fa71a8f372c044d908faf9a0b2c575a2c8b57f84fc4741"
+      "bytes": 11851,
+      "sha256": "5b50742712bdb4d44d977e0de881b7a480543340fecc10f685e78cfbd126445a"
     },
     "features/inventory/data/solar-flashlight.js": {
       "bytes": 122167,
@@ -678,8 +706,8 @@
       "sha256": "0012836847ac41771d6fd12ac6c453ea90d3a8d887e8cf9673c5573b986325ad"
     },
     "features/lobby/lobby.css": {
-      "bytes": 9522,
-      "sha256": "aef40684dbce7a80bb769a8c9d52e733ee20824ed262cdbf5ee59f42a258e2cc"
+      "bytes": 9767,
+      "sha256": "ad2fcb80b37846127c7457e6301a38a29a7c17944e1b3d19eb3cbcdde46e44c5"
     },
     "features/mangrove/data/mangrove-assets.js": {
       "bytes": 825617,
@@ -786,8 +814,8 @@
       "sha256": "c602281c5779542856171c5d7b59e0535313bb1bee2104b2b2b74d306bd51717"
     },
     "features/technology/gear-service.js": {
-      "bytes": 12938,
-      "sha256": "761c5e1c1956782328f1c918f69125fba45c3a81b8a4faf17ac879ed3dc95fe3"
+      "bytes": 12840,
+      "sha256": "b7a155d50822c317dd0b6af45918d0cff0c5fbcfbe14e16fd04a3dd0c64227cf"
     },
     "features/technology/river-boat.js": {
       "bytes": 12613,
@@ -798,8 +826,8 @@
       "sha256": "c4bc3308b10a2a8d38be476db155d60f659f82969743f5a12b2bcccd535dc5d6"
     },
     "features/technology/workshop-update.js": {
-      "bytes": 11595,
-      "sha256": "ccbaa88f626ed45ef70b18a5ce5f55167f44ad978e78db6892459b4cbd8ad539"
+      "bytes": 10212,
+      "sha256": "0cc8a1a120f2b6ec95282cc0eeb60e23c513be49cf23fcbe3e8dad49dd82bda2"
     },
     "features/technology/workshop.css": {
       "bytes": 3303,
@@ -838,8 +866,8 @@
       "sha256": "0be31a441517629e4fb0de7137e3c2fd27c9728ecc5734472ae176accf70cf20"
     },
     "features/void/world-weather.js": {
-      "bytes": 7159,
-      "sha256": "3c2b78606b075622b5f148b0615400dc41a883a532efe75c34e6410fe56656c6"
+      "bytes": 11665,
+      "sha256": "6ec8983fb305cda4f27fd59728f76bf7ab15d1d1ffd294d18d9c59d03be586b5"
     },
     "features/volcano/data/volcanic-assets.js": {
       "bytes": 237836,
@@ -998,8 +1026,8 @@
       "sha256": "bf1d1a34c924ee7b325f52846927cf6c0d479530f3792e203690ed974b3bc06c"
     },
     "index.html": {
-      "bytes": 60533,
-      "sha256": "c90fa0213380a26b7332907b1c45b9e20b2b2766a18a5dc0a29b3319ccdc7a79"
+      "bytes": 52237,
+      "sha256": "1c142c73953f1c7dc34404285c077c18180a859cccb68a13e437599f6e811610"
     },
     "manifest.webmanifest": {
       "bytes": 571,

@@ -3,13 +3,7 @@ async function installWorkshopUpdate(){
  const storage='tsuventure_forest_sword_v1';let state={owned:false,equipped:false};try{const s=JSON.parse(localStorage.getItem(storage)||'{}');state.owned=s.owned===true;state.equipped=state.owned&&s.equipped===true;}catch{}
  const save=()=>localStorage.setItem(storage,JSON.stringify(state));
  const model=new THREE.Group();model.name='EquippedDeepForestSword';scene.add(model);
- const metal=new THREE.MeshStandardMaterial({color:0x87d8c4,metalness:.7,roughness:.25}),wood=new THREE.MeshStandardMaterial({color:0x573a2d,roughness:.8}),gold=new THREE.MeshStandardMaterial({color:0xbca35c,metalness:.6,roughness:.4}),leaf=new THREE.MeshStandardMaterial({color:0x286c4b,roughness:.6}),gem=new THREE.MeshStandardMaterial({color:0x69f8b8,emissive:0x17684b,emissiveIntensity:.55,metalness:.3,roughness:.2});
- const blade=new THREE.Shape();blade.moveTo(0,1.85);blade.bezierCurveTo(.1,1.6,.27,1,.18,.56);blade.lineTo(.06,.43);blade.lineTo(-.06,.43);blade.lineTo(-.18,.56);blade.bezierCurveTo(-.27,1,-.1,1.6,0,1.85);
- const bladeMesh=new THREE.Mesh(new THREE.ExtrudeGeometry(blade,{depth:.06,bevelEnabled:true,bevelSize:.018,bevelThickness:.012,bevelSegments:1,steps:1}),metal);bladeMesh.position.z=-.03;model.add(bladeMesh);
- function part(g,m,x,y,z,rz=0){const o=new THREE.Mesh(g,m);o.position.set(x,y,z);o.rotation.z=rz;model.add(o);return o;}
- part(new THREE.CylinderGeometry(.075,.085,.38,9),wood,0,.2,0);part(new THREE.SphereGeometry(.12,10,6),gold,0,-.025,0);part(new THREE.OctahedronGeometry(.105),gem,0,.45,.06);
- for(const s of [-1,1]){const guard=part(new THREE.ConeGeometry(.12,.43,5),leaf,s*.2,.43,0,-s*1.05);guard.scale.z=.5;part(new THREE.ConeGeometry(.045,.96,3),gold,s*.02,1.01,.054,-s*.02);}
- for(let i=0;i<7;i++)part(new THREE.TorusGeometry(.078,.012,3,12),gold,0,.04+i*.048,0,0).rotation.x=Math.PI/2;
+ model.add(buildCollectionModel('forest_sword',false));
  model.scale.setScalar(.62);model.visible=false;
  const row=document.createElement('article');row.id='equipment-forest-sword';row.className='backpack-item';row.dataset.category='equipment';row.innerHTML='<img src="features/inventory/assets/progression/forest_sword.png" alt="Thanh Kiếm Rừng Sâu"><div><h3>Thanh Kiếm Rừng Sâu</h3><p>Sát thương bằng kiếm dung nham. Hút máu bằng 10% sát thương thực tế gây lên quái; không hồi máu khi chém hụt.</p><strong></strong><button type="button">Trang bị</button></div>';inventoryLayout.grid.append(row);
  function render(){row.querySelector('strong').textContent=state.equipped?'Đang trang bị':state.owned?'Đã sở hữu':'Chưa chế tạo';row.querySelector('button').disabled=!state.owned||!gameState.isPlaying;row.querySelector('button').textContent=state.equipped?'Tháo trang bị':'Trang bị';row.querySelector('button').setAttribute('aria-pressed',String(state.equipped));}

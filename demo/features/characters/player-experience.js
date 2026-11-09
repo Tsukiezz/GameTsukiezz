@@ -11,38 +11,32 @@ async function installPlayerExperience(){
     window.addEventListener('toggle',e=>{if(e.target?.tagName==='DETAILS'){if(e.target.open)releaseMouse(true);else if(wantedMouse&&active()&&!document.querySelector('details[open]'))captureMouse();}},true);
     window.gameMouse={capture:captureMouse,release:releaseMouse,resume(){if(wantedMouse&&active())captureMouse();},get captured(){return document.pointerLockElement===renderer.domElement||document.pointerLockElement===document.body;}};
 
-    const metal=new THREE.MeshStandardMaterial({color:0x93a9bd,roughness:.3,metalness:.68}),dark=new THREE.MeshStandardMaterial({color:0x23394a,roughness:.65}),gold=new THREE.MeshStandardMaterial({color:0xd4b16b,roughness:.35,metalness:.6}),rubber=new THREE.MeshStandardMaterial({color:0x17313d,roughness:.7}),aqua=new THREE.MeshStandardMaterial({color:0x388e98,roughness:.4,metalness:.25}),visor=new THREE.MeshStandardMaterial({color:0x7cd7e2,transparent:true,opacity:.32,roughness:.18,metalness:.2,depthWrite:false}),lamp=new THREE.MeshBasicMaterial({color:0xb6f2eb});
-    const samuraiMetal=new THREE.MeshStandardMaterial({color:0x9c303d,metalness:.4,roughness:.5});
-    const rageMetal=new THREE.MeshStandardMaterial({color:0x6d405b,roughness:.4,metalness:.55});
-    const overlay={model:null,mode:null,covers:[],hidden:[],extras:[],metrics:null};
-    function clearSuit(){for(const m of overlay.covers){m.parent?.remove(m);m.geometry.dispose();}for(const root of overlay.extras){root.parent?.remove(root);root.traverse(m=>{if(m.isMesh)m.geometry.dispose();});}for(const [m,visible] of overlay.hidden)m.visible=visible;Object.assign(overlay,{model:null,mode:null,covers:[],hidden:[],extras:[],metrics:null});}
-    function anatomicalPart(mesh,model){for(let p=mesh;p&&p!==model;p=p.parent){if(p===activeLimbs.leftArm||p===activeLimbs.rightArm)return 'arm';if(p===activeLimbs.leftLeg||p===activeLimbs.rightLeg)return 'leg';if(p===model.userData.bones?.head||p===activeLimbs.head)return 'head';}return 'body';}
-    function sync(){const model=heroAnimationBindings.get(activeLimbs)?.model,state=window.technologyCraft?.state,mode=state?.samuraiEquipped?'samurai':state?.rageEquipped?'rage':state?.divingEquipped?(state.ironEquipped?'hybrid':'diving'):state?.ironEquipped?'iron':null;if(overlay.model===model&&overlay.mode===mode)return;if(overlay.model)clearSuit();if(!model||!mode)return;
-        model.updateWorldMatrix(true,true);const inverse=model.matrixWorld.clone().invert(),originals=[];model.traverse(m=>{if(!m.isMesh||!m.visible||m.material?.transparent||m===activeLimbs.shadow||/shadow/i.test(m.name))return;for(let p=m;p&&p!==model;p=p.parent)if(p.userData.defaultWeapon||/cape|cloak/i.test(p.name))return;originals.push(m);});
-        const boxes=[],bodyBox=new THREE.Box3(),headBox=new THREE.Box3(),bones=model.userData.bones||{},headNode=bones.head||activeLimbs.head;let shoulderY=1.2;
-        if(activeLimbs.leftArm){const p=activeLimbs.leftArm.getWorldPosition(new THREE.Vector3()).applyMatrix4(inverse);shoulderY=p.y;}
-        for(const m of originals){m.geometry.computeBoundingBox();const box=m.geometry.boundingBox.clone().applyMatrix4(m.matrixWorld).applyMatrix4(inverse),center=box.getCenter(new THREE.Vector3()),part=anatomicalPart(m,model);boxes.push({m,box,center,part});if(part==='head'||!headNode&&center.y>shoulderY+.04)headBox.union(box);if(part==='body'&&center.y<=shoulderY+.1)bodyBox.union(box);}
-        if(bodyBox.isEmpty())bodyBox.set(new THREE.Vector3(-.48,.5,-.35),new THREE.Vector3(.48,1.3,.35));if(headBox.isEmpty())headBox.set(new THREE.Vector3(-.5,shoulderY,-.4),new THREE.Vector3(.5,shoulderY+1.1,.55));
-        overlay.model=model;overlay.mode=mode;overlay.metrics={body:bodyBox.clone(),head:headBox.clone()};
-        for(const {m,center,part} of boxes){const color=m.material?.color;if(color&&color.r+color.g+color.b<.18&&center.y>shoulderY)continue;const plating=mode==='samurai'?samuraiMetal:mode==='rage'?rageMetal:metal,diving=mode==='diving'||mode==='hybrid',head=part==='head'||!headNode&&center.y>shoulderY+.04,mat=head?(diving?aqua:plating):diving?(mode==='hybrid'&&part==='body'?metal:part==='leg'?dark:rubber):part==='leg'?dark:plating;
-            const geometry=m.geometry.clone(),c=geometry.boundingBox.getCenter(new THREE.Vector3());geometry.translate(-c.x,-c.y,-c.z);const shell=new THREE.Mesh(geometry,mat);shell.name='EquippedSuit_'+mode+'_'+part;shell.position.copy(c).applyMatrix4(m.matrix);shell.quaternion.copy(m.quaternion);shell.scale.copy(m.scale).multiplyScalar(1.035);shell.castShadow=true;shell.receiveShadow=true;m.parent.add(shell);overlay.covers.push(shell);overlay.hidden.push([m,m.visible]);m.visible=false;
+    const overlay = {model:null,mode:null,covers:[]};
+    function clearSuit(){
+        for (const piece of overlay.covers) piece.parent?.remove(piece);
+        if (overlay.model) overlay.model.limbs.cape.visible=true;
+        Object.assign(overlay,{model:null,mode:null,covers:[]});
+    }
+    function sync(){
+        const model=heroAnimationBindings.get(activeLimbs)?.model;
+        const state=window.technologyCraft?.state;
+        const armor=state?.samuraiEquipped?'samurai':state?.rageEquipped?'rage':state?.ironEquipped?'iron':null;
+        const mode=state?.divingEquipped&&(!armor||window.playerSurvival?.swimming)?'diving':armor;
+        if (overlay.model===model&&overlay.mode===mode) return;
+        clearSuit();
+        if (!model||!mode) return;
+        overlay.model=model;
+        overlay.mode=mode;
+        model.limbs.cape.visible=mode!=='diving';
+        overlay.covers=mountCollectionParts(mode,model.userData.bones);
+        for (const piece of overlay.covers) {
+            const joint=piece.parent.name;
+            piece.name='EquippedSuit_'+mode+'_'+joint;
+            if (mode==='diving'&&joint==='head') {
+                piece.position.z=activeHeroType==='millennium_dragon'?.19:activeHeroType==='monkey_king'?.065:.02;
+            }
+            if (joint==='body'&&activeHeroType==='mars_robot') piece.position.z=mode==='diving'?-.07:.115;
         }
-        const headCenter=headBox.getCenter(new THREE.Vector3()),headSize=headBox.getSize(new THREE.Vector3()),bodyCenter=bodyBox.getCenter(new THREE.Vector3()),bodySize=bodyBox.getSize(new THREE.Vector3()),headParent=headNode||activeLimbs.body||model,torsoParent=activeLimbs.body||model;
-        function attach(parent,name){const root=new THREE.Group();root.name=name;parent.add(root);overlay.extras.push(root);return root;}
-        function at(root,p){root.parent.updateWorldMatrix(true,false);root.position.copy(p).applyMatrix4(model.matrixWorld).applyMatrix4(root.parent.matrixWorld.clone().invert());return root;}
-        function part(root,g,mat,p=[0,0,0]){const m=new THREE.Mesh(g,mat);m.position.set(...p);root.add(m);return m;}
-        if(mode!=='samurai'){
-        const face=at(attach(headParent,'SuitHelmetVisor'),new THREE.Vector3(headCenter.x,headCenter.y,headBox.max.z+.035)),fw=Math.max(.35,headSize.x*.48),fh=Math.max(.3,Math.min(headSize.y*.35,fw*.85));
-        const glass=part(face,new THREE.SphereGeometry(1,18,12),visor);glass.scale.set(fw,fh,.16);const rim=part(face,new THREE.TorusGeometry(1,.075,6,24),gold);rim.scale.set(fw,fh,.45);part(face,new THREE.BoxGeometry(fw*.55,.1,.12),dark,[0,-fh*.8,.08]);for(const side of [-1,1]){part(face,new THREE.SphereGeometry(.065,8,6),lamp,[side*fw*.65,fh*.7,.1]);const eye=part(face,new THREE.SphereGeometry(Math.max(.035,fw*.085),10,6),dark,[side*fw*.32,fh*.05,.145]);eye.scale.y=1.3;part(face,new THREE.SphereGeometry(.012,7,5),lamp,[side*fw*.32-.012,fh*.05+.018,.19]);}
-        }
-        const badge=at(attach(torsoParent,'SuitChestBadge'),new THREE.Vector3(bodyCenter.x,bodyCenter.y,bodyBox.max.z+.045));part(badge,new THREE.OctahedronGeometry(Math.max(.12,Math.min(.24,bodySize.x*.16))),gold);part(badge,new THREE.BoxGeometry(Math.max(.25,bodySize.x*.65),.085,.08),aqua,[0,-.22,0]);
-        if(mode==='samurai'){
-            function fit(parent,mountName,center,size){const armor=createTreasuryModel('samurai_armor',mountName),bounds=new THREE.Box3().setFromObject(armor),authored=bounds.getSize(new THREE.Vector3());armor.scale.set(size.x/Math.max(.01,authored.x)*1.07,size.y/Math.max(.01,authored.y)*1.05,size.z/Math.max(.01,authored.z)*1.06);armor.position.copy(bounds.getCenter(new THREE.Vector3())).negate().multiply(armor.scale);const target=at(attach(parent,'BlenderSamurai_'+mountName),center);target.add(armor);target.userData.fittedSize=size.toArray();}
-            fit(torsoParent,'body',bodyCenter,bodySize);fit(headParent,'head',headCenter,headSize);
-            for(const [bone,mountName]of [[activeLimbs.leftArm,'arm_L'],[activeLimbs.rightArm,'arm_R']]){if(!bone)continue;const bounds=new THREE.Box3();for(const info of boxes){let belongs=false;for(let p=info.m;p&&p!==model;p=p.parent)if(p===bone)belongs=true;if(belongs)bounds.union(info.box);}if(bounds.isEmpty()){const center=bone.getWorldPosition(new THREE.Vector3()).applyMatrix4(model.matrixWorld.clone().invert()),size=new THREE.Vector3(Math.max(.18,bodySize.x*.3),Math.max(.25,bodySize.y*.55),Math.max(.2,bodySize.z*.75));center.y-=size.y*.4;bounds.setFromCenterAndSize(center,size);}const size=bounds.getSize(new THREE.Vector3()),center=bounds.getCenter(new THREE.Vector3());size.y*=.65;center.y+=size.y*.15;fit(bone,mountName,center,size);}
-        }
-        if(mode==='rage'){const armor=voidModel('rage_plate'),size=bodySize,center=bodyCenter,bounds=new THREE.Box3().setFromObject(armor),authored=bounds.getSize(new THREE.Vector3());armor.scale.set(size.x/authored.x*1.06,size.y/authored.y*1.1,size.z/authored.z*1.05);armor.position.copy(bounds.getCenter(new THREE.Vector3())).negate().multiply(armor.scale);const mount=at(attach(torsoParent,'BlenderRageArmor'),center);mount.add(armor);mount.userData.fittedSize=size.toArray();}
-        if(mode==='diving'||mode==='hybrid'){const tanks=at(attach(torsoParent,'DivingAirSupply'),new THREE.Vector3(bodyCenter.x,bodyCenter.y,bodyBox.min.z-.18)),height=Math.max(.6,Math.min(1.3,bodySize.y)),radius=Math.max(.12,Math.min(.22,bodySize.x*.16));for(const side of [-1,1]){part(tanks,new THREE.CylinderGeometry(radius,radius,height,10),gold,[side*radius*1.2,0,0]);part(tanks,new THREE.TorusGeometry(radius+.015,.035,5,12),dark,[side*radius*1.2,-height*.22,0]).rotation.x=Math.PI/2;part(tanks,new THREE.SphereGeometry(radius*.7,8,6),aqua,[side*radius*1.2,height*.56,0]);}const hose=new THREE.CatmullRomCurve3([new THREE.Vector3(radius,0,0),new THREE.Vector3(bodySize.x*.55,.35,.1),new THREE.Vector3(bodySize.x*.55,.55,bodySize.z*.7)]);part(tanks,new THREE.TubeGeometry(hose,10,.045,5,false),dark);}
     }
 
     const receipts=document.createElement('section');receipts.id='item-receipt';receipts.setAttribute('role','status');receipts.setAttribute('aria-live','polite');receipts.hidden=true;receipts.innerHTML='<div class="receipt-emblem">✦</div><div><strong>NHẬN VẬT PHẨM</strong><ul></ul></div>';document.body.append(receipts);const history=[],pending=[];let receiptTimer=0;

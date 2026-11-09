@@ -634,46 +634,7 @@ await window.gameBoot.checkpoint(177,1875,"Chuẩn bị thế giới",1);
 particleIdx = 0;
 
 await window.gameBoot.checkpoint(178,1875,"Chuẩn bị thế giới",1);
-activeHeroType = 'hamster';
-
-await window.gameBoot.checkpoint(179,1875,"Chuẩn bị thế giới",1);
-hamsterVisualGroup = null;
-
-await window.gameBoot.checkpoint(180,1875,"Chuẩn bị thế giới",1);
-rabbitVisualGroup = null;
-
-await window.gameBoot.checkpoint(181,1875,"Chuẩn bị thế giới",1);
-activeWeaponArm = null;
-
-await window.gameBoot.checkpoint(182,1875,"Chuẩn bị thế giới",1);
-activeLimbs = null;
-
-await window.gameBoot.checkpoint(183,1875,"Chuẩn bị thế giới",1);
-dragonVisualGroup = buildDragonKnightModel();
-
-await window.gameBoot.checkpoint(184,1875,"Chuẩn bị thế giới",1);
-kingkongVisualGroup = buildKingKongModel();
-
-await window.gameBoot.checkpoint(185,1875,"Chuẩn bị thế giới",1);
-ninjaVisualGroup = buildNinjaYinYangModel();
-
-await window.gameBoot.checkpoint(186,1875,"Chuẩn bị thế giới",1);
-hamsterVisualGroup = buildHamsterModel();
-
-await window.gameBoot.checkpoint(187,1875,"Chuẩn bị thế giới",1);
-rabbitVisualGroup = buildRabbitModel();
-
-await window.gameBoot.checkpoint(188,1875,"Chuẩn bị thế giới",1);
-for(const model of [hamsterVisualGroup,rabbitVisualGroup,dragonVisualGroup,kingkongVisualGroup,ninjaVisualGroup]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();registerHeroAnimation(model);}
-
-await window.gameBoot.checkpoint(189,1875,"Chuẩn bị thế giới",1);
-playerGroup.add(hamsterVisualGroup);
-
-await window.gameBoot.checkpoint(190,1875,"Chuẩn bị thế giới",1);
-activeWeaponArm = hamsterVisualGroup.swordArm;
-
-await window.gameBoot.checkpoint(191,1875,"Chuẩn bị thế giới",1);
-activeLimbs = hamsterVisualGroup.limbs;
+applyHeroSelection(DEFAULT_HERO);
 
 await window.gameBoot.checkpoint(192,1875,"Chuẩn bị thế giới",1);
 colliders = [];
@@ -1265,7 +1226,6 @@ await window.gameBoot.checkpoint(1463,1875,"Dựng sông hồ và hệ sinh thá
 await installRiverBoat();
 
 await window.gameBoot.checkpoint(1471,1875,"Chuẩn bị khu vực khám phá",8);
-await installNinjaAbilities();
 
 await window.gameBoot.checkpoint(1479,1875,"Dựng địa hình và các vùng đất",8);
 await installLivingWorld();

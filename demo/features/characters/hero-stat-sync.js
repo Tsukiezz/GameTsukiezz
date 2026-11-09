@@ -1,8 +1,34 @@
 /* Cooperative initializer: keep gameplay callbacks synchronous. */
 async function installHeroStatSync(){
-    const skins={hamster:{name:'Hamster Hoàng Gia',theme:'Áo choàng đỏ · Khiên hoàng gia',detail:'Một hiệp sĩ hamster tròn trịa, má hồng, giáp ánh kim và áo choàng đỏ. Kiếm cùng khiên là chi tiết của bộ skin.'},rabbit:{name:'Thỏ Nguyệt Quang',theme:'Lông trắng · Trang phục pháp sư',detail:'Đôi tai dài, bộ lông trắng, trang phục xanh tím và các phụ kiện nguyệt thuật. Hiệu ứng phép chỉ trang trí cho động tác.'},dragon_knight:{name:'Hiệp Sĩ Rồng',theme:'Giáp rồng · Chi tiết vảy',detail:'Bộ giáp mang đường nét rồng, sừng nhỏ và các tấm vảy ghép, tạo dáng hiệp sĩ dễ thương.'},ninja_yinyang:{name:'Ninja Âm Dương',theme:'Đen trắng · Mắt hai màu',detail:'Gấu trúc ninja nhỏ, mắt hai màu, khăn choàng ngắn và đôi đoản đao mang họa tiết âm dương.'},kingkong:{name:'Kong Quyền Anh',theme:'Lông nâu · Găng quyền anh',detail:'Kong nhỏ với găng quyền anh, thân hình tròn chắc và động tác đấm bốc vui nhộn. Không có giảm sát thương riêng.'}};
-    for(const [id,data] of Object.entries(skins)){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const card=document.getElementById('card-hero-'+id);card.querySelector('.hero-stats')?.remove();card.querySelectorAll('.hero-shared-vitals').forEach(n=>n.remove());card.querySelector('.hero-class').textContent=data.theme;let description=card.querySelector('.skin-details');if(!description){description=document.createElement('p');description.className='skin-details';card.append(description);}description.textContent=data.detail;card.querySelectorAll('p:not(.skin-details)').forEach(p=>p.remove());card.setAttribute('aria-label','Skin '+data.name);card.setAttribute('role','button');card.tabIndex=0;card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectHero(id);}};}
-    const modal=document.getElementById('modal-heroes');modal.querySelector('h2').textContent='BỘ SƯU TẬP SKIN';modal.querySelector('.modal-header p').textContent='Chọn ngoại hình bạn thích. Máu, giáp, tốc độ, tầm đánh và sát thương dùng chung; trang bị mới quyết định sức mạnh.';
-    const b=document.getElementById('btn-open-heroes');b.querySelector('span').textContent='SKIN';document.getElementById('btn-preview-hero').title='Chọn skin';
-    window.skins={catalog:skins,combatType:'hamster',attackDuration:.5,get selected(){return activeHeroType;},select:selectHero};
+    const modal = document.getElementById('modal-heroes');
+    const grid = modal.querySelector('.hero-grid');
+    for (const [id,data] of Object.entries(HERO_SKINS)) {
+        if (window.gameBoot.shouldYield()) await window.gameBoot.yield();
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'hero-card';
+        card.classList.toggle('selected',id===activeHeroType);
+        card.id = 'card-hero-'+id;
+        card.addEventListener('click',()=>selectHero(id));
+        const portrait = document.createElement('div');
+        portrait.className = 'hero-img-wrap';
+        const img = new Image();
+        img.src = heroSkinPortrait(id);
+        img.alt = '';
+        portrait.append(img);
+        const name = document.createElement('h3');
+        name.textContent = data.name;
+        const theme = document.createElement('div');
+        theme.className = 'hero-class';
+        theme.textContent = data.theme;
+        const description = document.createElement('p');
+        description.className = 'skin-details';
+        description.textContent = data.detail;
+        card.append(portrait,name,theme,description);
+        grid.append(card);
+    }
+    modal.querySelector('.modal-header p').textContent='Chọn ngoại hình bạn thích. Các skin dùng chung chỉ số và cơ chế chiến đấu.';
+    document.getElementById('btn-open-heroes').querySelector('span').textContent='SKIN';
+    document.getElementById('btn-preview-hero').title='Chọn skin';
+    window.skins={catalog:HERO_SKINS,combatType:'hamster',attackDuration:.5,get selected(){return activeHeroType;},select:selectHero};
 }

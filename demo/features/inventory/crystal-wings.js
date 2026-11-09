@@ -7,19 +7,13 @@ async function installCrystalWings(){
     const tr=(vi,en)=>window.tsuventureSettings?.language==='en'?en:vi;
     const save=()=>{try{localStorage.setItem(key,JSON.stringify({owned,equipped}));}catch{}};
     const crystal=new THREE.MeshStandardMaterial({color:0x92d5ef,emissive:0x274e74,emissiveIntensity:.45,roughness:.22,metalness:.25,flatShading:true});
-    const violet=new THREE.MeshStandardMaterial({color:0xaf9de4,emissive:0x41335f,emissiveIntensity:.35,roughness:.25,metalness:.2,flatShading:true});
-    const silver=new THREE.MeshStandardMaterial({color:0xc9dfeb,roughness:.35,metalness:.65});
-    const model=new THREE.Group();model.name='EquippedCrystalWings';model.position.set(0,1.9,-.65);playerGroup.add(model);
-    const joints=[];
-    for(const side of [-1,1]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
-        const joint=new THREE.Group();joint.name=side<0?'CrystalWingLeft':'CrystalWingRight';joint.position.x=side*.55;model.add(joint);joints.push(joint);
-        for(let i=0;i<6;i++){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
-            const start=new THREE.Vector3(side*.12,.25-i*.15,0),end=new THREE.Vector3(side*(4.5-i*.46),2.5-i*.8,-.3-i*.06),delta=end.clone().sub(start);
-            const feather=new THREE.Mesh(new THREE.OctahedronGeometry(1,0),i%2?crystal:violet);feather.name='CrystalFlightFeather';feather.position.copy(start).addScaledVector(delta,.53);feather.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),delta.clone().normalize());feather.scale.set(.32,delta.length()*.65,.15);joint.add(feather);
-        }
-        const spar=new THREE.Mesh(new THREE.CylinderGeometry(.1,.14,3.8,6),silver);spar.position.set(side*1.7,.8,.03);spar.rotation.z=-side*1.08;joint.add(spar);
-    }
-    const clasp=new THREE.Mesh(new THREE.OctahedronGeometry(.48),crystal);clasp.position.set(0,.3,.12);model.add(clasp);
+    const model=buildCollectionModel('crystal_wings');
+    model.name='EquippedCrystalWings';
+    model.scale.set(1.2,1.04,1.03);
+    model.position.set(0,-1.07,0);
+    playerGroup.add(model);
+    const {wing_L,wing_R}=model.userData.bones;
+    const joints=[wing_L,wing_R];
     // Keep the existing saved wings obtainable after retiring the castle.
     let location=null,approach=null;
     for(const x of [14,-14,20,-20]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();
@@ -44,11 +38,11 @@ async function installCrystalWings(){
     const lidMesh=new THREE.Mesh(new THREE.BoxGeometry(1.04,.18,.76),oak);lidMesh.position.set(0,.09,.36);lid.add(lidMesh);
     for(const x of [-.36,.36]){if(window.gameBoot.shouldYield())await window.gameBoot.yield();const band=new THREE.Mesh(new THREE.BoxGeometry(.07,.63,.76),gold);band.position.set(x,.31,0);chest.add(band);const strip=new THREE.Mesh(new THREE.BoxGeometry(.075,.22,.79),gold);strip.position.set(x,.09,.36);lid.add(strip);}
     const lock=new THREE.Mesh(new THREE.OctahedronGeometry(.14),crystal);lock.position.set(0,.46,.39);chest.add(lock);
-    const relic=model.clone(true);relic.position.set(0,.82,0);relic.scale.setScalar(.12);chest.add(relic);
+    const relic=buildCollectionModel('crystal_wings');relic.position.set(0,.61,0);relic.scale.setScalar(.16);chest.add(relic);
     const sideways=Math.abs(Math.sin(chest.rotation.y))>.5;
     addBoxCollider(location.x,location.z,sideways?.72:1,sideways?1:.72,location.y,location.y+.78,true);const chestCollider=colliders.at(-1);Object.assign(chestCollider,{name:'crystal-wings-chest',stepHeight:.12});
     const item={id:'temple_crystal_wings',type:'crystal_wings_chest',pos:new THREE.Vector3(location.x,location.y,location.z),radius:1.8,prompt:''};interactables.push(item);
-    const row=document.createElement('article');row.className='backpack-item';row.id='crystal-wings-item';row.innerHTML='<img src="features/inventory/assets/crystal-wings.svg" alt=""><div><h3></h3><p></p><strong role="status"></strong><button type="button" id="equip-crystal-wings"></button></div>';
+    const row=document.createElement('article');row.className='backpack-item';row.id='crystal-wings-item';row.innerHTML='<img src="features/inventory/assets/crystal_wings.png" alt=""><div><h3></h3><p></p><strong role="status"></strong><button type="button" id="equip-crystal-wings"></button></div>';
     document.querySelector('#modal-backpack .backpack-hint').before(row);const equipButton=row.querySelector('button');
     const button=document.createElement('button');button.type='button';button.id='hud-crystal-flight';button.className='hud-sit-button';document.querySelector('.hud-quickbar').append(button);
     const touchButton=document.createElement('button');touchButton.type='button';touchButton.id='touch-crystal-flight';touchButton.className='hud-touch-button';document.querySelector('.hud-touch-actions').append(touchButton);
@@ -103,6 +97,12 @@ async function installCrystalWings(){
         if(p.y>=500&&velocity>0)hint.textContent=tr('Đã đạt độ cao tối đa · Q/Ctrl để hạ xuống','Maximum altitude reached · Q/Ctrl to descend');return true;
     }
     function update(dt){
+        const torso=activeLimbs?.body;
+        if (torso&&model.parent!==torso) {
+            torso.add(model);
+            model.position.z=activeHeroType==='mars_robot'?-.25:-.13;
+        }
+        model.position.z=window.technologyCraft?.state.divingEquipped?-.35:activeHeroType==='mars_robot'?-.25:-.13;
         if(window.monsterSkills?.captured&&flying)stopFlight();if(active())time+=Math.min(.1,Math.max(0,dt));
         const target=owned?-1.8:0;lidAngle+=(target-lidAngle)*(1-Math.exp(-Math.min(.1,dt)*6));lid.rotation.x=lidAngle;
         joints.forEach((joint,i)=>{const side=i===0?-1:1;const blend=1-Math.exp(-10*Math.min(.1,Math.max(0,dt)));joint.rotation.y+=(side*(flying?-.22:-.6)-joint.rotation.y)*blend;joint.rotation.z+=(side*(flying?Math.sin(time*6)*.18:Math.sin(time*1.5)*.025)-joint.rotation.z)*blend;});

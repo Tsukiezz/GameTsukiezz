@@ -198,10 +198,9 @@
                 window.realmTransitUpdate?.update(safeDt);
                 window.moonRailway?.update(safeDt);
                 window.riverBoat?.update(safeDt);
-                window.ninjaAbilities?.update(safeDt);
                 window.fieldGuide?.update(safeDt);
                 if(isAttacking){heroAttackElapsed+=Math.min(delta,.1);if(heroAttackElapsed>=.5)isAttacking=false;}
-                if(activeLimbs)updateHeroAnimation(activeLimbs,{dt:Math.min(delta,.1),time,moving:motion.moving,speed:motion.speed,turn:motion.turn,moveForward:motion.forward,strafe:motion.strafe,flashlight:Boolean(window.solarFlashlight?.equipped),sprint:playerSurvival.sprinting,swimming:playerSurvival.swimming,diving:playerSurvival.underwater,grounded:isGrounded,velocity:jumpVelocityY,sitting:isSitting,attacking:isAttacking,attackProgress:heroAttackElapsed/.5,hero:activeHeroType,ropeRiding:Boolean(window.explorationUpdate?.climbing),flying:Boolean(window.crystalWings?.flying)});
+                if(activeLimbs)updateHeroAnimation(activeLimbs,{dt:Math.min(delta,.1),time,moving:motion.moving,speed:motion.speed,turn:motion.turn,moveForward:motion.forward,strafe:motion.strafe,flashlight:Boolean(window.solarFlashlight?.equipped),sprint:playerSurvival.sprinting||Boolean(window.crystalWings?.flying&&keys.shift),swimming:playerSurvival.swimming,diving:playerSurvival.underwater,grounded:isGrounded,velocity:jumpVelocityY,sitting:isSitting,attacking:isAttacking,attackProgress:heroAttackElapsed/.5,vertical:Number(keys.swimUp)-Number(keys.dive),ropeRiding:Boolean(window.explorationUpdate?.climbing),flying:Boolean(window.crystalWings?.flying)});
 
                 checkInteractables();
                 if (frameCount % (currentProfileKey==='low'?20:8) === 0) updateMinimap(playerGroup.position.x, playerGroup.position.z, playerGroup.rotation.y);
@@ -313,6 +312,7 @@
             window.heroMotion?.syncWeapons();
             window.caveAccess?.update();window.undergroundNetwork?.update(Math.min(delta,.1));window.undergroundNetwork?.environment();
             if(gameState.isPlaying&&window.undergroundNetwork)camera.position.copy(undergroundNetwork.clipView(playerGroup.position,camera.position));
+            window.worldWeather?.environment();
             renderer.render(scene, camera);
         }
 

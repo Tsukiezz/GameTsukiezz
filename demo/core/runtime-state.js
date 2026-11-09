@@ -74,13 +74,8 @@ let canvas,
     stepParticleMat,
     particleIdx,
     activeHeroType,
-    hamsterVisualGroup,
-    rabbitVisualGroup,
     activeWeaponArm,
     activeLimbs,
-    dragonVisualGroup,
-    kingkongVisualGroup,
-    ninjaVisualGroup,
     colliders,
     castleSurfaces,
     castleStairGuards,
@@ -796,7 +791,7 @@ function triggerAttack() {
             isAttacking = true;
             window.weaponSystem?.beginAttack();
             window.combatEffects?.playerAttack();
-            if(activeHeroType==='kingkong'){sfx.playTone(95,'sine',.13,.24);sfx.playTone(210,'triangle',.07,.08);}else sfx.attackSound(activeHeroType === 'rabbit');
+            sfx.attackSound(false);
 
             heroAttackElapsed=0;
             const combatSkin='hamster';
@@ -915,7 +910,8 @@ function closeModal(id) {
         }
 
 function selectHero(type) {
-            if (!['hamster','rabbit','dragon_knight','kingkong','ninja_yinyang'].includes(type)) return;
+            type=heroSkinId(type);
+            if (!type) return;
             if (isAttacking) return;
             document.querySelectorAll('.hero-card').forEach(card=>card.classList.toggle('selected',card.id==='card-hero-'+type));
             applyHeroSelection(type);
@@ -947,7 +943,7 @@ function returnToHome() {
             window.volcanicValley?.pause();
             window.evilCavern?.pause();window.monsterSkills?.pause();window.bachKhuyet?.pause();
             isAttacking=false;heroAttackElapsed=0;
-            for(const model of [hamsterVisualGroup,rabbitVisualGroup,dragonVisualGroup,kingkongVisualGroup,ninjaVisualGroup])resetHeroAnimation(model);
+            for(const model of heroModels.values())resetHeroAnimation(model);
             window.resetGameplayInput?.();
             window.gameHUD?.closePanels();
             hudVictory.style.display = 'none';

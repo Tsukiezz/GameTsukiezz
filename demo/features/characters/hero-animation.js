@@ -1,109 +1,156 @@
-// Shared time-based poses for all playable characters. Physics owns world position.
-const heroAnimationBindings=new WeakMap();
+// The skin skeleton shares a pose across the cast. The simulation still owns world position.
+const heroAnimationBindings = new WeakMap();
 function registerHeroAnimation(model) {
-    const limbs=model.limbs,rest={};
-    for(const [name,node] of Object.entries(limbs))if(node?.isObject3D)
-        rest[name]={position:node.position.clone(),rotation:node.rotation.clone(),scale:node.scale.clone()};
-    const bones=model.userData.bones||{};
-    heroAnimationBindings.set(limbs,{rest,phase:0,gait:0,run:0,wasGrounded:true,landing:0,bones,model,wasAttacking:false,punchSide:0,quaternion:new THREE.Quaternion(),euler:new THREE.Euler()});
+    const rest = Object.fromEntries(Object.entries(model.limbs).map(([name,node])=>[name,node.position.clone()]));
+    heroAnimationBindings.set(model.limbs,{
+        model,rest,phase:0,gait:0,run:0,landing:0,grounded:true,
+        target:new THREE.Quaternion(),euler:new THREE.Euler()
+    });
 }
 function resetHeroAnimation(model) {
-    const state=heroAnimationBindings.get(model.limbs);if(!state)return;
-    for(const [name,rest] of Object.entries(state.rest)) {
-        const node=model.limbs[name];node.position.copy(rest.position);node.rotation.copy(rest.rotation);node.scale.copy(rest.scale);
+    const state=heroAnimationBindings.get(model.limbs);
+    for (const [name,node] of Object.entries(model.limbs)) {
+        node.position.copy(state.rest[name]);
+        node.rotation.set(0,0,0);
     }
-    state.phase=0;state.gait=0;state.run=0;state.landing=0;state.wasGrounded=true;state.wasAttacking=false;state.punchSide=0;
-    model.rotation.x=0;
+    for (const side of ['L','R']) model.userData.bones['wing_'+side].rotation.set(0,0,0);
+    model.rotation.set(0,0,0);
+    Object.assign(state,{phase:0,gait:0,run:0,landing:0,grounded:true});
 }
-function updateHeroAnimation(limbs,{dt,time,moving,sprint,grounded,velocity,sitting,attacking,attackProgress,hero,swimming=false,diving=false,speed=1,turn=0,flashlight=false,moveForward=1,strafe=0,ropeRiding=false,flying=false}) {
-    const state=heroAnimationBindings.get(limbs);if(!state)return;
-    dt=Math.min(Math.max(dt,0),.1);
-    const blend=1-Math.exp(-(attacking?22:14)*dt),rest=state.rest,oldGait=state.gait;
-    state.gait+=((moving?Math.min(1,Math.max(0,speed)):0)-state.gait)*(1-Math.exp(-12*dt));
+function updateHeroAnimation(limbs,{
+    dt,time,moving,sprint,grounded,velocity,sitting,attacking,attackProgress,
+    swimming=false,diving=false,speed=1,turn=0,flashlight=false,moveForward=1,strafe=0,
+    ropeRiding=false,flying=false,vertical=0
+}) {
+    const state=heroAnimationBindings.get(limbs);
+    if (!state) return;
+    dt=THREE.MathUtils.clamp(dt,0,.1);
+    const blend=1-Math.exp(-(attacking?27:14)*dt);
+    state.gait+=((moving?THREE.MathUtils.clamp(speed,0,1):0)-state.gait)*(1-Math.exp(-12*dt));
     state.run+=((sprint?1:0)-state.run)*(1-Math.exp(-8*dt));
-    if(!ropeRiding&&grounded&&!sitting)state.phase+=dt*(9+4*state.run)*(oldGait+state.gait)*.5;
-    if(grounded&&!state.wasGrounded)state.landing=1;
-    state.wasGrounded=grounded;state.landing=Math.max(0,state.landing-dt*3.6);
+    if (grounded&&!state.grounded&&!swimming&&!flying) state.landing=1;
+    state.grounded=grounded;
+    state.landing=Math.max(0,state.landing-4.1*dt);
+    if (swimming||grounded) state.phase=(state.phase+dt*(swimming?4+state.gait*5:(8+5.5*state.run)*state.gait))%(Math.PI*2);
     const pose={};
-    for(const [name,r] of Object.entries(rest))pose[name]={x:r.rotation.x,y:r.rotation.y,z:r.rotation.z,py:r.position.y,pz:r.position.z};
-    const set=(name,values)=>{if(pose[name])Object.assign(pose[name],values);};
-    const body=rest.body,breath=Math.sin(time*1.9)*.009;
-    set('body',{py:body.position.y+breath});
-    if(!moving&&!sitting&&!attacking){set('leftArm',{x:rest.leftArm.rotation.x+Math.sin(time*1.9+.3)*.012,z:rest.leftArm.rotation.z-.018});set('rightArm',{x:rest.rightArm.rotation.x-Math.sin(time*1.9+.3)*.012});set('cape',{x:rest.cape?.rotation.x||0,z:Math.sin(time*1.2)*.018});}
-    state.model.rotation.x+=((swimming?(moving?1.05:.25):0)-state.model.rotation.x)*blend;
-    if(ropeRiding){
-        set('leftArm',{x:-2.75,z:-.12});set('rightArm',{x:-2.9,z:.12});
-        set('leftLeg',{x:-.3});set('rightLeg',{x:-.2});set('body',{x:.05,py:body.position.y});set('cape',{x:.35});
-    }else if(swimming){
-        state.phase+=dt*(sprint?9:5);const stroke=Math.sin(state.phase);
-        set('leftArm',{x:stroke*.85-.4,z:-.65});set('rightArm',{x:-stroke*.85-.4,z:.65});
-        set('leftLeg',{x:stroke*.35});set('rightLeg',{x:-stroke*.35});set('cape',{x:.8});
-        set('body',{py:body.position.y+Math.sin(state.phase*2)*.025,x:diving?.15:0});
-    }else if(flying){
-        set('leftArm',{x:-.26,z:-.38});set('rightArm',{x:-.26,z:.38});set('leftLeg',{x:.17+Math.sin(time*2)*.035});set('rightLeg',{x:.24-Math.sin(time*2)*.035});set('body',{x:.13,py:body.position.y+Math.sin(time*2)*.012});set('cape',{x:.85});
-    }else if(!grounded) {
-        // Gather the feet during ascent, then prepare an open landing pose.
-        const rise=velocity>0;
-        set('leftLeg',{x:rise?-.55:.18});set('rightLeg',{x:rise?-.35:.26});
-        set('leftArm',{x:-.3,z:-.25});set('rightArm',{x:-.3,z:.15});
-        set('body',{x:rise?-.07:.07});
-        set('cape',{x:.7});
-    } else if(sitting) {
-        set('body',{py:body.position.y-.17+breath,x:0,y:0,z:0});
-        set('leftLeg',{x:-1.15,py:rest.leftLeg.position.y-.18});
-        set('rightLeg',{x:-1.15,py:rest.rightLeg.position.y-.18});
-        set('leftArm',{x:-.42,z:-.12});set('rightArm',{x:-.42});set('cape',{x:.65});
-    } else if(state.gait>.002) {
-        const step=Math.sin(state.phase),stride=(.46+.26*state.run)*state.gait;
-        const lift=(.045+.03*state.run)*state.gait;
-        set('leftLeg',{x:step*stride*moveForward,z:step*stride*.6*strafe,py:rest.leftLeg.position.y+Math.pow(Math.max(0,-step),2)*lift});
-        set('rightLeg',{x:-step*stride*moveForward,z:-step*stride*.6*strafe,py:rest.rightLeg.position.y+Math.pow(Math.max(0,step),2)*lift});
-        set('leftArm',{x:step*stride*.55,z:-.1});set('rightArm',{x:-step*stride*.6});
-        set('body',{x:(.06+.09*state.run)*state.gait,y:step*.035*state.gait,z:step*.025*state.gait,py:body.position.y+(1-Math.cos(state.phase*2))*.018*state.gait});
-        set('cape',{x:.4+.25*state.run+Math.sin(state.phase-.35)*.055});
+    const set=(name,x=0,y=0,z=0)=>{pose[name]=[x,y,z];};
+    const phase=state.phase, gait=state.gait, step=Math.sin(phase), breathing=Math.sin(time*2)*.009;
+    const bank=THREE.MathUtils.clamp(turn*.014,-.17,.17);
+    let bob=breathing, hipDrop=0, pitch=0;
+    set('cape',.045+Math.sin(time*1.7)*.03);
+    set('tail',Math.sin(time*2)*.03,Math.sin(time*2.4)*(.09+.11*gait));
+    set('head',Math.sin(time*1.15)*.023,-bank*.5);
+    set('leftArm',.015,0,-.12);
+    set('rightArm',-.09,0,.11);
+    set('leftElbow',-.16);
+    set('rightElbow',-.28);
+    if (ropeRiding) {
+        set('leftArm',-2.52,.05,-.2);
+        set('rightArm',-2.64,-.08,.2);
+        set('leftElbow',-.48);
+        set('rightElbow',-.43);
+        set('leftLeg',-.35);
+        set('rightLeg',-.31);
+        set('leftKnee',.62);
+        set('rightKnee',.65);
+        set('cape',.37);
+    } else if (sitting) {
+        hipDrop=-.27;
+        bob=hipDrop+breathing;
+        set('leftLeg',-1.39,0,-.08);
+        set('rightLeg',-1.39,0,.08);
+        set('leftKnee',1.49);
+        set('rightKnee',1.49);
+        set('leftArm',-.25,0,-.12);
+        set('rightArm',-.25,0,.12);
+        set('cape',.55);
+    } else if (swimming) {
+        pitch=(diving?.62:.35)+.57*gait+.18*vertical;
+        bob=Math.sin(phase*2)*.017;
+        set('head',-pitch*.71);
+        set('cape',.72);
+        for (const [side,sign] of [['left',-1],['right',1]]) {
+            const stroke=phase+(sign===1?Math.PI:0), wave=Math.sin(stroke);
+            set(side+'Arm',-.38-.91*wave*gait,.25*sign*Math.cos(stroke),sign*(.24+.44*gait));
+            set(side+'Elbow',-.36-.79*Math.max(0,wave)*gait);
+            set(side+'Hand',.17*Math.cos(stroke));
+            set(side+'Leg',-.12+.32*wave*gait);
+            set(side+'Knee',.20+.31*Math.max(0,-wave)*gait);
+            set(side+'Foot',.35+.14*wave);
+        }
+    } else if (flying) {
+        pitch=.18+.40*gait-.20*vertical;
+        bob=.032*Math.sin(time*4);
+        set('body',.1,0,-bank);
+        set('head',-.75*pitch);
+        set('cape',.59+.20*gait+Math.sin(time*9)*.065);
+        set('leftArm',-.14,0,-.35-.30*gait);
+        set('rightArm',-.25,0,.29+.23*gait);
+        set('leftLeg',.09+.28*gait);
+        set('rightLeg',-.12+.36*gait);
+        set('leftKnee',.24+.08*Math.sin(time*4));
+        set('rightKnee',.36-.08*Math.sin(time*4));
+    } else if (!grounded) {
+        const rising=velocity>0;
+        set('body',rising?-.12:.11);
+        set('leftArm',rising?-.62:-.27,0,-.35);
+        set('rightArm',rising?-.55:-.21,0,.35);
+        set('leftLeg',rising?-.73:-.20);
+        set('rightLeg',rising?-.37:.04);
+        set('leftKnee',rising?.91:.32);
+        set('rightKnee',rising?.65:.29);
+        set('cape',rising?.57:.82);
+    } else {
+        const landing=Math.sin(Math.PI*state.landing);
+        const stride=(.49+.33*state.run)*gait;
+        const forward=Math.abs(moveForward)<.08?0:moveForward;
+        hipDrop=-.08*landing;
+        bob=hipDrop+breathing-(1-Math.cos(phase*2))*.026*gait;
+        set('body',(.065+.13*state.run)*gait+.13*landing,step*.085*gait,-bank+step*.038*gait);
+        set('cape',(.30+.40*state.run)*gait+.08*Math.sin(phase+.5)*gait);
+        for (const [side,sign] of [['left',-1],['right',1]]) {
+            const swing=step*sign, swingLift=Math.max(0,Math.cos(phase)*sign);
+            const thigh=swing*stride*forward-.12*landing;
+            const knee=swingLift*(.51+.53*state.run)*gait+.38*landing;
+            set(side+'Leg',thigh,0,sign*.04+swing*stride*.64*strafe);
+            set(side+'Knee',knee);
+            set(side+'Foot',-(thigh+knee)*(.79-.33*swingLift),0,-sign*.035);
+            set(side+'Arm',-swing*stride*.81,0,sign*.13);
+            set(side+'Elbow',-.17-state.run*.74*gait-.31*Math.max(0,swing)*gait);
+        }
     }
-    if(!ropeRiding&&!swimming&&!sitting&&hero!=='kingkong')set('rightArm',{x:pose.rightArm.x-.12,z:pose.rightArm.z+.04});
-    if(!ropeRiding&&flashlight&&!swimming){set('leftArm',{x:-.48+Math.sin(state.phase)*.025*state.gait,y:.08,z:-.16});}
-    if(!ropeRiding&&grounded&&!sitting){pose.body.z-=THREE.MathUtils.clamp(turn*.018,-.12,.12);}
-    if(!ropeRiding&&grounded&&!sitting&&state.landing>0) {
-        pose.body.py-=Math.sin(state.landing*Math.PI)*.07;
-        pose.leftLeg.x-=Math.sin(state.landing*Math.PI)*.18;
-        pose.rightLeg.x-=Math.sin(state.landing*Math.PI)*.18;
+    if (flashlight&&!ropeRiding&&!swimming) {
+        set('leftArm',-.60,.14,-.19);
+        set('leftElbow',-.77);
+        set('leftHand',.30);
     }
-    if(!ropeRiding&&hero==='kingkong'&&grounded&&!swimming&&!sitting){
-        const sway=moving?Math.sin(state.phase)*.12:Math.sin(time*2)*.025;
-        set('leftArm',{x:sway,y:.08});set('rightArm',{x:-sway,y:-.08});
+    if (attacking&&!ropeRiding&&!sitting) {
+        const ease=value=>THREE.MathUtils.smoothstep(value,0,1);
+        const wind=ease(attackProgress/.25), hit=ease((attackProgress-.25)/.27);
+        const recover=1-ease((attackProgress-.52)/.48);
+        const strike=(1.19*wind-2.20*hit)*recover;
+        set('rightArm',strike,(.73*wind-1.51*hit)*recover,.20+.49*recover);
+        set('rightElbow',(-.32-1.10*wind+.97*hit)*recover);
+        set('rightHand',-.25*hit*recover,.35*hit*recover);
+        const [bodyX,bodyY,bodyZ]=pose.body||[0,0,0];
+        set('body',bodyX+.19*hit*recover,bodyY+(.31*wind-.72*hit)*recover,bodyZ-.08*hit*recover);
+        set('head',-.075*hit*recover,.17*hit*recover);
+        if (!flashlight) set('leftArm',-.44*recover,.20*recover,-.32*recover);
     }
-    if(!ropeRiding&&attacking&&hero==='kingkong'){
-        if(!state.wasAttacking)state.punchSide=1-state.punchSide;
-        const hand=state.punchSide?'leftArm':'rightArm',sign=state.punchSide?-1:1;
-        const progress=THREE.MathUtils.clamp(attackProgress,0,1),stroke=Math.sin(Math.min(1,progress/.85)*Math.PI);
-        set(hand,{pz:rest[hand].position.z+stroke*.9,x:-.12*stroke,y:sign*.34*stroke});
-        set('body',{x:.07*stroke,y:-sign*.19*stroke,py:body.position.y-.025*stroke});
-    }else if(!ropeRiding&&attacking) {
-        const p=Math.min(1,Math.max(0,attackProgress));
-        const ease=x=>{x=Math.min(1,Math.max(0,x));return x*x*(3-2*x);};
-        const wind=ease(p/.28),strike=ease((p-.28)/.24);
-        const recover=ease((p-.52)/.48);
-        const amount=(1-recover);
-        set('rightArm',{x:(-.8*wind+2.1*strike)*amount,y:(-.3*wind+.8*strike)*amount,z:-.12*amount});
-        if(!flashlight)set('leftArm',{x:hero==='ninja_yinyang'?(1.6*strike-.7*wind)*amount:-.32,y:hero==='ninja_yinyang'?-.7*strike*amount:0,z:-.12});
-        set('body',{y:(hero==='rabbit'?.13:-.2)*Math.sin(p*Math.PI),x:.045*strike*amount,py:body.position.y-.025*wind*amount});
-        if(grounded&&!moving&&!sitting){set('leftLeg',{x:-.1*wind*amount,z:-.04*amount});set('rightLeg',{x:.1*wind*amount,z:.04*amount});}
+    state.model.rotation.x+=(pitch-state.model.rotation.x)*blend;
+    for (const [name,node] of Object.entries(limbs)) {
+        state.euler.set(...(pose[name]||[0,0,0]),'YXZ');
+        state.target.setFromEuler(state.euler);
+        node.quaternion.slerp(state.target,blend);
+        const offset=name==='body'?bob:(name==='leftLeg'||name==='rightLeg')?hipDrop:0;
+        node.position.y+=(state.rest[name].y+offset-node.position.y)*blend;
     }
-    state.wasAttacking=attacking;
-    for(const [name,target] of Object.entries(pose)) {
-        const node=limbs[name];state.euler.set(target.x,target.y,target.z,node.rotation.order);state.quaternion.setFromEuler(state.euler);node.quaternion.slerp(state.quaternion,blend);
-        node.position.y+=(target.py-node.position.y)*blend;node.position.z+=(target.pz-node.position.z)*blend;
-    }
-    if(limbs.leftEar&&limbs.rightEar) {
-        limbs.leftEar.rotation.z+=(.28+Math.sin(time*3)*.025-limbs.leftEar.rotation.z)*blend;
-        limbs.rightEar.rotation.z+=(-.28-Math.sin(time*3)*.025-limbs.rightEar.rotation.z)*blend;
-    }
-    if(state.bones.wing_L) {
-        const amplitude=grounded?.05:.18;
-        state.bones.wing_L.rotation.z+=(.12+Math.sin(time*3)*amplitude-state.bones.wing_L.rotation.z)*blend;
-        state.bones.wing_R.rotation.z+=(-.12-Math.sin(time*3)*amplitude-state.bones.wing_R.rotation.z)*blend;
-        state.bones.tail.rotation.y+=(Math.sin(time*2)*.09-state.bones.tail.rotation.y)*blend;
+    for (const [side,sign] of [['L',-1],['R',1]]) {
+        const wing=state.model.userData.bones['wing_'+side];
+        const wingsCover=window.crystalWings?.equipped;
+        wing.visible=!wingsCover;
+        const flutter=Math.sin(time*(flying?6:2.3));
+        wing.rotation.y+=(sign*(flying?-.18:-.38)-wing.rotation.y)*blend;
+        wing.rotation.z+=(sign*flutter*(flying?.25:.05)-wing.rotation.z)*blend;
     }
 }

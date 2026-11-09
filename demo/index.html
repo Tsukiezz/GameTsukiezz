@@ -1028,14 +1028,14 @@
         body.lightweight * { backdrop-filter: none !important; }
         body.lightweight .ambient-glow { display: none; }
     </style>
-    <link rel="stylesheet" href="features/lobby/lobby.css?v=aef40684dbce">
+    <link rel="stylesheet" href="features/lobby/lobby.css?v=ad2fcb80b378">
     <link rel="stylesheet" href="features/hud/game-hud.css?v=23ef049ccb0d">
 <style>.hud-touch-actions.has-flashlight{display:grid;grid-template-columns:repeat(3,44px)}</style>
     <link rel="stylesheet" href="features/void/void-update.css?v=4aac41085464">
     <link rel="stylesheet" href="features/inventory/inventory-art.css?v=07efb3160fe5">
     <link rel="preload" as="image" href="features/lobby/assets/background.jpg?v=16c86e9ba9e9">
     <link rel="stylesheet" href="core/game-boot.css?v=20dc50fbf5bf">
-    <script src="core/game-boot.js?v=dfb4f271231b" defer data-boot-manifest="core/boot-manifest.json?v=0f887cfcf27e"></script>
+    <script src="core/game-boot.js?v=dfb4f271231b" defer data-boot-manifest="core/boot-manifest.json?v=aa2ec289b503"></script>
 <link rel="stylesheet" href="features/technology/workshop.css?v=636955e5097f">
 <link rel="stylesheet" href="features/lobby/assets/ui/player-cursor.css?v=20d6b83ddcf4">
 </head>
@@ -1086,8 +1086,8 @@
         <!-- BOTTOM STATUS -->
         <div class="home-bottom">
             <div class="active-hero-preview" id="btn-preview-hero" title="Nhấp để đổi nhân vật">
-                <div class="active-hero-avatar" id="home-hero-avatar">🐹</div>
-                <div>Đang chọn: <b style="color: #fff;" id="home-hero-name">Chiến Binh Hamster</b> (Cận chiến)</div>
+                <div class="active-hero-avatar" id="home-hero-avatar"></div>
+                <div>Đang chọn: <b style="color: #fff;" id="home-hero-name">Ninja Mặt Trăng Không Gian</b> (Cận chiến)</div>
             </div>
             <div>Nhấn <b>F11</b> để chơi ở chế độ Toàn Màn Hình</div>
             <div>© 2026 Tsuventure Studios</div>
@@ -1105,106 +1105,7 @@
                 <p>Chọn ngoại hình yêu thích. Các skin dùng chung chỉ số và cơ chế chiến đấu.</p>
             </div>
 
-            <div class="hero-grid">
-                <!-- HERO 1: HAMSTER WARRIOR -->
-                <div class="hero-card selected" id="card-hero-hamster" onclick="selectHero('hamster')">
-                    <div class="hero-img-wrap">
-                        <img src="features/characters/assets/hamster_warrior.jpg?v=843fe7c7f84f" alt="Chiến Binh Hamster">
-                    </div>
-                    <h3>Chiến Binh Hamster</h3>
-                    <div class="hero-class">Hiệp Sĩ Hoàng Gia • Kiếm & Khiên</div>
-                    <div class="hero-stats">
-                        <div class="stat-row">
-                            <span>Sức Mạnh</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 90%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span>Phòng Thủ</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 95%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span>Ma Thuật</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 45%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span>Tốc Độ</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 75%;"></div></div>
-                        </div>
-                    </div>
-                    <p style="font-size: 13px; color: #94a3b8; line-height: 1.5;">Mang ý chí quả cảm, khoác giáp titan viền vàng và cầm khiên vầng trăng xanh ngọc. Cận chiến dũng mãnh, phòng ngự kiên cố.</p>
-                </div>
-
-                <!-- HERO 2: RABBIT MAGE WARRIOR -->
-                <div class="hero-card" id="card-hero-rabbit" onclick="selectHero('rabbit')">
-                    <div class="hero-img-wrap">
-                        <img src="features/characters/assets/rabbit_mage.jpg?v=9e4d02594780" alt="Thỏ Phù Thủy Chiến Binh">
-                    </div>
-                    <h3>Thỏ Phù Thủy Chiến Binh</h3>
-                    <div class="hero-class">Nguyệt Thần Pháp Sư • Quyền Trượng & Sách Phép</div>
-                    <div class="hero-stats">
-                        <div class="stat-row">
-                            <span>Sức Mạnh</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 50%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span>Phòng Thủ</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 60%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span>Ma Thuật</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 100%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span>Tốc Độ</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 85%;"></div></div>
-                        </div>
-                    </div>
-                    <p style="font-size: 13px; color: #94a3b8; line-height: 1.5;">Bậc thầy phép thuật Nguyệt Tinh với chiếc mũ chóp nhọn và quyền trượng ma thuật tím neon. Thi triển thần chú giải ấn tầm xa.</p>
-                </div>
-                <div class="hero-card" id="card-hero-dragon_knight" onclick="selectHero('dragon_knight')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectHero('dragon_knight')}">
-                    <div class="hero-img-wrap"><img src="features/characters/dragon-knight/portrait-art.png?v=c69216cfb93c" alt="Dragon Knight" style="object-fit:cover"></div>
-                    <h3>Chiến Binh Rồng</h3>
-                    <div class="hero-class">Hiệp Sĩ Rồng • Kiếm & Khiên</div>
-                    <div class="hero-stats">
-                        <div class="stat-row">
-                            <span>Sức Mạnh</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 90%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span>Phòng Thủ</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 95%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span>Ma Thuật</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 45%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <span>Tốc Độ</span>
-                            <div class="stat-bar"><div class="stat-fill" style="width: 75%;"></div></div>
-                        </div>
-                    </div>
-                    <p style="font-size:13px;color:#94a3b8;line-height:1.5">Rồng nhỏ màu ngọc bích, đôi cánh ngắn và bộ giáp xanh. Một người bạn dũng cảm, thân thiện trong chuyến phiêu lưu ánh trăng.</p>
-                </div>
-                <div class="hero-card" id="card-hero-ninja_yinyang" onclick="selectHero('ninja_yinyang')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectHero('ninja_yinyang')}">
-                    <div class="hero-img-wrap"><img src="features/characters/ninja-yinyang/portrait-art-v2.png?v=e587645f4fb0" alt="Ninja Âm Dương — sát thủ gấu trúc nhỏ với hai đoản đao" style="object-fit:cover"></div>
-                    <h3 class="hero-name">Ninja Âm Dương</h3>
-                    <div class="hero-class">Sát Thủ • Song Đoản Đao</div>
-                    <p class="hero-desc">Ninja gấu trúc nhỏ với đôi mắt hai màu, áo đen trắng và khăn choàng ngắn. Đánh nhanh, mỗi đòn thứ ba chí mạng; F dùng Ảnh Bộ lướt né tránh.</p>
-                    <div class="hero-stats"><div class="stat-row"><span>Tấn Công</span><div class="stat-bar"><div class="stat-fill" style="width:90%"></div></div></div><div class="stat-row"><span>Phòng Thủ</span><div class="stat-bar"><div class="stat-fill" style="width:45%"></div></div></div><div class="stat-row"><span>Tốc Độ</span><div class="stat-bar"><div class="stat-fill" style="width:100%"></div></div></div></div>
-                </div>
-                <div class="hero-card" id="card-hero-kingkong" onclick="selectHero('kingkong')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectHero('kingkong')}">
-                    <div class="hero-img-wrap"><img src="features/characters/kingkong/portrait-art.png?v=4c9633d3b2af" alt="King Kong Guardian" style="object-fit:cover"></div>
-                    <h3>King Kong Đấm Bốc</h3>
-                    <div class="hero-class">Hộ Vệ • Quyền Anh</div>
-                    <div class="hero-stats">
-                        <div class="stat-row"><span>Sức Mạnh</span><div class="stat-bar"><div class="stat-fill" style="width:90%"></div></div></div>
-                        <div class="stat-row"><span>Phòng Thủ</span><div class="stat-bar"><div class="stat-fill" style="width:100%"></div></div></div>
-                        <div class="stat-row"><span>Ma Thuật</span><div class="stat-bar"><div class="stat-fill" style="width:20%"></div></div></div>
-                        <div class="stat-row"><span>Tốc Độ</span><div class="stat-bar"><div class="stat-fill" style="width:65%"></div></div></div>
-                    </div>
-                    <p style="font-size:13px;color:#94a3b8;line-height:1.5">Gorilla nhỏ với găng đấm bốc đỏ và giáp vai xanh. Hộ vệ cận chiến, giảm 20% sát thương nhận từ quái vật.</p>
-                </div>
-            </div>
+            <div class="hero-grid"></div>
         </div>
     </div>
 
@@ -1314,10 +1215,10 @@
     <div id="game-hud">
         <div class="hud-top-bar">
             <div class="player-status-card">
-                <div class="hud-avatar" id="hud-avatar-icon">🐹</div>
+                <div class="hud-avatar" id="hud-avatar-icon"></div>
                 <div>
                     <div style="display: flex; align-items: center; gap: 10px;">
-                        <div class="hud-player-name" id="hud-name">Chiến Binh Hamster</div>
+                        <div class="hud-player-name" id="hud-name">Ninja Mặt Trăng Không Gian</div>
                         <div class="hud-perf-chip" id="hud-perf-chip" onclick="openModal('modal-settings')" title="Nhấn để tùy chỉnh đồ họa">
                             <span class="perf-dot"></span>
                             <span id="hud-fps-text">60 FPS</span>

@@ -7,7 +7,13 @@ Tsuventure là game phiêu lưu 3D dùng Three.js, với bản đồ mặt trăn
 1. Mở [Tsuventure.exe](Tsuventure.exe) trên GitHub rồi bấm **Download raw file**. Nếu đã tải mã nguồn, mở EXE ở thư mục gốc.
 2. Chạy EXE, chờ tải đến sảnh rồi bấm **CHƠI**. **F11** bật hoặc tắt toàn màn hình. Menu **Bản lưu** dùng để xuất và nhập tiến trình.
 
-EXE chứa dữ liệu game và mở cửa sổ Tsuventure riêng bằng Microsoft WebView2. Yêu cầu hệ thống và vị trí bản lưu nằm trong [hướng dẫn Windows](docs/DESKTOP_EXE.md). Mã gói hiện tại là `ae16df571c195a135df4eeca`. [Lịch sử phát hành trên GitHub](https://github.com/Tsukiezz/GameTsukiezz/releases/tag/desktop-2026.11.02).
+EXE chứa dữ liệu game và mở cửa sổ Tsuventure riêng bằng Microsoft WebView2. Yêu cầu hệ thống và vị trí bản lưu nằm trong [hướng dẫn Windows](docs/DESKTOP_EXE.md). Mã gói hiện tại là `a332b6b1ad8ab0a997886764`. [Lịch sử phát hành trên GitHub](https://github.com/Tsukiezz/GameTsukiezz/releases/tag/desktop-2026.11.02).
+
+## Nhân vật và thời tiết
+
+- **Ninja Mặt Trăng Không Gian** là nhân vật mặc định. Mở **Skin** ở sảnh hoặc nhấn **P** trong game để chọn Robot Sao Hỏa, Chiến Binh Rồng Ngàn Năm, Tề Thiên Đại Thánh hoặc Nữ Hoàng Đại Dương. Năm mẫu dùng chung chỉ số.
+- Hoạt ảnh đi, chạy, nhảy, chém, bơi, bay, ngồi và leo dây dùng các khớp tay, chân và thân. Kiếm gắn theo bàn tay phải. Cánh pha lê, Kiếm Rừng Sâu, Giáp Sắt, Giáp Cuồng Nộ, Giáp Samurai và Bộ Đồ Lặn có mô hình và ảnh trang bị mới dựng trong Blender.
+- Cứ 2 phút chơi, có **15%** cơ hội bắt đầu một hiện tượng. Trong số các hiện tượng xuất hiện, tỉ lệ là **45% trời nắng, 20% sao chổi, 18% bão cát, 11% mưa thủy tinh và 6% thiên thạch**. Bão cát kéo dài 105 giây và Thuốc Tiên Minh Quang tăng tầm nhìn trong bão thêm 70%.
 
 ## Bản cập nhật 07/11/2026
 
